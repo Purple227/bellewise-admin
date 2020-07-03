@@ -1,4 +1,53 @@
 @charset "utf-8";
+
+
+// Colors
+@import 'partials/_color';
+
+// Reuse Code
+@import 'partials/_reuse_code';
+
+// Framework Customized Component
+@import 'partials/_customize_component';
+
 @import "~bulma/bulma";
 
+// Import bulma calendar
+@import '~bulma-calendar/dist/css/bulma-calendar.min.css';
 
+
+// Fontawesome icons and web font
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
+// Getting animate css
+@import "~animate.css/animate";
+
+.is-bold
+{
+	font-weight: bold;
+}
+
+.pointer
+{
+	cursor: pointer;
+}
+
+.main-container
+{
+	padding: 35px;
+	margin: 35px;
+}
+
+.purple-color
+{
+	color: $light-purple;
+}
+
+.dot
+{
+	position: absolute;
+	bottom: 8px;
+	right: -3px;
+}

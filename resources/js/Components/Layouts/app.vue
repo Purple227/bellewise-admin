@@ -1,23 +1,48 @@
 
 <template>
 	
-	<div class="">
+<div class="container main-container"> <!-- Container tag open -->
 
-  <h1>Hello App!</h1>
-  <p>
-    <!-- use router-link component for navigation. -->
-    <!-- specify the link by passing the `to` prop. -->
-    <!-- `<router-link>` will be rendered as an `<a>` tag by default -->
-    <router-link to="/">Go to Home</router-link>
-    <router-link to="/bar">Go to Bar</router-link>
-  </p>
+
+<div class="columns"> <!-- Columns wrapper tag open -->
+
+
+<div class="column is-3 box "> <!-- First column tag open -->
+<sidebar> </sidebar>
+</div> <!-- First column tag close -->
+
+
+<div class="column is-9"> <!-- Second column tag open -->
+<navbar> </navbar>
+
   <!-- route outlet -->
   <!-- component matched by the route will render here -->
   <router-view></router-view>
 
-</div>
-	
+</div> <!-- Second column tag close -->
+
+</div> <!-- Columns wrapper tag close -->
+
+
+</div> <!-- Container tag close -->
+
 </template>
+
+<script>
+
+import Navbar from './partials/Navbar.vue';
+import Sidebar from './partials/Sidebar.vue';
+
+export default {
+
+	components: {
+		'navbar': Navbar,
+		'sidebar': Sidebar,
+	}
+
+}
+
+</script>
 
 
 

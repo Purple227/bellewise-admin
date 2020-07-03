@@ -21,8 +21,10 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.13.1",
         "animate.css": "^4.1.0",
         "bulma-calendar": "^6.0.7",
+        "bulma-extensions": "^6.2.7",
         "vue": "^2.6.11",
         "vue-clickaway": "^2.2.2",
         "vue-router": "^3.3.4"

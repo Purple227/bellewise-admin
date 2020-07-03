@@ -1,5 +1,4 @@
 
-
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -13,7 +12,8 @@ import routes from './route.js'
 // Create the router instance and pass the `routes` option
 // You can pass in additional options here, but let's
 const router = new VueRouter({
-  routes // short for `routes: routes`
+  routes, // short for `routes: routes`
+  mode: 'history',
 })
 
 
