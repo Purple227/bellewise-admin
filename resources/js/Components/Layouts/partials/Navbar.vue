@@ -59,7 +59,7 @@
 
       <div class="navbar-end">
 
-        <div class="dropdown is-right pointer" v-bind:class="{ 'is-active': isActive }"  v-on:click="addActiveClass">
+        <div class="dropdown is-right pointer mt-2" v-bind:class="{ 'is-active': isActive }"  v-on:click="addActiveClass">
           <div class="dropdown-trigger">
             <figure class="image is-48x48" aria-haspopup="true" aria-controls="dropdown-menu">
               <img class="is-rounded" src="/images/rejubi.jpg">

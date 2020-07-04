@@ -13,7 +13,7 @@
 @import "~bulma/bulma";
 
 // Import bulma calendar
-@import '~bulma-calendar/dist/css/bulma-calendar.min.css';
+@import '~bulma-extensions/bulma-calendar/dist/css/bulma-calendar.min.css';
 
 
 // Fontawesome icons and web font
@@ -23,6 +23,7 @@
 
 // Getting animate css
 @import "~animate.css/animate";
+
 
 .is-bold
 {
@@ -51,3 +52,21 @@
 	bottom: 8px;
 	right: -3px;
 }
+
+.orange
+{
+	color: $orange;
+}
+
+.menu .menu-list .is-active
+{
+	background-color: $lighter_purple;
+	border-right: 8px solid $light-purple;
+}
+
+.menu .menu-list a:hover
+{
+	background-color: $lighter_purple;
+	border-right: 8px solid $light-purple;
+}
+

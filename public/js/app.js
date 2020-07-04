@@ -276,6 +276,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 // Home.vue
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
@@ -860,7 +885,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container main-container" }, [
     _c("div", { staticClass: "columns" }, [
-      _c("div", { staticClass: "column is-3 box " }, [_c("sidebar")], 1),
+      _c("div", { staticClass: "column is-3 box mt-3" }, [_c("sidebar")], 1),
       _vm._v(" "),
       _c(
         "div",
@@ -924,7 +949,7 @@ var render = function() {
             _c(
               "div",
               {
-                staticClass: "dropdown is-right pointer",
+                staticClass: "dropdown is-right pointer mt-2",
                 class: { "is-active": _vm.isActive },
                 on: { click: _vm.addActiveClass }
               },
@@ -1136,14 +1161,133 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("aside", { staticClass: "menu " }, [
-        _c("p", { staticClass: "menu-label" }, [_vm._v("\n    General\n  ")]),
-        _vm._v(" "),
-        _c("ul", { staticClass: "menu-list" }, [
-          _c("li", [_c("a", [_vm._v("Dashboard")])]),
+    return _c("aside", { staticClass: "menu " }, [
+      _c(
+        "p",
+        { staticClass: "menu-label is-size-3 is-bold orange is-italic mt-1" },
+        [
+          _vm._v("\n    Bellewise\n    "),
+          _c("br"),
           _vm._v(" "),
-          _c("li", [_c("a", [_vm._v("Customers")])])
+          _c("span", { staticClass: "is-pulled-right has-text-black fa" }, [
+            _vm._v(" Food ")
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("hr", { staticClass: "mt-0" }),
+      _vm._v(" "),
+      _c("ul", { staticClass: "menu-list" }, [
+        _c("li", [
+          _c("a", { staticClass: "is-active" }, [
+            _c("i", { staticClass: "fas fa-chart-line purple-color" }, [
+              _c("span", { staticClass: "ml-3 is-bold has-text-black" }, [
+                _vm._v(" Dashboard ")
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", [
+            _c("i", { staticClass: "fas fa-utensils purple-color mt-3" }, [
+              _c("span", { staticClass: "ml-3 is-bold has-text-black" }, [
+                _vm._v(" Menu ")
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", [
+            _c("i", { staticClass: "fas fa-store-alt purple-color mt-3" }, [
+              _c("span", { staticClass: "ml-3 is-bold has-text-black" }, [
+                _vm._v(" Restaurants ")
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", [
+            _c("i", { staticClass: "fas fa-truck purple-color mt-3" }, [
+              _c("span", { staticClass: "ml-3 is-bold has-text-black" }, [
+                _vm._v(" Drivers ")
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", [
+            _c("i", { staticClass: "fas fa-sticky-note purple-color mt-3" }, [
+              _c("span", { staticClass: "ml-3 is-bold has-text-black" }, [
+                _vm._v(" Orders ")
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", [
+            _c("i", { staticClass: "fas fa-volume-up purple-color mt-3" }, [
+              _c("span", { staticClass: "ml-3 is-bold has-text-black" }, [
+                _vm._v(" Promotions")
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", [
+            _c("i", { staticClass: "fas fa-users purple-color mt-3" }, [
+              _c("span", { staticClass: "ml-3 is-bold has-text-black" }, [
+                _vm._v(" Users ")
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", [
+            _c("i", { staticClass: "fas fa-users purple-color mt-3" }, [
+              _c("span", { staticClass: "ml-3 is-bold has-text-black" }, [
+                _vm._v(" Sub Admins ")
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", [
+            _c("i", { staticClass: "fas fa-bug purple-color mt-3" }, [
+              _c("span", { staticClass: "ml-3 is-bold has-text-black" }, [
+                _vm._v(" Reports ")
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", [
+            _c("i", { staticClass: "fas fa-calculator purple-color mt-3" }, [
+              _c("span", { staticClass: "ml-3 is-bold has-text-black" }, [
+                _vm._v(" Accounting ")
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c("a", [
+            _c("i", { staticClass: "fas fa-cogs purple-color mt-3" }, [
+              _c("span", { staticClass: "ml-3 is-bold has-text-black" }, [
+                _vm._v(" Settings ")
+              ])
+            ])
+          ])
         ])
       ])
     ])
@@ -1177,7 +1321,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", {}, [_c("h1", [_vm._v(" Hello World ")])])
+    return _c("div", { staticClass: "container" }, [
+      _c("div", { staticClass: "columns" }, [
+        _c("div", { staticClass: "column" }, [
+          _c("div", { staticClass: "box" }, [
+            _c("div", { staticClass: "content" })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "column" }, [_vm._v("\r\nSecond\r\n\t\t")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "column" }, [_vm._v("\r\nThird\r\n\t\t")])
+      ])
+    ])
   }
 ]
 render._withStripped = true

@@ -7,7 +7,7 @@
 <div class="columns"> <!-- Columns wrapper tag open -->
 
 
-<div class="column is-3 box "> <!-- First column tag open -->
+<div class="column is-3 box mt-3"> <!-- First column tag open -->
 <sidebar> </sidebar>
 </div> <!-- First column tag close -->
 

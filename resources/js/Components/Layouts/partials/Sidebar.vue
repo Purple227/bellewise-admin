@@ -1,20 +1,48 @@
 
 <template>
 
-  <div class="container">
 	
-<aside class="menu ">
-  <p class="menu-label">
-    General
-  </p>
-  <ul class="menu-list">
-    <li><a>Dashboard</a></li>
-    <li><a>Customers</a></li>
-  </ul>
+  <aside class="menu ">
+    <p class="menu-label is-size-3 is-bold orange is-italic mt-1">
+      Bellewise
+      <br>
+      <span class="is-pulled-right has-text-black fa"> Food </span>
+    </p>
+
+    <br>
+    <hr class="mt-0">
 
 
-</aside>
+    <ul class="menu-list">
 
-</div>
-	
+
+      <li><a class="is-active"> <i class="fas fa-chart-line purple-color"> <span class="ml-3 is-bold has-text-black"> Dashboard </span> </i> </a></li>
+
+
+      <li><a> <i class="fas fa-utensils purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Menu </span> </i> </a></li>
+
+      <li><a> <i class="fas fa-store-alt purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Restaurants </span> </i> </a></li>
+
+      <li><a> <i class="fas fa-truck purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Drivers </span> </i> </a></li>
+
+      <li><a> <i class="fas fa-sticky-note purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Orders </span> </i> </a></li>
+
+      <li><a> <i class="fas fa-volume-up purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Promotions</span> </i> </a></li>
+
+      <li><a> <i class="fas fa-users purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Users </span> </i> </a></li>
+
+      <li><a> <i class="fas fa-users purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Sub Admins </span> </i> </a></li>
+
+      <li><a> <i class="fas fa-bug purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Reports </span> </i> </a></li>
+
+      <li><a> <i class="fas fa-calculator purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Accounting </span> </i> </a></li>
+
+      <li><a> <i class="fas fa-cogs purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Settings </span> </i> </a></li>
+
+    </ul>
+
+
+  </aside>
+
+
 </template>
