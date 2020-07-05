@@ -16,16 +16,13 @@
     <ul class="menu-list">
 
 
-      <li><a class="is-active"> <i class="fas fa-chart-line purple-color"> <span class="ml-3 is-bold has-text-black"> Dashboard </span> </i> </a></li>
-
-
-      <li><a> <i class="fas fa-utensils purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Menu </span> </i> </a></li>
+      <li> <router-link :to="{ name: 'home' }" exact> <i class="fas fa-chart-line purple-color"> <span class="ml-3 is-bold has-text-black"> Dashboard </span> </i> </router-link> </li>
 
       <li><a> <i class="fas fa-store-alt purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Restaurants </span> </i> </a></li>
 
       <li><a> <i class="fas fa-truck purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Drivers </span> </i> </a></li>
 
-      <li><a> <i class="fas fa-sticky-note purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Orders </span> </i> </a></li>
+      <li><a> <i class="fas fa-clipboard purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Orders </span> </i> </a></li>
 
       <li><a> <i class="fas fa-volume-up purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Promotions</span> </i> </a></li>
 

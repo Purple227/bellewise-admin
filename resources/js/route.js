@@ -3,7 +3,10 @@
 
 // Define route components.
 // These can be imported from other files
-import Home from './Components/home.vue';
+import Home from './Components/Home.vue';
+import Restaurant from './Components/Restaurant.vue';
+
+
 const Bar = { template: '<div>bar</div>' }
 
 
@@ -18,6 +21,12 @@ const routes = [
     name:'home',
     component: Home 
   },
+
+  { path: '/restaurants',
+    name:'restaurant',
+    component: Restaurant 
+  },
+
 
 
   { path: '/bar', component: Bar }

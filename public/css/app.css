@@ -22352,11 +22352,14 @@ readers do not read off random characters that represent icons */
 
 .main-container {
   padding: 35px;
-  margin: 35px;
 }
 
 .purple-color {
   color: #BA55D3;
+}
+
+.purple-bg {
+  background-color: #BA55D3;
 }
 
 .dot {
@@ -22369,7 +22372,7 @@ readers do not read off random characters that represent icons */
   color: #FF4500;
 }
 
-.menu .menu-list .is-active {
+.menu .menu-list .router-link-active {
   background-color: #D8BFD8;
   border-right: 8px solid #BA55D3;
 }
@@ -22377,5 +22380,13 @@ readers do not read off random characters that represent icons */
 .menu .menu-list a:hover {
   background-color: #D8BFD8;
   border-right: 8px solid #BA55D3;
+}
+
+.border-bottom {
+  border-bottom: 8px solid #BA55D3;
+}
+
+.router-link-active {
+  color: pink;
 }
 

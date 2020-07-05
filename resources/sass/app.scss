@@ -38,12 +38,17 @@
 .main-container
 {
 	padding: 35px;
-	margin: 35px;
+	//margin: 35px;
 }
 
 .purple-color
 {
 	color: $light-purple;
+}
+
+.purple-bg
+{
+	background-color: $light-purple;
 }
 
 .dot
@@ -58,7 +63,7 @@
 	color: $orange;
 }
 
-.menu .menu-list .is-active
+.menu .menu-list .router-link-active
 {
 	background-color: $lighter_purple;
 	border-right: 8px solid $light-purple;
@@ -70,3 +75,12 @@
 	border-right: 8px solid $light-purple;
 }
 
+.border-bottom
+{
+	border-bottom: 8px solid $light-purple;
+}
+
+.router-link-active
+{
+	color: pink;
+}
