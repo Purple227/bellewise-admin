@@ -103,7 +103,7 @@
             <td class="has-text-centered"> 8 </td>
             <td> N54398.00 </td>
             <td class="has-text-centered"> <input type="checkbox"> </td>
-            <td>  <router-link class="button purple-bg is-bold has-text-white" :to="{ name: 'view-restaurant' }" exact> View </router-link>  </td>
+            <td>  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact> View </router-link>  </td>
           </tr>
 
 
@@ -116,7 +116,7 @@
             <td class="has-text-centered"> 8 </td>
             <td> N54398.00 </td>
             <td class="has-text-centered"> <input type="checkbox" value="1"> </td>
-            <td> <router-link class="button purple-bg is-bold has-text-white" :to="{ name: 'view-restaurant' }" exact> View </router-link>  </td>
+            <td> <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact> View </router-link>  </td>
           </tr>
 
 
@@ -129,7 +129,7 @@
             <td class="has-text-centered"> 8 </td>
             <td> N54398.00 </td>
             <td class="has-text-centered"> <input type="checkbox"> </td>
-            <td> <router-link class="button purple-bg is-bold has-text-white" :to="{ name: 'view-restaurant' }" exact> View </router-link>  </td>
+            <td> <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact> View </router-link>  </td>
           </tr>
 
           <tr>
@@ -141,10 +141,9 @@
             <td class="has-text-centered"> 8 </td>
             <td> N54398.00 </td>
             <td class="has-text-centered"> <input type="checkbox"> </td>
-            <td> <router-link class="button purple-bg is-bold has-text-white" :to="{ name: 'view-restaurant' }" exact> View </router-link>  </td>
+            <td> <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact> View </router-link>  </td>
           </tr>
-
-
+          
 
         </tbody>
 

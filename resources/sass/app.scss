@@ -86,3 +86,7 @@
 	border-bottom: 8px solid $light-purple;
 }
 
+.center
+{
+	@extend %center;
+}

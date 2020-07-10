@@ -11,7 +11,7 @@
 			<div class="level-left">
 				<div class="level-item">
 					<p class="subtitle is-5">
-						<strong> Add Driver </strong> 
+						<strong> Edit Driver </strong> 
 					</p>
 				</div>
 			</div>
@@ -150,10 +150,10 @@ export default {
 	data: () => ({
 
 		driver: {
-			name: null,
-			email: null,
-			phone: null,
-			ID: null,
+			name: 'Joseph Purple',
+			email: 'purple@gmail.com',
+			phone: '080XXXXXXX',
+			ID: 874387,
 			file: null,
 		},
 

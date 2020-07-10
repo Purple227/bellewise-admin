@@ -370,9 +370,14 @@
 
 
 		<div class="field">
-			<div class="control">
-				<button class="button purple-bg is-bold has-text-white is-fullwidth"> Save </button>
-			</div>
+			<p class="control">
+				<button class="button">
+					<span class="icon is-small">
+						<i class="fas fa-save purple-color"></i>
+					</span>
+					<span class="is-bold"> Save </span>
+				</button>
+			</p>
 		</div>
 
 

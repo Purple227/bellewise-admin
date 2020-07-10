@@ -5,17 +5,9 @@
 
 	<div class="container"> <!-- Container tag open -->
 
-
-
 		<div class="card"> <!-- Card tag open -->
 
 			<div class="card-content table-container"> <!-- Card content tag open -->
-
-
-
-
-
-
 
 				<!-- Main container -->
 				<nav class="level">
@@ -61,11 +53,6 @@
 				</nav>
 
 
-
-
-
-
-
 				<table class="table is-bordered is-striped is-hoverable"> <!-- Table tag open -->
 
 					<thead>
@@ -76,7 +63,7 @@
 							<th class="has-text-centered"> <span class="purple-color"> Phone </span> </th>
 							<th> <span class="purple-color"> Occupation </span> </th>
 							<th> <span class="purple-color"> Status </span> </th>
-							<th> <span class="purple-color"> Action </span> </th>
+							<th class="has-text-centered"> <span class="purple-color"> Action </span> </th>
 						</tr>
 					</thead>
 
@@ -87,23 +74,23 @@
 							<td> Joseph Purple </td>
 							<td> Purple@gmail.com </td>
 							<td> 080XXXXXXX </td>
-							<td> Assasin </td>
+							<td> Student </td>
 							<td class="has-text-centered"> <input type="checkbox"> </td>
 							<td>  
 								<div class="field is-grouped">
 									<p class="control">
-										<button class="button is-link">
-											Save changes
-										</button>
+										<router-link class="button purple-color" :to="{ name: 'view-driver' }" exact>
+											View
+										</router-link>
 									</p>
 									<p class="control">
-										<button class="button">
-											Cancel
-										</button>
+										<router-link class="button purple-color" :to="{ name: 'edit-driver' }" exact>
+											Edit
+										</router-link>
 									</p>
 									<p class="control">
-										<button class="button is-danger">
-											Delete post
+										<button class="button purple-color">
+											Delete 
 										</button>
 									</p>
 								</div>
@@ -112,59 +99,125 @@
 
 
 						<tr>
-							<th> <span class="purple-color"> 2 </span> </th>
-							<td> <router-link :to="{ name: 'view-restaurant' }" exact> Crunchies </router-link> </td>
-							<td> 8 Mary Slessor Ave, Bogoberi, Calabar </td>
+							<th> <span class="purple-color"> 874387 </span> </th>
+							<td> Joseph Purple </td>
+							<td> Purple@gmail.com </td>
 							<td> 080XXXXXXX </td>
-							<td> Bellewise@bellewise.com</td>
-							<td class="has-text-centered"> 8 </td>
-							<td> N54398.00 </td>
-							<td class="has-text-centered"> <input type="checkbox" value="1"> </td>
-							<td> <a class="fas fa-eye has-text-centered purple-color"> View </a>  </td>
+							<td> Student </td>
+							<td class="has-text-centered"> <input type="checkbox"> </td>
+							<td>  
+								<div class="field is-grouped">
+									<p class="control">
+										<router-link class="button purple-color" :to="{ name: 'view-driver' }" exact>
+											View
+										</router-link>
+									</p>
+									<p class="control">
+										<router-link class="button purple-color" :to="{ name: 'edit-driver' }" exact>
+											Edit
+										</router-link>
+									</p>
+									<p class="control">
+										<button class="button purple-color">
+											Delete 
+										</button>
+									</p>
+								</div>
+							</td>
+						</tr>
+
+
+
+						<tr>
+							<th> <span class="purple-color"> 874387 </span> </th>
+							<td> Joseph Purple </td>
+							<td> Purple@gmail.com </td>
+							<td> 080XXXXXXX </td>
+							<td> Student </td>
+							<td class="has-text-centered"> <input type="checkbox"> </td>
+							<td>  
+								<div class="field is-grouped">
+									<p class="control">
+										<router-link class="button purple-color" :to="{ name: 'view-driver' }" exact>
+											View
+										</router-link>
+									</p>
+									<p class="control">
+										<button class="button purple-color">
+											Edit
+										</button>
+									</p>
+									<p class="control">
+										<button class="button purple-color">
+											Delete 
+										</button>
+									</p>
+								</div>
+							</td>
 						</tr>
 
 
 						<tr>
-							<th> <span class="purple-color"> 3 </span> </th>
-							<td> <router-link :to="{ name: 'view-restaurant' }" exact> Crunchies </router-link> </td>
-							<td> 8 Mary Slessor Ave, Bogoberi, Calabar </td>
+							<th> <span class="purple-color"> 874387 </span> </th>
+							<td> Joseph Purple </td>
+							<td> Purple@gmail.com </td>
 							<td> 080XXXXXXX </td>
-							<td> Bellewise@bellewise.com</td>
-							<td class="has-text-centered"> 8 </td>
-							<td> N54398.00 </td>
+							<td> Student </td>
 							<td class="has-text-centered"> <input type="checkbox"> </td>
-							<td> <a class="fas fa-eye has-text-centered purple-color"> View </a>  </td>
+							<td>  
+								<div class="field is-grouped">
+									<p class="control">
+										<router-link class="button purple-color" :to="{ name: 'view-driver' }" exact>
+											View
+										</router-link>
+									</p>
+									<p class="control">
+										<button class="button purple-color">
+											Edit
+										</button>
+									</p>
+									<p class="control">
+										<button class="button purple-color">
+											Delete 
+										</button>
+									</p>
+								</div>
+							</td>
 						</tr>
+
+
 
 						<tr>
-							<th> <span class="purple-color"> 4 </span> </th>
-							<td> <router-link :to="{ name: 'view-restaurant' }" exact> Crunchies </router-link> </td>
-							<td> 8 Mary Slessor Ave, Bogoberi, Calabar </td>
+							<th> <span class="purple-color"> 874387 </span> </th>
+							<td> Joseph Purple </td>
+							<td> Purple@gmail.com </td>
 							<td> 080XXXXXXX </td>
-							<td> Bellewise@bellewise.com</td>
-							<td class="has-text-centered"> 8 </td>
-							<td> N54398.00 </td>
+							<td> Student </td>
 							<td class="has-text-centered"> <input type="checkbox"> </td>
-							<td> <a class="fas fa-eye has-text-centered purple-color"> View </a>  </td>
+							<td>  
+								<div class="field is-grouped">
+									<p class="control">
+										<router-link class="button purple-color" :to="{ name: 'view-driver' }" exact>
+											View
+										</router-link>
+									</p>
+									<p class="control">
+										<button class="button purple-color">
+											Edit
+										</button>
+									</p>
+									<p class="control">
+										<button class="button purple-color">
+											Delete 
+										</button>
+									</p>
+								</div>
+							</td>
 						</tr>
-
-
 
 					</tbody>
 
 				</table> <!-- Table tag close -->
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 			</div> <!-- Card content tag open -->

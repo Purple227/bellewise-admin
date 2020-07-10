@@ -8,6 +8,9 @@ import AddRestaurant from './Components/Restaurant/addRestaurant.vue';
 import ViewRestaurant from './Components/Restaurant/viewRestaurant.vue';
 import DriverList from './Components/Driver/driverList.vue';
 import AddDriver from './Components/Driver/addDriver.vue';
+import ViewDriver from './Components/Driver/viewDriver.vue';
+import EditDriver from './Components/Driver/editDriver.vue';
+
 
 const Bar = { template: '<div>bar</div>' }
 
@@ -59,6 +62,12 @@ component: AddDriver
 path: '/driver/name',
 name:'view-driver',
 component: ViewDriver
+},
+
+{ 
+path: '/driver/name/edit',
+name:'edit-driver',
+component: EditDriver
 },
 
 
