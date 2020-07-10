@@ -1,11 +1,13 @@
 
 
-
 // Define route components.
 // These can be imported from other files
 import Home from './Components/Home.vue';
-import Restaurant from './Components/Restaurant.vue';
-
+import ListRestaurant from './Components/Restaurant/listRestaurant.vue';
+import AddRestaurant from './Components/Restaurant/addRestaurant.vue';
+import ViewRestaurant from './Components/Restaurant/viewRestaurant.vue';
+import DriverList from './Components/Driver/driverList.vue';
+import AddDriver from './Components/Driver/addDriver.vue';
 
 const Bar = { template: '<div>bar</div>' }
 
@@ -17,19 +19,51 @@ const Bar = { template: '<div>bar</div>' }
 // `Vue.extend()`, or just a component options object.
 const routes = [
 
-  { path: '/',
-    name:'home',
-    component: Home 
-  },
+{ 
+path: '/',
+name:'home',
+component: Home 
+},
 
-  { path: '/restaurants',
-    name:'restaurant',
-    component: Restaurant 
-  },
+{ 
+path: '/restaurants',
+name:'list-restaurant',
+component: ListRestaurant 
+},
+
+{ 
+path: '/restaurant/add',
+name:'add-restaurant',
+component: AddRestaurant
+},
+
+{ 
+path: '/restaurant/crunchies',
+name:'view-restaurant',
+component: ViewRestaurant
+},
+
+{ 
+path: '/drivers',
+name:'driver-list',
+component: DriverList
+},
+
+{ 
+path: '/driver/add',
+name:'add-driver',
+component: AddDriver
+},
+
+{ 
+path: '/driver/name',
+name:'view-driver',
+component: ViewDriver
+},
 
 
 
-  { path: '/bar', component: Bar }
+{ path: '/bar', component: Bar }
 
 ]
 

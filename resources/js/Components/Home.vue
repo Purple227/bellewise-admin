@@ -124,23 +124,6 @@
 </div> <!-- Box tag close -->
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	</div> <!-- Container tag close -->
 
 
@@ -276,11 +259,6 @@ export default {
 
 
 	}),
-
-
-
-
-
 
 
 }

@@ -10,9 +10,10 @@
 // Framework Customized Component
 @import 'partials/_customize_component';
 
+// Bulma framework
 @import "~bulma/bulma";
 
-// Import bulma calendar
+// Import bulma extensions
 @import '~bulma-extensions/bulma-calendar/dist/css/bulma-calendar.min.css';
 
 
@@ -75,12 +76,13 @@
 	border-right: 8px solid $light-purple;
 }
 
+.tabs ul .active
+{
+	background-color: $light-purple;
+}
+
 .border-bottom
 {
 	border-bottom: 8px solid $light-purple;
 }
 
-.router-link-active
-{
-	color: pink;
-}

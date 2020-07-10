@@ -7502,7 +7502,7 @@ label.panel-block:hover {
 
 .tabs li.is-active a {
   border-bottom-color: #3273dc;
-  color: #3273dc;
+  color: #BA55D3;
 }
 
 .tabs ul {
@@ -22382,11 +22382,11 @@ readers do not read off random characters that represent icons */
   border-right: 8px solid #BA55D3;
 }
 
-.border-bottom {
-  border-bottom: 8px solid #BA55D3;
+.tabs ul .active {
+  background-color: #BA55D3;
 }
 
-.router-link-active {
-  color: pink;
+.border-bottom {
+  border-bottom: 8px solid #BA55D3;
 }
 

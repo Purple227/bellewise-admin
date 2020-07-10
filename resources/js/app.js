@@ -1,10 +1,13 @@
 
 import Vue from 'vue'
+
 import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+
+import Vuelidate from 'vuelidate'
+Vue.use(Vuelidate)
 
 import Welcome from './Components/Layouts/app.vue'
-
-Vue.use(VueRouter)
 
 
 //routes
