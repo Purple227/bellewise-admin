@@ -3,13 +3,29 @@
 // Define route components.
 // These can be imported from other files
 import Home from './Components/Home.vue';
+
 import ListRestaurant from './Components/Restaurant/listRestaurant.vue';
 import AddRestaurant from './Components/Restaurant/addRestaurant.vue';
 import ViewRestaurant from './Components/Restaurant/viewRestaurant.vue';
+
 import DriverList from './Components/Driver/driverList.vue';
 import AddDriver from './Components/Driver/addDriver.vue';
 import ViewDriver from './Components/Driver/viewDriver.vue';
 import EditDriver from './Components/Driver/editDriver.vue';
+
+import OrderList from './Components/Order/orderList.vue';
+import ViewOrder from './components/Order/viewOrder.vue';
+
+import UserList from './Components/Users/userList.vue';
+import EditUser from './Components/Users/editUser.vue';
+import ResetUserPassword from './Components/Users/resetUserPassword.vue';
+
+import SubAdminList from './Components/SubAdmin/subAdminList.vue';
+import AdminPermission from './Components/SubAdmin/adminPermission.vue';
+import AddAdmin from './Components/SubAdmin/AddAdmin.vue';
+
+import BannerList from './Components/Banner/bannerList.vue';
+import AddBanner from './Components/Banner/addBanner.vue';
 
 
 const Bar = { template: '<div>bar</div>' }
@@ -70,6 +86,65 @@ name:'edit-driver',
 component: EditDriver
 },
 
+{ 
+path: '/orders',
+name:'order-list',
+component: OrderList
+},
+
+{ 
+path: '/orders/1d',
+name:'view-order',
+component: ViewOrder
+},
+
+{ 
+path: '/users',
+name:'users-list',
+component: UserList
+},
+
+{ 
+path: '/user/edit',
+name:'edit-user',
+component: EditUser
+},
+
+{ 
+path: '/user/id/reset',
+name:'reset-user-password',
+component: ResetUserPassword
+},
+
+{ 
+path: '/subadmin',
+name:'sub-admin-list',
+component: SubAdminList
+},
+
+{ 
+path: '/subadmin/permissions/id',
+name:'admin-permission',
+component: AdminPermission
+},
+
+{ 
+path: '/subadmin/add',
+name:'add-admin',
+component: AddAdmin
+},
+
+{ 
+path: '/banners',
+name:'banner-list',
+component: AddBanner
+},
+
+{ 
+path: '/banner/add',
+name:'add-banner',
+component: AddBanner
+},
 
 
 { path: '/bar', component: Bar }

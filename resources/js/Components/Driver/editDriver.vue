@@ -71,6 +71,24 @@
 					</div>
 
 
+					<div class="field">
+						<label class="label">Driver Occupation <span class="has-text-danger"> * </span>  </label>
+						<div class="control has-icons-left has-icons-right">
+							<input class="input is-info" type="text" placeholder="Text input" v-model.trim="driver.occupation"  required autofocus>
+							<!-- Has icon left -->
+							<span class="icon is-small is-left">
+								<i class="fas fa-user purple-color"></i>
+							</span>
+							<!-- Has icon right -->
+							<span class="icon is-small is-right" v-if="$v.driver.occupation.required">
+								<i class="fas fa-check purple-color"></i>
+							</span>
+							<span class="icon is-small is-right" v-else>
+								<i class="fas fa-exclamation-triangle has-text-danger"></i>
+							</span>
+						</div>
+					</div>
+
 				</div> <!-- First column tag close -->
 
 
@@ -153,6 +171,7 @@ export default {
 			name: 'Joseph Purple',
 			email: 'purple@gmail.com',
 			phone: '080XXXXXXX',
+			occupation: 'Student',
 			ID: 874387,
 			file: null,
 		},
@@ -167,6 +186,10 @@ export default {
 
 			name: {
 				required
+			},
+
+			occupation: {
+				required,
 			},
 
 			phone: {

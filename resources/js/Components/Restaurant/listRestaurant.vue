@@ -103,7 +103,25 @@
             <td class="has-text-centered"> 8 </td>
             <td> N54398.00 </td>
             <td class="has-text-centered"> <input type="checkbox"> </td>
-            <td>  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact> View </router-link>  </td>
+            <td> 
+              <div class="field is-grouped">
+                <p class="control">
+                  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact>
+                    View
+                  </router-link>
+                </p>
+                <p class="control">
+                  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact>
+                    Edit
+                  </router-link>
+                </p>
+                <p class="control">
+                  <button class="button purple-color">
+                    Delete 
+                  </button>
+                </p>
+              </div>
+            </td>
           </tr>
 
 
@@ -115,9 +133,28 @@
             <td> Bellewise@bellewise.com</td>
             <td class="has-text-centered"> 8 </td>
             <td> N54398.00 </td>
-            <td class="has-text-centered"> <input type="checkbox" value="1"> </td>
-            <td> <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact> View </router-link>  </td>
+            <td class="has-text-centered"> <input type="checkbox"> </td>
+            <td> 
+              <div class="field is-grouped">
+                <p class="control">
+                  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact>
+                    View
+                  </router-link>
+                </p>
+                <p class="control">
+                  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact>
+                    Edit
+                  </router-link>
+                </p>
+                <p class="control">
+                  <button class="button purple-color">
+                    Delete 
+                  </button>
+                </p>
+              </div>
+            </td>
           </tr>
+
 
 
           <tr>
@@ -129,8 +166,27 @@
             <td class="has-text-centered"> 8 </td>
             <td> N54398.00 </td>
             <td class="has-text-centered"> <input type="checkbox"> </td>
-            <td> <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact> View </router-link>  </td>
+            <td> 
+              <div class="field is-grouped">
+                <p class="control">
+                  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact>
+                    View
+                  </router-link>
+                </p>
+                <p class="control">
+                  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact>
+                    Edit
+                  </router-link>
+                </p>
+                <p class="control">
+                  <button class="button purple-color">
+                    Delete 
+                  </button>
+                </p>
+              </div>
+            </td>
           </tr>
+
 
           <tr>
             <th> <span class="purple-color"> 4 </span> </th>
@@ -141,9 +197,27 @@
             <td class="has-text-centered"> 8 </td>
             <td> N54398.00 </td>
             <td class="has-text-centered"> <input type="checkbox"> </td>
-            <td> <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact> View </router-link>  </td>
+            <td> 
+              <div class="field is-grouped">
+                <p class="control">
+                  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact>
+                    View
+                  </router-link>
+                </p>
+                <p class="control">
+                  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact>
+                    Edit
+                  </router-link>
+                </p>
+                <p class="control">
+                  <button class="button purple-color">
+                    Delete 
+                  </button>
+                </p>
+              </div>
+            </td>
           </tr>
-          
+
 
         </tbody>
 

@@ -11,14 +11,14 @@
 			<div class="level-left">
 				<div class="level-item">
 					<p class="subtitle is-5">
-						<strong> Add Driver </strong> 
+						<strong> Add Admin </strong> 
 					</p>
 				</div>
 			</div>
 
 			<!-- Right side -->
 			<div class="level-right">
-				<p class="level-item"> <router-link :to="{ name: 'driver-list' }" exact> <strong class="purple-color"> Back</strong> </router-link> </p>
+				<p class="level-item"> <router-link :to="{ name: 'sub-admin-list' }" exact> <strong class="purple-color"> Back</strong> </router-link> </p>
 			</div>
 		</nav>
 
@@ -35,15 +35,15 @@
 
 
 					<div class="field">
-						<label class="label">Driver Name <span class="has-text-danger"> * </span>  </label>
+						<label class="label">Admin Name <span class="has-text-danger"> * </span>  </label>
 						<div class="control has-icons-left has-icons-right">
-							<input class="input is-info" type="text" placeholder="Text input" v-model.trim="driver.name"  required autofocus>
+							<input class="input is-info" type="text" placeholder="Text input" v-model.trim="admin.name"  required autofocus>
 							<!-- Has icon left -->
 							<span class="icon is-small is-left">
 								<i class="fas fa-user purple-color"></i>
 							</span>
 							<!-- Has icon right -->
-							<span class="icon is-small is-right" v-if="$v.driver.name.required">
+							<span class="icon is-small is-right" v-if="$v.admin.name.required">
 								<i class="fas fa-check purple-color"></i>
 							</span>
 							<span class="icon is-small is-right" v-else>
@@ -53,15 +53,15 @@
 					</div>
 
 					<div class="field">
-						<label class="label"> Driver Phone <span class="has-text-danger"> * </span> </label>
+						<label class="label"> Admin Phone <span class="has-text-danger"> * </span> </label>
 						<div class="control has-icons-left has-icons-right">
-							<input class="input is-info" type="tel" placeholder="Number input" v-model.number="driver.phone" required>
+							<input class="input is-info" type="tel" placeholder="Number input" v-model.number="admin.phone" required>
 							<!-- Has icon left -->
 							<span class="icon is-small is-left">
 								<i class="fas fa-phone purple-color"></i>
 							</span>
 							<!-- Has icon right -->
-							<span class="icon is-small is-right" v-if="$v.driver.phone.required">
+							<span class="icon is-small is-right" v-if="$v.admin.phone.required">
 								<i class="fas fa-check purple-color"></i>
 							</span>
 							<span class="icon is-small is-right" v-else>
@@ -69,28 +69,6 @@
 							</span>
 						</div>
 					</div>
-
-
-					<div class="field">
-						<label class="label">Driver Occupation <span class="has-text-danger"> * </span>  </label>
-						<div class="control has-icons-left has-icons-right">
-							<input class="input is-info" type="text" placeholder="Text input" v-model.trim="driver.occupation"  required autofocus>
-							<!-- Has icon left -->
-							<span class="icon is-small is-left">
-								<i class="fas fa-user purple-color"></i>
-							</span>
-							<!-- Has icon right -->
-							<span class="icon is-small is-right" v-if="$v.driver.occupation.required">
-								<i class="fas fa-check purple-color"></i>
-							</span>
-							<span class="icon is-small is-right" v-else>
-								<i class="fas fa-exclamation-triangle has-text-danger"></i>
-							</span>
-						</div>
-					</div>
-
-
-
 
 				</div> <!-- First column tag close -->
 
@@ -98,16 +76,17 @@
 
 				<div class="column"> <!-- Second column tag open-->
 
+
 					<div class="field">
-						<label class="label"> Driver Email <span class="has-text-danger"> * </span> </label>
+						<label class="label"> Admin Email <span class="has-text-danger"> * </span> </label>
 						<div class="control has-icons-right has-icons-left">
-							<input class="input is-info" type="email" placeholder="Text input" v-model="driver.email" required>
+							<input class="input is-info" type="email" placeholder="Text input" v-model="admin.email" required>
 							<!-- Has icon left -->
 							<span class="icon is-small is-left">
 								<i class="fas fa-envelope purple-color"></i>
 							</span>
 							<!-- Has icon right -->
-							<span class="icon is-small is-right" v-if="$v.driver.email.$invalid">
+							<span class="icon is-small is-right" v-if="$v.admin.email.$invalid">
 								<i class="fas fa-exclamation-triangle has-text-danger"></i>
 							</span>
 							<span class="icon is-small is-right" v-else>
@@ -117,22 +96,22 @@
 					</div>
 
 
-					<div class="field mt-6">
-						<div class="file has-name">
-							<label class="file-label">
-								<input class="file-input is-info" type="file" name="resume">
-								<span class="file-cta">
-									<span class="file-icon">
-										<i class="fas fa-image purple-color"></i>
-									</span>
-									<span class="file-label is-bold">
-										Choose a file…
-									</span>
-								</span>
-								<span class="file-name">
-									Screen Shot 2017-07-29 at 15.54.25.png
-								</span>
-							</label>
+
+					<div class="field">
+						<label class="label"> Admin Password <span class="has-text-danger"> * </span>  </label>
+						<div class="control has-icons-left has-icons-right">
+							<input class="input is-info" type="Password"  v-model.trim="admin.password"  required autofocus>
+							<!-- Has icon left -->
+							<span class="icon is-small is-left">
+								<i class="fas fa-key purple-color"></i>
+							</span>
+							<!-- Has icon right -->
+							<span class="icon is-small is-right" v-if="$v.admin.password.required">
+								<i class="fas fa-check purple-color"></i>
+							</span>
+							<span class="icon is-small is-right" v-else>
+								<i class="fas fa-exclamation-triangle has-text-danger"></i>
+							</span>
 						</div>
 					</div>
 
@@ -163,20 +142,18 @@
 
 
 <script>
-import { required, email, numeric } from 'vuelidate/lib/validators'
+import { required, email, numeric, minLength } from 'vuelidate/lib/validators'
 
 export default {
 
 
 	data: () => ({
 
-		driver: {
-			name: null,
+		admin: {
 			email: null,
 			phone: null,
-			ID: null,
-			file: null,
-			occupation: null,
+			password: null,
+			name: null,
 		},
 
 	}),
@@ -185,14 +162,10 @@ export default {
 
 	validations: { //Validation calibrace open 
 
-		driver: {
+		admin: {
 
 			name: {
 				required
-			},
-
-			occupation: {
-				required,
 			},
 
 			phone: {
@@ -204,11 +177,12 @@ export default {
 				required
 			},
 
-			ID: {
+			password: {
 				required,
+				minLength: minLength(6)
 			},
 
-		}, // restaurant calibrace close
+		}, 
 
 	}, //Validation calibrace close 
 

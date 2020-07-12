@@ -24,6 +24,7 @@
         "@fortawesome/fontawesome-free": "^5.13.1",
         "animate.css": "^4.1.0",
         "bulma-extensions": "^6.2.7",
+        "bulma-o-steps": "^1.0.9",
         "chart.js": "^2.9.3",
         "vue": "^2.6.11",
         "vue-chartjs": "^3.5.0",
