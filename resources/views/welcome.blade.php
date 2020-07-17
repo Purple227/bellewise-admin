@@ -8,7 +8,7 @@
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 
-	<title>Laravel</title>
+	<title> Bellewise Food</title>
 
 	<!-- Fonts -->
 	<link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
@@ -16,7 +16,10 @@
 
 
 <body>
-	<welcome id="app">  </welcome>
+
+	<div id="app">
+	<welcome>  </welcome>
+	</div>
 
 	<script src="{{ mix('js/app.js') }}"></script>
 

@@ -23974,6 +23974,14 @@ readers do not read off random characters that represent icons */
   background-color: #BA55D3;
 }
 
+.purple-bg-light {
+  background-color: #D8BFD8;
+}
+
+.purple-color-light {
+  color: #D8BFD8;
+}
+
 .dot {
   position: absolute;
   bottom: 8px;
@@ -24000,5 +24008,21 @@ readers do not read off random characters that represent icons */
 
 .border-bottom {
   border-bottom: 8px solid #BA55D3;
+}
+
+.border-curve {
+  border-radius: 15px 50px;
+}
+
+.absolute-position-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.absolute-position-left {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 

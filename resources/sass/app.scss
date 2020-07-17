@@ -54,6 +54,16 @@
 	background-color: $light-purple;
 }
 
+.purple-bg-light
+{
+	background-color: $lighter_purple;
+}
+
+.purple-color-light
+{
+	color: $lighter_purple;
+}
+
 .dot
 {
 	position: absolute;
@@ -88,7 +98,26 @@
 	border-bottom: 8px solid $light-purple;
 }
 
+.border-curve
+{
+	 border-radius: 15px 50px; 
+}
+
 .center
 {
 	@extend %center;
+}
+
+.absolute-position-right
+{
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.absolute-position-left
+{
+	position: absolute;
+	top: 0;
+	left: 0;
 }

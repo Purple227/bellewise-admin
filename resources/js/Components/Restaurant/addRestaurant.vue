@@ -167,7 +167,7 @@
 					</p>
 					<p class="control">
 						<a class="button is-bold">
-							Restaurant Percentage Off
+							Restaurant Discount Off
 						</a>
 					</p>
 				</div>

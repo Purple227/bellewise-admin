@@ -1,0 +1,251 @@
+
+
+
+<template>
+
+	<div class="container"> <!-- Container tag open -->
+
+		<nav class="level">
+
+			<div class="level-item has-text-centered">
+				<div class="field has-addons">
+					<div class="control">
+						<input class="input" type="text" placeholder="Search Drivers">
+					</div>
+					<div class="control">
+						<a class="button purple-color">
+							Search
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="level-item has-text-centered">
+				<div class="field has-addons">
+					<p class="control">
+						<input id="my-element" type="date" data-display-mode="dialog"  data-close-on-select="false" data-color="info">
+					</p>
+					<p class="control">
+						<a class="button purple-color ">
+							By Date
+						</a>
+					</p>
+				</div>
+			</div>
+
+
+			<div class="level-item has-text-centered">
+				<button class="button purple-color is-bold"> Download CSV</button>
+			</div>
+
+		</nav>
+
+
+		<div class="notification is-light is-bold pointer" @click="display=!display">
+			<span> Send NOtification and Email To Drivers </span> <span class="fas fa-angle-down purple-color is-pulled-right"></span>
+		</div>
+
+
+		<div class="box" v-if="display"> <!-- Box container tag open -->
+
+			<div class="field">
+				<div class="control">
+					<label class="radio">
+						<input type="radio" value="notification" v-model="picked">
+						Send Notification 
+					</label>
+					<label class="radio">
+						<input type="radio" value="email" v-model="picked">
+						Send Email
+					</label>
+				</div>
+			</div>
+
+
+			<!-- Notification section -->
+			<div class="" v-if=" 'notification' == picked"> 
+
+				<div class="field">
+					<label class="label"> Notification </label>
+					<div class="control">
+						<textarea class="textarea" placeholder=" Enter Notification Content"></textarea>
+					</div>
+				</div>
+
+
+				<div class="field is-grouped is-grouped-right">
+					<div class="control">
+						<button class="button purple-color is-bold">Send</button>
+					</div>
+				</div>
+
+			</div>
+			<!-- Notification section -->
+
+
+			<!-- Email section -->
+			<div class="" v-if=" 'email' == picked ">
+
+				<div class="field">
+					<label class="label"> Subject </label>
+					<div class="control">
+						<input class="input" type="text" placeholder="Text input">
+					</div>
+				</div>
+
+
+				<div class="field">
+					<label class="label">Message</label>
+					<div class="control">
+						<tinymce-editor api-key="API_KEY" :init="{plugins: 'wordcount'}" />
+					</div>
+				</div>
+
+				<div class="field is-grouped is-grouped-right">
+					<div class="control">
+						<button class="button purple-color is-bold">Send</button>
+					</div>
+				</div>
+
+
+			</div>
+			<!-- Email section -->
+
+		</div> <!-- Box container tag close -->
+
+
+		<div class="card"> <!-- Card tag open -->
+
+			<div class="card-content table-container"> <!-- Card content tag open -->
+
+				<table class="table is-bordered is-striped is-hoverable"> <!-- Table tag open -->
+
+					<thead>
+						<tr>
+							<th> </th>
+							<th> <span class="purple-color"> ID </span> </th>
+							<th> <span class="purple-color"> Restaurant Name </span> </th>
+							<th class="has-text-centered"> <span class="purple-color"> Phone </span> </th>
+							<th class="has-text-centered"> <span class="purple-color"> Email </span> </th>
+							<th> <span class="purple-color"> Delivery Commission </span> </th>
+							<th> <span class="purple-color"> Order Delivered </span> </th>
+							<th> <span class="purple-color"> Revenue </span> </th>
+						</tr>
+					</thead>
+
+					<tbody>
+
+						<tr>
+							<td class="has-text-centered"> <input type="checkbox"> </td>
+							<th> <span class="purple-color"> 1 </span> </th>
+							<td> <router-link :to="{ name: 'view-restaurant' }" exact> Crunchies </router-link> </td>
+							<td> 080XXXXXXX </td>
+							<td> Bellewise@bellewise.com</td>
+							<td class="has-text-centered"> 8 </td>
+							<td class="has-text-centered"> 68 </td>
+							<td> ₦54398.00 </td>
+						</tr>
+
+
+						<tr>
+							<td class="has-text-centered"> <input type="checkbox"> </td>
+							<th> <span class="purple-color"> 2 </span> </th>
+							<td> <router-link :to="{ name: 'view-restaurant' }" exact> Crunchies </router-link> </td>
+							<td> 080XXXXXXX </td>
+							<td> Bellewise@bellewise.com</td>
+							<td class="has-text-centered"> 8 </td>
+							<td class="has-text-centered"> 68 </td>
+							<td> ₦54398.00 </td>
+						</tr>
+
+
+
+						<tr>
+							<td class="has-text-centered"> <input type="checkbox"> </td>
+							<th> <span class="purple-color"> 3 </span> </th>
+							<td> <router-link :to="{ name: 'view-restaurant' }" exact> Crunchies </router-link> </td>
+							<td> 080XXXXXXX </td>
+							<td> Bellewise@bellewise.com</td>
+							<td class="has-text-centered"> 8 </td>
+							<td class="has-text-centered"> 68 </td>
+							<td> ₦54398.00 </td>
+						</tr>
+
+
+						<tr>
+							<td class="has-text-centered"> <input type="checkbox"> </td>
+							<th> <span class="purple-color"> 4 </span> </th>
+							<td> <router-link :to="{ name: 'view-restaurant' }" exact> Crunchies </router-link> </td>
+							<td> 080XXXXXXX </td>
+							<td> Bellewise@bellewise.com</td>
+							<td class="has-text-centered"> 8 </td>
+							<td class="has-text-centered"> 68 </td>
+							<td> ₦54398.00 </td>
+						</tr>
+
+
+					</tbody>
+
+				</table> <!-- Table tag close -->
+
+				<!-- Pagination section -->
+				<div class="buttons has-addons is-centered">
+					<a class="button">
+						<span class="icon is-small">
+							<i class="fas fa-arrow-left green"></i>
+						</span>
+						<span> Previous </span>
+					</a>
+
+
+					<a class="button">
+
+						4 0f 6
+					</a>
+
+
+					<a class="button">
+						<span class="icon is-small">
+							<i class="fas fa-arrow-right green"></i>
+						</span>
+						<span> Next </span>
+					</a>
+
+				</div>
+
+			</div> <!-- Card content tag open -->
+
+
+		</div> <!-- Card tag close -->
+
+
+
+
+
+
+
+	</div> <!-- Container tag close -->
+
+
+</template>
+
+<script>
+
+import BulmaCalendar from "../../../Mixins/bulmaCalendar.js";
+import Editor from "../../../Mixins/tinymceEditor.js";
+
+export default {
+
+	mixins: [
+	BulmaCalendar,
+	Editor,
+	],
+
+	data: () => ({
+		display: false,
+		picked: "notification",
+	}),
+
+}
+
+</script>

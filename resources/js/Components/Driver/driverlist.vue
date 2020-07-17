@@ -62,6 +62,7 @@
 							<th class="has-text-centered"> <span class="purple-color"> Email </span> </th>
 							<th class="has-text-centered"> <span class="purple-color"> Phone </span> </th>
 							<th> <span class="purple-color"> Occupation </span> </th>
+							<th> <span class="purple-color"> Total Delivery </span> </th>
 							<th> <span class="purple-color"> Status </span> </th>
 							<th class="has-text-centered"> <span class="purple-color"> Action </span> </th>
 						</tr>
@@ -75,35 +76,7 @@
 							<td> Purple@gmail.com </td>
 							<td> 080XXXXXXX </td>
 							<td> Student </td>
-							<td class="has-text-centered"> <input type="checkbox"> </td>
-							<td>  
-								<div class="field is-grouped">
-									<p class="control">
-										<router-link class="button purple-color" :to="{ name: 'view-driver' }" exact>
-											View
-										</router-link>
-									</p>
-									<p class="control">
-										<router-link class="button purple-color" :to="{ name: 'edit-driver' }" exact>
-											Edit
-										</router-link>
-									</p>
-									<p class="control">
-										<button class="button purple-color">
-											Delete 
-										</button>
-									</p>
-								</div>
-							</td>
-						</tr>
-
-
-						<tr>
-							<th> <span class="purple-color"> 874387 </span> </th>
-							<td> Joseph Purple </td>
-							<td> Purple@gmail.com </td>
-							<td> 080XXXXXXX </td>
-							<td> Student </td>
+							<td class="has-text-centered"> 188</td>
 							<td class="has-text-centered"> <input type="checkbox"> </td>
 							<td>  
 								<div class="field is-grouped">
@@ -134,6 +107,7 @@
 							<td> Purple@gmail.com </td>
 							<td> 080XXXXXXX </td>
 							<td> Student </td>
+							<td class="has-text-centered"> 188</td>
 							<td class="has-text-centered"> <input type="checkbox"> </td>
 							<td>  
 								<div class="field is-grouped">
@@ -143,38 +117,9 @@
 										</router-link>
 									</p>
 									<p class="control">
-										<button class="button purple-color">
+										<router-link class="button purple-color" :to="{ name: 'edit-driver' }" exact>
 											Edit
-										</button>
-									</p>
-									<p class="control">
-										<button class="button purple-color">
-											Delete 
-										</button>
-									</p>
-								</div>
-							</td>
-						</tr>
-
-
-						<tr>
-							<th> <span class="purple-color"> 874387 </span> </th>
-							<td> Joseph Purple </td>
-							<td> Purple@gmail.com </td>
-							<td> 080XXXXXXX </td>
-							<td> Student </td>
-							<td class="has-text-centered"> <input type="checkbox"> </td>
-							<td>  
-								<div class="field is-grouped">
-									<p class="control">
-										<router-link class="button purple-color" :to="{ name: 'view-driver' }" exact>
-											View
 										</router-link>
-									</p>
-									<p class="control">
-										<button class="button purple-color">
-											Edit
-										</button>
 									</p>
 									<p class="control">
 										<button class="button purple-color">
@@ -193,6 +138,7 @@
 							<td> Purple@gmail.com </td>
 							<td> 080XXXXXXX </td>
 							<td> Student </td>
+							<td class="has-text-centered"> 188</td>
 							<td class="has-text-centered"> <input type="checkbox"> </td>
 							<td>  
 								<div class="field is-grouped">
@@ -202,9 +148,9 @@
 										</router-link>
 									</p>
 									<p class="control">
-										<button class="button purple-color">
+										<router-link class="button purple-color" :to="{ name: 'edit-driver' }" exact>
 											Edit
-										</button>
+										</router-link>
 									</p>
 									<p class="control">
 										<button class="button purple-color">
@@ -214,10 +160,103 @@
 								</div>
 							</td>
 						</tr>
+
+
+
+						<tr>
+							<th> <span class="purple-color"> 874387 </span> </th>
+							<td> Joseph Purple </td>
+							<td> Purple@gmail.com </td>
+							<td> 080XXXXXXX </td>
+							<td> Student </td>
+							<td class="has-text-centered"> 188</td>
+							<td class="has-text-centered"> <input type="checkbox"> </td>
+							<td>  
+								<div class="field is-grouped">
+									<p class="control">
+										<router-link class="button purple-color" :to="{ name: 'view-driver' }" exact>
+											View
+										</router-link>
+									</p>
+									<p class="control">
+										<router-link class="button purple-color" :to="{ name: 'edit-driver' }" exact>
+											Edit
+										</router-link>
+									</p>
+									<p class="control">
+										<button class="button purple-color">
+											Delete 
+										</button>
+									</p>
+								</div>
+							</td>
+						</tr>
+
+
+
+						<tr>
+							<th> <span class="purple-color"> 874387 </span> </th>
+							<td> Joseph Purple </td>
+							<td> Purple@gmail.com </td>
+							<td> 080XXXXXXX </td>
+							<td> Student </td>
+							<td class="has-text-centered"> 188</td>
+							<td class="has-text-centered"> <input type="checkbox"> </td>
+							<td>  
+								<div class="field is-grouped">
+									<p class="control">
+										<router-link class="button purple-color" :to="{ name: 'view-driver' }" exact>
+											View
+										</router-link>
+									</p>
+									<p class="control">
+										<router-link class="button purple-color" :to="{ name: 'edit-driver' }" exact>
+											Edit
+										</router-link>
+									</p>
+									<p class="control">
+										<button class="button purple-color">
+											Delete 
+										</button>
+									</p>
+								</div>
+							</td>
+						</tr>
+
 
 					</tbody>
 
 				</table> <!-- Table tag close -->
+
+
+
+
+<!-- Pagination section -->
+<div class="buttons has-addons is-centered">
+  <a class="button">
+    <span class="icon is-small">
+      <i class="fas fa-arrow-left green"></i>
+    </span>
+    <span> Previous </span>
+  </a>
+
+
+  <a class="button">
+
+    5 0f 6
+  </a>
+
+
+  <a class="button">
+    <span class="icon is-small">
+      <i class="fas fa-arrow-right green"></i>
+    </span>
+    <span> Next </span>
+  </a>
+
+</div>
+
+
 
 
 			</div> <!-- Card content tag open -->

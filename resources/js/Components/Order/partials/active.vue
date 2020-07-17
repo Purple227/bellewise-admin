@@ -6,64 +6,57 @@
 		<!-- Main container -->
 		<nav class="level">
 
-			<div class="level-item has-text-centered mt-1">
-				<div class="field has-addons">
-					<p class="control">
-						<input class="input" type="text" placeholder=" Search Order">
-					</p>
-					<p class="control">
-						<button class="button purple-color is-bold">
-							Search
-						</button>
-					</p>
+			<div class="level-item">
+				<div class="field">
+					<label class="label"> Search </label>
+					<div class="control">
+						<input class="input" type="text" placeholder=" Search Order">  </div>
+					</div>
 				</div>
-			</div>
-
-
-<div class="level-item mb-5 ">
-<div class="field">
-  <label class="label"> Sort By Date </label>
-  <div class="control">
-    <input id="my-element" type="date" data-display-mode="dialog"  data-close-on-select="false" data-color="info">
-  </div>
-</div>
-</div>
-
-
-<div class="level-item mb-5">
-<div class="field ">
-  <label class="label"> Payment Method </label>
-  <div class="control">
-    <div class="select">
-      <select>
-        <option> All </option>
-        <option> Online </option>
-        <option> Cash On Delivery</option>
-      </select>
-    </div>
-  </div>
-</div>
-</div>
-
-		</nav>
 
 
 
-		<div class="columns is-multiline"> <!-- Columns wrapper tag open -->
+				<div class="level-item">
+					<div class="field">
+						<label class="label"> Sort By Date </label>
+						<div class="control">
+							<input id="my-element" type="date" data-display-mode="dialog"  data-close-on-select="false" data-color="info">
+						</div>
+					</div>
+				</div>
 
 
-			<div class="column is-6"> <!-- column tag open-->
+				<div class="level-item">
+					<div class="field ">
+						<label class="label"> Payment Method </label>
+						<div class="control">
+							<div class="select">
+								<select>
+									<option> All </option>
+									<option> Online </option>
+									<option> Cash On Delivery</option>
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
 
-				<div class="card">
-					<header class="card-header">
-						<p class="card-header-title purple-color">
-							Order ID: 876547 
-						</p>
+			</nav>
 
-					</header>
-					<div class="card-content">
-						<div class="content">
 
+
+			<div class="columns is-multiline"> <!-- Columns wrapper tag open -->
+
+
+				<div class="column is-6"> <!-- column tag open-->
+
+
+					<article class="message">
+						<div class="message-body">
+
+							<p class="is-bold purple-color">
+								Order ID: 876547 
+							</p>
 
 							<!-- Main container -->
 							<nav class="level">
@@ -82,7 +75,6 @@
 								</div>
 							</nav>
 
-							<hr>
 							<p class="is-bold"> By dash restaurant
 								<br>
 								Price-₦770.00
@@ -91,29 +83,31 @@
 
 							<time datetime="2016-1-1">11:09 PM - 1 Jan 2020</time>
 
+
+							<div class="field is-grouped is-grouped-centered">
+								<p class="control">
+									<router-link :to="{ name: 'view-order' }" class="button is-info" exact>
+										View Detail
+									</router-link>
+								</p>
+							</div>			
+
 						</div>
-					</div>
-					<footer class="card-footer is-bold">
-						<router-link :to="{ name: 'view-order' }" class="card-footer-item has-text-black" exact> View Detail </router-link>
-					</footer>
-				</div>
+					</article>
 
-			</div> <!-- column tag close -->
+				</div> <!-- column tag close -->
 
 
 
-			<div class="column is-6"> <!-- column tag open-->
+				<div class="column is-6"> <!-- column tag open-->
 
-				<div class="card">
-					<header class="card-header">
-						<p class="card-header-title purple-color">
-							Order ID: 876547 
-						</p>
 
-					</header>
-					<div class="card-content">
-						<div class="content">
+					<article class="message">
+						<div class="message-body">
 
+							<p class="is-bold purple-color">
+								Order ID: 876547 
+							</p>
 
 							<!-- Main container -->
 							<nav class="level">
@@ -132,7 +126,6 @@
 								</div>
 							</nav>
 
-							<hr>
 							<p class="is-bold"> By dash restaurant
 								<br>
 								Price-₦770.00
@@ -141,28 +134,30 @@
 
 							<time datetime="2016-1-1">11:09 PM - 1 Jan 2020</time>
 
+
+							<div class="field is-grouped is-grouped-centered">
+								<p class="control">
+									<router-link :to="{ name: 'view-order' }" class="button is-info" exact>
+										View Detail
+									</router-link>
+								</p>
+							</div>			
+
 						</div>
-					</div>
-					<footer class="card-footer is-bold">
-						<router-link :to="{ name: 'view-order' }" class="card-footer-item has-text-black" exact> View Detail </router-link>
-					</footer>
-				</div>
+					</article>
 
-			</div> <!-- column tag close -->
+				</div> <!-- column tag close -->
 
 
-			<div class="column is-6"> <!-- column tag open-->
+				<div class="column is-6"> <!-- column tag open-->
 
-				<div class="card">
-					<header class="card-header">
-						<p class="card-header-title purple-color">
-							Order ID: 876547 
-						</p>
 
-					</header>
-					<div class="card-content">
-						<div class="content">
+					<article class="message">
+						<div class="message-body">
 
+							<p class="is-bold purple-color">
+								Order ID: 876547 
+							</p>
 
 							<!-- Main container -->
 							<nav class="level">
@@ -181,7 +176,6 @@
 								</div>
 							</nav>
 
-							<hr>
 							<p class="is-bold"> By dash restaurant
 								<br>
 								Price-₦770.00
@@ -190,29 +184,31 @@
 
 							<time datetime="2016-1-1">11:09 PM - 1 Jan 2020</time>
 
+
+							<div class="field is-grouped is-grouped-centered">
+								<p class="control">
+									<router-link :to="{ name: 'view-order' }" class="button is-info" exact>
+										View Detail
+									</router-link>
+								</p>
+							</div>			
+
 						</div>
-					</div>
-					<footer class="card-footer is-bold">
-						<router-link :to="{ name: 'view-order' }" class="card-footer-item has-text-black" exact> View Detail </router-link>
-					</footer>
-				</div>
+					</article>
 
-			</div> <!-- column tag close -->
+				</div> <!-- column tag close -->
 
 
 
-			<div class="column is-6"> <!-- column tag open-->
+				<div class="column is-6"> <!-- column tag open-->
 
-				<div class="card">
-					<header class="card-header">
-						<p class="card-header-title purple-color">
-							Order ID: 876547 
-						</p>
 
-					</header>
-					<div class="card-content">
-						<div class="content">
+					<article class="message">
+						<div class="message-body">
 
+							<p class="is-bold purple-color">
+								Order ID: 876547 
+							</p>
 
 							<!-- Main container -->
 							<nav class="level">
@@ -231,7 +227,6 @@
 								</div>
 							</nav>
 
-							<hr>
 							<p class="is-bold"> By dash restaurant
 								<br>
 								Price-₦770.00
@@ -240,44 +235,73 @@
 
 							<time datetime="2016-1-1">11:09 PM - 1 Jan 2020</time>
 
+
+							<div class="field is-grouped is-grouped-centered">
+								<p class="control">
+									<router-link :to="{ name: 'view-order' }" class="button is-info" exact>
+										View Detail
+									</router-link>
+								</p>
+							</div>			
+
 						</div>
-					</div>
-					<footer class="card-footer is-bold">
-						<router-link :to="{ name: 'view-order' }" class="card-footer-item has-text-black" exact> View Detail </router-link>
-					</footer>
-				</div>
+					</article>
 
-			</div> <!-- column tag close -->
+				</div> <!-- column tag close -->
 
 
-		</div> <!-- Columns wrapper tag close -->
+			</div> <!-- Columns wrapper tag close -->
+
+
+<!-- Pagination section -->
+<div class="buttons has-addons is-centered">
+  <a class="button">
+    <span class="icon is-small">
+      <i class="fas fa-arrow-left green"></i>
+    </span>
+    <span> Previous </span>
+  </a>
+
+
+  <a class="button">
+
+    4 0f 6
+  </a>
+
+
+  <a class="button">
+    <span class="icon is-small">
+      <i class="fas fa-arrow-right green"></i>
+    </span>
+    <span> Next </span>
+  </a>
+
+</div>
+
+
+		</div>
+
+
+	</template>
+
+	<script>
+	import BulmaCalendar from "../../../Mixins/bulmaCalendar.js";
+
+
+	export default {
+
+		mixins: [
+		BulmaCalendar
+		],
+
+
+		data: () => ({
+
+
+		}),
 
 
 
+	}
 
-	</div>
-
-
-</template>
-
-<script>
-import BulmaCalendar from "../../../Mixins/bulmaCalendar.js";
-
-
-export default {
-
-	mixins: [
-	BulmaCalendar
-	],
-
-
-	data: () => ({
-
-
-	}),
-
-
-
-}
-
-</script>
+	</script>

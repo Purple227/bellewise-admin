@@ -56,7 +56,8 @@
 			</div> <!-- Columns wrapper tag close -->
 
 <div class="buttons is-centered">
-  <button class="button"> ID:874387	 </button>
+  <button class="button"> ID:874387 </button>
+  <button class="button"> Total Delivery 188 </button>
   <button class="button"> Student </button>
 </div>
 

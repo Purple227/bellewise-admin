@@ -101,7 +101,7 @@
             <td> 080XXXXXXX </td>
             <td> Bellewise@bellewise.com</td>
             <td class="has-text-centered"> 8 </td>
-            <td> N54398.00 </td>
+            <td> ₦54398.00 </td>
             <td class="has-text-centered"> <input type="checkbox"> </td>
             <td> 
               <div class="field is-grouped">
@@ -132,7 +132,7 @@
             <td> 080XXXXXXX </td>
             <td> Bellewise@bellewise.com</td>
             <td class="has-text-centered"> 8 </td>
-            <td> N54398.00 </td>
+            <td> ₦54398.00 </td>
             <td class="has-text-centered"> <input type="checkbox"> </td>
             <td> 
               <div class="field is-grouped">
@@ -164,7 +164,7 @@
             <td> 080XXXXXXX </td>
             <td> Bellewise@bellewise.com</td>
             <td class="has-text-centered"> 8 </td>
-            <td> N54398.00 </td>
+            <td> ₦54398.00 </td>
             <td class="has-text-centered"> <input type="checkbox"> </td>
             <td> 
               <div class="field is-grouped">
@@ -195,7 +195,7 @@
             <td> 080XXXXXXX </td>
             <td> Bellewise@bellewise.com</td>
             <td class="has-text-centered"> 8 </td>
-            <td> N54398.00 </td>
+            <td> ₦54398.00 </td>
             <td class="has-text-centered"> <input type="checkbox"> </td>
             <td> 
               <div class="field is-grouped">
@@ -222,6 +222,36 @@
         </tbody>
 
       </table> <!-- Table tag close -->
+
+
+
+
+<!-- Pagination section -->
+<div class="buttons has-addons is-centered">
+  <a class="button">
+    <span class="icon is-small">
+      <i class="fas fa-arrow-left green"></i>
+    </span>
+    <span> Previous </span>
+  </a>
+
+
+  <a class="button">
+
+    4 0f 6
+  </a>
+
+
+  <a class="button">
+    <span class="icon is-small">
+      <i class="fas fa-arrow-right green"></i>
+    </span>
+    <span> Next </span>
+  </a>
+
+</div>
+
+
 
 
     </div> <!-- Card content tag open -->

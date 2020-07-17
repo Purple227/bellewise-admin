@@ -24,8 +24,14 @@ import SubAdminList from './Components/SubAdmin/subAdminList.vue';
 import AdminPermission from './Components/SubAdmin/adminPermission.vue';
 import AddAdmin from './Components/SubAdmin/AddAdmin.vue';
 
-import BannerList from './Components/Banner/bannerList.vue';
-import AddBanner from './Components/Banner/addBanner.vue';
+import ListPromotion from './Components/Promotion/listPromotion.vue';
+import AddPromotion from './Components/Promotion/addPromotion.vue';
+import EditPromotion from './Components/Promotion/editPromotion.vue';
+import ViewPromoRestaurant from './Components/Promotion/viewPromoRestaurant.vue';
+
+import Report from './Components/Report/reports.vue';
+
+import Account from './Components/Accounting/account.vue';
 
 
 const Bar = { template: '<div>bar</div>' }
@@ -135,16 +141,41 @@ component: AddAdmin
 },
 
 { 
-path: '/banners',
-name:'banner-list',
-component: AddBanner
+path: '/promotions',
+name:'list-promotion',
+component: ListPromotion
 },
 
 { 
-path: '/banner/add',
-name:'add-banner',
-component: AddBanner
+path: '/promotions/add',
+name:'add-promotion',
+component: AddPromotion
 },
+
+{ 
+path: '/promotions/id/edit',
+name:'edit-promotion',
+component: EditPromotion
+},
+
+{ 
+path: '/promotions/restaurants',
+name:'view-promo-restaurants',
+component: ViewPromoRestaurant
+},
+
+{ 
+path: '/reports',
+name:'report',
+component: Report
+},
+
+{ 
+path: '/account',
+name:'account',
+component: Account
+},
+
 
 
 { path: '/bar', component: Bar }

@@ -24,22 +24,19 @@
 
       <li> <router-link :to="{ name: 'order-list' }" exact> <i class="fas fa-clipboard purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Orders </span> </i> </router-link> </li>
 
-      <li> <router-link :to="{ name: 'banner-list' }" exact> <i class="fas fa-fire purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Banner </span> </i> </router-link> </li>
-
-      <li> <router-link :to="{ name: 'promotion-list' }" exact> <i class="fas fa-volume-up purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Promotions</span> </i> </router-link> </li>
+      <li> <router-link :to="{ name: 'list-promotion' }" exact> <i class="fas fa-volume-up purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Promotions</span> </i> </router-link> </li>
 
       <li> <router-link :to="{ name: 'users-list' }" exact> <i class="fas fa-users purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Users </span> </i> </router-link> </li>
 
       <li> <router-link :to="{ name: 'sub-admin-list' }" exact> <i class="fas fa-users-cog purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Sub Admins </span> </i> </router-link> </li>
 
-      <li><a> <i class="fas fa-bug purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Reports </span> </i> </a></li>
+      <li> <router-link :to="{ name: 'report' }" exact> <i class="fas fa-bug purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Reports </span> </i> </router-link> </li>
 
-      <li><a> <i class="fas fa-calculator purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Accounting </span> </i> </a></li>
+      <li> <router-link :to="{ name: 'account' }" exact> <i class="fas fa-calculator purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Accounting </span> </i> </router-link> </li>
 
-      <li><a> <i class="fas fa-cogs purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Settings </span> </i> </a></li>
+      <li><a> <i class="fas fa-cogs purple-color mt-3 "> <span class="ml-3 is-bold has-text-black"> Settings </span> </i> </a></li>
 
     </ul>
-
 
   </aside>
 

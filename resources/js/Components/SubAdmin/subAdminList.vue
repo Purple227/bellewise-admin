@@ -144,6 +144,32 @@
 
 				</table> <!-- Table tag close -->
 
+<!-- Pagination section -->
+<div class="buttons has-addons is-centered">
+  <a class="button">
+    <span class="icon is-small">
+      <i class="fas fa-arrow-left green"></i>
+    </span>
+    <span> Previous </span>
+  </a>
+
+
+  <a class="button">
+
+    5 0f 6
+  </a>
+
+
+  <a class="button">
+    <span class="icon is-small">
+      <i class="fas fa-arrow-right green"></i>
+    </span>
+    <span> Next </span>
+  </a>
+
+</div>
+
+
 
 			</div> <!-- Card content tag open -->
 

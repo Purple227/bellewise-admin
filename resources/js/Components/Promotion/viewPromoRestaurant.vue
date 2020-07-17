@@ -16,8 +16,8 @@
 					</li>
 					<li v-bind:class="{ 'active': item }">
 						<a @click="[create=false, item=true]">
-							<span class="icon is-small" v-bind:class="{ 'has-text-white': item }"><i class="fas fa-utensils" aria-hidden="true"></i></span>
-							<span class="" v-bind:class="{ 'has-text-white': item }">item Items 3</span>
+							<span class="icon is-small" v-bind:class="{ 'has-text-white': item }"><i class="fas fa-store-alt" aria-hidden="true"></i></span>
+							<span class="" v-bind:class="{ 'has-text-white': item }">Restaurants 3</span>
 						</a>
 					</li>
 

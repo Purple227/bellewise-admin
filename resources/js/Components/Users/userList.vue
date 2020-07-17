@@ -39,6 +39,7 @@
 							<th class="has-text-centered"> <span class="purple-color"> Phone </span> </th>
 							<th> <span class="purple-color"> OTP Verified </span> </th>
 							<th> <span class="purple-color"> Joined On </span> </th>
+							<th>  Total Orders  </th>
 							<th> <span class="purple-color"> Status </span> </th>
 							<th class="has-text-centered"> <span class="purple-color"> Action </span> </th>
 						</tr>
@@ -53,6 +54,7 @@
 							<td> 080XXXXXXX </td>
 							<td> No </td>
 							<td> May 11, 2020 </td>
+							<td class="has-text-centered"> 23 </td>
 							<td class="has-text-centered"> <input type="checkbox"> </td>
 							<td>  
 								<div class="field is-grouped">
@@ -77,6 +79,7 @@
 							<td> 080XXXXXXX </td>
 							<td> No </td>
 							<td> May 11, 2020 </td>
+							<td class="has-text-centered"> 23 </td>
 							<td class="has-text-centered"> <input type="checkbox"> </td>
 							<td>  
 								<div class="field is-grouped">
@@ -103,6 +106,7 @@
 							<td> 080XXXXXXX </td>
 							<td> No </td>
 							<td> May 11, 2020 </td>
+							<td class="has-text-centered"> 23 </td>
 							<td class="has-text-centered"> <input type="checkbox"> </td>
 							<td>  
 								<div class="field is-grouped">
@@ -128,6 +132,7 @@
 							<td> 080XXXXXXX </td>
 							<td> No </td>
 							<td> May 11, 2020 </td>
+							<td class="has-text-centered"> 23 </td>
 							<td class="has-text-centered"> <input type="checkbox"> </td>
 							<td>  
 								<div class="field is-grouped">
@@ -153,6 +158,7 @@
 							<td> 080XXXXXXX </td>
 							<td> No </td>
 							<td> May 11, 2020 </td>
+							<td class="has-text-centered"> 23 </td>
 							<td class="has-text-centered"> <input type="checkbox"> </td>
 							<td>  
 								<div class="field is-grouped">
@@ -172,6 +178,34 @@
 					</tbody>
 
 				</table> <!-- Table tag close -->
+
+
+<!-- Pagination section -->
+<div class="buttons has-addons is-centered">
+  <a class="button">
+    <span class="icon is-small">
+      <i class="fas fa-arrow-left green"></i>
+    </span>
+    <span> Previous </span>
+  </a>
+
+
+  <a class="button">
+
+    5 0f 6
+  </a>
+
+
+  <a class="button">
+    <span class="icon is-small">
+      <i class="fas fa-arrow-right green"></i>
+    </span>
+    <span> Next </span>
+  </a>
+
+</div>
+
+
 
 
 			</div> <!-- Card content tag open -->
