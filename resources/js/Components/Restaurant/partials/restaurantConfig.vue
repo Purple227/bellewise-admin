@@ -57,317 +57,128 @@
 		</p>
 
 
-		<div class="columns"> <!-- Columns wrapper tag open -->
 
 
-			<div class="column"> <!-- First column tag open-->
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> Mon </label>
-					</div>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time">
-							</div>
-						</div>
+		<div class="field is-horizontal">
+			<div class="field-label">
+				<label class="label">Mon</label>
+			</div>
+			<div class="field-body">
+				<div class="field">
+					<div class="control">
+						<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time" data-is-range="true">
+						<label class="checkbox">
+							<input type="checkbox">
+							Status
+						</label>
 					</div>
 				</div>
+			</div>
+		</div>
 
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> Tue </label>
-					</div>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time">
-							</div>
-						</div>
+		<div class="field is-horizontal">
+			<div class="field-label">
+				<label class="label"> Tue</label>
+			</div>
+			<div class="field-body">
+				<div class="field">
+					<div class="control">
+						<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time" data-is-range="true">
+						<label class="checkbox">
+							<input type="checkbox">
+							Status
+						</label>
 					</div>
 				</div>
+			</div>
+		</div>
 
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> Wed </label>
-					</div>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time">
-							</div>
-						</div>
+		<div class="field is-horizontal">
+			<div class="field-label">
+				<label class="label"> Wed </label>
+			</div>
+			<div class="field-body">
+				<div class="field">
+					<div class="control">
+						<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time" data-is-range="true">
+						<label class="checkbox">
+							<input type="checkbox">
+							Status
+						</label>
 					</div>
 				</div>
+			</div>
+		</div>
 
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> Thu </label>
-					</div>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time">
-							</div>
-						</div>
+
+		<div class="field is-horizontal">
+			<div class="field-label">
+				<label class="label"> Thu</label>
+			</div>
+			<div class="field-body">
+				<div class="field">
+					<div class="control">
+						<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time" data-is-range="true">
+						<label class="checkbox">
+							<input type="checkbox">
+							Status
+						</label>
 					</div>
 				</div>
+			</div>
+		</div>
 
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> Fri </label>
-					</div>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time">
-							</div>
-						</div>
+		<div class="field is-horizontal">
+			<div class="field-label">
+				<label class="label"> Fri </label>
+			</div>
+			<div class="field-body">
+				<div class="field">
+					<div class="control">
+						<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time" data-is-range="true">
+						<label class="checkbox">
+							<input type="checkbox">
+							Status
+						</label>
 					</div>
 				</div>
+			</div>
+		</div>
 
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> Sat </label>
-					</div>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time">
-							</div>
-						</div>
+		<div class="field is-horizontal">
+			<div class="field-label">
+				<label class="label"> Sat </label>
+			</div>
+			<div class="field-body">
+				<div class="field">
+					<div class="control">
+						<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time" data-is-range="true">
+						<label class="checkbox">
+							<input type="checkbox">
+							Status
+						</label>
 					</div>
 				</div>
+			</div>
+		</div>
 
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> Sun </label>
-					</div>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time">
-							</div>
-						</div>
+
+		<div class="field is-horizontal">
+			<div class="field-label">
+				<label class="label"> Sun </label>
+			</div>
+			<div class="field-body">
+				<div class="field">
+					<div class="control">
+						<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time" data-is-range="true">
+						<label class="checkbox">
+							<input type="checkbox">
+							Status
+						</label>
 					</div>
 				</div>
-
-
-			</div> <!-- First column tag close -->
-
-
-
-			<div class="column"> <!-- Second column tag open-->
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> To </label>
-					</div>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> To </label>
-					</div>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> To </label>
-					</div>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> To </label>
-					</div>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> To </label>
-					</div>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> To </label>
-					</div>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> To </label>
-					</div>
-					<div class="field-body">
-						<div class="field">
-							<div class="control">
-								<input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time">
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-			</div> <!-- Second column tag close -->
-
-
-
-			<div class="column"> <!-- Third colunn tag open -->
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> Status </label>
-					</div>
-					<div class="field-body" style="margin-top:9px">
-						<div class="field">
-							<div class="control">
-								<input type="checkbox">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> Status </label>
-					</div>
-					<div class="field-body" style="margin-top:9px">
-						<div class="field">
-							<div class="control">
-								<input type="checkbox">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> Status </label>
-					</div>
-					<div class="field-body" style="margin-top:9px">
-						<div class="field">
-							<div class="control">
-								<input type="checkbox">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> Status </label>
-					</div>
-					<div class="field-body" style="margin-top:9px">
-						<div class="field">
-							<div class="control">
-								<input type="checkbox">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> Status </label>
-					</div>
-					<div class="field-body" style="margin-top:9px">
-						<div class="field">
-							<div class="control">
-								<input type="checkbox">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> Status </label>
-					</div>
-					<div class="field-body" style="margin-top:9px">
-						<div class="field">
-							<div class="control">
-								<input type="checkbox">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> Status </label>
-					</div>
-					<div class="field-body" style="margin-top:9px">
-						<div class="field">
-							<div class="control">
-								<input type="checkbox">
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="field is-horizontal">
-					<div class="field-label">
-						<label class="label mt-2"> Status </label>
-					</div>
-					<div class="field-body" style="margin-top:9px">
-						<div class="field">
-							<div class="control">
-								<input type="checkbox">
-							</div>
-						</div>
-					</div>
-				</div>
-
-
-			</div> <!-- Third colunn tag close -->
-
-
-		</div> <!-- Columns wrapper tag close -->
-
+			</div>
+		</div>
 
 		<div class="field">
 			<p class="control">

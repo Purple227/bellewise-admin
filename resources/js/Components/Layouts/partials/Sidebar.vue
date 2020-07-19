@@ -34,7 +34,7 @@
 
       <li> <router-link :to="{ name: 'account' }" exact> <i class="fas fa-calculator purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Accounting </span> </i> </router-link> </li>
 
-      <li><a> <i class="fas fa-cogs purple-color mt-3 "> <span class="ml-3 is-bold has-text-black"> Settings </span> </i> </a></li>
+      <li> <router-link :to="{ name: 'setting' }" exact> <i class="fas fa-cogs purple-color mt-3 "> <span class="ml-3 is-bold has-text-black"> Settings </span> </i> </router-link> </li>
 
     </ul>
 

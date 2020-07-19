@@ -33,6 +33,7 @@ import Report from './Components/Report/reports.vue';
 
 import Account from './Components/Accounting/account.vue';
 
+import Setting from './Components/Setting/setting.vue';
 
 const Bar = { template: '<div>bar</div>' }
 
@@ -174,6 +175,12 @@ component: Report
 path: '/account',
 name:'account',
 component: Account
+},
+
+{ 
+path: '/setting',
+name:'setting',
+component: Setting
 },
 
 

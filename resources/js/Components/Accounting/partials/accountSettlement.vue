@@ -14,7 +14,7 @@
 						<p> 
 							<span> Total Amount </span>
 							<br>
-							<span class="is-bold"> To Restaurant For Online User </span> 
+							<span class="is-bold"> To Restaurant For Online Orders </span> 
 							<br>
 							<span class="subtitle is-bold purple-color"> ₦20000.00 </span>
 						</p>
@@ -79,13 +79,13 @@
 
 				<div class="level-item">
 					<div class="field ">
-						<label class="label"> Payment Method </label>
+						<label class="label"> Payment Status </label>
 						<div class="control">
 							<div class="select">
 								<select>
 									<option> All </option>
-									<option> Online </option>
-									<option> Cash On Delivery</option>
+									<option> Recieved </option>
+									<option> Outstanding </option>
 								</select>
 							</div>
 						</div>
