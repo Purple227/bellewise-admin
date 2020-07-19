@@ -9,6 +9,8 @@ data() {
 	return{
 			isActive: false,
 			dropDown: false,
+      notification: false,
+      sidebar: false,
 		}
 	},
 

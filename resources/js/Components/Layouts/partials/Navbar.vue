@@ -4,14 +4,14 @@
   <nav class="navbar box" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
 
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <a role="button" class="navbar-burger burger" v-bind:class="{ 'is-active': isActive }" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" v-on:click="addActiveClass">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </a>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu">
+    <div id="navbarBasicExample" class="navbar-menu" v-bind:class="{ 'is-active': isActive }">
       <div class="navbar-start">
 
         <a class="navbar-item">
@@ -59,7 +59,7 @@
 
       <div class="navbar-end">
 
-        <div class="dropdown is-right pointer mt-2" v-bind:class="{ 'is-active': isActive }"  v-on:click="addActiveClass">
+        <div class="dropdown is-right pointer mt-2" v-bind:class="{ 'is-active': notification }"  v-on:click="notification = !notification">
           <div class="dropdown-trigger">
             <figure class="image is-48x48" aria-haspopup="true" aria-controls="dropdown-menu">
               <img class="is-rounded" src="/images/rejubi.jpg">
