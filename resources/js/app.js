@@ -7,6 +7,8 @@ Vue.use(VueRouter)
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
 
+
+import Store from './Store'
 import Welcome from './Components/Layouts/app.vue'
 
 
@@ -14,7 +16,7 @@ import Welcome from './Components/Layouts/app.vue'
 import routes from './route.js'
 // Create the router instance and pass the `routes` option
 // You can pass in additional options here, but let's
-const router = new VueRouter({
+const Router = new VueRouter({
   routes, // short for `routes: routes`
   mode: 'history',
 })
@@ -25,7 +27,8 @@ const router = new VueRouter({
 // Make sure to inject the router with the router option to make the
 // whole app router-aware.
 const app = new Vue({
-  router,
+  'router': Router,
+  'store': Store,
   components:{ 'welcome': Welcome },
 }).$mount('#app')
 

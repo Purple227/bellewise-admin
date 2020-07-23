@@ -2,31 +2,35 @@
 import { mixin as clickaway } from 'vue-clickaway';
 
 export default {
-	  mixins: [ clickaway ],
+ mixins: [ clickaway ],
 
-data() {
+ data() {
 
-	return{
-			isActive: false,
-			dropDown: false,
-      notification: false,
-      sidebar: false,
-		}
-	},
+   return{
+     isActive: false,
+     dropDown: false,
+     notification: false,
+     sidebar: false,
+   }
+ },
 
-	methods: {
+ methods: {
 
-    addActiveClass() {
-      this.isActive = !this.isActive;
-    },
+  addActiveClass() {
+    this.isActive = !this.isActive;
+  },
 
-    addDropDown() {
-      this.dropDown = !this.dropDown;
-    },
+  addDropDown() {
+    this.dropDown = !this.dropDown;
+  },
 
 
-    away: function() {
-      this.isActive = false;
+  away: function() {
+    this.isActive = false;
+      setTimeout(() => { // Timeout calibrace open 
+        this.sidebar = false;
+ }, 5000) // Timeout calibrace close
+
     },
 
   },

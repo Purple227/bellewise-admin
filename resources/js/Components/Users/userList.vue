@@ -213,20 +213,38 @@
 
 		</div> <!-- Card tag close -->
 
+
+<ul v-for="user in allUsers" :key="user.id" >
+	<li> {{ user.id }} . {{ user.name }} </li>
+</ul>
+
+
+
+
+
 	</div> <!-- Container tag close -->
 
 </template>
 
 
 <script>
+import { mapGetters, mapActions } from 'vuex';
 
 export default {
 
 	data: () => ({
 
-
-
 	}),
+
+	created() {
+		this.fetchUsers();
+	},
+
+	methods: {
+		...mapActions(['fetchUsers'])
+	},
+
+	computed: mapGetters(['allUsers'])
 
 
 

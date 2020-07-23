@@ -24,7 +24,7 @@
 
       <ul class="menu-list" v-if="sidebar">
 
-        <li> <router-link :to="{ name: 'home' }" exact> <i class="fas fa-chart-line purple-color"> <span class="ml-3 is-bold has-text-black"> Dashboard </span> </i> </router-link> </li>
+        <li> <router-link :to="{ name: 'home' }" exact @click="away"> <i class="fas fa-chart-line purple-color"> <span class="ml-3 is-bold has-text-black"> Dashboard </span> </i> </router-link> </li>
 
         <li> <router-link :to="{ name: 'list-restaurant' }" exact> <i class="fas fa-store-alt purple-color mt-3"> <span class="ml-3 is-bold has-text-black"> Restaurants </span> </i> </router-link> </li>
 

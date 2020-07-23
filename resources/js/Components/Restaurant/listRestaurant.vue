@@ -251,6 +251,8 @@
 
 </div>
 
+{{ items }}
+
 
 
 
@@ -282,15 +284,9 @@ export default {
     'blocked-restaurants': BlockedRestaurant,
   },
 
-
-
   data: () => ({
 
-
-
   }),
-
-
 
 }
 
