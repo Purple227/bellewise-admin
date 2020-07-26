@@ -4,7 +4,6 @@
 
 	<div class="container"> <!-- Container tag open -->
 
-
 		<!-- Main container -->
 		<nav class="level">
 			<!-- Left side -->
@@ -27,7 +26,7 @@
 
 		<div class="box"> <!-- Box container tag open -->
 
-
+		<form v-on:submit.prevent="submitForm"> <!-- Form tag open -->
 
 			<div class="columns"> <!-- Columns wrapper tag open -->
 
@@ -40,7 +39,7 @@
 							<input class="input is-info" type="text" placeholder="Text input" v-model.trim="driver.name"  required autofocus>
 							<!-- Has icon left -->
 							<span class="icon is-small is-left">
-								<i class="fas fa-user purple-color"></i>
+								<i class="fas fa-truck purple-color"></i>
 							</span>
 							<!-- Has icon right -->
 							<span class="icon is-small is-right" v-if="$v.driver.name.required">
@@ -77,7 +76,7 @@
 							<input class="input is-info" type="text" placeholder="Text input" v-model.trim="driver.occupation"  required autofocus>
 							<!-- Has icon left -->
 							<span class="icon is-small is-left">
-								<i class="fas fa-user purple-color"></i>
+								<i class="fas fa-briefcase purple-color"></i>
 							</span>
 							<!-- Has icon right -->
 							<span class="icon is-small is-right" v-if="$v.driver.occupation.required">
@@ -118,7 +117,7 @@
 
 
 					<div class="field mt-6">
-						<div class="file has-name">
+						<div class="file has-name is-fullwidth">
 							<label class="file-label">
 								<input class="file-input is-info" type="file" name="resume">
 								<span class="file-cta">
@@ -130,7 +129,7 @@
 									</span>
 								</span>
 								<span class="file-name">
-									Screen Shot 2017-07-29 at 15.54.25.png
+									Upload an image
 								</span>
 							</label>
 						</div>
@@ -152,6 +151,8 @@
 				</p>
 			</div>
 
+		</form> <!-- Form tag close -->
+
 		</div>  <!-- Box container tag open -->
 
 
@@ -163,7 +164,8 @@
 
 
 <script>
-import { required, email, numeric } from 'vuelidate/lib/validators'
+import { required, email, numeric } from 'vuelidate/lib/validators';
+import { mapActions } from 'vuex';
 
 export default {
 
@@ -175,7 +177,7 @@ export default {
 			email: null,
 			phone: null,
 			ID: null,
-			file: null,
+			image: null,
 			occupation: null,
 		},
 
@@ -212,6 +214,15 @@ export default {
 
 	}, //Validation calibrace close 
 
+
+  methods: {
+    ...mapActions(["createDriver"]),
+
+    submitForm() {
+      this.createDriver(this.driver);
+    },
+
+  },
 
 }
 

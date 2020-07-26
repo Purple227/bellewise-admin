@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
 Route::apiResources([
-    'user' => 'UserController',
+    'driver' => 'DriverController',
 ]);
+

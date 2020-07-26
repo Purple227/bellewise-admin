@@ -14,4 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/{any}', 'HomeController@index')->where('any', '.*');
+
+Route::get('/{any}', 'HomeController@index')->where('any', '^(?!api).*');

@@ -19,8 +19,8 @@ class CreateDriversTable extends Migration
             $table->string('phone');
             $table->string('occupation');
             $table->integer('total_delivery'); 
-            $table->string('image');
-            $table->boolean('status');     
+            $table->string('image')->default('default_image.svg');
+            $table->boolean('status')->default(false);     
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamps();

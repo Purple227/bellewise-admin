@@ -251,9 +251,6 @@
 
 </div>
 
-{{ items }}
-
-
 
 
     </div> <!-- Card content tag open -->

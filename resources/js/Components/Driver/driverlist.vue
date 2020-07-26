@@ -5,6 +5,8 @@
 
 	<div class="container"> <!-- Container tag open -->
 
+		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loading }"><span class="title">Loading Bellewise Food</span></div>
+
 		<div class="card"> <!-- Card tag open -->
 
 			<div class="card-content table-container"> <!-- Card content tag open -->
@@ -70,14 +72,14 @@
 
 					<tbody>
 
-						<tr>
-							<th> <span class="purple-color"> 874387 </span> </th>
-							<td> Joseph Purple </td>
-							<td> Purple@gmail.com </td>
-							<td> 080XXXXXXX </td>
-							<td> Student </td>
-							<td class="has-text-centered"> 188</td>
-							<td class="has-text-centered"> <input type="checkbox"> </td>
+						<tr v-for="driver in loadDrivers" :key="driver.id">
+							<th> <span class="purple-color"> {{ driver.id}}  </span> </th>
+							<td> {{ driver.name }} </td>
+							<td> {{ driver.email }} </td>
+							<td> {{ driver.number }} </td>
+							<td> {{ driver.occupation }} </td>
+							<td class="has-text-centered"> {{ driver.total_delivery}} </td>
+							<td class="has-text-centered"> <input type="checkbox" > </td>
 							<td>  
 								<div class="field is-grouped">
 									<p class="control">
@@ -98,131 +100,6 @@
 								</div>
 							</td>
 						</tr>
-
-
-
-						<tr>
-							<th> <span class="purple-color"> 874387 </span> </th>
-							<td> Joseph Purple </td>
-							<td> Purple@gmail.com </td>
-							<td> 080XXXXXXX </td>
-							<td> Student </td>
-							<td class="has-text-centered"> 188</td>
-							<td class="has-text-centered"> <input type="checkbox"> </td>
-							<td>  
-								<div class="field is-grouped">
-									<p class="control">
-										<router-link class="button purple-color" :to="{ name: 'view-driver' }" exact>
-											View
-										</router-link>
-									</p>
-									<p class="control">
-										<router-link class="button purple-color" :to="{ name: 'edit-driver' }" exact>
-											Edit
-										</router-link>
-									</p>
-									<p class="control">
-										<button class="button purple-color">
-											Delete 
-										</button>
-									</p>
-								</div>
-							</td>
-						</tr>
-
-
-
-						<tr>
-							<th> <span class="purple-color"> 874387 </span> </th>
-							<td> Joseph Purple </td>
-							<td> Purple@gmail.com </td>
-							<td> 080XXXXXXX </td>
-							<td> Student </td>
-							<td class="has-text-centered"> 188</td>
-							<td class="has-text-centered"> <input type="checkbox"> </td>
-							<td>  
-								<div class="field is-grouped">
-									<p class="control">
-										<router-link class="button purple-color" :to="{ name: 'view-driver' }" exact>
-											View
-										</router-link>
-									</p>
-									<p class="control">
-										<router-link class="button purple-color" :to="{ name: 'edit-driver' }" exact>
-											Edit
-										</router-link>
-									</p>
-									<p class="control">
-										<button class="button purple-color">
-											Delete 
-										</button>
-									</p>
-								</div>
-							</td>
-						</tr>
-
-
-
-						<tr>
-							<th> <span class="purple-color"> 874387 </span> </th>
-							<td> Joseph Purple </td>
-							<td> Purple@gmail.com </td>
-							<td> 080XXXXXXX </td>
-							<td> Student </td>
-							<td class="has-text-centered"> 188</td>
-							<td class="has-text-centered"> <input type="checkbox"> </td>
-							<td>  
-								<div class="field is-grouped">
-									<p class="control">
-										<router-link class="button purple-color" :to="{ name: 'view-driver' }" exact>
-											View
-										</router-link>
-									</p>
-									<p class="control">
-										<router-link class="button purple-color" :to="{ name: 'edit-driver' }" exact>
-											Edit
-										</router-link>
-									</p>
-									<p class="control">
-										<button class="button purple-color">
-											Delete 
-										</button>
-									</p>
-								</div>
-							</td>
-						</tr>
-
-
-
-						<tr>
-							<th> <span class="purple-color"> 874387 </span> </th>
-							<td> Joseph Purple </td>
-							<td> Purple@gmail.com </td>
-							<td> 080XXXXXXX </td>
-							<td> Student </td>
-							<td class="has-text-centered"> 188</td>
-							<td class="has-text-centered"> <input type="checkbox"> </td>
-							<td>  
-								<div class="field is-grouped">
-									<p class="control">
-										<router-link class="button purple-color" :to="{ name: 'view-driver' }" exact>
-											View
-										</router-link>
-									</p>
-									<p class="control">
-										<router-link class="button purple-color" :to="{ name: 'edit-driver' }" exact>
-											Edit
-										</router-link>
-									</p>
-									<p class="control">
-										<button class="button purple-color">
-											Delete 
-										</button>
-									</p>
-								</div>
-							</td>
-						</tr>
-
 
 					</tbody>
 
@@ -231,30 +108,30 @@
 
 
 
-<!-- Pagination section -->
-<div class="buttons has-addons is-centered">
-  <a class="button">
-    <span class="icon is-small">
-      <i class="fas fa-arrow-left green"></i>
-    </span>
-    <span> Previous </span>
-  </a>
+				<!-- Pagination section -->
+				<div class="buttons has-addons is-centered">
+					<a class="button">
+						<span class="icon is-small">
+							<i class="fas fa-arrow-left purple-color"></i>
+						</span>
+						<span> Previous </span>
+					</a>
 
 
-  <a class="button">
+					<a class="button">
 
-    5 0f 6
-  </a>
+						5 0f 6
+					</a>
 
 
-  <a class="button">
-    <span class="icon is-small">
-      <i class="fas fa-arrow-right green"></i>
-    </span>
-    <span> Next </span>
-  </a>
+					<a class="button">
+						<span class="icon is-small">
+							<i class="fas fa-arrow-right purple-color"></i>
+						</span>
+						<span> Next </span>
+					</a>
 
-</div>
+				</div>
 
 
 
@@ -268,16 +145,40 @@
 
 </template>
 
-
 <script>
+import { mapGetters, mapActions, mapState } from 'vuex';
 
 export default {
 
 	data: () => ({
-
-
-
+      loading: true,
 	}),
+
+	created() {
+		this.fetchDrivers()
+		this.loader()
+	},
+
+	methods: {
+		...mapActions(['fetchDrivers',]),
+
+		loader() {
+			this.$store.dispatch('fetchDrivers').then(() => {
+            this.loading = false
+            })
+		},
+
+	},
+
+
+	computed: {
+		...mapGetters(['loadDrivers',])
+
+    // Local computed properties
+
+},
+
+
 
 
 

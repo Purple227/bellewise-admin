@@ -4,12 +4,12 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 Vue.use(Vuex)
 
-import User from './Modules/user.js'
+import Driver from './Modules/driver.js'
 
 export default new Vuex.Store({
 
   modules: {
-    'user': User,
+    'driver': Driver,
   },
   
 })
