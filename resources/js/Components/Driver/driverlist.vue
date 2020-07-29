@@ -5,11 +5,18 @@
 
 	<div class="container"> <!-- Container tag open -->
 
-		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loading }"><span class="title">Loading Bellewise Food</span></div>
+		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadLoading }"><span class="title"> Loading Bellewise </span></div>
 
 		<div class="card"> <!-- Card tag open -->
 
 			<div class="card-content table-container"> <!-- Card content tag open -->
+
+
+<div class="notification purple-bg-light is-bold has-text-black" v-if="loadNotification">
+		Task Succeesful
+</div>
+
+
 
 				<!-- Main container -->
 				<nav class="level">
@@ -23,7 +30,7 @@
 								</p>
 								<p class="control">
 									<button class="button purple-bg has-text-white">
-										Search
+										Search 
 									</button>
 								</p>
 							</div>
@@ -72,23 +79,23 @@
 
 					<tbody>
 
-						<tr v-for="driver in loadDrivers" :key="driver.id">
-							<th> <span class="purple-color"> {{ driver.id}}  </span> </th>
+						<tr v-for="driver in loadDrivers" :key="driver.driver_id">
+							<th> <span class="purple-color">  {{ driver.driver_id}}  </span> </th>
 							<td> {{ driver.name }} </td>
 							<td> {{ driver.email }} </td>
-							<td> {{ driver.number }} </td>
+							<td> {{ driver.phone }} </td>
 							<td> {{ driver.occupation }} </td>
 							<td class="has-text-centered"> {{ driver.total_delivery}} </td>
-							<td class="has-text-centered"> <input type="checkbox" > </td>
+							<td class="has-text-centered"> <input type="checkbox"> </td>
 							<td>  
 								<div class="field is-grouped">
 									<p class="control">
-										<router-link class="button purple-color" :to="{ name: 'view-driver' }" exact>
+										<router-link :to="{name: 'view-driver', params: {driver_id: driver.driver_id}}" class="button purple-color" exact>
 											View
 										</router-link>
 									</p>
 									<p class="control">
-										<router-link class="button purple-color" :to="{ name: 'edit-driver' }" exact>
+										<router-link :to="{name: 'edit-driver', params: {driver_id: driver.driver_id} }" class="button purple-color" exact>
 											Edit
 										</router-link>
 									</p>
@@ -151,35 +158,27 @@ import { mapGetters, mapActions, mapState } from 'vuex';
 export default {
 
 	data: () => ({
-      loading: true,
+      
 	}),
 
 	created() {
 		this.fetchDrivers()
-		this.loader()
+		this.clearSucceeded()
+		this.clearNotification()
 	},
 
 	methods: {
-		...mapActions(['fetchDrivers',]),
-
-		loader() {
-			this.$store.dispatch('fetchDrivers').then(() => {
-            this.loading = false
-            })
-		},
+		...mapActions(['fetchDrivers','clearSucceeded', 'clearNotification']),
 
 	},
 
 
 	computed: {
-		...mapGetters(['loadDrivers',])
+		...mapGetters(['loadDrivers', 'loadLoading', 'loadNotification']),
 
     // Local computed properties
 
 },
-
-
-
 
 
 }

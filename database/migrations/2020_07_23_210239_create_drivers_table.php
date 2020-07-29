@@ -14,11 +14,11 @@ class CreateDriversTable extends Migration
     public function up()
     {
         Schema::create('drivers', function (Blueprint $table) {
-            $table->id();
+            $table->id('driver_id');
             $table->string('name');
             $table->string('phone');
             $table->string('occupation');
-            $table->integer('total_delivery'); 
+            $table->integer('total_delivery')->default(0); 
             $table->string('image')->default('default_image.svg');
             $table->boolean('status')->default(false);     
             $table->string('email')->unique();

@@ -4,6 +4,7 @@
 
 	<div class="container"> <!-- Container tag open -->
 
+		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadLoading }"><span class="title"> Loading Bellewise</span></div>
 
 		<!-- Main container -->
 		<nav class="level">
@@ -22,12 +23,7 @@
 			</div>
 		</nav>
 
-
-
-
 		<div class="box"> <!-- Box container tag open -->
-
-
 
 			<div class="columns"> <!-- Columns wrapper tag open -->
 
@@ -37,7 +33,7 @@
 					<div class="field">
 						<label class="label">Driver Name <span class="has-text-danger"> * </span>  </label>
 						<div class="control has-icons-left has-icons-right">
-							<input class="input is-info" type="text" placeholder="Text input" v-model.trim="driver.name"  required autofocus>
+							<input class="input is-info" type="text" placeholder="Text input" v-model.trim="loadDriver.name"  required autofocus>
 							<!-- Has icon left -->
 							<span class="icon is-small is-left">
 								<i class="fas fa-user purple-color"></i>
@@ -90,7 +86,6 @@
 					</div>
 
 				</div> <!-- First column tag close -->
-
 
 
 				<div class="column"> <!-- Second column tag open-->
@@ -151,16 +146,14 @@
 
 		</div>  <!-- Box container tag open -->
 
-
 	</div> <!-- Container tag close -->
 	
-
 </template>
 
-
-
 <script>
+
 import { required, email, numeric } from 'vuelidate/lib/validators'
+import { mapGetters, mapActions, mapState } from 'vuex';
 
 export default {
 
@@ -168,12 +161,12 @@ export default {
 	data: () => ({
 
 		driver: {
-			name: 'Joseph Purple',
-			email: 'purple@gmail.com',
-			phone: '080XXXXXXX',
-			occupation: 'Student',
-			ID: 874387,
-			file: null,
+			name: null,
+			email: null,
+			phone: null,
+			occupation: null,
+			imageName: null,
+			imageFile: "",
 		},
 
 	}),
@@ -209,7 +202,30 @@ export default {
 
 	}, //Validation calibrace close 
 
+	created() {
+		this.fetchDriver()
+		this.setDriverId()
+	},
 
-}
+	methods: {
+		...mapActions(['fetchDriver']),
+
+			//+ this.$route.params.slug
+
+			setDriverId() {
+				let driverId = this.$route.params.driver_id
+				this.fetchDriver(driverId)
+			},
+
+		},
+
+
+		computed: {
+			...mapGetters(['loadDriver', 'loadLoading']),
+
+
+},
+
+} // Export calibrace closes
 
 </script>

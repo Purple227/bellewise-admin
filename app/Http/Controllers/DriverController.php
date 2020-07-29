@@ -31,48 +31,44 @@ class DriverController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
 
-
-
-/*        $validator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'phone' => 'required',
             'occupation' => 'required',
-            'image' => 'image',
-            'status' => 'boolean',
-            'phone' => 'required',
-            'email' => 'email:rfc,dns',
-            'password' => 'required',
+            'email' => ['email:rfc,dns', 'unique:drivers'],
+            'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
-        }*/
+        }
 
+        // New driver object
+        $driver = new Driver;
 
         // Image set up
         if ( $request->hasFile('file') ) {
-            Storage::deleteDirectory('public/profile');
-            $path = Storage::disk('public')->putFile('profile',$request->file('file'));
-            //$driver->image = $path;
+            $path = Storage::disk('public')->putFile('driver',$request->file('file'));
+            $driver->image = $path;
         }
 
+        $generated_password = mt_rand(100000, 999999);
+        $driver_id = mt_rand(100000, 999999);
 
-
-/*        // Create a new object and save to database
-        $driver = new Driver;
+        // Save to database
+        $driver->driver_id = $driver_id;
         $driver->name = $request->name;
         $driver->phone = $request->phone;
         $driver->occupation = $request->occupation;
         $driver->email = $request->email;
-        $driver->password = Hash::make($request->password);
-        $driver->save();*/
+        $driver->password = Hash::make($generated_password);
+        $driver->save();
 
-        return "succeeded";
+        return "success";
 
-
-        }
+    }
 
     /**
      * Display the specified resource.
@@ -80,9 +76,10 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($driver_id)
     {
-        //
+        $driver = Driver::where('driver_id',$driver_id)->first();
+        return response()->json($driver);
     }
 
     /**
@@ -92,10 +89,52 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $driver_id)
+    {
+        $driver = Driver::where('driver_id',$driver_id)->first();
+
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'phone' => 'required',
+            'occupation' => 'required',
+            'email' => ['email:rfc,dns', 'unique:drivers'],
+            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        // Image set up
+        if ( $request->hasFile('file') ) {
+            $path = Storage::disk('public')->putFile('driver',$request->file('file'));
+            $driver->image = $path;
+        }
+
+        // Save to database
+        $driver->name = $request->name;
+        $driver->phone = $request->phone;
+        $driver->occupation = $request->occupation;
+        $driver->email = $request->email;
+        $driver->save();
+
+        return "success";
+
+
+
+
+
+
+
+        return response()->json($driver);
+    }
+
+    public function statusUpdate(Request $request, $id)
     {
         //
     }
+
 
     /**
      * Remove the specified resource from storage.

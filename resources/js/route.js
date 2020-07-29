@@ -82,13 +82,13 @@ component: AddDriver
 },
 
 { 
-path: '/driver/name',
+path: '/driver/:driver_id',
 name:'view-driver',
 component: ViewDriver
 },
 
 { 
-path: '/driver/name/edit',
+path: '/driver/:driver_id/edit',
 name:'edit-driver',
 component: EditDriver
 },

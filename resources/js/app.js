@@ -7,7 +7,6 @@ Vue.use(VueRouter)
 import Vuelidate from 'vuelidate'
 Vue.use(Vuelidate)
 
-
 import Store from './Store'
 import Welcome from './Components/Layouts/app.vue'
 
