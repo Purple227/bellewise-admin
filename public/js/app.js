@@ -3076,7 +3076,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         name: null,
         email: null,
         phone: null,
-        ID: null,
         occupation: null,
         imageName: null,
         imageFile: ""
@@ -3100,7 +3099,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
   },
   //Validation calibrace close 
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["createDriver", "clearErrors"])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["createData", "clearErrors"])), {}, {
+    // Local method goes here
     fileUpload: function fileUpload(e) {
       this.driver.imageName = e.target.files[0].name;
       this.driver.imageFile = e.target.files[0];
@@ -3108,14 +3108,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     submitForm: function submitForm() {
       var _this = this;
 
-      var driver = new FormData();
-      driver.append("_method", "post");
-      driver.append('name', this.driver.name);
-      driver.append('phone', this.driver.phone);
-      driver.append('occupation', this.driver.occupation);
-      driver.append('file', this.driver.imageFile);
-      driver.append('email', this.driver.email);
-      this.createDriver(driver);
+      var data = new FormData();
+      data.append("_method", "post");
+      data.append('name', this.driver.name);
+      data.append('phone', this.driver.phone);
+      data.append('occupation', this.driver.occupation);
+      data.append('file', this.driver.imageFile);
+      data.append('email', this.driver.email);
+      this.createData(data);
       setTimeout(function () {
         if (_this.loadSucceeded == true) {
           _this.$router.push({
@@ -3301,18 +3301,71 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      spin: false,
+      showModal: false,
+      searchQuery: ''
+    };
   },
   created: function created() {
-    this.fetchDrivers();
+    this.fetchDatas();
     this.clearSucceeded();
     this.clearNotification();
   },
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['fetchDrivers', 'clearSucceeded', 'clearNotification'])),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['loadDrivers', 'loadLoading', 'loadNotification']))
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['fetchDatas', 'clearSucceeded', 'clearNotification', 'destroyData', 'searchDatas'])), {}, {
+    // Local method
+    refresh: function refresh() {
+      var _this = this;
+
+      this.spin = true;
+      this.fetchDatas().then(function () {
+        return _this.spin = false;
+      });
+      this.searchQuery = "";
+      this.searchDatas(this.searchQuery);
+    },
+    deleteData: function deleteData(id) {
+      this.destroyData(id);
+      this.fetchDatas();
+      this.showModal = false;
+    },
+    paginationHandler: function paginationHandler(uri) {
+      this.fetchDatas(uri);
+    },
+    searchMethod: function searchMethod() {
+      if (this.searchQuery > 1) {
+        this.searchDatas(this.searchQuery);
+      }
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['loadDatas', 'loadLoading', 'loadNotification', 'loadPagination', 'loadSearch']))
 });
 
 /***/ }),
@@ -3485,26 +3538,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      driver: {
-        name: null,
-        email: null,
-        phone: null,
-        occupation: null,
-        imageName: null,
-        imageFile: ""
-      }
+      imageName: null,
+      imageFile: ""
     };
   },
   validations: {
     //Validation calibrace open 
-    driver: {
+    loadData: {
       name: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       },
@@ -3517,26 +3562,50 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       email: {
         email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["email"],
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
-      },
-      ID: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       }
     } // restaurant calibrace close
 
   },
   //Validation calibrace close 
   created: function created() {
-    this.fetchDriver();
-    this.setDriverId();
+    this.fetchData();
+    this.setId();
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['fetchDriver'])), {}, {
-    //+ this.$route.params.slug
-    setDriverId: function setDriverId() {
-      var driverId = this.$route.params.driver_id;
-      this.fetchDriver(driverId);
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['fetchData', 'clearErrors', 'editData'])), {}, {
+    // Local methods goes here
+    setId: function setId() {
+      var id = this.$route.params.id;
+      this.fetchData(id);
+    },
+    fileUpload: function fileUpload(e) {
+      this.imageName = e.target.files[0].name;
+      this.imageFile = e.target.files[0];
+    },
+    submitForm: function submitForm() {
+      var _this = this;
+
+      var data = new FormData();
+      data.append("_method", "put");
+      data.append('name', this.$store.getters.loadData.name);
+      data.append('phone', this.$store.getters.loadData.phone);
+      data.append('occupation', this.$store.getters.loadData.occupation);
+      data.append('file', this.imageFile);
+      var id = this.$route.params.id;
+      this.editData({
+        data: data,
+        id: id
+      });
+      setTimeout(function () {
+        if (_this.loadSucceeded == true) {
+          _this.$router.push({
+            name: 'driver-list'
+          });
+        }
+      }, 2000);
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadDriver', 'loadLoading']))
+  // Method calibrace close
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadData', 'loadLoading', 'loadProgress', 'loadSucceeded', 'loadErrors']))
 }); // Export calibrace closes
 
 /***/ }),
@@ -3636,27 +3705,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
   },
   created: function created() {
-    this.fetchDriver();
-    this.setDriverId();
+    this.fetchData();
+    this.setId();
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['fetchDriver'])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['fetchData'])), {}, {
     //+ this.$route.params.slug
-    setDriverId: function setDriverId() {
-      var driverId = this.$route.params.driver_id;
-      this.fetchDriver(driverId);
+    setId: function setId() {
+      var id = this.$route.params.id;
+      this.fetchData(id);
     }
   }),
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['loadDriver', 'loadLoading'])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['loadData', 'loadLoading'])), {}, {
     // Local computed properties
     imagePath: function imagePath() {
       var LaravelImageDefaultPath = '/Storage/';
-      var imageName = this.$store.getters.loadDriver.image;
+      var imageName = this.$store.getters.loadData.image;
       var completedPath = LaravelImageDefaultPath + imageName;
       return completedPath;
     }
@@ -51281,17 +51351,63 @@ var render = function() {
                 staticClass:
                   "notification purple-bg-light is-bold has-text-black"
               },
-              [_vm._v("\n\t\tTask Succeesful\n")]
+              [_vm._v("\n\t\t\t\tTask Succeesful\n\t\t\t")]
             )
           : _vm._e(),
         _vm._v(" "),
         _c("nav", { staticClass: "level" }, [
-          _vm._m(0),
+          _c("div", { staticClass: "level-left" }, [
+            _c("div", { staticClass: "level-item" }, [
+              _c("div", { staticClass: "field has-addons" }, [
+                _c("p", { staticClass: "control" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.searchQuery,
+                        expression: "searchQuery"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: {
+                      type: "text",
+                      placeholder: " Search Driver by ID"
+                    },
+                    domProps: { value: _vm.searchQuery },
+                    on: {
+                      keyup: _vm.searchMethod,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.searchQuery = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _vm._m(0)
+              ])
+            ])
+          ]),
           _vm._v(" "),
           _c("div", { staticClass: "level-right" }, [
             _c("div", { staticClass: "tabs is-toggle level-item" }, [
               _c("ul", [
-                _vm._m(1),
+                _c("li", { on: { click: _vm.refresh } }, [
+                  _c("a", [
+                    _c("span", { staticClass: "icon is-small" }, [
+                      _c("i", {
+                        staticClass: "fas fa-sync-alt  purple-color",
+                        class: { "fa-spin": _vm.spin },
+                        attrs: { "aria-hidden": "true" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("  Refresh")])
+                  ])
+                ]),
                 _vm._v(" "),
                 _c(
                   "li",
@@ -51322,97 +51438,226 @@ var render = function() {
           "table",
           { staticClass: "table is-bordered is-striped is-hoverable" },
           [
-            _vm._m(2),
+            _vm._m(1),
             _vm._v(" "),
             _c(
               "tbody",
-              _vm._l(_vm.loadDrivers, function(driver) {
-                return _c("tr", { key: driver.driver_id }, [
-                  _c("th", [
-                    _c("span", { staticClass: "purple-color" }, [
-                      _vm._v("  " + _vm._s(driver.driver_id) + "  ")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(" " + _vm._s(driver.name) + " ")]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(" " + _vm._s(driver.email) + " ")]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(" " + _vm._s(driver.phone) + " ")]),
-                  _vm._v(" "),
-                  _c("td", [_vm._v(" " + _vm._s(driver.occupation) + " ")]),
-                  _vm._v(" "),
-                  _c("td", { staticClass: "has-text-centered" }, [
-                    _vm._v(" " + _vm._s(driver.total_delivery) + " ")
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(3, true),
-                  _vm._v(" "),
-                  _c("td", [
-                    _c("div", { staticClass: "field is-grouped" }, [
-                      _c(
-                        "p",
-                        { staticClass: "control" },
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "button purple-color",
-                              attrs: {
-                                to: {
-                                  name: "view-driver",
-                                  params: { driver_id: driver.driver_id }
-                                },
-                                exact: ""
+              _vm._l(
+                _vm.searchQuery.length > 1 ? _vm.loadSearch : _vm.loadDatas,
+                function(driver, index) {
+                  return _c("tr", { key: index }, [
+                    _c("th", [
+                      _c("span", { staticClass: "purple-color" }, [
+                        _vm._v("  " + _vm._s(driver.driver_id) + "  ")
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(" " + _vm._s(driver.name) + " ")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(" " + _vm._s(driver.email) + " ")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(" " + _vm._s(driver.phone) + " ")]),
+                    _vm._v(" "),
+                    _c("td", [_vm._v(" " + _vm._s(driver.occupation) + " ")]),
+                    _vm._v(" "),
+                    _c("td", { staticClass: "has-text-centered" }, [
+                      _vm._v(" " + _vm._s(driver.total_delivery) + " ")
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(2, true),
+                    _vm._v(" "),
+                    _c("td", [
+                      _c("div", { staticClass: "field is-grouped" }, [
+                        _c(
+                          "p",
+                          { staticClass: "control" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "button purple-color",
+                                attrs: {
+                                  to: {
+                                    name: "view-driver",
+                                    params: { id: driver.id }
+                                  },
+                                  exact: ""
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n\t\t\t\t\t\t\t\t\t\tView\n\t\t\t\t\t\t\t\t\t"
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "p",
+                          { staticClass: "control" },
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                staticClass: "button purple-color",
+                                attrs: {
+                                  to: {
+                                    name: "edit-driver",
+                                    params: { id: driver.id }
+                                  },
+                                  exact: ""
+                                }
+                              },
+                              [
+                                _vm._v(
+                                  "\n\t\t\t\t\t\t\t\t\t\tEdit\n\t\t\t\t\t\t\t\t\t"
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "p",
+                          {
+                            staticClass: "control",
+                            on: {
+                              click: function($event) {
+                                _vm.showModal = true
                               }
-                            },
-                            [
-                              _vm._v(
-                                "\n\t\t\t\t\t\t\t\t\t\t\tView\n\t\t\t\t\t\t\t\t\t\t"
-                              )
-                            ]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "p",
-                        { staticClass: "control" },
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass: "button purple-color",
-                              attrs: {
-                                to: {
-                                  name: "edit-driver",
-                                  params: { driver_id: driver.driver_id }
-                                },
-                                exact: ""
-                              }
-                            },
-                            [
-                              _vm._v(
-                                "\n\t\t\t\t\t\t\t\t\t\t\tEdit\n\t\t\t\t\t\t\t\t\t\t"
-                              )
-                            ]
-                          )
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _vm._m(4, true)
+                            }
+                          },
+                          [
+                            _c(
+                              "button",
+                              { staticClass: "button purple-color" },
+                              [
+                                _vm._v(
+                                  "\n\t\t\t\t\t\t\t\t\t\tDelete \n\t\t\t\t\t\t\t\t\t"
+                                )
+                              ]
+                            )
+                          ]
+                        ),
+                        _vm.showModal
+                          ? _c("div", { staticClass: "modal is-active" }, [
+                              _c("div", { staticClass: "modal-background" }),
+                              _vm._v(" "),
+                              _c("div", { staticClass: "modal-content" }, [
+                                _c("div", { staticClass: "card" }, [
+                                  _vm._m(3, true),
+                                  _vm._v(" "),
+                                  _c("footer", { staticClass: "card-footer" }, [
+                                    _c(
+                                      "p",
+                                      {
+                                        staticClass:
+                                          "card-footer-item is-bold purple-color pointer",
+                                        on: {
+                                          click: function($event) {
+                                            return _vm.deleteData(driver.id)
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tDelete\n\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "p",
+                                      {
+                                        staticClass:
+                                          "card-footer-item is-bold purple-color pointer",
+                                        on: {
+                                          click: function($event) {
+                                            _vm.showModal = false
+                                          }
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                ])
+                              ]),
+                              _vm._v(" "),
+                              _c("button", {
+                                staticClass: "modal-close is-large",
+                                attrs: { "aria-label": "close" },
+                                on: {
+                                  click: function($event) {
+                                    _vm.showModal = false
+                                  }
+                                }
+                              })
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("p")
+                      ])
                     ])
                   ])
-                ])
-              }),
+                }
+              ),
               0
             )
           ]
         ),
         _vm._v(" "),
-        _vm._m(5)
+        _c("div", { staticClass: "buttons has-addons is-centered" }, [
+          _vm.loadPagination.previousPageUrl
+            ? _c(
+                "a",
+                {
+                  staticClass: "button",
+                  on: {
+                    click: function($event) {
+                      return _vm.paginationHandler(
+                        _vm.loadPagination.previousPageUrl
+                      )
+                    }
+                  }
+                },
+                [_vm._m(4), _vm._v(" "), _c("span", [_vm._v(" Previous ")])]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _c("a", { staticClass: "button" }, [
+            _vm._v(
+              "\n\n\t\t\t\t\t" +
+                _vm._s(_vm.loadPagination.to) +
+                " 0f " +
+                _vm._s(_vm.loadPagination.total) +
+                "\n\t\t\t\t"
+            )
+          ]),
+          _vm._v(" "),
+          _vm.loadPagination.nextPageUrl
+            ? _c(
+                "a",
+                {
+                  staticClass: "button",
+                  on: {
+                    click: function($event) {
+                      return _vm.paginationHandler(
+                        _vm.loadPagination.nextPageUrl
+                      )
+                    }
+                  }
+                },
+                [_vm._m(5), _vm._v(" "), _c("span", [_vm._v(" Next ")])]
+              )
+            : _vm._e()
+        ])
       ])
     ])
   ])
@@ -51422,39 +51667,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "level-left" }, [
-      _c("div", { staticClass: "level-item" }, [
-        _c("div", { staticClass: "field has-addons" }, [
-          _c("p", { staticClass: "control" }, [
-            _c("input", {
-              staticClass: "input",
-              attrs: { type: "text", placeholder: " Search Drivers" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "control" }, [
-            _c("button", { staticClass: "button purple-bg has-text-white" }, [
-              _vm._v("\n\t\t\t\t\t\t\t\t\t\tSearch \n\t\t\t\t\t\t\t\t\t")
-            ])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("a", [
-        _c("span", { staticClass: "icon is-small" }, [
-          _c("i", {
-            staticClass: "fas fa-sync-alt purple-color",
-            attrs: { "aria-hidden": "true" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("span", [_vm._v("  Refresh")])
+    return _c("p", { staticClass: "control" }, [
+      _c("button", { staticClass: "button purple-bg has-text-white" }, [
+        _vm._v("\n\t\t\t\t\t\t\t\t\tSearch \n\t\t\t\t\t\t\t\t")
       ])
     ])
   },
@@ -51512,9 +51727,11 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "control" }, [
-      _c("button", { staticClass: "button purple-color" }, [
-        _vm._v("\n\t\t\t\t\t\t\t\t\t\t\tDelete \n\t\t\t\t\t\t\t\t\t\t")
+    return _c("div", { staticClass: "card-content has-text-centered" }, [
+      _c("p", { staticClass: "subtitle is-bold" }, [
+        _vm._v(
+          "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tAre you sure\n\t\t\t\t\t\t\t\t\t\t\t\t\t"
+        )
       ])
     ])
   },
@@ -51522,26 +51739,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "buttons has-addons is-centered" }, [
-      _c("a", { staticClass: "button" }, [
-        _c("span", { staticClass: "icon is-small" }, [
-          _c("i", { staticClass: "fas fa-arrow-left purple-color" })
-        ]),
-        _vm._v(" "),
-        _c("span", [_vm._v(" Previous ")])
-      ]),
-      _vm._v(" "),
-      _c("a", { staticClass: "button" }, [
-        _vm._v("\n\n\t\t\t\t\t\t5 0f 6\n\t\t\t\t\t")
-      ]),
-      _vm._v(" "),
-      _c("a", { staticClass: "button" }, [
-        _c("span", { staticClass: "icon is-small" }, [
-          _c("i", { staticClass: "fas fa-arrow-right purple-color" })
-        ]),
-        _vm._v(" "),
-        _c("span", [_vm._v(" Next ")])
-      ])
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-arrow-left purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-arrow-right purple-color" })
     ])
   }
 ]
@@ -51596,233 +51803,253 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "box" }, [
-      _c("div", { staticClass: "columns" }, [
-        _c("div", { staticClass: "column" }, [
-          _c("div", { staticClass: "field" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "control has-icons-left has-icons-right" },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.trim",
-                      value: _vm.loadDriver.name,
-                      expression: "loadDriver.name",
-                      modifiers: { trim: true }
-                    }
-                  ],
-                  staticClass: "input is-info",
-                  attrs: {
-                    type: "text",
-                    placeholder: "Text input",
-                    required: "",
-                    autofocus: ""
-                  },
-                  domProps: { value: _vm.loadDriver.name },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.loadDriver,
-                        "name",
-                        $event.target.value.trim()
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
+      _vm.loadErrors
+        ? _c(
+            "div",
+            {
+              staticClass: "notification purple-bg-light is-bold has-text-black"
+            },
+            [
+              _c(
+                "ul",
+                _vm._l(_vm.loadErrors, function(value, name, index) {
+                  return _c("li", [
+                    _vm._v(
+                      "\n\t\t\t\t\t" +
+                        _vm._s(index + 1) +
+                        ". " +
+                        _vm._s(value[0]) +
+                        "\n\t\t\t\t"
+                    )
+                  ])
                 }),
-                _vm._v(" "),
-                _vm._m(2),
-                _vm._v(" "),
-                _vm.$v.driver.name.required
-                  ? _c("span", { staticClass: "icon is-small is-right" }, [
-                      _c("i", { staticClass: "fas fa-check purple-color" })
-                    ])
-                  : _c("span", { staticClass: "icon is-small is-right" }, [
-                      _c("i", {
-                        staticClass:
-                          "fas fa-exclamation-triangle has-text-danger"
-                      })
-                    ])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "field" }, [
-            _vm._m(3),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "control has-icons-left has-icons-right" },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.number",
-                      value: _vm.driver.phone,
-                      expression: "driver.phone",
-                      modifiers: { number: true }
-                    }
-                  ],
-                  staticClass: "input is-info",
-                  attrs: {
-                    type: "tel",
-                    placeholder: "Number input",
-                    required: ""
-                  },
-                  domProps: { value: _vm.driver.phone },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.driver, "phone", _vm._n($event.target.value))
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm._m(4),
-                _vm._v(" "),
-                _vm.$v.driver.phone.required
-                  ? _c("span", { staticClass: "icon is-small is-right" }, [
-                      _c("i", { staticClass: "fas fa-check purple-color" })
-                    ])
-                  : _c("span", { staticClass: "icon is-small is-right" }, [
-                      _c("i", {
-                        staticClass:
-                          "fas fa-exclamation-triangle has-text-danger"
-                      })
-                    ])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "field" }, [
-            _vm._m(5),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "control has-icons-left has-icons-right" },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model.trim",
-                      value: _vm.driver.occupation,
-                      expression: "driver.occupation",
-                      modifiers: { trim: true }
-                    }
-                  ],
-                  staticClass: "input is-info",
-                  attrs: {
-                    type: "text",
-                    placeholder: "Text input",
-                    required: "",
-                    autofocus: ""
-                  },
-                  domProps: { value: _vm.driver.occupation },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.driver,
-                        "occupation",
-                        $event.target.value.trim()
-                      )
-                    },
-                    blur: function($event) {
-                      return _vm.$forceUpdate()
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm._m(6),
-                _vm._v(" "),
-                _vm.$v.driver.occupation.required
-                  ? _c("span", { staticClass: "icon is-small is-right" }, [
-                      _c("i", { staticClass: "fas fa-check purple-color" })
-                    ])
-                  : _c("span", { staticClass: "icon is-small is-right" }, [
-                      _c("i", {
-                        staticClass:
-                          "fas fa-exclamation-triangle has-text-danger"
-                      })
-                    ])
-              ]
-            )
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "column" }, [
-          _c("div", { staticClass: "field" }, [
-            _vm._m(7),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "control has-icons-right has-icons-left" },
-              [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.driver.email,
-                      expression: "driver.email"
-                    }
-                  ],
-                  staticClass: "input is-info",
-                  attrs: {
-                    type: "email",
-                    placeholder: "Text input",
-                    required: ""
-                  },
-                  domProps: { value: _vm.driver.email },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.driver, "email", $event.target.value)
-                    }
-                  }
-                }),
-                _vm._v(" "),
-                _vm._m(8),
-                _vm._v(" "),
-                _vm.$v.driver.email.$invalid
-                  ? _c("span", { staticClass: "icon is-small is-right" }, [
-                      _c("i", {
-                        staticClass:
-                          "fas fa-exclamation-triangle has-text-danger"
-                      })
-                    ])
-                  : _c("span", { staticClass: "icon is-small is-right" }, [
-                      _c("i", { staticClass: "fas fa-check purple-color" })
-                    ])
-              ]
-            )
-          ]),
-          _vm._v(" "),
-          _vm._m(9)
-        ])
-      ]),
+                0
+              )
+            ]
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _vm._m(10)
+      _c(
+        "form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.submitForm($event)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "columns" }, [
+            _c("div", { staticClass: "column" }, [
+              _c("div", { staticClass: "field" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-left has-icons-right" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.loadData.name,
+                          expression: "loadData.name",
+                          modifiers: { trim: true }
+                        }
+                      ],
+                      staticClass: "input is-info",
+                      attrs: { type: "text", required: "", autofocus: "" },
+                      domProps: { value: _vm.loadData.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.loadData,
+                            "name",
+                            $event.target.value.trim()
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _vm.$v.loadData.name.required
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fas fa-check purple-color" })
+                        ])
+                      : _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-exclamation-triangle has-text-danger"
+                          })
+                        ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-left has-icons-right" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.number",
+                          value: _vm.loadData.phone,
+                          expression: "loadData.phone",
+                          modifiers: { number: true }
+                        }
+                      ],
+                      staticClass: "input is-info",
+                      attrs: {
+                        type: "tel",
+                        minlength: "11",
+                        maxlength: "14",
+                        required: ""
+                      },
+                      domProps: { value: _vm.loadData.phone },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.loadData,
+                            "phone",
+                            _vm._n($event.target.value)
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _vm.$v.loadData.phone.required
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fas fa-check purple-color" })
+                        ])
+                      : _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-exclamation-triangle has-text-danger"
+                          })
+                        ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "column" }, [
+              _c("div", { staticClass: "field" }, [
+                _vm._m(5),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-left has-icons-right" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.loadData.occupation,
+                          expression: "loadData.occupation",
+                          modifiers: { trim: true }
+                        }
+                      ],
+                      staticClass: "input is-info",
+                      attrs: { type: "text", required: "", autofocus: "" },
+                      domProps: { value: _vm.loadData.occupation },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.loadData,
+                            "occupation",
+                            $event.target.value.trim()
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(6),
+                    _vm._v(" "),
+                    _vm.$v.loadData.occupation.required
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fas fa-check purple-color" })
+                        ])
+                      : _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-exclamation-triangle has-text-danger"
+                          })
+                        ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field mt-6" }, [
+                _c("div", { staticClass: "file has-name" }, [
+                  _c("label", { staticClass: "file-label" }, [
+                    _c("input", {
+                      staticClass: "file-input is-info",
+                      attrs: { type: "file" },
+                      on: { change: _vm.fileUpload }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(7),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "file-name" }, [
+                      _vm._v(
+                        "\n\t\t\t\t\t\t\t\t\t" +
+                          _vm._s(_vm.imageName || "Update an image") +
+                          "\n\t\t\t\t\t\t\t\t"
+                      )
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("p", { staticClass: "control" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "button",
+                  class: { "is-loading": _vm.loadProgress }
+                },
+                [
+                  _vm._m(8),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Save ")])
+                ]
+              )
+            ])
+          ])
+        ]
+      )
     ])
   ])
 }
@@ -51853,7 +52080,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "icon is-small is-left" }, [
-      _c("i", { staticClass: "fas fa-user purple-color" })
+      _c("i", { staticClass: "fas fa-truck purple-color" })
     ])
   },
   function() {
@@ -51887,54 +52114,20 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "icon is-small is-left" }, [
-      _c("i", { staticClass: "fas fa-user purple-color" })
+      _c("i", { staticClass: "fas fa-briefcase purple-color" })
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "label" }, [
-      _vm._v(" Driver Email "),
-      _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small is-left" }, [
-      _c("i", { staticClass: "fas fa-envelope purple-color" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field mt-6" }, [
-      _c("div", { staticClass: "file has-name" }, [
-        _c("label", { staticClass: "file-label" }, [
-          _c("input", {
-            staticClass: "file-input is-info",
-            attrs: { type: "file", name: "resume" }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "file-cta" }, [
-            _c("span", { staticClass: "file-icon" }, [
-              _c("i", { staticClass: "fas fa-image purple-color" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "file-label is-bold" }, [
-              _vm._v("\n\t\t\t\t\t\t\t\t\tChoose a file…\n\t\t\t\t\t\t\t\t")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "file-name" }, [
-            _vm._v(
-              "\n\t\t\t\t\t\t\t\tScreen Shot 2017-07-29 at 15.54.25.png\n\t\t\t\t\t\t\t"
-            )
-          ])
-        ])
+    return _c("span", { staticClass: "file-cta" }, [
+      _c("span", { staticClass: "file-icon" }, [
+        _c("i", { staticClass: "fas fa-image purple-color" })
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "file-label is-bold" }, [
+        _vm._v("\n\t\t\t\t\t\t\t\t\t\tChoose a file…\n\t\t\t\t\t\t\t\t\t")
       ])
     ])
   },
@@ -51942,16 +52135,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field" }, [
-      _c("p", { staticClass: "control" }, [
-        _c("button", { staticClass: "button" }, [
-          _c("span", { staticClass: "icon is-small" }, [
-            _c("i", { staticClass: "fas fa-save purple-color" })
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "is-bold" }, [_vm._v(" Save ")])
-        ])
-      ])
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-save purple-color" })
     ])
   }
 ]
@@ -52011,7 +52196,7 @@ var render = function() {
           _c("div", { staticClass: "center" }, [
             _c("div", { staticClass: "content" }, [
               _c("figure", { staticClass: "image is-256x256" }, [
-                _vm.loadDriver.image == "default_image.svg"
+                _vm.loadData.image == "default_image.svg"
                   ? _c("img", {
                       staticClass: "is-rounded",
                       attrs: { src: "/images/default_image.svg" }
@@ -52030,19 +52215,25 @@ var render = function() {
             _c("hr", { staticClass: "is-paddingless" }),
             _vm._v(" "),
             _c("p", { staticClass: "subtitle is-bold" }, [
-              _vm._v(" " + _vm._s(_vm.loadDriver.name) + " ")
+              _vm._v(" " + _vm._s(_vm.loadData.name) + " ")
             ]),
             _vm._v(" "),
             _c("hr", { staticClass: "is-paddingless" }),
             _vm._v(" "),
             _c("p", { staticClass: "subtitle " }, [
-              _vm._v(" " + _vm._s(_vm.loadDriver.email) + " ")
+              _vm._v(" " + _vm._s(_vm.loadData.email) + " ")
             ]),
             _vm._v(" "),
             _c("hr", { staticClass: "is-paddingless" }),
             _vm._v(" "),
             _c("p", { staticClass: "subtitle " }, [
-              _vm._v(" " + _vm._s(_vm.loadDriver.phone) + " ")
+              _vm._v(" " + _vm._s(_vm.loadData.phone) + " ")
+            ]),
+            _vm._v(" "),
+            _c("hr", { staticClass: "is-paddingless" }),
+            _vm._v(" "),
+            _c("p", { staticClass: "subtitle " }, [
+              _vm._v(" " + _vm._s(_vm.loadData.occupation) + " ")
             ]),
             _vm._v(" "),
             _c("hr", { staticClass: "is-paddingless" })
@@ -52052,15 +52243,11 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "buttons is-centered" }, [
         _c("button", { staticClass: "button purple-color is-bold" }, [
-          _vm._v("ID " + _vm._s(_vm.loadDriver.driver_id) + " ")
+          _vm._v("ID: " + _vm._s(_vm.loadData.driver_id) + " ")
         ]),
         _vm._v(" "),
         _c("button", { staticClass: "button purple-color is-bold" }, [
-          _vm._v("Delivery " + _vm._s(_vm.loadDriver.total_delivery) + " ")
-        ]),
-        _vm._v(" "),
-        _c("button", { staticClass: "button purple-color is-bold" }, [
-          _vm._v(" " + _vm._s(_vm.loadDriver.occupation) + " ")
+          _vm._v("Delivery: " + _vm._s(_vm.loadData.total_delivery) + " ")
         ])
       ])
     ])
@@ -83440,15 +83627,14 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************!*\
   !*** ./resources/js/Components/Driver/viewDriver.vue ***!
   \*******************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _viewDriver_vue_vue_type_template_id_744c76b9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./viewDriver.vue?vue&type=template&id=744c76b9& */ "./resources/js/Components/Driver/viewDriver.vue?vue&type=template&id=744c76b9&");
 /* harmony import */ var _viewDriver_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./viewDriver.vue?vue&type=script&lang=js& */ "./resources/js/Components/Driver/viewDriver.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _viewDriver_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _viewDriver_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -83478,7 +83664,7 @@ component.options.__file = "resources/js/Components/Driver/viewDriver.vue"
 /*!********************************************************************************!*\
   !*** ./resources/js/Components/Driver/viewDriver.vue?vue&type=script&lang=js& ***!
   \********************************************************************************/
-/*! no static exports found */
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -85944,7 +86130,8 @@ __webpack_require__.r(__webpack_exports__);
       isActive: false,
       dropDown: false,
       notification: false,
-      sidebar: false
+      sidebar: false,
+      spin: false
     };
   },
   methods: {
@@ -85955,13 +86142,7 @@ __webpack_require__.r(__webpack_exports__);
       this.dropDown = !this.dropDown;
     },
     away: function away() {
-      var _this = this;
-
       this.isActive = false;
-      setTimeout(function () {
-        // Timeout calibrace open 
-        _this.sidebar = false;
-      }, 5000); // Timeout calibrace close
     }
   }
 });
@@ -86092,21 +86273,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_3___default.a, axios__WEBPACK_IMPORTED_MODULE_2___default.a);
 var state = {
-  drivers: [],
-  driver: null,
+  datas: [],
+  data: null,
   notification: false,
   loading: true,
   progress: null,
   errors: null,
-  succeeded: null
+  succeeded: null,
+  searchResult: null,
+  pagination: {
+    nextPageUrl: null,
+    previousPageUrl: null,
+    to: null,
+    total: null
+  }
 }; // State calibrace close
 
 var getters = {
-  loadDrivers: function loadDrivers(state) {
-    return state.drivers;
+  loadDatas: function loadDatas(state) {
+    return state.datas;
   },
-  loadDriver: function loadDriver(state) {
-    return state.driver;
+  loadData: function loadData(state) {
+    return state.data;
   },
   loadLoading: function loadLoading(state) {
     return state.loading;
@@ -86122,27 +86310,41 @@ var getters = {
   },
   loadSucceeded: function loadSucceeded(state) {
     return state.succeeded;
+  },
+  loadPagination: function loadPagination(state) {
+    return state.pagination;
+  },
+  loadSearch: function loadSearch(state) {
+    return state.searchResult;
   }
 }; //Getters calibrace close
 
 var actions = {
-  fetchDrivers: function fetchDrivers(_ref) {
+  fetchDatas: function fetchDatas(_ref, uri) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-      var commit, response;
+      var commit, api, response, nextPageUrl, previousPageUrl;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               commit = _ref.commit;
-              _context.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/driver');
+              commit('setLoading', true);
+              api = uri || '/api/driver';
+              _context.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(api);
 
-            case 3:
+            case 5:
               response = _context.sent;
-              commit('setDrivers', response.data);
+              commit('setDatas', response.data.data);
               commit('setLoading', false);
+              nextPageUrl = response.data.next_page_url;
+              commit('setNextPageURL', nextPageUrl ? nextPageUrl.slice(21) : null);
+              previousPageUrl = response.data.prev_page_url;
+              commit('setPrePageURL', previousPageUrl ? previousPageUrl.slice(21) : null);
+              commit('setToPage', response.data.to);
+              commit('setTotal', response.data.total);
 
-            case 6:
+            case 14:
             case "end":
               return _context.stop();
           }
@@ -86150,7 +86352,7 @@ var actions = {
       }, _callee);
     }))();
   },
-  fetchDriver: function fetchDriver(_ref2, driver_id) {
+  fetchData: function fetchData(_ref2, id) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
       var commit, api, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
@@ -86159,13 +86361,13 @@ var actions = {
             case 0:
               commit = _ref2.commit;
               commit('setLoading', true);
-              api = '/api/driver/' + driver_id;
+              api = '/api/driver/' + id;
               _context2.next = 5;
               return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(api);
 
             case 5:
               response = _context2.sent;
-              commit('setDriver', response.data);
+              commit('setData', response.data);
               commit('setLoading', false);
 
             case 8:
@@ -86176,28 +86378,78 @@ var actions = {
       }, _callee2);
     }))();
   },
-  createDriver: function createDriver(_ref3, driver) {
+  searchDatas: function searchDatas(_ref3, searchQuery) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      var commit, config, response;
+      var commit, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
               commit = _ref3.commit;
+              _context3.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/driver/search', {
+                params: {
+                  search_query: searchQuery
+                }
+              });
+
+            case 3:
+              response = _context3.sent;
+              commit('setSearch', response.data);
+
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }))();
+  },
+  destroyData: function destroyData(_ref4, id) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      var commit, api, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit;
+              api = '/api/driver/' + id;
+              _context4.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a["delete"](api);
+
+            case 4:
+              response = _context4.sent;
+              commit('setNotification', true);
+
+            case 6:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }))();
+  },
+  createData: function createData(_ref5, data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+      var commit, config, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref5.commit;
               commit('setProgress', true);
               config = {
                 headers: {
                   'content-type': 'application/x-www-form-urlencoded'
                 }
               };
-              _context3.next = 5;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/driver', driver, config).then(function (response) {
+              _context5.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/driver', data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setSucceeded', true);
                 commit('setProgress', false);
               })["catch"](function (error) {
                 var failure = error.response.data;
-                console.log(failure);
                 commit('setErrors', failure);
                 commit('setProgress', false);
                 setTimeout(function () {
@@ -86206,47 +86458,9 @@ var actions = {
               });
 
             case 5:
-              response = _context3.sent;
+              response = _context5.sent;
 
             case 6:
-            case "end":
-              return _context3.stop();
-          }
-        }
-      }, _callee3);
-    }))();
-  },
-  clearErrors: function clearErrors(_ref4) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-      var commit;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
-        while (1) {
-          switch (_context4.prev = _context4.next) {
-            case 0:
-              commit = _ref4.commit;
-              commit('unsetErrors');
-
-            case 2:
-            case "end":
-              return _context4.stop();
-          }
-        }
-      }, _callee4);
-    }))();
-  },
-  clearNotification: function clearNotification(_ref5) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-      var commit;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
-        while (1) {
-          switch (_context5.prev = _context5.next) {
-            case 0:
-              commit = _ref5.commit;
-              setTimeout(function () {
-                commit('unsetNotification', false);
-              }, 10000);
-
-            case 2:
             case "end":
               return _context5.stop();
           }
@@ -86254,32 +86468,111 @@ var actions = {
       }, _callee5);
     }))();
   },
-  clearSucceeded: function clearSucceeded(_ref6) {
+  editData: function editData(_ref6, _ref7) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
-      var commit;
+      var commit, data, id, api, config, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
               commit = _ref6.commit;
-              commit('setSucceeded', false);
+              data = _ref7.data, id = _ref7.id;
+              commit('setProgress', true);
+              api = '/api/driver/' + id;
+              config = {
+                headers: {
+                  'content-type': 'application/x-www-form-urlencoded'
+                }
+              };
+              _context6.next = 7;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(api, data, config).then(function (response) {
+                commit('setNotification', true);
+                commit('setSucceeded', true);
+                commit('setProgress', false);
+              })["catch"](function (error) {
+                var failure = error.response.data;
+                commit('setErrors', failure);
+                commit('setProgress', false);
+                setTimeout(function () {
+                  commit('setErrors', null);
+                }, 10000);
+              });
 
-            case 2:
+            case 7:
+              response = _context6.sent;
+
+            case 8:
             case "end":
               return _context6.stop();
           }
         }
       }, _callee6);
     }))();
+  },
+  clearErrors: function clearErrors(_ref8) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              commit = _ref8.commit;
+              commit('unsetErrors');
+
+            case 2:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7);
+    }))();
+  },
+  clearNotification: function clearNotification(_ref9) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              commit = _ref9.commit;
+              setTimeout(function () {
+                commit('unsetNotification', false);
+              }, 10000);
+
+            case 2:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      }, _callee8);
+    }))();
+  },
+  clearSucceeded: function clearSucceeded(_ref10) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              commit = _ref10.commit;
+              commit('setSucceeded', false);
+
+            case 2:
+            case "end":
+              return _context9.stop();
+          }
+        }
+      }, _callee9);
+    }))();
   }
 }; //Actions calibrace close
 
 var mutations = {
-  setDrivers: function setDrivers(state, drivers) {
-    return state.drivers = drivers;
+  setDatas: function setDatas(state, datas) {
+    return state.datas = datas;
   },
-  setDriver: function setDriver(state, driver) {
-    return state.driver = driver;
+  setData: function setData(state, data) {
+    return state.data = data;
   },
   setNotification: function setNotification(state, notification) {
     return state.notification = notification;
@@ -86301,6 +86594,21 @@ var mutations = {
   },
   setSucceeded: function setSucceeded(state, succeeded) {
     return state.succeeded = succeeded;
+  },
+  setNextPageURL: function setNextPageURL(state, next) {
+    return state.pagination.nextPageUrl = next;
+  },
+  setPrePageURL: function setPrePageURL(state, previous) {
+    return state.pagination.previousPageUrl = previous;
+  },
+  setToPage: function setToPage(state, to) {
+    return state.pagination.to = to;
+  },
+  setTotal: function setTotal(state, total) {
+    return state.pagination.total = total;
+  },
+  setSearch: function setSearch(state, searchResult) {
+    return state.searchResult = searchResult;
   }
 }; //Mutations calibrace close
 
@@ -86526,11 +86834,11 @@ var routes = [{
   name: 'add-driver',
   component: _Components_Driver_addDriver_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
 }, {
-  path: '/driver/:driver_id',
+  path: '/driver/:id',
   name: 'view-driver',
   component: _Components_Driver_viewDriver_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
 }, {
-  path: '/driver/:driver_id/edit',
+  path: '/driver/:id/edit',
   name: 'edit-driver',
   component: _Components_Driver_editDriver_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
 }, {

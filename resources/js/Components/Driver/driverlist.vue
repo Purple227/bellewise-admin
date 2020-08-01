@@ -12,9 +12,9 @@
 			<div class="card-content table-container"> <!-- Card content tag open -->
 
 
-<div class="notification purple-bg-light is-bold has-text-black" v-if="loadNotification">
-		Task Succeesful
-</div>
+				<div class="notification purple-bg-light is-bold has-text-black" v-if="loadNotification">
+					Task Succeesful
+				</div>
 
 
 
@@ -26,7 +26,7 @@
 						<div class="level-item">
 							<div class="field has-addons">
 								<p class="control">
-									<input class="input" type="text" placeholder=" Search Drivers">
+									<input class="input" type="text" placeholder=" Search Driver by ID" v-model="searchQuery" v-on:keyup="searchMethod">
 								</p>
 								<p class="control">
 									<button class="button purple-bg has-text-white">
@@ -43,9 +43,9 @@
 						<div class="tabs is-toggle level-item">
 							<ul>
 
-								<li>
+								<li v-on:click="refresh">
 									<a>
-										<span class="icon is-small"><i class="fas fa-sync-alt purple-color" aria-hidden="true"></i></span>
+										<span class="icon is-small"><i class="fas fa-sync-alt  purple-color" v-bind:class="{ 'fa-spin': spin }"aria-hidden="true"></i></span>
 										<span>  Refresh</span>
 									</a>
 								</li>
@@ -79,7 +79,7 @@
 
 					<tbody>
 
-						<tr v-for="driver in loadDrivers" :key="driver.driver_id">
+						<tr v-for="(driver, index) in searchQuery.length  > 1  ? loadSearch : loadDatas " :key="index"  >
 							<th> <span class="purple-color">  {{ driver.driver_id}}  </span> </th>
 							<td> {{ driver.name }} </td>
 							<td> {{ driver.email }} </td>
@@ -90,19 +90,43 @@
 							<td>  
 								<div class="field is-grouped">
 									<p class="control">
-										<router-link :to="{name: 'view-driver', params: {driver_id: driver.driver_id}}" class="button purple-color" exact>
+										<router-link :to="{name: 'view-driver', params: {id: driver.id}}" class="button purple-color" exact>
 											View
 										</router-link>
 									</p>
 									<p class="control">
-										<router-link :to="{name: 'edit-driver', params: {driver_id: driver.driver_id} }" class="button purple-color" exact>
+										<router-link :to="{name: 'edit-driver', params: {id: driver.id} }" class="button purple-color" exact>
 											Edit
 										</router-link>
 									</p>
-									<p class="control">
+									<p class="control" @click="showModal = true">
 										<button class="button purple-color">
 											Delete 
 										</button>
+
+										<!-- Delete modal option -->
+										<div class="modal is-active" v-if="showModal">
+											<div class="modal-background"></div>
+											<div class="modal-content">
+												<!-- Any other Bulma elements you want -->
+												<div class="card">
+													<div class="card-content has-text-centered">
+														<p class="subtitle is-bold">
+															Are you sure
+														</p>
+													</div>
+													<footer class="card-footer">
+														<p class="card-footer-item is-bold purple-color pointer" v-on:click="deleteData(driver.id)">
+															Delete
+														</p>
+														<p class="card-footer-item is-bold purple-color pointer" @click="showModal = false">
+															Cancel
+														</p>
+													</footer>
+												</div>							
+											</div>
+											<button class="modal-close is-large" aria-label="close" @click="showModal = false"></button>
+										</div>
 									</p>
 								</div>
 							</td>
@@ -117,7 +141,7 @@
 
 				<!-- Pagination section -->
 				<div class="buttons has-addons is-centered">
-					<a class="button">
+					<a class="button" v-if="loadPagination.previousPageUrl" @click="paginationHandler(loadPagination.previousPageUrl)">
 						<span class="icon is-small">
 							<i class="fas fa-arrow-left purple-color"></i>
 						</span>
@@ -127,11 +151,11 @@
 
 					<a class="button">
 
-						5 0f 6
+						{{ loadPagination.to}} 0f {{loadPagination.total}}
 					</a>
 
 
-					<a class="button">
+					<a class="button" v-if="loadPagination.nextPageUrl" @click="paginationHandler(loadPagination.nextPageUrl)">
 						<span class="icon is-small">
 							<i class="fas fa-arrow-right purple-color"></i>
 						</span>
@@ -158,23 +182,49 @@ import { mapGetters, mapActions, mapState } from 'vuex';
 export default {
 
 	data: () => ({
-      
+		spin: false,
+		showModal: false,
+		searchQuery: '',
 	}),
 
 	created() {
-		this.fetchDrivers()
+		this.fetchDatas()
 		this.clearSucceeded()
 		this.clearNotification()
 	},
 
 	methods: {
-		...mapActions(['fetchDrivers','clearSucceeded', 'clearNotification']),
+		...mapActions(['fetchDatas','clearSucceeded', 'clearNotification', 'destroyData', 'searchDatas']),
+		// Local method
+		refresh() {
+			this.spin = true
+			this.fetchDatas().then(() => this.spin = false)
+			this.searchQuery = ""
+			this.searchDatas(this.searchQuery)
+		},
+
+		deleteData(id) {
+			this.destroyData(id)
+			this.fetchDatas()
+			this.showModal = false
+		},
+
+		paginationHandler(uri) {
+			this.fetchDatas(uri)
+		},
+
+		searchMethod() {
+			if(this.searchQuery > 1) {
+				this.searchDatas(this.searchQuery)
+			}
+		},
+
 
 	},
 
 
 	computed: {
-		...mapGetters(['loadDrivers', 'loadLoading', 'loadNotification']),
+		...mapGetters(['loadDatas', 'loadLoading', 'loadNotification', 'loadPagination', 'loadSearch']),
 
     // Local computed properties
 

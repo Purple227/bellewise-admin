@@ -11,6 +11,7 @@ export default {
      dropDown: false,
      notification: false,
      sidebar: false,
+     spin: false,
    }
  },
 
@@ -27,12 +28,8 @@ export default {
 
   away: function() {
     this.isActive = false;
-      setTimeout(() => { // Timeout calibrace open 
-        this.sidebar = false;
- }, 5000) // Timeout calibrace close
-
-    },
-
   },
+
+},
 
 }

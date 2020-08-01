@@ -179,7 +179,6 @@ export default {
 			name: null,
 			email: null,
 			phone: null,
-			ID: null,
 			occupation: null,
 			imageName: null,
 			imageFile: "",
@@ -212,8 +211,9 @@ export default {
 
 
 	methods: {
-		...mapActions(["createDriver", "clearErrors"]),
+		...mapActions(["createData", "clearErrors"]),
 
+		// Local method goes here
 
 		fileUpload(e) {
 			this.driver.imageName = e.target.files[0].name
@@ -221,15 +221,16 @@ export default {
 		},
 
 		submitForm() {
-			let driver = new FormData();
-			driver.append("_method", "post");
-			driver.append('name', this.driver.name);
-			driver.append('phone', this.driver.phone);
-			driver.append('occupation', this.driver.occupation);
-			driver.append('file', this.driver.imageFile);
-			driver.append('email', this.driver.email);
 			
-			this.createDriver(driver);
+			let data = new FormData();
+			data.append("_method", "post");
+			data.append('name', this.driver.name);
+			data.append('phone', this.driver.phone);
+			data.append('occupation', this.driver.occupation);
+			data.append('file', this.driver.imageFile);
+			data.append('email', this.driver.email);
+			
+			this.createData(data);
 
 			setTimeout(() => {
 				if (this.loadSucceeded == true) {

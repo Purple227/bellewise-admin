@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 
 
  Route::patch('driver/{status}', 'DriverController@statusUpdate');
+ Route::get('/driver/search', 'DriverController@search');
 
 Route::apiResources([
     'driver' => 'DriverController',

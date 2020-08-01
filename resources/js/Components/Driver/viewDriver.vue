@@ -33,7 +33,7 @@
 					<div class="center">
 						<div class="content">
 							<figure class="image is-256x256">
-								<img class="is-rounded" src="/images/default_image.svg" v-if="loadDriver.image == 'default_image.svg'">
+								<img class="is-rounded" src="/images/default_image.svg" v-if="loadData.image == 'default_image.svg'">
 								<img class="is-rounded" :src="imagePath" v-else>
 							</figure>
 
@@ -48,11 +48,13 @@
 
 					<div class="content">
 						<hr class="is-paddingless">
-						<p class="subtitle is-bold"> {{ loadDriver.name }} </p>
+						<p class="subtitle is-bold"> {{ loadData.name }} </p>
 						<hr class="is-paddingless">
-						<p class="subtitle "> {{ loadDriver.email }} </p>
+						<p class="subtitle "> {{ loadData.email }} </p>
 						<hr class="is-paddingless">
-						<p class="subtitle "> {{ loadDriver.phone }} </p>
+						<p class="subtitle "> {{ loadData.phone }} </p>
+						<hr class="is-paddingless">
+						<p class="subtitle "> {{ loadData.occupation }} </p>
 						<hr class="is-paddingless">
 					</div>
 
@@ -63,9 +65,8 @@
 
 
 			<div class="buttons is-centered">
-				<button class="button purple-color is-bold">ID {{ loadDriver.driver_id }} </button>
-				<button class="button purple-color is-bold">Delivery {{ loadDriver.total_delivery }} </button>
-				<button class="button purple-color is-bold"> {{ loadDriver.occupation }} </button>
+				<button class="button purple-color is-bold">ID: {{ loadData.driver_id }} </button>
+				<button class="button purple-color is-bold">Delivery: {{ loadData.total_delivery }} </button>
 			</div>
 			
 
@@ -87,31 +88,31 @@ export default {
 	}),
 
 	created() {
-		this.fetchDriver()
-		this.setDriverId()
+		this.fetchData()
+		this.setId()
 	},
 
 	methods: {
-		...mapActions(['fetchDriver']),
+		...mapActions(['fetchData']),
 
 			//+ this.$route.params.slug
 
-			setDriverId() {
-				let driverId = this.$route.params.driver_id
-				this.fetchDriver(driverId)
+			setId() {
+				let id = this.$route.params.id
+				this.fetchData(id)
 			},
 
 		},
 
 
 		computed: {
-			...mapGetters(['loadDriver', 'loadLoading']),
+			...mapGetters(['loadData', 'loadLoading']),
 
     // Local computed properties
 
     imagePath () {
     	let LaravelImageDefaultPath = '/Storage/'
-    	let imageName = this.$store.getters.loadDriver.image
+    	let imageName = this.$store.getters.loadData.image
     	let completedPath = LaravelImageDefaultPath + imageName 
     	return completedPath
     }

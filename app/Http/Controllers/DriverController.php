@@ -20,9 +20,19 @@ class DriverController extends Controller
     public function index()
     {
 
-        $drivers = Driver::all();
-        return $drivers;
+        $drivers = Driver::orderBy('id', 'desc')->paginate(5);
+        return response()->json($drivers);
     }
+
+    public function search(Request $request)
+    {
+        $search_query = $request->search_query;
+        $data = Driver::where('driver_id','LIKE',"%$search_query%")
+        ->take(5)
+        ->get();
+        return response()->json($data);
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -65,9 +75,6 @@ class DriverController extends Controller
         $driver->email = $request->email;
         $driver->password = Hash::make($generated_password);
         $driver->save();
-
-        return "success";
-
     }
 
     /**
@@ -76,9 +83,9 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($driver_id)
+    public function show($id)
     {
-        $driver = Driver::where('driver_id',$driver_id)->first();
+        $driver = Driver::find($id);
         return response()->json($driver);
     }
 
@@ -89,17 +96,15 @@ class DriverController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $driver_id)
+    public function update(Request $request, $id)
     {
-        $driver = Driver::where('driver_id',$driver_id)->first();
-
+        $driver = Driver::find($id);
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'phone' => 'required',
             'occupation' => 'required',
-            'email' => ['email:rfc,dns', 'unique:drivers'],
-            'file' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -108,6 +113,7 @@ class DriverController extends Controller
 
         // Image set up
         if ( $request->hasFile('file') ) {
+            Storage::disk('public')->delete($driver->image);
             $path = Storage::disk('public')->putFile('driver',$request->file('file'));
             $driver->image = $path;
         }
@@ -116,18 +122,8 @@ class DriverController extends Controller
         $driver->name = $request->name;
         $driver->phone = $request->phone;
         $driver->occupation = $request->occupation;
-        $driver->email = $request->email;
         $driver->save();
 
-        return "success";
-
-
-
-
-
-
-
-        return response()->json($driver);
     }
 
     public function statusUpdate(Request $request, $id)
@@ -144,6 +140,8 @@ class DriverController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $driver = Driver::findOrFail($id);
+        Storage::disk('public')->delete($driver->image);
+        $driver->delete();
     }
 }
