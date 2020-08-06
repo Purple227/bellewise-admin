@@ -3602,8 +3602,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.driver.imageFile = e.target.files[0];
     },
     submitForm: function submitForm() {
-      var _this = this;
-
       var data = new FormData();
       data.append("_method", "post");
       data.append('name', this.driver.name);
@@ -3612,14 +3610,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       data.append('file', this.driver.imageFile);
       data.append('email', this.driver.email);
       this.createData(data);
-      console.log(this.loadSucceeded);
-      setTimeout(function () {
-        if (_this.loadSucceeded == true) {
-          _this.$router.push({
-            name: 'driver-list'
-          });
-        }
-      }, 800);
+      var changeRoute = this.loadSucceeded ? '' : this.$router.push({
+        name: 'driver-list'
+      });
     }
   }),
   // Method calibrace close
@@ -3837,8 +3830,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.imageFile = e.target.files[0];
     },
     submitForm: function submitForm() {
-      var _this = this;
-
       var data = new FormData();
       data.append("_method", "put");
       data.append('name', this.$store.getters.loadSingleData.name);
@@ -3850,13 +3841,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         data: data,
         id: id
       });
-      setTimeout(function () {
-        if (_this.loadSucceeded == true) {
-          _this.$router.push({
-            name: 'driver-list'
-          });
-        }
-      }, 2000);
+      var changeRoute = this.loadSucceeded ? '' : this.$router.push({
+        name: 'driver-list'
+      });
     }
   }),
   // Method calibrace close
@@ -52135,10 +52122,10 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "card-content" }, [
-      _c("div", { staticClass: "content is-bold" }, [
-        _vm._v(
-          "\n\n   No driver found. Add a driver by tapping the add driver button by the right.\n         \n    "
-        )
+      _c("div", { staticClass: "content is-bold has-text-centered subtitle" }, [
+        _c("span", { staticClass: "fa" }, [
+          _vm._v(" No driver found. Add a driver instead. ")
+        ])
       ])
     ])
   }
@@ -87367,7 +87354,7 @@ var state = {
   loading: true,
   progress: null,
   errors: null,
-  succeeded: null,
+  succeeded: false,
   blockedDatas: null,
   searchResult: null,
   pagination: {
@@ -87570,7 +87557,7 @@ var actions = {
               _context6.next = 5;
               return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/driver', data, config).then(function (response) {
                 commit('setNotification', true);
-                commit('setSucceeded');
+                commit('setSucceeded', true);
                 commit('setProgress', false);
               })["catch"](function (error) {
                 var failure = error.response.data;
@@ -87747,7 +87734,7 @@ var mutations = {
     return state.errors = null;
   },
   setSucceeded: function setSucceeded(state, succeeded) {
-    return state.succeeded = true;
+    return state.succeeded = succeeded;
   },
   setNextPageURL: function setNextPageURL(state, next) {
     return state.pagination.nextPageUrl = next;

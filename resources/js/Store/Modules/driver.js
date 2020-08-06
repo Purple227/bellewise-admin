@@ -12,7 +12,7 @@ const state = {
 	loading: true,
 	progress: null,
 	errors: null,
-	succeeded: null,
+	succeeded: false,
 	blockedDatas: null,
 
 	searchResult: null,
@@ -107,7 +107,7 @@ const actions = {
 		const response = await axios.post('/api/driver', data, config )
 		.then((response) => {
 			commit('setNotification', true)
-			commit('setSucceeded')
+			commit('setSucceeded', true)
 			commit('setProgress', false)
 		}).catch(error=>{
 			let failure = error.response.data
@@ -184,7 +184,7 @@ const mutations = {
 	setErrors: (state, errors) => state.errors = errors,
 	unsetErrors: (state, errors) => state.errors = null,
 
-	setSucceeded: (state, succeeded) => state.succeeded = true,
+	setSucceeded: (state, succeeded) => state.succeeded = succeeded,
 
 	setNextPageURL: (state, next) => state.pagination.nextPageUrl = next,
 	setPrePageURL: (state, previous) => state.pagination.previousPageUrl = previous,

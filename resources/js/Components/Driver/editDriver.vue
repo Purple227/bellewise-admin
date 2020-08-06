@@ -219,11 +219,7 @@ export default {
 
 				this.editData( {data, id} );
 
-				setTimeout(() => {
-					if (this.loadSucceeded == true) {
-						this.$router.push({name:'driver-list'})
-					}
-				}, 2000)
+				let changeRoute = this.loadSucceeded ? '': this.$router.push({name:'driver-list'})
 
 			},
 

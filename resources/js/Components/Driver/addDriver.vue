@@ -239,12 +239,7 @@ export default {
 
 			this.createData(data)
 
-			console.log(this.loadSucceeded)
-				setTimeout(() => {
-					if (this.loadSucceeded == true) {
-						this.$router.push({name:'driver-list'})
-					}
-				}, 800)
+			let changeRoute = this.loadSucceeded ? '': this.$router.push({name:'driver-list'})
 
 		},
 

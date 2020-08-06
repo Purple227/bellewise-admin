@@ -165,10 +165,10 @@
 
 <div class="card" v-if="loadDatas.length <= 0">
   <div class="card-content">
-    <div class="content is-bold">
+    <div class="content is-bold has-text-centered subtitle">
 
-   No driver found. Add a driver by tapping the add driver button by the right.
-         
+  <span class="fa"> No driver found. Add a driver instead. </span>
+
     </div>
   </div>
 </div>
