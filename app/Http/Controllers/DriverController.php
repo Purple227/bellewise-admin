@@ -71,8 +71,13 @@ class DriverController extends Controller
         unset($notify_info['file']);
         $notify_info = (object) $notify_info;
 
-        Notification::route('nexmo', $request->phone )
-        ->notify(new DriverCredentials($notify_info, $generated_password, $driver_id));
+        try {
+            Notification::route('nexmo', $request->phone )
+            ->notify(new DriverCredentials($notify_info, $generated_password, $driver_id));
+        } catch (\Exception $e) {
+            Log::error(' Nexmo API developer are to be blame.');
+        }
+
 
         Notification::route('mail',$request->email)
         ->notify(new DriverCredentials( $notify_info, $generated_password, $driver_id ));
