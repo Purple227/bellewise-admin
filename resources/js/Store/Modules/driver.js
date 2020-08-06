@@ -13,6 +13,7 @@ const state = {
 	progress: null,
 	errors: null,
 	succeeded: null,
+	blockedDatas: null,
 
 	searchResult: null,
 
@@ -28,14 +29,15 @@ const state = {
 const getters = {
 
 	loadDatas: (state) => state.datas,
-	loadData: (state) => state.data,
+	loadSingleData: (state) => state.data,
 	loadLoading: (state) => state.loading,
 	loadProgress: (state) => state.progress,
 	loadNotification: (state) => state.notification,
 	loadErrors: (state) => state.errors,
 	loadSucceeded: (state) => state.succeeded,
 	loadPagination: (state) => state.pagination,
-	loadSearch: (state) => state.searchResult
+	loadSearch: (state) => state.searchResult,
+	loadBlockedDatas: (state) => state.blockedDatas
 
 }; //Getters calibrace close
 
@@ -59,12 +61,29 @@ const actions = {
 
 	},
 
+	async fetchBlockedDatas({commit}, uri) {
+		commit('setLoading', true)
+		let api = uri ||'/api/driver/blocked'
+		const response = await axios.get(api);
+		commit('setBlockedDatas', response.data.data)
+		commit('setLoading', false)
 
-	async fetchData({commit}, id) {
+		let nextPageUrl = response.data.next_page_url
+		commit('setNextPageURL', nextPageUrl ? nextPageUrl.slice(21) : null)
+
+		let previousPageUrl = response.data.prev_page_url
+		commit('setPrePageURL', previousPageUrl ? previousPageUrl.slice(21) : null)
+
+		commit('setToPage', response.data.to)
+		commit('setTotal', response.data.total)
+	},
+
+
+	async fetchSingleData({commit}, id) {
 		commit('setLoading', true)
 		let api = '/api/driver/' + id
 		const response = await axios.get(api);
-		commit('setData', response.data)
+		commit('setSingleData', response.data)
 		commit('setLoading', false)
 	},
 
@@ -88,7 +107,7 @@ const actions = {
 		const response = await axios.post('/api/driver', data, config )
 		.then((response) => {
 			commit('setNotification', true)
-			commit('setSucceeded', true)
+			commit('setSucceeded')
 			commit('setProgress', false)
 		}).catch(error=>{
 			let failure = error.response.data
@@ -124,6 +143,15 @@ const actions = {
 
 	},
 
+	async updateStatus({commit}, {id, status}) {
+		commit('setLoading', true)
+		console.log(status)
+		let api = '/api/driver/' + id
+		const response = await axios.patch(api, {status:status})
+		commit('setLoading', false)
+		commit('setNotification', true)
+	},
+
 
 	async clearErrors ({commit}) {
 		commit('unsetErrors')
@@ -144,7 +172,7 @@ const actions = {
 const mutations = {
 
 	setDatas: (state, datas) => state.datas = datas,
-	setData: (state, data) => state.data = data,
+	setSingleData: (state, data) => state.data = data,
 
 	setNotification: (state, notification) => state.notification = notification,
 	unsetNotification: (state, notification) => state.notification = notification,
@@ -156,14 +184,16 @@ const mutations = {
 	setErrors: (state, errors) => state.errors = errors,
 	unsetErrors: (state, errors) => state.errors = null,
 
-	setSucceeded: (state, succeeded) => state.succeeded = succeeded,
+	setSucceeded: (state, succeeded) => state.succeeded = true,
 
 	setNextPageURL: (state, next) => state.pagination.nextPageUrl = next,
 	setPrePageURL: (state, previous) => state.pagination.previousPageUrl = previous,
 	setToPage: (state, to) => state.pagination.to = to,
 	setTotal: (state, total) => state.pagination.total = total,
 
-	setSearch: (state, searchResult) => state.searchResult = searchResult
+	setSearch: (state, searchResult) => state.searchResult = searchResult,
+
+	setBlockedDatas: (state, blockedDatas) => state.blockedDatas = blockedDatas
 
 
 }; //Mutations calibrace close

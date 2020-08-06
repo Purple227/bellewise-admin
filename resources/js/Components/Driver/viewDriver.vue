@@ -3,7 +3,7 @@
 
 	<div class="container"> <!-- Container tag open -->
 
-		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadLoading }"><span class="title"> Loading Bellewise</span></div>
+		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadLoading }"><span class="title"> Bellewise Loading</span></div>
 
 		<!-- Main container -->
 		<nav class="level">
@@ -33,7 +33,7 @@
 					<div class="center">
 						<div class="content">
 							<figure class="image is-256x256">
-								<img class="is-rounded" src="/images/default_image.svg" v-if="loadData.image == 'default_image.svg'">
+								<img class="is-rounded" src="/images/default_image.svg" v-if="loadSingleData.image > 25 ">
 								<img class="is-rounded" :src="imagePath" v-else>
 							</figure>
 
@@ -48,13 +48,13 @@
 
 					<div class="content">
 						<hr class="is-paddingless">
-						<p class="subtitle is-bold"> {{ loadData.name }} </p>
+						<p class="subtitle is-bold"> {{ loadSingleData.name }} </p>
 						<hr class="is-paddingless">
-						<p class="subtitle "> {{ loadData.email }} </p>
+						<p class="subtitle "> {{ loadSingleData.email }} </p>
 						<hr class="is-paddingless">
-						<p class="subtitle "> {{ loadData.phone }} </p>
+						<p class="subtitle "> {{ loadSingleData.phone }} </p>
 						<hr class="is-paddingless">
-						<p class="subtitle "> {{ loadData.occupation }} </p>
+						<p class="subtitle "> {{ loadSingleData.occupation }} </p>
 						<hr class="is-paddingless">
 					</div>
 
@@ -65,8 +65,8 @@
 
 
 			<div class="buttons is-centered">
-				<button class="button purple-color is-bold">ID: {{ loadData.driver_id }} </button>
-				<button class="button purple-color is-bold">Delivery: {{ loadData.total_delivery }} </button>
+				<button class="button purple-color is-bold">ID: {{ loadSingleData.driver_id }} </button>
+				<button class="button purple-color is-bold">Delivery: {{ loadSingleData.total_delivery }} </button>
 			</div>
 			
 
@@ -88,31 +88,31 @@ export default {
 	}),
 
 	created() {
-		this.fetchData()
+		this.fetchSingleData()
 		this.setId()
 	},
 
 	methods: {
-		...mapActions(['fetchData']),
+		...mapActions(['fetchSingleData']),
 
 			//+ this.$route.params.slug
 
 			setId() {
 				let id = this.$route.params.id
-				this.fetchData(id)
+				this.fetchSingleData(id)
 			},
 
 		},
 
 
 		computed: {
-			...mapGetters(['loadData', 'loadLoading']),
+			...mapGetters(['loadSingleData', 'loadLoading']),
 
     // Local computed properties
 
     imagePath () {
     	let LaravelImageDefaultPath = '/Storage/'
-    	let imageName = this.$store.getters.loadData.image
+    	let imageName = this.$store.getters.loadSingleData.image
     	let completedPath = LaravelImageDefaultPath + imageName 
     	return completedPath
     }

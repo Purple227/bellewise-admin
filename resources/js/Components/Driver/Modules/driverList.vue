@@ -1,9 +1,6 @@
+	<template>
 
-
-<template>
-
-
-	<div class="container"> <!-- Container tag open -->
+		<div> <!-- Root element tag open -->
 
 		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadLoading }"><span class="title"> Loading Bellewise </span></div>
 
@@ -11,12 +8,9 @@
 
 			<div class="card-content table-container"> <!-- Card content tag open -->
 
-
 				<div class="notification purple-bg-light is-bold has-text-black" v-if="loadNotification">
 					Task Succeesful
 				</div>
-
-
 
 				<!-- Main container -->
 				<nav class="level">
@@ -62,7 +56,7 @@
 				</nav>
 
 
-				<table class="table is-bordered is-striped is-hoverable"> <!-- Table tag open -->
+				<table class="table is-bordered is-striped is-hoverable" v-if="loadDatas.length >= 1"> <!-- Table tag open -->
 
 					<thead>
 						<tr>
@@ -79,14 +73,14 @@
 
 					<tbody>
 
-						<tr v-for="(driver, index) in searchQuery.length  > 1  ? loadSearch : loadDatas " :key="index"  >
+						<tr v-for="(driver, index) in searchQuery.length  > 1  ? loadSearch : loadDatas " :key="index">
 							<th> <span class="purple-color">  {{ driver.driver_id}}  </span> </th>
-							<td> {{ driver.name }} </td>
-							<td> {{ driver.email }} </td>
+							<td> {{ driver.name.substring(0,6) }} </td>
+							<td> {{ driver.email.substring(0,10) }} </td>
 							<td> {{ driver.phone }} </td>
-							<td> {{ driver.occupation }} </td>
+							<td> {{ driver.occupation.substring(0,6) }} </td>
 							<td class="has-text-centered"> {{ driver.total_delivery}} </td>
-							<td class="has-text-centered"> <input type="checkbox"> </td>
+							<td class="has-text-centered"> <input type="checkbox" @change="[driver.status = !driver.status, statusMethod(driver.id, driver.status)]" :checked="driver.status == 1 ? true : false"> </td>
 							<td>  
 								<div class="field is-grouped">
 									<p class="control">
@@ -137,10 +131,8 @@
 				</table> <!-- Table tag close -->
 
 
-
-
 				<!-- Pagination section -->
-				<div class="buttons has-addons is-centered">
+				<div class="buttons has-addons is-centered" v-if="loadDatas.length >= 1">
 					<a class="button" v-if="loadPagination.previousPageUrl" @click="paginationHandler(loadPagination.previousPageUrl)">
 						<span class="icon is-small">
 							<i class="fas fa-arrow-left purple-color"></i>
@@ -165,16 +157,28 @@
 				</div>
 
 
-
-
 			</div> <!-- Card content tag open -->
 
 
 		</div> <!-- Card tag close -->
 
-	</div> <!-- Container tag close -->
 
-</template>
+<div class="card" v-if="loadDatas.length <= 0">
+  <div class="card-content">
+    <div class="content is-bold">
+
+   No driver found. Add a driver by tapping the add driver button by the right.
+         
+    </div>
+  </div>
+</div>
+
+
+
+	</div> <!-- Root element tag open -->
+
+	</template>
+
 
 <script>
 import { mapGetters, mapActions, mapState } from 'vuex';
@@ -194,7 +198,7 @@ export default {
 	},
 
 	methods: {
-		...mapActions(['fetchDatas','clearSucceeded', 'clearNotification', 'destroyData', 'searchDatas']),
+		...mapActions(['fetchDatas','clearSucceeded', 'clearNotification', 'destroyData', 'searchDatas', 'updateStatus']),
 		// Local method
 		refresh() {
 			this.spin = true
@@ -219,6 +223,9 @@ export default {
 			}
 		},
 
+		statusMethod(id,status) {
+			this.updateStatus({id, status})
+		},
 
 	},
 

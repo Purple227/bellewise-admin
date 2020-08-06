@@ -8,7 +8,7 @@ import ListRestaurant from './Components/Restaurant/listRestaurant.vue';
 import AddRestaurant from './Components/Restaurant/addRestaurant.vue';
 import ViewRestaurant from './Components/Restaurant/viewRestaurant.vue';
 
-import DriverList from './Components/Driver/driverList.vue';
+import Driver from './Components/Driver/index.vue';
 import AddDriver from './Components/Driver/addDriver.vue';
 import ViewDriver from './Components/Driver/viewDriver.vue';
 import EditDriver from './Components/Driver/editDriver.vue';
@@ -72,7 +72,7 @@ component: ViewRestaurant
 { 
 path: '/drivers',
 name:'driver-list',
-component: DriverList
+component: Driver
 },
 
 { 

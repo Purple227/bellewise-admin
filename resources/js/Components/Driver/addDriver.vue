@@ -61,17 +61,28 @@
 							</div>
 						</div>
 
-						<div class="field">
-							<label class="label"> Driver Phone <span class="has-text-danger"> * </span> </label>
-							<div class="control has-icons-left has-icons-right">
-								<input class="input is-info" type="tel" minlength="11" maxlength="14" placeholder="Number input" v-model.number="driver.phone" required>
+						<div class="field has-addons mt-6">
+							<p class="control">
+								<span class="select">
+									<select>
+										<option> +234 </option>
+									</select>
+								</span>
+							</p>
+							<p class="control is-expanded has-icons-left">
+								<input class="input is-info" type="tel" minlength="10" maxlength="14" placeholder="Number input" v-model.number="driver.phone" required>
+
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-phone purple-color"></i>
 								</span>
-							</div>
+							</p>
+							<p class="control">
+								<a class="button is-bold">
+									Phone
+								</a>
+							</p>
 						</div>
-
 
 						<div class="field">
 							<label class="label">Driver Occupation <span class="has-text-danger"> * </span>  </label>
@@ -91,12 +102,7 @@
 							</div>
 						</div>
 
-
-
-
 					</div> <!-- First column tag close -->
-
-
 
 					<div class="column"> <!-- Second column tag open-->
 
@@ -182,6 +188,7 @@ export default {
 			occupation: null,
 			imageName: null,
 			imageFile: "",
+			countryCode: '+234',
 		},
 
 	}),
@@ -225,18 +232,19 @@ export default {
 			let data = new FormData();
 			data.append("_method", "post");
 			data.append('name', this.driver.name);
-			data.append('phone', this.driver.phone);
+			data.append('phone', this.driver.countryCode + this.driver.phone);
 			data.append('occupation', this.driver.occupation);
 			data.append('file', this.driver.imageFile);
 			data.append('email', this.driver.email);
-			
-			this.createData(data);
 
-			setTimeout(() => {
-				if (this.loadSucceeded == true) {
-					this.$router.push({name:'driver-list'})
-				}
-			}, 2000)
+			this.createData(data)
+
+			console.log(this.loadSucceeded)
+				setTimeout(() => {
+					if (this.loadSucceeded == true) {
+						this.$router.push({name:'driver-list'})
+					}
+				}, 800)
 
 		},
 
@@ -247,6 +255,8 @@ export default {
 		...mapGetters(['loadProgress', 'loadErrors', 'loadSucceeded']),
 
     // Local computed properties
+
+
 
 },
 

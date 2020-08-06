@@ -8,6 +8,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
+use App\Notifications\DriverCredentials;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Log;
 
 
 class DriverController extends Controller
@@ -33,6 +36,12 @@ class DriverController extends Controller
         return response()->json($data);
     }
 
+    public function blocked()
+    {
+        $drivers = Driver::where('status', 0)
+        ->paginate(5);
+        return response()->json($drivers);
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -45,7 +54,7 @@ class DriverController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'phone' => 'required',
+            'phone' => ['required', 'unique:drivers'],
             'occupation' => 'required',
             'email' => ['email:rfc,dns', 'unique:drivers'],
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -54,6 +63,20 @@ class DriverController extends Controller
         if ($validator->fails()) {
             return response()->json($validator->errors(), 400);
         }
+
+        $generated_password = mt_rand(100000, 999999);
+        $driver_id = mt_rand(100000, 999999);
+
+        $notify_info = $request->all();
+        unset($notify_info['file']);
+        $notify_info = (object) $notify_info;
+
+        Notification::route('nexmo', $request->phone )
+        ->notify(new DriverCredentials($notify_info, $generated_password, $driver_id));
+
+        Notification::route('mail',$request->email)
+        ->notify(new DriverCredentials( $notify_info, $generated_password, $driver_id ));
+
 
         // New driver object
         $driver = new Driver;
@@ -64,10 +87,8 @@ class DriverController extends Controller
             $driver->image = $path;
         }
 
-        $generated_password = mt_rand(100000, 999999);
-        $driver_id = mt_rand(100000, 999999);
-
         // Save to database
+
         $driver->driver_id = $driver_id;
         $driver->name = $request->name;
         $driver->phone = $request->phone;
@@ -75,6 +96,9 @@ class DriverController extends Controller
         $driver->email = $request->email;
         $driver->password = Hash::make($generated_password);
         $driver->save();
+
+        return 'Suceess';
+
     }
 
     /**
@@ -102,7 +126,7 @@ class DriverController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'phone' => 'required',
+            'phone' => ['required', 'unique:drivers'],
             'occupation' => 'required',
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -112,6 +136,7 @@ class DriverController extends Controller
         }
 
         // Image set up
+        $driver->image = 'default_image.svg';
         if ( $request->hasFile('file') ) {
             Storage::disk('public')->delete($driver->image);
             $path = Storage::disk('public')->putFile('driver',$request->file('file'));
@@ -128,7 +153,9 @@ class DriverController extends Controller
 
     public function statusUpdate(Request $request, $id)
     {
-        //
+        $driver = Driver::find($id);
+        $driver->status = $request->status;
+        $driver->save();
     }
 
 

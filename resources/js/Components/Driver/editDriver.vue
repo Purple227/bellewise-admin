@@ -38,8 +38,6 @@
 
 			<form v-on:submit.prevent="submitForm"> <!-- Form tag open -->
 
-
-
 				<div class="columns"> <!-- Columns wrapper tag open -->
 
 					<div class="column"> <!-- First column tag open-->
@@ -48,13 +46,13 @@
 						<div class="field">
 							<label class="label">Driver Name <span class="has-text-danger"> * </span>  </label>
 							<div class="control has-icons-left has-icons-right">
-								<input class="input is-info" type="text" v-model.trim="loadData.name"  required autofocus>
+								<input class="input is-info" type="text" v-model.trim="loadSingleData.name"  required autofocus>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-truck purple-color"></i>
 								</span>
 								<!-- Has icon right -->
-								<span class="icon is-small is-right" v-if="$v.loadData.name.required">
+								<span class="icon is-small is-right" v-if="$v.loadSingleData.name.required">
 									<i class="fas fa-check purple-color"></i>
 								</span>
 								<span class="icon is-small is-right" v-else>
@@ -66,13 +64,13 @@
 						<div class="field">
 							<label class="label"> Driver Phone <span class="has-text-danger"> * </span> </label>
 							<div class="control has-icons-left has-icons-right">
-								<input class="input is-info" type="tel" minlength="11" maxlength="14" v-model.number="loadData.phone" required>
+								<input class="input is-info" type="tel" minlength="11" maxlength="14" v-model.number="loadSingleData.phone" required>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-phone purple-color"></i>
 								</span>
 								<!-- Has icon right -->
-								<span class="icon is-small is-right" v-if="$v.loadData.phone.required">
+								<span class="icon is-small is-right" v-if="$v.loadSingleData.phone.required">
 									<i class="fas fa-check purple-color"></i>
 								</span>
 								<span class="icon is-small is-right" v-else>
@@ -89,13 +87,13 @@
 						<div class="field">
 							<label class="label">Driver Occupation <span class="has-text-danger"> * </span>  </label>
 							<div class="control has-icons-left has-icons-right">
-								<input class="input is-info" type="text" v-model.trim="loadData.occupation"  required autofocus>
+								<input class="input is-info" type="text" v-model.trim="loadSingleData.occupation"  required autofocus>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-briefcase purple-color"></i>
 								</span>
 								<!-- Has icon right -->
-								<span class="icon is-small is-right" v-if="$v.loadData.occupation.required">
+								<span class="icon is-small is-right" v-if="$v.loadSingleData.occupation.required">
 									<i class="fas fa-check purple-color"></i>
 								</span>
 								<span class="icon is-small is-right" v-else>
@@ -166,7 +164,7 @@ export default {
 
 	validations: { //Validation calibrace open 
 
-		loadData: {
+		loadSingleData: {
 
 			name: {
 				required
@@ -190,18 +188,17 @@ export default {
 	}, //Validation calibrace close 
 
 	created() {
-		this.fetchData()
 		this.setId()
 	},
 
 	methods: {
-		...mapActions(['fetchData', 'clearErrors', 'editData']),
+		...mapActions(['fetchSingleData', 'clearErrors', 'editData']),
 
 			// Local methods goes here
 
 			setId() {
 				let id = this.$route.params.id
-				this.fetchData(id)
+				this.fetchSingleData(id)
 			},
 
 
@@ -213,9 +210,9 @@ export default {
 			submitForm() {
 				let data = new FormData();
 				data.append("_method", "put");
-				data.append('name', this.$store.getters.loadData.name);
-				data.append('phone', this.$store.getters.loadData.phone);
-				data.append('occupation', this.$store.getters.loadData.occupation);
+				data.append('name', this.$store.getters.loadSingleData.name);
+				data.append('phone', this.$store.getters.loadSingleData.phone);
+				data.append('occupation', this.$store.getters.loadSingleData.occupation);
 				data.append('file', this.imageFile);
 
 				let id = this.$route.params.id
@@ -235,7 +232,7 @@ export default {
 
 
 		computed: {
-			...mapGetters(['loadData', 'loadLoading', 'loadProgress', 'loadSucceeded', 'loadErrors']),
+			...mapGetters(['loadSingleData', 'loadLoading', 'loadProgress', 'loadSucceeded', 'loadErrors']),
 
 
 		},
