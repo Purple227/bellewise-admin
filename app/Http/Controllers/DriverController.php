@@ -131,7 +131,6 @@ class DriverController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required',
-            'phone' => ['required', 'unique:drivers'],
             'occupation' => 'required',
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
@@ -150,7 +149,6 @@ class DriverController extends Controller
 
         // Save to database
         $driver->name = $request->name;
-        $driver->phone = $request->phone;
         $driver->occupation = $request->occupation;
         $driver->save();
 

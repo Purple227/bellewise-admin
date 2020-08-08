@@ -32,3 +32,5 @@ const app = new Vue({
 }).$mount('#app')
 
 // Now the app has started!
+
+export { app }

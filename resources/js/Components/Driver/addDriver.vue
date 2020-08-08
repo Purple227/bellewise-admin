@@ -239,7 +239,6 @@ export default {
 
 			this.createData(data)
 
-			let changeRoute = this.loadSucceeded ? '': this.$router.push({name:'driver-list'})
 
 		},
 

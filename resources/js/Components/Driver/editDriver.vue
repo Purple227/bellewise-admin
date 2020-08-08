@@ -62,29 +62,6 @@
 						</div>
 
 						<div class="field">
-							<label class="label"> Driver Phone <span class="has-text-danger"> * </span> </label>
-							<div class="control has-icons-left has-icons-right">
-								<input class="input is-info" type="tel" minlength="11" maxlength="14" v-model.number="loadSingleData.phone" required>
-								<!-- Has icon left -->
-								<span class="icon is-small is-left">
-									<i class="fas fa-phone purple-color"></i>
-								</span>
-								<!-- Has icon right -->
-								<span class="icon is-small is-right" v-if="$v.loadSingleData.phone.required">
-									<i class="fas fa-check purple-color"></i>
-								</span>
-								<span class="icon is-small is-right" v-else>
-									<i class="fas fa-exclamation-triangle has-text-danger"></i>
-								</span>
-							</div>
-						</div>
-
-					</div> <!-- First column tag close -->
-
-
-					<div class="column"> <!-- Second column tag open-->
-
-						<div class="field">
 							<label class="label">Driver Occupation <span class="has-text-danger"> * </span>  </label>
 							<div class="control has-icons-left has-icons-right">
 								<input class="input is-info" type="text" v-model.trim="loadSingleData.occupation"  required autofocus>
@@ -102,8 +79,13 @@
 							</div>
 						</div>
 
+					</div> <!-- First column tag close -->
 
-						<div class="field mt-6">
+
+					<div class="column"> <!-- Second column tag open-->
+
+
+						<div class="field" style="margin-top: 30px;">
 							<div class="file has-name">
 								<label class="file-label">
 									<input class="file-input is-info" type="file" @change="fileUpload">
@@ -174,10 +156,6 @@ export default {
 				required,
 			},
 
-			phone: {
-				required,
-			},
-
 			email: {
 				email,
 				required
@@ -211,15 +189,12 @@ export default {
 				let data = new FormData();
 				data.append("_method", "put");
 				data.append('name', this.$store.getters.loadSingleData.name);
-				data.append('phone', this.$store.getters.loadSingleData.phone);
 				data.append('occupation', this.$store.getters.loadSingleData.occupation);
 				data.append('file', this.imageFile);
 
 				let id = this.$route.params.id
 
 				this.editData( {data, id} );
-
-				let changeRoute = this.loadSucceeded ? '': this.$router.push({name:'driver-list'})
 
 			},
 

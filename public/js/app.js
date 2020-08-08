@@ -3069,6 +3069,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3610,9 +3623,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       data.append('file', this.driver.imageFile);
       data.append('email', this.driver.email);
       this.createData(data);
-      var changeRoute = this.loadSucceeded ? '' : this.$router.push({
-        name: 'driver-list'
-      });
     }
   }),
   // Method calibrace close
@@ -3769,24 +3779,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3803,9 +3795,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       },
       occupation: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
-      },
-      phone: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       },
       email: {
@@ -3833,16 +3822,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var data = new FormData();
       data.append("_method", "put");
       data.append('name', this.$store.getters.loadSingleData.name);
-      data.append('phone', this.$store.getters.loadSingleData.phone);
       data.append('occupation', this.$store.getters.loadSingleData.occupation);
       data.append('file', this.imageFile);
       var id = this.$route.params.id;
       this.editData({
         data: data,
         id: id
-      });
-      var changeRoute = this.loadSucceeded ? '' : this.$router.push({
-        name: 'driver-list'
       });
     }
   }),
@@ -51222,7 +51207,7 @@ var render = function() {
                 staticClass:
                   "notification purple-bg-light is-bold has-text-black"
               },
-              [_vm._v("\n\t\t\t\tTask Succeesful\n\t\t\t")]
+              [_vm._v("\n\t\t\t\t\tTask Succeesful\n\t\t\t\t")]
             )
           : _vm._e(),
         _vm._v(" "),
@@ -51305,257 +51290,279 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _c(
-          "table",
-          { staticClass: "table is-bordered is-striped is-hoverable" },
-          [
-            _vm._m(1),
-            _vm._v(" "),
-            _c(
-              "tbody",
-              _vm._l(
-                _vm.searchQuery.length > 1
-                  ? _vm.loadSearch
-                  : _vm.loadBlockedDatas,
-                function(driver, index) {
-                  return _c("tr", { key: index }, [
-                    _c("th", [
-                      _c("span", { staticClass: "purple-color" }, [
-                        _vm._v("  " + _vm._s(driver.driver_id) + "  ")
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(" " + _vm._s(driver.name.substring(0, 6)) + " ")
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(" " + _vm._s(driver.email.substring(0, 10)) + " ")
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [_vm._v(" " + _vm._s(driver.phone) + " ")]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _vm._v(
-                        " " + _vm._s(driver.occupation.substring(0, 6)) + " "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "has-text-centered" }, [
-                      _vm._v(" " + _vm._s(driver.total_delivery) + " ")
-                    ]),
-                    _vm._v(" "),
-                    _c("td", { staticClass: "has-text-centered" }, [
-                      _c("input", {
-                        attrs: { type: "checkbox" },
-                        domProps: {
-                          checked: driver.status == 1 ? true : false
-                        },
-                        on: {
-                          change: function($event) {
-                            ;[
-                              (driver.status = !driver.status),
-                              _vm.statusMethod(driver.id, driver.status)
-                            ]
-                          }
-                        }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("td", [
-                      _c("div", { staticClass: "field is-grouped" }, [
-                        _c(
-                          "p",
-                          { staticClass: "control" },
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "button purple-color",
-                                attrs: {
-                                  to: {
-                                    name: "view-driver",
-                                    params: { id: driver.id }
-                                  },
-                                  exact: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n\t\t\t\t\t\t\t\t\t\tView\n\t\t\t\t\t\t\t\t\t"
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        ),
+        _vm.loadBlockedDatas.length >= 1
+          ? _c(
+              "table",
+              { staticClass: "table is-bordered is-striped is-hoverable" },
+              [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(
+                    _vm.searchQuery.length > 1
+                      ? _vm.loadSearch
+                      : _vm.loadBlockedDatas,
+                    function(driver, index) {
+                      return _c("tr", { key: index }, [
+                        _c("th", [
+                          _c("span", { staticClass: "purple-color" }, [
+                            _vm._v("  " + _vm._s(driver.driver_id) + "  ")
+                          ])
+                        ]),
                         _vm._v(" "),
-                        _c(
-                          "p",
-                          { staticClass: "control" },
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                staticClass: "button purple-color",
-                                attrs: {
-                                  to: {
-                                    name: "edit-driver",
-                                    params: { id: driver.id }
-                                  },
-                                  exact: ""
-                                }
-                              },
-                              [
-                                _vm._v(
-                                  "\n\t\t\t\t\t\t\t\t\t\tEdit\n\t\t\t\t\t\t\t\t\t"
-                                )
-                              ]
-                            )
-                          ],
-                          1
-                        ),
+                        _c("td", [
+                          _vm._v(
+                            " " + _vm._s(driver.name.substring(0, 6)) + " "
+                          )
+                        ]),
                         _vm._v(" "),
-                        _c(
-                          "p",
-                          {
-                            staticClass: "control",
+                        _c("td", [
+                          _vm._v(
+                            " " + _vm._s(driver.email.substring(0, 10)) + " "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(" " + _vm._s(driver.phone) + " ")]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " " +
+                              _vm._s(driver.occupation.substring(0, 6)) +
+                              " "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "has-text-centered" }, [
+                          _vm._v(" " + _vm._s(driver.total_delivery) + " ")
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "has-text-centered" }, [
+                          _c("input", {
+                            attrs: { type: "checkbox" },
+                            domProps: {
+                              checked: driver.status == 1 ? true : false
+                            },
                             on: {
-                              click: function($event) {
-                                _vm.showModal = true
+                              change: function($event) {
+                                ;[
+                                  (driver.status = !driver.status),
+                                  _vm.statusMethod(driver.id, driver.status)
+                                ]
                               }
                             }
-                          },
-                          [
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("div", { staticClass: "field is-grouped" }, [
                             _c(
-                              "button",
-                              { staticClass: "button purple-color" },
+                              "p",
+                              { staticClass: "control" },
                               [
-                                _vm._v(
-                                  "\n\t\t\t\t\t\t\t\t\t\tDelete \n\t\t\t\t\t\t\t\t\t"
-                                )
-                              ]
-                            )
-                          ]
-                        ),
-                        _vm.showModal
-                          ? _c("div", { staticClass: "modal is-active" }, [
-                              _c("div", { staticClass: "modal-background" }),
-                              _vm._v(" "),
-                              _c("div", { staticClass: "modal-content" }, [
-                                _c("div", { staticClass: "card" }, [
-                                  _vm._m(2, true),
-                                  _vm._v(" "),
-                                  _c("footer", { staticClass: "card-footer" }, [
-                                    _c(
-                                      "p",
-                                      {
-                                        staticClass:
-                                          "card-footer-item is-bold purple-color pointer",
-                                        on: {
-                                          click: function($event) {
-                                            return _vm.deleteData(driver.id)
-                                          }
-                                        }
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "button purple-color",
+                                    attrs: {
+                                      to: {
+                                        name: "view-driver",
+                                        params: { id: driver.id }
                                       },
-                                      [
-                                        _vm._v(
-                                          "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tDelete\n\t\t\t\t\t\t\t\t\t\t\t\t\t"
-                                        )
-                                      ]
-                                    ),
-                                    _vm._v(" "),
-                                    _c(
-                                      "p",
-                                      {
-                                        staticClass:
-                                          "card-footer-item is-bold purple-color pointer",
-                                        on: {
-                                          click: function($event) {
-                                            _vm.showModal = false
-                                          }
-                                        }
-                                      },
-                                      [
-                                        _vm._v(
-                                          "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t\t\t\t\t\t\t"
-                                        )
-                                      ]
+                                      exact: ""
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n\t\t\t\t\t\t\t\t\t\t\tView\n\t\t\t\t\t\t\t\t\t\t"
                                     )
-                                  ])
-                                ])
-                              ]),
-                              _vm._v(" "),
-                              _c("button", {
-                                staticClass: "modal-close is-large",
-                                attrs: { "aria-label": "close" },
+                                  ]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "p",
+                              { staticClass: "control" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "button purple-color",
+                                    attrs: {
+                                      to: {
+                                        name: "edit-driver",
+                                        params: { id: driver.id }
+                                      },
+                                      exact: ""
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n\t\t\t\t\t\t\t\t\t\t\tEdit\n\t\t\t\t\t\t\t\t\t\t"
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "p",
+                              {
+                                staticClass: "control",
                                 on: {
                                   click: function($event) {
-                                    _vm.showModal = false
+                                    _vm.showModal = true
                                   }
                                 }
-                              })
-                            ])
-                          : _vm._e(),
-                        _vm._v(" "),
-                        _c("p")
+                              },
+                              [
+                                _c(
+                                  "button",
+                                  { staticClass: "button purple-color" },
+                                  [
+                                    _vm._v(
+                                      "\n\t\t\t\t\t\t\t\t\t\t\tDelete \n\t\t\t\t\t\t\t\t\t\t"
+                                    )
+                                  ]
+                                )
+                              ]
+                            ),
+                            _vm.showModal
+                              ? _c("div", { staticClass: "modal is-active" }, [
+                                  _c("div", {
+                                    staticClass: "modal-background"
+                                  }),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "modal-content" }, [
+                                    _c("div", { staticClass: "card" }, [
+                                      _vm._m(2, true),
+                                      _vm._v(" "),
+                                      _c(
+                                        "footer",
+                                        { staticClass: "card-footer" },
+                                        [
+                                          _c(
+                                            "p",
+                                            {
+                                              staticClass:
+                                                "card-footer-item is-bold purple-color pointer",
+                                              on: {
+                                                click: function($event) {
+                                                  return _vm.deleteData(
+                                                    driver.id
+                                                  )
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tDelete\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "p",
+                                            {
+                                              staticClass:
+                                                "card-footer-item is-bold purple-color pointer",
+                                              on: {
+                                                click: function($event) {
+                                                  _vm.showModal = false
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("button", {
+                                    staticClass: "modal-close is-large",
+                                    attrs: { "aria-label": "close" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.showModal = false
+                                      }
+                                    }
+                                  })
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c("p")
+                          ])
+                        ])
                       ])
-                    ])
-                  ])
-                }
-              ),
-              0
+                    }
+                  ),
+                  0
+                )
+              ]
             )
-          ]
-        ),
+          : _vm._e(),
         _vm._v(" "),
-        _c("div", { staticClass: "buttons has-addons is-centered" }, [
-          _vm.loadPagination.previousPageUrl
-            ? _c(
-                "a",
-                {
-                  staticClass: "button",
-                  on: {
-                    click: function($event) {
-                      return _vm.paginationHandler(
-                        _vm.loadPagination.previousPageUrl
-                      )
-                    }
-                  }
-                },
-                [_vm._m(3), _vm._v(" "), _c("span", [_vm._v(" Previous ")])]
-              )
-            : _vm._e(),
-          _vm._v(" "),
-          _c("a", { staticClass: "button" }, [
-            _vm._v(
-              "\n\n\t\t\t\t\t" +
-                _vm._s(_vm.loadPagination.to) +
-                " 0f " +
-                _vm._s(_vm.loadPagination.total) +
-                "\n\t\t\t\t"
-            )
-          ]),
-          _vm._v(" "),
-          _vm.loadPagination.nextPageUrl
-            ? _c(
-                "a",
-                {
-                  staticClass: "button",
-                  on: {
-                    click: function($event) {
-                      return _vm.paginationHandler(
-                        _vm.loadPagination.nextPageUrl
-                      )
-                    }
-                  }
-                },
-                [_vm._m(4), _vm._v(" "), _c("span", [_vm._v(" Next ")])]
-              )
-            : _vm._e()
-        ])
+        _vm.loadBlockedDatas.length >= 1
+          ? _c("div", { staticClass: "buttons has-addons is-centered" }, [
+              _vm.loadPagination.previousPageUrl
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "button",
+                      on: {
+                        click: function($event) {
+                          return _vm.paginationHandler(
+                            _vm.loadPagination.previousPageUrl
+                          )
+                        }
+                      }
+                    },
+                    [_vm._m(3), _vm._v(" "), _c("span", [_vm._v(" Previous ")])]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c("a", { staticClass: "button" }, [
+                _vm._v(
+                  "\n\n\t\t\t\t\t\t" +
+                    _vm._s(_vm.loadPagination.to) +
+                    " 0f " +
+                    _vm._s(_vm.loadPagination.total) +
+                    "\n\t\t\t\t\t"
+                )
+              ]),
+              _vm._v(" "),
+              _vm.loadPagination.nextPageUrl
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "button",
+                      on: {
+                        click: function($event) {
+                          return _vm.paginationHandler(
+                            _vm.loadPagination.nextPageUrl
+                          )
+                        }
+                      }
+                    },
+                    [_vm._m(4), _vm._v(" "), _c("span", [_vm._v(" Next ")])]
+                  )
+                : _vm._e()
+            ])
+          : _vm._e()
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _vm.loadBlockedDatas.length <= 0
+      ? _c("div", { staticClass: "card" }, [_vm._m(5)])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -51565,7 +51572,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "control" }, [
       _c("button", { staticClass: "button purple-bg has-text-white" }, [
-        _vm._v("\n\t\t\t\t\t\t\t\t\tSearch \n\t\t\t\t\t\t\t\t")
+        _vm._v("\n\t\t\t\t\t\t\t\t\t\tSearch \n\t\t\t\t\t\t\t\t\t")
       ])
     ])
   },
@@ -51618,7 +51625,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "card-content has-text-centered" }, [
       _c("p", { staticClass: "subtitle is-bold" }, [
         _vm._v(
-          "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tAre you sure\n\t\t\t\t\t\t\t\t\t\t\t\t\t"
+          "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tAre you sure\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
         )
       ])
     ])
@@ -51637,6 +51644,18 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "icon is-small" }, [
       _c("i", { staticClass: "fas fa-arrow-right purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-content" }, [
+      _c("div", { staticClass: "content is-bold has-text-centered subtitle" }, [
+        _c("span", { staticClass: "fa" }, [
+          _vm._v(" No driver found blocked yet. ")
+        ])
+      ])
     ])
   }
 ]
@@ -52738,66 +52757,6 @@ var render = function() {
                       directives: [
                         {
                           name: "model",
-                          rawName: "v-model.number",
-                          value: _vm.loadSingleData.phone,
-                          expression: "loadSingleData.phone",
-                          modifiers: { number: true }
-                        }
-                      ],
-                      staticClass: "input is-info",
-                      attrs: {
-                        type: "tel",
-                        minlength: "11",
-                        maxlength: "14",
-                        required: ""
-                      },
-                      domProps: { value: _vm.loadSingleData.phone },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.loadSingleData,
-                            "phone",
-                            _vm._n($event.target.value)
-                          )
-                        },
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm._m(4),
-                    _vm._v(" "),
-                    _vm.$v.loadSingleData.phone.required
-                      ? _c("span", { staticClass: "icon is-small is-right" }, [
-                          _c("i", { staticClass: "fas fa-check purple-color" })
-                        ])
-                      : _c("span", { staticClass: "icon is-small is-right" }, [
-                          _c("i", {
-                            staticClass:
-                              "fas fa-exclamation-triangle has-text-danger"
-                          })
-                        ])
-                  ]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "column" }, [
-              _c("div", { staticClass: "field" }, [
-                _vm._m(5),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "control has-icons-left has-icons-right" },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
                           rawName: "v-model.trim",
                           value: _vm.loadSingleData.occupation,
                           expression: "loadSingleData.occupation",
@@ -52824,7 +52783,7 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _vm._m(6),
+                    _vm._m(4),
                     _vm._v(" "),
                     _vm.$v.loadSingleData.occupation.required
                       ? _c("span", { staticClass: "icon is-small is-right" }, [
@@ -52838,29 +52797,35 @@ var render = function() {
                         ])
                   ]
                 )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "field mt-6" }, [
-                _c("div", { staticClass: "file has-name" }, [
-                  _c("label", { staticClass: "file-label" }, [
-                    _c("input", {
-                      staticClass: "file-input is-info",
-                      attrs: { type: "file" },
-                      on: { change: _vm.fileUpload }
-                    }),
-                    _vm._v(" "),
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n\t\t\t\t\t\t\t\t\t" +
-                          _vm._s(_vm.imageName || "Update an image") +
-                          "\n\t\t\t\t\t\t\t\t"
-                      )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "column" }, [
+              _c(
+                "div",
+                { staticClass: "field", staticStyle: { "margin-top": "30px" } },
+                [
+                  _c("div", { staticClass: "file has-name" }, [
+                    _c("label", { staticClass: "file-label" }, [
+                      _c("input", {
+                        staticClass: "file-input is-info",
+                        attrs: { type: "file" },
+                        on: { change: _vm.fileUpload }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(5),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "file-name" }, [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t\t\t" +
+                            _vm._s(_vm.imageName || "Update an image") +
+                            "\n\t\t\t\t\t\t\t\t"
+                        )
+                      ])
                     ])
                   ])
-                ])
-              ])
+                ]
+              )
             ])
           ]),
           _vm._v(" "),
@@ -52873,7 +52838,7 @@ var render = function() {
                   class: { "is-loading": _vm.loadProgress }
                 },
                 [
-                  _vm._m(8),
+                  _vm._m(6),
                   _vm._v(" "),
                   _c("span", { staticClass: "is-bold" }, [_vm._v(" Save ")])
                 ]
@@ -52913,23 +52878,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "icon is-small is-left" }, [
       _c("i", { staticClass: "fas fa-truck purple-color" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "label" }, [
-      _vm._v(" Driver Phone "),
-      _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small is-left" }, [
-      _c("i", { staticClass: "fas fa-phone purple-color" })
     ])
   },
   function() {
@@ -87337,6 +87285,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-axios */ "./node_modules/vue-axios/dist/vue-axios.min.js");
 /* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../app.js */ "./resources/js/app.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -87346,7 +87295,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_3___default.a, axios__WEBPACK_IMPORTED_MODULE_2___default.a);
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_3___default.a, axios__WEBPACK_IMPORTED_MODULE_2___default.a); //routes
+
+
 var state = {
   datas: [],
   data: null,
@@ -87354,7 +87305,6 @@ var state = {
   loading: true,
   progress: null,
   errors: null,
-  succeeded: false,
   blockedDatas: null,
   searchResult: null,
   pagination: {
@@ -87383,9 +87333,6 @@ var getters = {
   },
   loadErrors: function loadErrors(state) {
     return state.errors;
-  },
-  loadSucceeded: function loadSucceeded(state) {
-    return state.succeeded;
   },
   loadPagination: function loadPagination(state) {
     return state.pagination;
@@ -87557,8 +87504,10 @@ var actions = {
               _context6.next = 5;
               return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/driver', data, config).then(function (response) {
                 commit('setNotification', true);
-                commit('setSucceeded', true);
                 commit('setProgress', false);
+                _app_js__WEBPACK_IMPORTED_MODULE_4__["app"].$router.push({
+                  name: 'driver-list'
+                });
               })["catch"](function (error) {
                 var failure = error.response.data;
                 commit('setErrors', failure);
@@ -87598,8 +87547,10 @@ var actions = {
               _context7.next = 7;
               return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(api, data, config).then(function (response) {
                 commit('setNotification', true);
-                commit('setSucceeded', true);
                 commit('setProgress', false);
+                _app_js__WEBPACK_IMPORTED_MODULE_4__["app"].$router.push({
+                  name: 'driver-list'
+                });
               })["catch"](function (error) {
                 var failure = error.response.data;
                 commit('setErrors', failure);
@@ -87687,24 +87638,6 @@ var actions = {
         }
       }, _callee10);
     }))();
-  },
-  clearSucceeded: function clearSucceeded(_ref13) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11() {
-      var commit;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee11$(_context11) {
-        while (1) {
-          switch (_context11.prev = _context11.next) {
-            case 0:
-              commit = _ref13.commit;
-              commit('setSucceeded', false);
-
-            case 2:
-            case "end":
-              return _context11.stop();
-          }
-        }
-      }, _callee11);
-    }))();
   }
 }; //Actions calibrace close
 
@@ -87732,9 +87665,6 @@ var mutations = {
   },
   unsetErrors: function unsetErrors(state, errors) {
     return state.errors = null;
-  },
-  setSucceeded: function setSucceeded(state, succeeded) {
-    return state.succeeded = succeeded;
   },
   setNextPageURL: function setNextPageURL(state, next) {
     return state.pagination.nextPageUrl = next;
@@ -87794,11 +87724,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no exports provided */
+/*! exports provided: app */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "app", function() { return app; });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
@@ -87833,6 +87764,8 @@ var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
     'welcome': _Components_Layouts_app_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
   }
 }).$mount('#app'); // Now the app has started!
+
+
 
 /***/ }),
 

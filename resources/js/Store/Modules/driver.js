@@ -4,6 +4,9 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
+//routes
+import { app } from '../../app.js'
+
 
 const state = {
 	datas: [],
@@ -12,7 +15,6 @@ const state = {
 	loading: true,
 	progress: null,
 	errors: null,
-	succeeded: false,
 	blockedDatas: null,
 
 	searchResult: null,
@@ -34,7 +36,6 @@ const getters = {
 	loadProgress: (state) => state.progress,
 	loadNotification: (state) => state.notification,
 	loadErrors: (state) => state.errors,
-	loadSucceeded: (state) => state.succeeded,
 	loadPagination: (state) => state.pagination,
 	loadSearch: (state) => state.searchResult,
 	loadBlockedDatas: (state) => state.blockedDatas
@@ -107,8 +108,8 @@ const actions = {
 		const response = await axios.post('/api/driver', data, config )
 		.then((response) => {
 			commit('setNotification', true)
-			commit('setSucceeded', true)
 			commit('setProgress', false)
+			app.$router.push({name: 'driver-list'})
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -129,8 +130,8 @@ const actions = {
 		const response = await axios.post(api, data, config )
 		.then((response) => {
 			commit('setNotification', true)
-			commit('setSucceeded', true)
 			commit('setProgress', false)
+			app.$router.push({name: 'driver-list'})
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -163,10 +164,6 @@ const actions = {
 		}, 10000)
 	},
 
-	async clearSucceeded ({commit}) {
-		commit('setSucceeded', false)
-	},
-
 }; //Actions calibrace close
 
 const mutations = {
@@ -183,8 +180,6 @@ const mutations = {
 
 	setErrors: (state, errors) => state.errors = errors,
 	unsetErrors: (state, errors) => state.errors = null,
-
-	setSucceeded: (state, succeeded) => state.succeeded = succeeded,
 
 	setNextPageURL: (state, next) => state.pagination.nextPageUrl = next,
 	setPrePageURL: (state, previous) => state.pagination.previousPageUrl = previous,

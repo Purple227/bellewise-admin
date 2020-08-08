@@ -59,7 +59,7 @@
 				</nav>
 
 
-				<table class="table is-bordered is-striped is-hoverable"> <!-- Table tag open -->
+				<table class="table is-bordered is-striped is-hoverable" v-if="loadBlockedDatas.length >= 1"> <!-- Table tag open -->
 
 					<thead>
 						<tr>
@@ -135,7 +135,7 @@
 
 
 				<!-- Pagination section -->
-				<div class="buttons has-addons is-centered">
+				<div class="buttons has-addons is-centered" v-if="loadBlockedDatas.length >= 1">
 					<a class="button" v-if="loadPagination.previousPageUrl" @click="paginationHandler(loadPagination.previousPageUrl)">
 						<span class="icon is-small">
 							<i class="fas fa-arrow-left purple-color"></i>
@@ -164,6 +164,19 @@
 
 
 		</div> <!-- Card tag close -->
+
+<div class="card" v-if="loadBlockedDatas.length <= 0">
+  <div class="card-content">
+    <div class="content is-bold has-text-centered subtitle">
+
+  <span class="fa"> No driver found blocked yet. </span>
+
+    </div>
+  </div>
+</div>
+
+
+
 
 	</div> <!-- Root element tag open -->
 
