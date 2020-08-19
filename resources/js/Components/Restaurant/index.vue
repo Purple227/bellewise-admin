@@ -272,7 +272,7 @@
 
 
 <script>
-import BlockedRestaurant from './partials/blockedRestaurant.vue'
+import BlockedRestaurant from './Modules/blockedRestaurant.vue'
 
 
 export default {

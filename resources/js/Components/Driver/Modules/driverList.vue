@@ -193,12 +193,11 @@ export default {
 
 	created() {
 		this.fetchDatas()
-		this.clearSucceeded()
 		this.clearNotification()
 	},
 
 	methods: {
-		...mapActions(['fetchDatas','clearSucceeded', 'clearNotification', 'destroyData', 'searchDatas', 'updateStatus']),
+		...mapActions(['fetchDatas', 'clearNotification', 'destroyData', 'searchDatas', 'updateStatus']),
 		// Local method
 		refresh() {
 			this.spin = true

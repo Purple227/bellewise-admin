@@ -58,9 +58,9 @@
 
 
 <script>
-import RestaurantDetails from "./partials/restaurantDetails.vue"
-import FoodItem from "./partials/foodItem.vue"
-import RestaurantConfig from "./partials/restaurantConfig.vue"
+import RestaurantDetails from "./Modules/restaurantDetails.vue"
+import FoodItem from "./Modules/foodItem.vue"
+import RestaurantConfig from "./Modules/restaurantConfig.vue"
 
 export default {
 

@@ -33,7 +33,7 @@
 					<div class="center">
 						<div class="content">
 							<figure class="image is-256x256">
-								<img class="is-rounded" src="/images/default_image.svg" v-if="loadSingleData.image > 25 ">
+								<img class="is-rounded" src="/images/default_image.svg" v-if="loadSingleData.image.length <= 'default_image.svg'.length ">
 								<img class="is-rounded" :src="imagePath" v-else>
 							</figure>
 

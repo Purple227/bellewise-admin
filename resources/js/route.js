@@ -4,7 +4,7 @@
 // These can be imported from other files
 import Home from './Components/Home.vue';
 
-import ListRestaurant from './Components/Restaurant/listRestaurant.vue';
+import ListRestaurant from './Components/Restaurant/index.vue';
 import AddRestaurant from './Components/Restaurant/addRestaurant.vue';
 import ViewRestaurant from './Components/Restaurant/viewRestaurant.vue';
 

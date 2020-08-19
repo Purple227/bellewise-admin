@@ -169,7 +169,7 @@
   <div class="card-content">
     <div class="content is-bold has-text-centered subtitle">
 
-  <span class="fa"> No driver found blocked yet. </span>
+  <span class="fa"> No blocked driver. </span>
 
     </div>
   </div>
@@ -196,12 +196,11 @@ export default {
 
 	created() {
 		this.fetchBlockedDatas()
-		this.clearSucceeded()
 		this.clearNotification()
 	},
 
 	methods: {
-		...mapActions(['fetchBlockedDatas','clearSucceeded', 'clearNotification', 'destroyData', 'searchDatas', 'updateStatus']),
+		...mapActions(['fetchBlockedDatas', 'clearNotification', 'destroyData', 'searchDatas', 'updateStatus']),
 		// Local method
 		refresh() {
 			this.spin = true
