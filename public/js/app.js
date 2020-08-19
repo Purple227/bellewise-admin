@@ -8593,6 +8593,40 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8937,6 +8971,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -8946,17 +8981,20 @@ __webpack_require__.r(__webpack_exports__);
         address: null,
         phone: null,
         licenseNumber: null,
-        file: null
+        file: ''
       },
       formStep: {
         step: 1,
         totalStep: 2
       },
-      menu: {
-        Name: null,
+      menu: [{
+        name: null,
         description: null,
-        price: null,
-        file: null
+        price: null
+      }],
+      menuImage: {
+        name: null,
+        file: ''
       },
       create: true,
       foodItem: null
@@ -8988,18 +9026,52 @@ __webpack_require__.r(__webpack_exports__);
       },
       description: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+      },
+      price: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       }
     } //Menu calibrace close
 
   },
-  methods: {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["createData", "clearErrors"])), {}, {
+    // Local method goes here
+    addMenuForm: function addMenuForm() {
+      this.menu.push({
+        name: null,
+        description: null,
+        price: null
+      });
+      this.menuImage.push({
+        name: null,
+        file: ''
+      });
+    },
+    removeMenu: function removeMenu(index) {
+      this.menu.splice(index, 1);
+    },
     next: function next() {
       this.formStep.step++;
     },
     prevous: function prevous() {
       this.formStep.step--;
+    },
+    fileUpload: function fileUpload(e) {
+      this.imageName = e.target.files[0].name;
+      this.imageFile = e.target.files[0];
+    },
+    submitForm: function submitForm() {
+      var data = new FormData();
+      data.append("_method", "post");
+      data.append('name', this.driver.name);
+      data.append('phone', this.driver.countryCode + this.driver.phone);
+      data.append('occupation', this.driver.occupation);
+      data.append('file', this.driver.imageFile);
+      data.append('email', this.driver.email);
+      this.createData(data);
     }
-  }
+  }),
+  // Method calibrace close
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadProgress', 'loadErrors']))
 });
 
 /***/ }),
@@ -52469,7 +52541,8 @@ var render = function() {
                 "button",
                 {
                   staticClass: "button",
-                  class: { "is-loading": _vm.loadProgress }
+                  class: { "is-loading": _vm.loadProgress },
+                  attrs: { disabled: _vm.$v.driver.$invalid }
                 },
                 [
                   _vm._m(11),
@@ -60917,12 +60990,12 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "field" }, [
+                _c("div", { staticClass: "field has-addons mt-6" }, [
                   _vm._m(3),
                   _vm._v(" "),
                   _c(
-                    "div",
-                    { staticClass: "control has-icons-left has-icons-right" },
+                    "p",
+                    { staticClass: "control is-expanded has-icons-left" },
                     [
                       _c("input", {
                         directives: [
@@ -60937,6 +61010,8 @@ var render = function() {
                         staticClass: "input is-info",
                         attrs: {
                           type: "tel",
+                          minlength: "10",
+                          maxlength: "14",
                           placeholder: "Number input",
                           required: ""
                         },
@@ -60958,34 +61033,15 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm._m(4),
-                      _vm._v(" "),
-                      _vm.$v.restaurant.phone.required
-                        ? _c(
-                            "span",
-                            { staticClass: "icon is-small is-right" },
-                            [
-                              _c("i", {
-                                staticClass: "fas fa-check purple-color"
-                              })
-                            ]
-                          )
-                        : _c(
-                            "span",
-                            { staticClass: "icon is-small is-right" },
-                            [
-                              _c("i", {
-                                staticClass:
-                                  "fas fa-exclamation-triangle has-text-danger"
-                              })
-                            ]
-                          )
+                      _vm._m(4)
                     ]
-                  )
+                  ),
+                  _vm._v(" "),
+                  _vm._m(5)
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
-                  _vm._m(5),
+                  _vm._m(6),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -61021,7 +61077,7 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm._m(6),
+                      _vm._m(7),
                       _vm._v(" "),
                       _vm.$v.restaurant.email.$invalid
                         ? _c(
@@ -61050,7 +61106,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "column" }, [
                 _c("div", { staticClass: "field" }, [
-                  _vm._m(7),
+                  _vm._m(8),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -61090,7 +61146,7 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm._m(8),
+                      _vm._m(9),
                       _vm._v(" "),
                       _vm.$v.restaurant.address.required
                         ? _c(
@@ -61117,7 +61173,7 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
-                  _vm._m(9),
+                  _vm._m(10),
                   _vm._v(" "),
                   _c(
                     "div",
@@ -61157,7 +61213,7 @@ var render = function() {
                         }
                       }),
                       _vm._v(" "),
-                      _vm._m(10),
+                      _vm._m(11),
                       _vm._v(" "),
                       _vm.$v.restaurant.licenseNumber.required
                         ? _c(
@@ -61183,11 +61239,11 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _vm._m(11)
+                _vm._m(12)
               ])
             ]),
             _vm._v(" "),
-            _vm._m(12)
+            _vm._m(13)
           ])
         : _vm._e(),
       _vm._v(" "),
@@ -61259,7 +61315,7 @@ var render = function() {
                       _c(
                         "span",
                         { class: { "has-text-white": _vm.foodItem } },
-                        [_vm._v("Food Items 3")]
+                        [_vm._v("Food Items " + _vm._s(_vm.menu.length))]
                       )
                     ]
                   )
@@ -61271,7 +61327,7 @@ var render = function() {
               ? _c("div", { staticClass: "columns" }, [
                   _c("div", { staticClass: "column" }, [
                     _c("div", { staticClass: "field" }, [
-                      _vm._m(13),
+                      _vm._m(14),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -61284,8 +61340,8 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model.trim",
-                                value: _vm.menu.name,
-                                expression: "menu.name",
+                                value: _vm.menu[_vm.menu.length - 1].name,
+                                expression: "menu[menu.length -1].name",
                                 modifiers: { trim: true }
                               }
                             ],
@@ -61296,14 +61352,16 @@ var render = function() {
                               required: "",
                               autofocus: ""
                             },
-                            domProps: { value: _vm.menu.name },
+                            domProps: {
+                              value: _vm.menu[_vm.menu.length - 1].name
+                            },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
                                 _vm.$set(
-                                  _vm.menu,
+                                  _vm.menu[_vm.menu.length - 1],
                                   "name",
                                   $event.target.value.trim()
                                 )
@@ -61314,7 +61372,7 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _vm._m(14),
+                          _vm._m(15),
                           _vm._v(" "),
                           _vm.$v.menu.name.required
                             ? _c(
@@ -61340,12 +61398,49 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _vm._m(15)
+                    _c("div", { staticClass: "field has-addons mt-3" }, [
+                      _vm._m(16),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "control is-expanded" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.menu[_vm.menu.length - 1].price,
+                              expression: "menu[menu.length -1].price"
+                            }
+                          ],
+                          staticClass: "input is-info",
+                          attrs: {
+                            type: "number",
+                            placeholder: "Amount of money"
+                          },
+                          domProps: {
+                            value: _vm.menu[_vm.menu.length - 1].price
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.menu[_vm.menu.length - 1],
+                                "price",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(17)
+                    ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "column" }, [
                     _c("div", { staticClass: "field" }, [
-                      _vm._m(16),
+                      _vm._m(18),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -61358,8 +61453,9 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.menu.description,
-                                expression: "menu.description"
+                                value:
+                                  _vm.menu[_vm.menu.length - 1].description,
+                                expression: "menu[menu.length -1].description"
                               }
                             ],
                             staticClass: "input is-info",
@@ -61368,14 +61464,16 @@ var render = function() {
                               placeholder: "Text input",
                               required: ""
                             },
-                            domProps: { value: _vm.menu.description },
+                            domProps: {
+                              value: _vm.menu[_vm.menu.length - 1].description
+                            },
                             on: {
                               input: function($event) {
                                 if ($event.target.composing) {
                                   return
                                 }
                                 _vm.$set(
-                                  _vm.menu,
+                                  _vm.menu[_vm.menu.length - 1],
                                   "description",
                                   $event.target.value
                                 )
@@ -61383,9 +61481,9 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _vm._m(17),
+                          _vm._m(19),
                           _vm._v(" "),
-                          _vm.$v.menu.description.required
+                          _vm.menu.description >= 3
                             ? _c(
                                 "span",
                                 { staticClass: "icon is-small is-right" },
@@ -61409,80 +61507,70 @@ var render = function() {
                       )
                     ]),
                     _vm._v(" "),
-                    _vm._m(18)
-                  ])
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.foodItem
-              ? _c("aside", { staticClass: "menu" }, [
-                  _c("ul", { staticClass: "menu-list" }, [
-                    _c("li", [
-                      _c("a", [
-                        _vm._v("1. Salad "),
-                        _c("span", { staticClass: "delete is-pulled-right" }),
-                        _vm._v(" "),
-                        _c("span", {
-                          staticClass:
-                            "fas fa-edit is-pulled-right mr-3 purple-color",
-                          on: {
-                            click: function($event) {
-                              ;[(_vm.create = true), (_vm.foodItem = false)]
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", [
-                        _vm._v("2. Blah "),
-                        _c("span", { staticClass: "delete is-pulled-right" }),
-                        _vm._v(" "),
-                        _c("span", {
-                          staticClass:
-                            "fas fa-edit is-pulled-right mr-3 purple-color",
-                          on: {
-                            click: function($event) {
-                              ;[(_vm.create = true), (_vm.foodItem = false)]
-                            }
-                          }
-                        })
-                      ])
-                    ]),
-                    _vm._v(" "),
-                    _c("li", [
-                      _c("a", [
-                        _vm._v("3. Soda "),
-                        _c("span", { staticClass: "delete is-pulled-right" }),
-                        _vm._v(" "),
-                        _c("span", {
-                          staticClass:
-                            "fas fa-edit is-pulled-right mr-3 purple-color",
-                          on: {
-                            click: function($event) {
-                              ;[(_vm.create = true), (_vm.foodItem = false)]
-                            }
-                          }
-                        })
+                    _c("div", { staticClass: "field mt-3" }, [
+                      _c("div", { staticClass: "file has-name" }, [
+                        _c("label", { staticClass: "file-label" }, [
+                          _c("input", {
+                            staticClass: "file-input is-info",
+                            attrs: { type: "file" },
+                            on: { change: _vm.fileUpload }
+                          }),
+                          _vm._v(" "),
+                          _vm._m(20),
+                          _vm._v(" "),
+                          _c("span", { staticClass: "file-name" }, [
+                            _vm._v(
+                              "\n\t\t\t\t\t\t\t\t\tScreen Shot 2017-07-29 at 15.54.25.png\n\t\t\t\t\t\t\t\t"
+                            )
+                          ])
+                        ])
                       ])
                     ])
                   ])
                 ])
               : _vm._e(),
             _vm._v(" "),
+            _vm.foodItem
+              ? _c(
+                  "aside",
+                  { staticClass: "menu" },
+                  _vm._l(_vm.menu, function(menu, index) {
+                    return _c("ul", { key: index, staticClass: "menu-list" }, [
+                      _c("li", [
+                        _c("a", [
+                          _vm._v(
+                            _vm._s(index + 1) + "  . " + _vm._s(menu.name) + " "
+                          ),
+                          _c("span", {
+                            staticClass: "delete is-pulled-right",
+                            on: { click: _vm.removeMenu }
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass:
+                              "fas fa-edit is-pulled-right mr-3 purple-color",
+                            on: {
+                              click: function($event) {
+                                ;[(_vm.create = true), (_vm.foodItem = false)]
+                              }
+                            }
+                          })
+                        ])
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              : _vm._e(),
+            _vm._v(" "),
             _c(
               "button",
               {
                 staticClass: "button is-fullwidth",
-                on: {
-                  click: function($event) {
-                    ;[(_vm.create = true), (_vm.foodItem = false)]
-                  }
-                }
+                on: { click: _vm.addMenuForm }
               },
               [
-                _vm._m(19),
+                _vm._m(21),
                 _vm._v(" "),
                 _c("span", { staticClass: "is-bold" }, [_vm._v("Add")])
               ]
@@ -61496,7 +61584,7 @@ var render = function() {
             ? _c(
                 "p",
                 {
-                  staticClass: "level-item button",
+                  staticClass: "level-item control",
                   on: {
                     click: function($event) {
                       $event.preventDefault()
@@ -61504,7 +61592,7 @@ var render = function() {
                     }
                   }
                 },
-                [_c("strong", [_vm._v("Previous")])]
+                [_vm._m(22)]
               )
             : _vm._e()
         ]),
@@ -61514,7 +61602,7 @@ var render = function() {
             ? _c(
                 "p",
                 {
-                  staticClass: "level-item button",
+                  staticClass: "level-item control",
                   on: {
                     click: function($event) {
                       $event.preventDefault()
@@ -61522,13 +61610,37 @@ var render = function() {
                     }
                   }
                 },
-                [_c("strong", [_vm._v("Next")])]
+                [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "button",
+                      attrs: { disabled: _vm.$v.restaurant.$invalid }
+                    },
+                    [
+                      _vm._m(23),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "is-bold" }, [_vm._v(" Next ")])
+                    ]
+                  )
+                ]
               )
             : _vm._e(),
           _vm._v(" "),
           _vm.formStep.step == _vm.formStep.totalStep
-            ? _c("p", { staticClass: "level-item button" }, [
-                _c("strong", [_vm._v("Save")])
+            ? _c("p", { staticClass: "level-item control" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "button",
+                    attrs: { disabled: _vm.$v.$invalid }
+                  },
+                  [
+                    _vm._m(24),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "is-bold" }, [_vm._v(" Save ")])
+                  ]
+                )
               ])
             : _vm._e()
         ])
@@ -61570,9 +61682,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "label" }, [
-      _vm._v("Restaurant Phone "),
-      _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
+    return _c("p", { staticClass: "control" }, [
+      _c("span", { staticClass: "select" }, [
+        _c("select", [_c("option", [_vm._v(" +234 ")])])
+      ])
     ])
   },
   function() {
@@ -61581,6 +61694,16 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "icon is-small is-left" }, [
       _c("i", { staticClass: "fas fa-phone purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "control" }, [
+      _c("a", { staticClass: "button is-bold" }, [
+        _vm._v("\n\t\t\t\t\t\t\t\tPhone\n\t\t\t\t\t\t\t")
+      ])
     ])
   },
   function() {
@@ -61713,24 +61836,19 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field has-addons mt-3" }, [
-      _c("p", { staticClass: "control" }, [
-        _c("span", { staticClass: "select" }, [
-          _c("select", [_c("option", [_vm._v("₦")])])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "control is-expanded" }, [
-        _c("input", {
-          staticClass: "input is-info",
-          attrs: { type: "number", placeholder: "Amount of money" }
-        })
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "control" }, [
-        _c("a", { staticClass: "button" }, [
-          _vm._v("\n\t\t\t\t\t\t\t\tPrice\n\t\t\t\t\t\t\t")
-        ])
+    return _c("p", { staticClass: "control" }, [
+      _c("span", { staticClass: "select" }, [
+        _c("select", [_c("option", [_vm._v("₦")])])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "control" }, [
+      _c("a", { staticClass: "button" }, [
+        _vm._v("\n\t\t\t\t\t\t\t\tPrice\n\t\t\t\t\t\t\t")
       ])
     ])
   },
@@ -61755,30 +61873,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field mt-3" }, [
-      _c("div", { staticClass: "file has-name" }, [
-        _c("label", { staticClass: "file-label" }, [
-          _c("input", {
-            staticClass: "file-input is-info",
-            attrs: { type: "file", name: "resume" }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "file-cta" }, [
-            _c("span", { staticClass: "file-icon" }, [
-              _c("i", { staticClass: "fas fa-image purple-color" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "file-label is-bold" }, [
-              _vm._v("\n\t\t\t\t\t\t\t\t\t\tChoose a file…\n\t\t\t\t\t\t\t\t\t")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "file-name" }, [
-            _vm._v(
-              "\n\t\t\t\t\t\t\t\t\tScreen Shot 2017-07-29 at 15.54.25.png\n\t\t\t\t\t\t\t\t"
-            )
-          ])
-        ])
+    return _c("span", { staticClass: "file-cta" }, [
+      _c("span", { staticClass: "file-icon" }, [
+        _c("i", { staticClass: "fas fa-image purple-color" })
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "file-label is-bold" }, [
+        _vm._v("\n\t\t\t\t\t\t\t\t\t\tChoose a file…\n\t\t\t\t\t\t\t\t\t")
       ])
     ])
   },
@@ -61788,6 +61889,34 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "icon is-medium" }, [
       _c("i", { staticClass: "fas fa-plus purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("button", { staticClass: "button" }, [
+      _c("span", { staticClass: "icon is-small" }, [
+        _c("i", { staticClass: "fas fa-arrow-left purple-color" })
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "is-bold" }, [_vm._v(" Previous ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-arrow-right purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-save purple-color" })
     ])
   }
 ]

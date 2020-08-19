@@ -50,23 +50,30 @@
 							</div>
 						</div>
 
-						<div class="field">
-							<label class="label">Restaurant Phone <span class="has-text-danger"> * </span> </label>
-							<div class="control has-icons-left has-icons-right">
-								<input class="input is-info" type="tel" placeholder="Number input" v-model.number="restaurant.phone" required>
+						<div class="field has-addons mt-6">
+							<p class="control">
+								<span class="select">
+									<select>
+										<option> +234 </option>
+									</select>
+								</span>
+							</p>
+							<p class="control is-expanded has-icons-left">
+								<input class="input is-info" type="tel" minlength="10" maxlength="14" placeholder="Number input" v-model.number="restaurant.phone" required>
+
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-phone purple-color"></i>
 								</span>
-								<!-- Has icon right -->
-								<span class="icon is-small is-right" v-if="$v.restaurant.phone.required">
-									<i class="fas fa-check purple-color"></i>
-								</span>
-								<span class="icon is-small is-right" v-else>
-									<i class="fas fa-exclamation-triangle has-text-danger"></i>
-								</span>
-							</div>
+							</p>
+							<p class="control">
+								<a class="button is-bold">
+									Phone
+								</a>
+							</p>
 						</div>
+
+
 
 						<div class="field">
 							<label class="label">Restaurant Email <span class="has-text-danger"> * </span> </label>
@@ -192,7 +199,7 @@
 						<li v-bind:class="{ 'active': foodItem }">
 							<a @click="[create=false, foodItem=true]">
 								<span class="icon is-small" v-bind:class="{ 'has-text-white': foodItem }"><i class="fas fa-utensils" aria-hidden="true"></i></span>
-								<span class="" v-bind:class="{ 'has-text-white': foodItem }">Food Items 3</span>
+								<span class="" v-bind:class="{ 'has-text-white': foodItem }">Food Items {{ menu.length }}</span>
 							</a>
 						</li>
 
@@ -206,7 +213,7 @@
 						<div class="field">
 							<label class="label">Food Name <span class="has-text-danger"> * </span>  </label>
 							<div class="control has-icons-left has-icons-right">
-								<input class="input is-info" type="text" placeholder="Text input" v-model.trim="menu.name"  required autofocus>
+								<input class="input is-info" type="text" placeholder="Text input" v-model.trim="menu[menu.length -1].name"  required autofocus>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-utensils purple-color"></i>
@@ -230,7 +237,7 @@
 								</span>
 							</p>
 							<p class="control is-expanded">
-								<input class="input is-info" type="number" placeholder="Amount of money">
+								<input class="input is-info" type="number" placeholder="Amount of money" v-model="menu[menu.length -1].price">
 							</p>
 							<p class="control">
 								<a class="button">
@@ -248,13 +255,13 @@
 						<div class="field">
 							<label class="label"> Food Description <span class="has-text-danger"> * </span> </label>
 							<div class="control has-icons-left has-icons-right">
-								<input class="input is-info" type="tel" placeholder="Text input" v-model="menu.description" required>
+								<input class="input is-info" type="tel" placeholder="Text input" v-model="menu[menu.length -1].description" required>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-file-word purple-color"></i>
 								</span>
 								<!-- Has icon right -->
-								<span class="icon is-small is-right" v-if="$v.menu.description.required">
+								<span class="icon is-small is-right" v-if="menu.description >= 3">
 									<i class="fas fa-check purple-color"></i>
 								</span>
 								<span class="icon is-small is-right" v-else>
@@ -266,7 +273,7 @@
 						<div class="field mt-3">
 							<div class="file has-name">
 								<label class="file-label">
-									<input class="file-input is-info" type="file" name="resume">
+									<input class="file-input is-info" type="file" @change="fileUpload">
 									<span class="file-cta">
 										<span class="file-icon">
 											<i class="fas fa-image purple-color"></i>
@@ -289,14 +296,12 @@
 
 
 				<aside class="menu" v-if="foodItem">
-					<ul class="menu-list">
-						<li><a>1. Salad <span class="delete is-pulled-right" ></span> <span class="fas fa-edit is-pulled-right mr-3 purple-color" @click="[create = true, foodItem=false]"></span> </a></li>
-						<li><a>2. Blah <span class="delete is-pulled-right" ></span> <span class="fas fa-edit is-pulled-right mr-3 purple-color" @click="[create = true, foodItem=false]"></span> </a></li>
-						<li><a>3. Soda <span class="delete is-pulled-right" ></span> <span class="fas fa-edit is-pulled-right mr-3 purple-color" @click="[create = true, foodItem=false]"></span> </a></li>
+					<ul class="menu-list" v-for="(menu, index) in menu" :key="index">
+						<li><a>{{ index+1 }}  . {{ menu.name}} <span class="delete is-pulled-right" @click="removeMenu"></span> <span class="fas fa-edit is-pulled-right mr-3 purple-color" @click="[create = true, foodItem=false]"></span> </a></li>
 					</ul>
 				</aside>
 
-				<button class="button is-fullwidth" @click="[create = true, foodItem=false]">
+				<button class="button is-fullwidth" @click="addMenuForm">
 					<span class="icon is-medium">
 						<i class="fas fa-plus purple-color"></i>
 					</span>
@@ -312,19 +317,41 @@
 			<nav class="level mt-3">
 				<!-- Left side -->
 				<div class="level-left">
-					<p class="level-item button" v-if="formStep.step != 1" v-on:click.prevent="prevous">
-						<strong>Previous</strong>
+
+					<p class="level-item control" v-if="formStep.step != 1" v-on:click.prevent="prevous">
+						<button class="button">
+							<span class="icon is-small">
+								<i class="fas fa-arrow-left purple-color"></i>
+							</span>
+							<span class="is-bold"> Previous </span>
+						</button>
 					</p>
+
 				</div>
 
 				<!-- Right side -->
 				<div class="level-right">
-					<p class="level-item button" v-if="formStep.step != formStep.totalStep" v-on:click.prevent="next">
-						<strong>Next</strong>
+
+					<p class="level-item control" v-if="formStep.step != formStep.totalStep" v-on:click.prevent="next">
+						<button class="button" :disabled="$v.restaurant.$invalid">
+							<span class="icon is-small">
+								<i class="fas fa-arrow-right purple-color"></i>
+							</span>
+							<span class="is-bold"> Next </span>
+						</button>
 					</p>
-					<p class="level-item button" v-if="formStep.step == formStep.totalStep">
-						<strong>Save</strong>
+
+
+
+					<p class="level-item control" v-if="formStep.step == formStep.totalStep">
+						<button class="button" :disabled="$v.$invalid">
+							<span class="icon is-small">
+								<i class="fas fa-save purple-color"></i>
+							</span>
+							<span class="is-bold"> Save </span>
+						</button>
 					</p>
+
 				</div>
 			</nav>
 
@@ -343,6 +370,7 @@
 
 <script>
 import { required, email, numeric } from 'vuelidate/lib/validators'
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
 
@@ -354,7 +382,7 @@ export default {
 			address: null,
 			phone: null,
 			licenseNumber: null,
-			file: null,
+			file: '',
 		},
 
 		formStep: {
@@ -362,11 +390,15 @@ export default {
 			totalStep: 2,
 		},
 
-		menu: {
-			Name: null,
+		menu: [{
+			name: null,
 			description: null,
 			price: null,
-			file: null,
+		}],
+
+		menuImage: {
+			name: null,
+			file: '',
 		},
 
 		create: true,
@@ -411,14 +443,37 @@ export default {
 
 			description: {
 				required,
-			}
+			},
+
+			price: {
+				required,
+			},
 
 		},  //Menu calibrace close
 
 	},
 
-
 	methods: {
+		...mapActions(["createData", "clearErrors"]),
+
+		// Local method goes here
+
+		addMenuForm() {
+			this.menu.push({
+				name: null,
+				description: null,
+				price: null,
+			})
+
+			this.menuImage.push({
+				name: null,
+				file: '',
+			})
+		},
+
+		removeMenu: function(index) {
+			this.menu.splice(index, 1);
+		},
 
 		next() {
 			this.formStep.step++;
@@ -428,7 +483,38 @@ export default {
 			this.formStep.step--;
 		},
 
-	},
+
+		fileUpload(e) {
+			this.imageName = e.target.files[0].name
+			this.imageFile = e.target.files[0]
+		},
+
+		submitForm() {
+			
+			let data = new FormData();
+			data.append("_method", "post");
+			data.append('name', this.driver.name);
+			data.append('phone', this.driver.countryCode + this.driver.phone);
+			data.append('occupation', this.driver.occupation);
+			data.append('file', this.driver.imageFile);
+			data.append('email', this.driver.email);
+
+			this.createData(data)
+
+
+		},
+
+	}, // Method calibrace close
+
+
+	computed: {
+		...mapGetters(['loadProgress', 'loadErrors']),
+
+    // Local computed properties
+},
+
+
+
 
 
 

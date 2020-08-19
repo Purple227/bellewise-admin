@@ -151,7 +151,7 @@
 
 				<div class="field">
 					<p class="control">
-						<button class="button" v-bind:class="{ 'is-loading': loadProgress }">
+						<button class="button" v-bind:class="{ 'is-loading': loadProgress }" :disabled="$v.driver.$invalid">
 							<span class="icon is-small">
 								<i class="fas fa-save purple-color"></i>
 							</span>
