@@ -36,6 +36,7 @@ if (element) {
     console.log(datepicker.data.value());
   });
 }
+
 },
 
 },

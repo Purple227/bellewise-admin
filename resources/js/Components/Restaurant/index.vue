@@ -3,287 +3,67 @@
 	
   <div class="container"> <!-- Container tag open -->
 
+    <div class="box"> <!-- box tag open -->
 
-
-    <div class="card"> <!-- Card tag open -->
-
-     <div class="card-content table-container"> <!-- Card content tag open -->
-
-
-
-      <div class="tabs is-toggle level-item">
+      <div class="tabs is-toggle">
         <ul>
 
-          <li class="">
+          <li class="" v-bind:class="{ 'active':restaurantList  }" @click="[restaurantList = true, blockRestaurant = false]">
             <a>
-              <span class="icon is-small"><i class="fas fa-registered purple-color" aria-hidden="true"></i></span>
-              <span>  Registered Restaurants</span>
+              <span class="icon is-small" v-bind:class="{ 'has-text-white': restaurantList }"><i class="fas fa-store-alt" aria-hidden="true"></i></span>
+              <span v-bind:class="{ 'has-text-white': restaurantList }"> Restaurants </span>
             </a>
           </li>
-          <li>
+
+          <li v-bind:class="{ 'active': blockRestaurant }" @click="[restaurantList = false, blockRestaurant = true]">
             <a>
-              <span class="icon is-small"><i class="fas fa-shield-alt purple-color" aria-hidden="true"></i></span>
-              <span> Blocked Restaurants</span>
+              <span class="icon is-small" v-bind:class="{ 'has-text-white': blockRestaurant }"><i class="fas fa-ban" aria-hidden="true"></i></span>
+              <span class=" " v-bind:class="{ 'has-text-white': blockRestaurant }"> Blocked Restaurant </span>
             </a>
           </li>
+
         </ul>
-      </div>  
-
-
-      <!-- Main container -->
-      <nav class="level">
-        <!-- Left side -->
-        <div class="level-left">
-
-          <div class="level-item">
-            <div class="field has-addons">
-              <p class="control">
-                <input class="input" type="text" placeholder=" Search Restaurants">
-              </p>
-              <p class="control">
-                <button class="button purple-bg has-text-white">
-                  Search
-                </button>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right side -->
-        <div class="level-right">
-
-          <div class="tabs is-toggle level-item">
-            <ul>
-
-              <li>
-                <a>
-                  <span class="icon is-small"><i class="fas fa-sync-alt purple-color" aria-hidden="true"></i></span>
-                  <span>  Refresh</span>
-                </a>
-              </li>
-              <li>
-                <router-link :to="{ name: 'add-restaurant' }" exact>
-                  <span class="icon is-small"><i class="fas fa-plus purple-color" aria-hidden="true"></i></span>
-                  <span> Add Restaurant</span>
-                </router-link>
-              </li>
-            </ul>
-          </div>    	
-
-        </div>
-      </nav>
+      </div>
 
 
 
+      <div v-if="restaurantList">
+        <restaurant-list> </restaurant-list>
+      </div>
 
-      <table class="table is-bordered is-striped is-hoverable"> <!-- Table tag open -->
-
-        <thead>
-          <tr>
-            <th> <span class="purple-color"> ID </span> </th>
-            <th> <span class="purple-color"> Restaurant Name </span> </th>
-            <th class="has-text-centered"> <span class="purple-color"> Address </span> </th>
-            <th class="has-text-centered"> <span class="purple-color"> Phone </span> </th>
-            <th class="has-text-centered"> <span class="purple-color"> Email </span> </th>
-            <th> <span class="purple-color"> Delivery Commission </span> </th>
-            <th> <span class="purple-color"> Revenue </span> </th>
-            <th> <span class="purple-color"> Status </span> </th>
-            <th> <span class="purple-color"> Action </span> </th>
-          </tr>
-        </thead>
-
-        <tbody>
-
-          <tr>
-            <th> <span class="purple-color"> 1 </span> </th>
-            <td> <router-link :to="{ name: 'view-restaurant' }" exact> Crunchies </router-link> </td>
-            <td> 8 Mary Slessor Ave, Bogoberi, Calabar </td>
-            <td> 080XXXXXXX </td>
-            <td> Bellewise@bellewise.com</td>
-            <td class="has-text-centered"> 8 </td>
-            <td> ₦54398.00 </td>
-            <td class="has-text-centered"> <input type="checkbox"> </td>
-            <td> 
-              <div class="field is-grouped">
-                <p class="control">
-                  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact>
-                    View
-                  </router-link>
-                </p>
-                <p class="control">
-                  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact>
-                    Edit
-                  </router-link>
-                </p>
-                <p class="control">
-                  <button class="button purple-color">
-                    Delete 
-                  </button>
-                </p>
-              </div>
-            </td>
-          </tr>
-
-
-          <tr>
-            <th> <span class="purple-color"> 2 </span> </th>
-            <td> <router-link :to="{ name: 'view-restaurant' }" exact> Crunchies </router-link> </td>
-            <td> 8 Mary Slessor Ave, Bogoberi, Calabar </td>
-            <td> 080XXXXXXX </td>
-            <td> Bellewise@bellewise.com</td>
-            <td class="has-text-centered"> 8 </td>
-            <td> ₦54398.00 </td>
-            <td class="has-text-centered"> <input type="checkbox"> </td>
-            <td> 
-              <div class="field is-grouped">
-                <p class="control">
-                  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact>
-                    View
-                  </router-link>
-                </p>
-                <p class="control">
-                  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact>
-                    Edit
-                  </router-link>
-                </p>
-                <p class="control">
-                  <button class="button purple-color">
-                    Delete 
-                  </button>
-                </p>
-              </div>
-            </td>
-          </tr>
+      <div v-if="blockRestaurant">
+        <block-restaurant> </block-restaurant>
+      </div>
 
 
 
-          <tr>
-            <th> <span class="purple-color"> 3 </span> </th>
-            <td> <router-link :to="{ name: 'view-restaurant' }" exact> Crunchies </router-link> </td>
-            <td> 8 Mary Slessor Ave, Bogoberi, Calabar </td>
-            <td> 080XXXXXXX </td>
-            <td> Bellewise@bellewise.com</td>
-            <td class="has-text-centered"> 8 </td>
-            <td> ₦54398.00 </td>
-            <td class="has-text-centered"> <input type="checkbox"> </td>
-            <td> 
-              <div class="field is-grouped">
-                <p class="control">
-                  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact>
-                    View
-                  </router-link>
-                </p>
-                <p class="control">
-                  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact>
-                    Edit
-                  </router-link>
-                </p>
-                <p class="control">
-                  <button class="button purple-color">
-                    Delete 
-                  </button>
-                </p>
-              </div>
-            </td>
-          </tr>
+    </div>  <!-- box tag close -->
 
-
-          <tr>
-            <th> <span class="purple-color"> 4 </span> </th>
-            <td> <router-link :to="{ name: 'view-restaurant' }" exact> Crunchies </router-link> </td>
-            <td> 8 Mary Slessor Ave, Bogoberi, Calabar </td>
-            <td> 080XXXXXXX </td>
-            <td> Bellewise@bellewise.com</td>
-            <td class="has-text-centered"> 8 </td>
-            <td> ₦54398.00 </td>
-            <td class="has-text-centered"> <input type="checkbox"> </td>
-            <td> 
-              <div class="field is-grouped">
-                <p class="control">
-                  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact>
-                    View
-                  </router-link>
-                </p>
-                <p class="control">
-                  <router-link class="button purple-color" :to="{ name: 'view-restaurant' }" exact>
-                    Edit
-                  </router-link>
-                </p>
-                <p class="control">
-                  <button class="button purple-color">
-                    Delete 
-                  </button>
-                </p>
-              </div>
-            </td>
-          </tr>
-
-
-        </tbody>
-
-      </table> <!-- Table tag close -->
-
-
-
-
-<!-- Pagination section -->
-<div class="buttons has-addons is-centered">
-  <a class="button">
-    <span class="icon is-small">
-      <i class="fas fa-arrow-left green"></i>
-    </span>
-    <span> Previous </span>
-  </a>
-
-
-  <a class="button">
-
-    4 0f 6
-  </a>
-
-
-  <a class="button">
-    <span class="icon is-small">
-      <i class="fas fa-arrow-right green"></i>
-    </span>
-    <span> Next </span>
-  </a>
-
-</div>
-
-
-
-    </div> <!-- Card content tag open -->
-
-
-  </div> <!-- Card tag close -->
-
-
-
-
-
-
-
-</div> <!-- Container tag close -->
+  </div> <!-- Container tag close -->
 
 
 
 </template>
 
 
-<script>
-import BlockedRestaurant from './Modules/blockedRestaurant.vue'
-
+<script> 
+import RestaurantList from "./Modules/restaurantList.vue"
+import BlockRestaurant from "./Modules/blockedRestaurant.vue"
 
 export default {
 
   components: {
-    'blocked-restaurants': BlockedRestaurant,
+    'restaurant-list': RestaurantList,
+    'block-restaurant': BlockRestaurant,
   },
 
   data: () => ({
-
+    restaurantList: true,
+    blockRestaurant: false,
   }),
+
+
+
 
 }
 

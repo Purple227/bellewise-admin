@@ -32,7 +32,6 @@
 						{{ index+1 }}. {{ value[0] }}
 					</li>
 				</ul>
-
 			</div>
 
 

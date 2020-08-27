@@ -8,25 +8,24 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\NexmoMessage;
 
-
-class DriverCredentials extends Notification implements ShouldQueue
+class RestaurantCredentials extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    public $driver;
-    public $password;
-    public $driver_id;
+
+    public $restaurant
+    public $password 
+
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($driver, $password, $driver_id)
+    public function __construct($restaurant, $password)
     {
-        $this->driver = $driver;
+        $this->restaurant = $restaurant;
         $this->password = $password;
-        $this->driver_id = $driver_id;
     }
 
     /**
@@ -40,7 +39,6 @@ class DriverCredentials extends Notification implements ShouldQueue
         return ['mail', 'nexmo'];
     }
 
-
     /**
      * Get the mail representation of the notification.
      *
@@ -50,13 +48,11 @@ class DriverCredentials extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->subject('Your bellewise Details')
-        ->greeting('Hello' . " " .$this->driver->name . ". " . " ". "your ID is" . " " . $this->driver_id)
-        ->line(  'Below is your account details to gain access to our app.') 
-        ->line( 'Password:' .' ' . $this->password)
-        ->line( 'Email:' .' ' . $this->driver->email)
+        ->subject('Bellewise')
+        ->greeting( $this->restaurant->restaurant_name)
+        ->line(  'You decide to partner with bellewise.') 
         ->action('Get the app', url('/') )
-        ->line('Thanks for using our application!');
+        ->line('Thank you for partnering with us!'); 
     }
 
     /**
@@ -72,23 +68,14 @@ class DriverCredentials extends Notification implements ShouldQueue
         ];
     }
 
-    /**
-     * Get the Nexmo / SMS representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return NexmoMessage
-     */
+
     public function toNexmo($notifiable)
     {
 
-        $password = $this->password;
-        $id = $this->driver_id;
-        $email = $this->driver->email;
-        $name = $this->driver->name;
-        $message = 'Hi' . ' ' .$name . ' ' . 'here are your details to gain access to your Bellewise driver app' . ' ' . 'Email:' .$email . ' ' . 'Password:' .$password . ' ' . 'ID:' .$id .' '. 'Regards, Bellewise';
+        $message = 'Thanks for joining bellewise';
         return (new NexmoMessage)
         ->content($message);
     }
 
 
-    }
+}

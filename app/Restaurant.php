@@ -16,4 +16,14 @@ class Restaurant extends Model
         	return $this->hasMany('App\Menu');
         }
 
+        public function config()
+        {
+        	return $this->hasOne(Config::class);
+        }
+
+        public function promos()
+        {
+            return $this->belongsToMany('App\Promo');
+        }
+
     }

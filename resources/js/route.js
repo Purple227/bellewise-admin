@@ -7,6 +7,7 @@ import Home from './Components/Home.vue';
 import ListRestaurant from './Components/Restaurant/index.vue';
 import AddRestaurant from './Components/Restaurant/addRestaurant.vue';
 import ViewRestaurant from './Components/Restaurant/viewRestaurant.vue';
+import EditRestaurant from './Components/Restaurant/editRestaurant.vue';
 
 import Driver from './Components/Driver/index.vue';
 import AddDriver from './Components/Driver/addDriver.vue';
@@ -64,9 +65,15 @@ component: AddRestaurant
 },
 
 { 
-path: '/restaurant/crunchies',
+path: '/restaurant/:id',
 name:'view-restaurant',
 component: ViewRestaurant
+},
+
+{ 
+path: '/restaurant/:id/edit',
+name:'edit-restaurant',
+component: EditRestaurant
 },
 
 { 

@@ -16,6 +16,22 @@
 
       <!-- Main container -->
       <nav class="level">
+        <!-- Left side -->
+        <div class="level-left">
+
+          <div class="level-item">
+            <div class="field has-addons">
+              <p class="control">
+                <input class="input" type="text" placeholder=" Search restaurant by name" v-model="searchQuery" v-on:keyup="searchMethod">
+              </p>
+              <p class="control">
+                <button class="button purple-bg has-text-white">
+                  Search
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
 
         <!-- Right side -->
         <div class="level-right">
@@ -41,7 +57,7 @@
         </div>
       </nav>
 
-      <table class="table is-bordered is-striped is-hoverable" v-if="loadBlockedRestaurants.length >= 1"> <!-- Table tag open -->
+      <table class="table is-bordered is-striped is-hoverable" v-if="loadRestaurants.length >= 1"> <!-- Table tag open -->
 
         <thead>
           <tr>
@@ -59,7 +75,7 @@
 
         <tbody>
 
-            <tr v-for="(restaurant, index) in loadBlockedRestaurants" :key="index">
+            <tr v-for="(restaurant, index) in searchQuery.length  > 1  ? loadRestaurantSearch : loadRestaurants " :key="index">
 
             <th> <span class="purple-color"> {{ index+1 }} </span> </th>
             <td>  {{ restaurant.name.substring(0,6) }}  </td>
@@ -122,7 +138,7 @@
       </table> <!-- Table tag close -->
 
         <!-- Pagination section -->
-        <div class="buttons has-addons is-centered" v-if="loadBlockedRestaurants.length >= 1">
+        <div class="buttons has-addons is-centered" v-if="loadRestaurants.length >= 1">
           <a class="button" v-if="loadRestaurantPagination.previousPageUrl" @click="paginationHandler(loadRestaurantPagination.previousPageUrl)">
             <span class="icon is-small">
               <i class="fas fa-arrow-left purple-color"></i>
@@ -151,11 +167,11 @@
   </div> <!-- Card tag close -->
 
 
-<div class="card" v-if="loadBlockedRestaurants.length <= 0">
+<div class="card" v-if="loadRestaurants.length <= 0">
   <div class="card-content">
     <div class="content is-bold has-text-centered subtitle">
 
-  <span class="fa"> No restaurant blocked. </span>
+  <span class="fa"> No restaurant found. Add a restaurant instead. </span>
 
     </div>
   </div>
@@ -175,41 +191,49 @@ export default {
   data: () => ({
     spin: false,
     showModal: false,
+    searchQuery: '',
   }),
 
   created() {
-    this.fetchBlockedRestaurants()
+    this.fetchRestaurantDatas()
     this.clearRestaurantNotification()
   },
 
   methods: {
-    ...mapActions(['fetchBlockedRestaurants', 'clearRestaurantNotification', 'destroyRestaurantData', 'updateRestaurantStatus']),
+    ...mapActions(['fetchRestaurantDatas', 'clearRestaurantNotification', 'destroyRestaurantData', 'searchRestaurantDatas', 'updateRestaurantStatus']),
     // Local method
     refresh() {
       this.spin = true
-      this.fetchBlockedRestaurants().then(() => this.spin = false)
+      this.fetchRestaurantDatas().then(() => this.spin = false)
+      this.searchQuery = ""
+      this.searchRestaurantDatas(this.searchQuery)
     },
 
     deleteData(id) {
       this.destroyRestaurantData(id)
-      this.fetchBlockedRestaurants()
+      this.fetchRestaurantDatas()
       this.showModal = false
     },
 
     paginationHandler(uri) {
-      this.fetchBlockedRestaurants(uri)
+      this.fetchRestaurantDatas(uri)
+    },
+
+    searchMethod() {
+      if(this.searchQuery.length > 1) {
+        this.searchRestaurantDatas(this.searchQuery)
+      }
     },
 
     statusMethod(id,status) {
       this.updateRestaurantStatus({id, status})
-      this.refresh()
     },
 
   },
 
 
   computed: {
-    ...mapGetters(['loadBlockedRestaurants', 'loadRestaurantLoader', 'loadRestaurantNotification', 'loadRestaurantPagination']),
+    ...mapGetters(['loadRestaurants', 'loadRestaurantLoader', 'loadRestaurantNotification', 'loadRestaurantPagination', 'loadRestaurantSearch']),
 
     // Local computed properties
 },

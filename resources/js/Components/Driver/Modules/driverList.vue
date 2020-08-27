@@ -1,8 +1,9 @@
+
 	<template>
 
 		<div> <!-- Root element tag open -->
 
-		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadLoading }"><span class="title"> Loading Bellewise </span></div>
+		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadLoading }"><span class="title"> Bellewise loading </span></div>
 
 		<div class="card"> <!-- Card tag open -->
 
@@ -39,7 +40,7 @@
 
 								<li v-on:click="refresh">
 									<a>
-										<span class="icon is-small"><i class="fas fa-sync-alt  purple-color" v-bind:class="{ 'fa-spin': spin }"aria-hidden="true"></i></span>
+										<span class="icon is-small"><i class="fas fa-sync-alt  purple-color" v-bind:class="{ 'fa-spin': spin }" aria-hidden="true"></i></span>
 										<span>  Refresh</span>
 									</a>
 								</li>
@@ -153,7 +154,6 @@
 						</span>
 						<span> Next </span>
 					</a>
-
 				</div>
 
 
@@ -233,7 +233,6 @@ export default {
 		...mapGetters(['loadDatas', 'loadLoading', 'loadNotification', 'loadPagination', 'loadSearch']),
 
     // Local computed properties
-
 },
 
 

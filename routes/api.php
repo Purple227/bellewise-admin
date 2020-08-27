@@ -19,7 +19,17 @@ use Illuminate\Support\Facades\Route;
  Route::get('/driver/search', 'DriverController@search');
  Route::get('/driver/blocked', 'DriverController@blocked');
 
+ Route::patch('restaurant/{id}', 'RestaurantController@statusUpdate');
+ Route::get('/restaurant/search', 'RestaurantController@search');
+ Route::get('/restaurant/blocked', 'RestaurantController@blocked');
+ Route::get('/restaurant/all', 'RestaurantController@getAll');
+
+ Route::get('/promo/search', 'PromoController@search');
+ Route::get('promo/{date}', 'PromoController@sortByDate');
+
 Route::apiResources([
     'driver' => 'DriverController',
+    'restaurant' => 'RestaurantController',
+    'promo' => 'PromoController',
 ]);
 

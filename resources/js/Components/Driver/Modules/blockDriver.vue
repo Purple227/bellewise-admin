@@ -4,7 +4,7 @@
 
 		<div> <!-- Root element tag open -->
 
-		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadLoading }"><span class="title"> Loading Bellewise </span></div>
+		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadLoading }"><span class="title"> Loading Bellewise </span></div> 
 
 		<div class="card"> <!-- Card tag open -->
 
@@ -16,22 +16,6 @@
 
 				<!-- Main container -->
 				<nav class="level">
-					<!-- Left side -->
-					<div class="level-left">
-
-						<div class="level-item">
-							<div class="field has-addons">
-								<p class="control">
-									<input class="input" type="text" placeholder=" Search Driver by ID" v-model="searchQuery" v-on:keyup="searchMethod">
-								</p>
-								<p class="control">
-									<button class="button purple-bg has-text-white">
-										Search 
-									</button>
-								</p>
-							</div>
-						</div>
-					</div>
 
 					<!-- Right side -->
 					<div class="level-right">
@@ -76,7 +60,7 @@
 
 					<tbody>
 
-						<tr v-for="(driver, index) in searchQuery.length  > 1  ? loadSearch : loadBlockedDatas " :key="index">
+						<tr v-for="(driver, index) in loadBlockedDatas " :key="index">
 							<th> <span class="purple-color">  {{ driver.driver_id}}  </span> </th>
 							<td> {{ driver.name.substring(0,6) }} </td>
 							<td> {{ driver.email.substring(0,10) }} </td>
@@ -191,7 +175,6 @@ export default {
 	data: () => ({
 		spin: false,
 		showModal: false,
-		searchQuery: '',
 	}),
 
 	created() {
@@ -205,8 +188,6 @@ export default {
 		refresh() {
 			this.spin = true
 			this.fetchBlockedDatas().then(() => this.spin = false)
-			this.searchQuery = ""
-			this.searchDatas(this.searchQuery)
 		},
 
 		deleteData(id) {
@@ -219,12 +200,6 @@ export default {
 			this.fetchBlockedDatas(uri)
 		},
 
-		searchMethod() {
-			if(this.searchQuery > 1) {
-				this.searchDatas(this.searchQuery)
-			}
-		},
-
 		statusMethod(id,status) {
 			this.updateStatus({id, status})
 			this.refresh()
@@ -234,7 +209,7 @@ export default {
 
 
 	computed: {
-		...mapGetters(['loadBlockedDatas', 'loadLoading', 'loadNotification', 'loadPagination', 'loadSearch']),
+		...mapGetters(['loadBlockedDatas', 'loadLoading', 'loadNotification', 'loadPagination']),
 
     // Local computed properties
 
