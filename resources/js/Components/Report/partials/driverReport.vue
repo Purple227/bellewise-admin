@@ -5,12 +5,15 @@
 
 	<div class="container"> <!-- Container tag open -->
 
+		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadLoading }"><span class="title"> Bellewise loading </span></div>
+
+
 		<nav class="level">
 
-			<div class="level-item has-text-centered">
+			<div class="level-item level-left">
 				<div class="field has-addons">
 					<div class="control">
-						<input class="input" type="text" placeholder="Search Drivers">
+						<input class="input" type="text" placeholder=" Search Driver by ID" v-model="searchQuery" v-on:keyup="searchMethod">
 					</div>
 					<div class="control">
 						<a class="button purple-color">
@@ -20,23 +23,6 @@
 				</div>
 			</div>
 
-			<div class="level-item has-text-centered">
-				<div class="field has-addons">
-					<p class="control">
-						<input id="my-element" type="date" data-display-mode="dialog"  data-close-on-select="false" data-color="info">
-					</p>
-					<p class="control">
-						<a class="button purple-color ">
-							By Date
-						</a>
-					</p>
-				</div>
-			</div>
-
-
-			<div class="level-item has-text-centered">
-				<button class="button purple-color is-bold"> Download CSV</button>
-			</div>
 
 		</nav>
 
@@ -66,16 +52,17 @@
 			<div class="" v-if=" 'notification' == picked"> 
 
 				<div class="field">
-					<label class="label"> Notification </label>
+					<label class="label"> Notification / SMS </label>
 					<div class="control">
-						<textarea class="textarea" placeholder=" Enter Notification Content"></textarea>
+						<textarea class="textarea" v-model.trim="SMSMessage" placeholder=" Enter Notification Content"></textarea>
+						<p class="help is-danger is-bold"> You have to select atleast one recipent and field is required. </p>
 					</div>
 				</div>
 
 
 				<div class="field is-grouped is-grouped-right">
 					<div class="control">
-						<button class="button purple-color is-bold">Send</button>
+						<button class="button purple-color is-bold" v-bind:class="{ 'is-loading': loadReportProgress }" :disabled="selectedDriver.length == 0"> Send </button>
 					</div>
 				</div>
 
@@ -118,7 +105,12 @@
 
 			<div class="card-content table-container"> <!-- Card content tag open -->
 
-				<table class="table is-bordered is-striped is-hoverable"> <!-- Table tag open -->
+				<label class="panel-block is-bold">
+					<input type="checkbox" v-model="mark" true-value="on" false-value="off" @click =" mark  == 'on'  ? selectedDriver = [] : selectedDriver = markAll">
+					Mark All
+				</label>
+
+				<table class="table is-bordered is-striped is-hoverable" v-if="loadActiveDrivers.length >= 1"> <!-- Table tag open -->
 
 					<thead>
 						<tr>
@@ -134,104 +126,59 @@
 
 					<tbody>
 
-						<tr>
-							<td class="has-text-centered"> <input type="checkbox"> </td>
-							<th> <span class="purple-color"> 874387 </span> </th>
-							<td> Joseph Purple </td>
-							<td> Purple@gmail.com </td>
-							<td> 080XXXXXXX </td>
-							<td> Student </td>
-							<td class="has-text-centered"> 188</td>
+						<tr v-for="(driver, index) in searchQuery.length  > 1  ? loadSearch : loadActiveDrivers " :key="index">
+							<td class="has-text-centered"> <input type="checkbox" :value="driver.phone" v-model="selectedDriver"> </td>
+							<th> <span class="purple-color"> {{ driver.driver_id}} </span> </th>
+							<td> {{ driver.name.substring(0,6) }} </td>
+							<td> {{ driver.email.substring(0,10) }} </td>
+							<td> {{ driver.phone }} </td>
+							<td> {{ driver.occupation.substring(0,6) }} </td>
+							<td class="has-text-centered"> {{ driver.total_delivery}} </td>
 						</tr>
-
-
-
-						<tr>
-							<td class="has-text-centered"> <input type="checkbox"> </td>
-							<th> <span class="purple-color"> 874387 </span> </th>
-							<td> Joseph Purple </td>
-							<td> Purple@gmail.com </td>
-							<td> 080XXXXXXX </td>
-							<td> Student </td>
-							<td class="has-text-centered"> 188</td>
-						</tr>
-
-
-
-						<tr>
-							<td class="has-text-centered"> <input type="checkbox"> </td>
-							<th> <span class="purple-color"> 874387 </span> </th>
-							<td> Joseph Purple </td>
-							<td> Purple@gmail.com </td>
-							<td> 080XXXXXXX </td>
-							<td> Student </td>
-							<td class="has-text-centered"> 188</td>
-						</tr>
-
-
-
-						<tr>
-							<td class="has-text-centered"> <input type="checkbox"> </td>
-							<th> <span class="purple-color"> 874387 </span> </th>
-							<td> Joseph Purple </td>
-							<td> Purple@gmail.com </td>
-							<td> 080XXXXXXX </td>
-							<td> Student </td>
-							<td class="has-text-centered"> 188</td>
-						</tr>
-
-
-
-						<tr>
-							<td class="has-text-centered"> <input type="checkbox"> </td>
-							<th> <span class="purple-color"> 874387 </span> </th>
-							<td> Joseph Purple </td>
-							<td> Purple@gmail.com </td>
-							<td> 080XXXXXXX </td>
-							<td> Student </td>
-							<td class="has-text-centered"> 188</td>
-						</tr>
-
 
 					</tbody>
 
 				</table> <!-- Table tag close -->
 
 
-<!-- Pagination section -->
-<div class="buttons has-addons is-centered">
-  <a class="button">
-    <span class="icon is-small">
-      <i class="fas fa-arrow-left green"></i>
-    </span>
-    <span> Previous </span>
-  </a>
+				<!-- Pagination section -->
+				<div class="buttons has-addons is-centered" v-if="loadActiveDrivers.length >= 1">
+					<a class="button" v-if="loadPagination.previousPageUrl" @click="paginationHandler(loadPagination.previousPageUrl)">
+						<span class="icon is-small">
+							<i class="fas fa-arrow-left purple-color"></i>
+						</span>
+						<span> Previous </span>
+					</a>
 
 
-  <a class="button">
+					<a class="button">
 
-    5 0f 6
-  </a>
+						{{ loadPagination.to}} 0f {{loadPagination.total}}
+					</a>
 
 
-  <a class="button">
-    <span class="icon is-small">
-      <i class="fas fa-arrow-right green"></i>
-    </span>
-    <span> Next </span>
-  </a>
-
-</div>
-
+					<a class="button" v-if="loadPagination.nextPageUrl" @click="paginationHandler(loadPagination.nextPageUrl)">
+						<span class="icon is-small">
+							<i class="fas fa-arrow-right purple-color"></i>
+						</span>
+						<span> Next </span>
+					</a>
+				</div>
 
 			</div> <!-- Card content tag open -->
-
 
 		</div> <!-- Card tag close -->
 
 
+		<div class="card" v-if="loadActiveDrivers.length <= 0">
+			<div class="card-content">
+				<div class="content is-bold has-text-centered subtitle">
 
+					<span class="fa"> No driver found. </span>
 
+				</div>
+			</div>
+		</div>
 
 
 
@@ -244,6 +191,7 @@
 
 import BulmaCalendar from "../../../Mixins/bulmaCalendar.js";
 import Editor from "../../../Mixins/tinymceEditor.js";
+import { mapGetters, mapActions, mapState } from 'vuex';
 
 export default {
 
@@ -255,7 +203,77 @@ export default {
 	data: () => ({
 		display: false,
 		picked: "notification",
+		showModal: false,
+		searchQuery: '',
+		mark: "On",
+		selectedDriver: [],
+		SMSMessage: "",
+		error: null,
 	}),
+
+	created() {
+		this.fetchActiveDatas()
+		this.clearNotification()
+	},
+
+
+
+	methods: {
+		...mapActions(['fetchActiveDatas', 'clearNotification', 'destroyData', 'searchDatas', 'updateStatus', 'sendSMS']),
+		// Local method
+
+		deleteData(id) {
+			this.destroyData(id)
+			this.fetchActiveDatas()
+			this.showModal = false
+		},
+
+		paginationHandler(uri) {
+			this.fetchActiveDatas(uri)
+		},
+
+		searchMethod() {
+			if(this.searchQuery > 1) {
+				this.searchDatas(this.searchQuery)
+			}
+		},
+
+		statusMethod(id,status) {
+			this.updateStatus({id, status})
+		},
+
+		submitNotification() {
+			if(this.selectedDriver.length >= 1) {
+
+				let data = new FormData();
+				data.append("_method", "post");
+				data.append('user', this.SMSMessage);
+				data.append('phones', JSON.stringify(this.selectedDriver));
+				this.sendSMS(data)
+			} else if (this.selectedDriver.length == 0) {
+				this.error = true
+			}
+
+		}
+
+	},
+
+
+	computed: {
+		...mapGetters(['loadActiveDrivers', 'loadLoading', 'loadNotification', 'loadPagination', 'loadSearch', 'loadReportNotification', 'loadReportProgress']),
+    // Local computed properties
+    markAll() {
+    	let activeDrivers = this.$store.getters.loadActiveDrivers
+    	let arrayLength = this.$store.getters.loadActiveDrivers.length
+    	let selectAll = []
+    	for (let i = 0; i < arrayLength; i++) {
+    		selectAll.push(activeDrivers[i].phone)
+    	}
+    	return  selectAll
+    },
+
+},
+
 
 }
 

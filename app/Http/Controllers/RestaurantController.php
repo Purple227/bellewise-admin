@@ -62,6 +62,8 @@ class RestaurantController extends Controller
     public function store(Request $request)
     {
 
+        return json_decode($request->menu);
+
         $validator = Validator::make($request->all(), [
             'restaurant_name' => 'required',
             'description' => 'required',

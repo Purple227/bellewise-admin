@@ -111,6 +111,7 @@ const actions = {
 
 	async createRestaurant({ commit }, data) {
 		commit('setProgress', true)
+		console.log(...data)
 		const config = {
 			headers: { 'content-type': 'application/x-www-form-urlencoded' }
 		}

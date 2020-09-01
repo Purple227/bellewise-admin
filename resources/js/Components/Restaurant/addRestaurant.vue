@@ -17,7 +17,7 @@
 
 			<!-- Right side -->
 			<div class="level-right">
-				<p class="level-item"> <router-link :to="{ name: 'list-restaurant' }" exact> <strong class="purple-color"> Back</strong> </router-link> </p>
+				<p class="level-item"> <router-link :to="{ name: 'list-restaurant' }" exact> <strong class="purple-color"> Back </strong> </router-link> </p>
 			</div>
 		</nav>
 
@@ -247,7 +247,7 @@
 									</span>
 								</p>
 								<p class="control is-expanded">
-									<input class="input is-info" type="number" placeholder="Amount of money" v-model="menu[menu.length -1].price">
+									<input class="input is-info" min="0" oninput="validity.valid||(value='');" type="number" placeholder="Amount of money" v-model="menu[menu.length -1].price">
 								</p>
 								<p class="control">
 									<a class="button is-bold">
@@ -310,14 +310,12 @@
 						</ul>
 					</aside>
 
-					<button class="button is-fullwidth mt-3" @click="addMenuForm" v-if="create" :disabled="$v.menu.$invalid">
+					<button class="button is-fullwidth mt-3" @click="addMenuForm" v-if="create" :disabled="$v.menu.$invalid" >
 						<span class="icon is-medium">
 							<i class="fas fa-plus purple-color"></i>
 						</span>
 						<span class="is-bold">Add</span>
 					</button>
-
-
 
 					<button class="button is-fullwidth mt-3" v-if="foodItem" @click="[create = true, foodItem = false]">
 						<span class="icon is-medium">
@@ -327,9 +325,7 @@
 					</button>
 
 
-
 				</div> <!-- Second step tag close -->
-
 
 
 				<!-- Main container -->
@@ -406,6 +402,8 @@ export default {
 			discount: null,
 		},
 
+		simpleArray: null,
+
 		formStep: {
 			step: 1,
 			totalStep: 2,
@@ -415,7 +413,7 @@ export default {
 			name: null,
 			description: null,
 			price: null,
-			imageName: null,
+			imageName: '',
 			imageFile: '',
 		}],
 
@@ -512,15 +510,13 @@ export default {
 			let data = new FormData();
 			data.append("_method", "post");
 			data.append('restaurant_name', this.restaurant.name);
-			data.append('menu_name', this.menu.name);
 			data.append('phone', this.restaurant.countryCode + this.restaurant.phone);
 			data.append('address', this.restaurant.address);
 			data.append('restaurant_file', this.restaurant.imageFile);
 			data.append('license_number', this.restaurant.licenseNumber);
 			data.append('email', this.restaurant.email);
 			data.append('discount', this.restaurant.discount);
-			data.append('price', this.menu.price);
-			data.append('description', JSON.stringify(this.menu));
+			data.append('menu', JSON.stringify(this.transformToSimpleArray));
 			this.createRestaurant(data)
 		},
 
@@ -529,9 +525,34 @@ export default {
 
 	computed: {
 		...mapGetters(['loadRestaurantProgress', 'loadRestaurantErrors']),
-
     // Local computed properties
-},
+
+    transformToSimpleArray() {
+/*			var keys = Object.keys(this.menu)
+			console.log(keys)
+			this.simpleArray = keys.name*/
+
+/*			for (let i in this.menu) {
+				this.simpleArray.push(this.menu[i].name)
+			}*/
+
+/*
+			for (let i=0; i<this.menu.length; i++) { 
+				this.simpleArray.push(this.menu[i].name)
+			}*/
+
+			let result = []
+			for (let i=0; i<this.menu.length; i++) {
+			result.push(this.menu[i].name)
+			result.push(this.menu[i].description)
+			result.push(this.menu[i].price)
+			result.push(this.menu[i].imageFile)
+			}
+			return result
+		},
+
+
+	},
 
 
 

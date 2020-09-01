@@ -10,7 +10,7 @@ import { app } from '../../app.js'
 
 const state = {
 	promoDatas: [],
-	promoData: null,
+	promoData: {},
 	promoNotification: false,
 	promoLoader: true,
 	promoProgress: null,
@@ -30,7 +30,7 @@ const state = {
 const getters = {
 
 	loadPromo: (state) => state.promoDatas,
-	loadSinglePromo: (state) => state.promotData,
+	loadSinglePromo: (state) => state.promoData,
 	loadPromoLoader: (state) => state.promoLoader,
 	loadPromoProgress: (state) => state.promoProgress,
 	loadPromoNotification: (state) => state.promoNotification,
@@ -59,6 +59,13 @@ const actions = {
 		commit('setTotal', response.data.total)
 	},
 
+	async fetchSinglePromo({commit}, id) {
+		commit('setLoading', true)
+		let api = '/api/promo/' + id
+		const response = await axios.get(api);
+		commit('setSingleData', response.data)
+		commit('setLoading', false)
+	},
 
 	async searchPromoDatas({commit}, searchQuery) {
 		const response = await axios.get('/api/promo/search',{params: {search_query: searchQuery}})
@@ -94,9 +101,9 @@ const actions = {
 		})
 	},
 
-
 	async editPromoData({ commit }, {data, id}) {
 		commit('setProgress', true)
+		console.log(...data)
 		let api = '/api/promo/' + id
 		const config = {
 			headers: { 'content-type': 'application/x-www-form-urlencoded' }
@@ -105,7 +112,7 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			app.$router.push({name: 'list-restaurant'})
+			app.$router.push({name: 'list-promotion'})
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -115,9 +122,7 @@ const actions = {
 				commit('setErrors', null)
 			}, 10000)
 		})
-
 	},
-
 
 	async clearPromoErrors ({commit}) {
 		commit('unsetErrors')
@@ -134,6 +139,7 @@ const actions = {
 const mutations = {
 
 	setDatas: (state, datas) => state.promoDatas = datas,
+	setSingleData: (state, data) => state.promoData.promo = data,
 
 	setNotification: (state, notification) => state.promoNotification = notification,
 	unsetNotification: (state, notification) => state.promoNotification = notification,

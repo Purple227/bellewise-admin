@@ -39,6 +39,8 @@ class PromoController extends Controller
     public function store(Request $request)
     {   
 
+        //return $request->restaurantID;
+
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'unique:promos'],
             'voucher' => 'required',
@@ -70,7 +72,7 @@ class PromoController extends Controller
         ->notify(new DriverCredentials( $notify_info, $generated_password, $driver_id ));*/
 
 
-        // New driver object
+        // New promo object
         $promo = new Promo;
         // Save to database
         $promo->name = $request->name;
@@ -82,7 +84,9 @@ class PromoController extends Controller
         $promo->bearer = $request->bearer;
         $promo->save();
 
-        $promo->restaurants()->attach($request->restaurantID);
+        $restaurant_id = json_decode($request->restaurantsID);
+
+        $promo->restaurants()->attach($restaurant_id);
 
     }
 
@@ -95,6 +99,9 @@ class PromoController extends Controller
     public function show($id)
     {
         $promo = Promo::find($id);
+        foreach ($promo->restaurants as $restaurant) {
+           $restaurant->name;
+        }
         return response()->json($promo);
     }
 
@@ -107,7 +114,38 @@ class PromoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $promo = Promo::find($id);
+
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'voucher' => 'required',
+            'amount' => 'required',
+            'discount' => 'required',
+            'bearer' => 'required',
+            'validity' => 'required',
+            'user' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        // Save to database
+        $promo->name = $request->name;
+        $promo->voucher = $request->voucher;
+        $promo->amount = $request->amount;
+        $promo->discount = $request->discount;
+        $promo->validity = $request->validity;
+        $promo->user = $request->user;
+        $promo->bearer = $request->bearer;
+        $promo->save();
+
+        $restaurant_id = json_decode($request->restaurantsID);
+
+        // Update restaurant id insertted here
+        $promo->restaurants()->sync($restaurant_id);
+
+
     }
 
     /**
@@ -118,6 +156,9 @@ class PromoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $promo = Promo::findOrFail($id);
+        $promo->restaurants()->detach();
+        $promo->delete();
+        return response()->json($promo);
     }
 }

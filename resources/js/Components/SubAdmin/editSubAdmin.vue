@@ -4,7 +4,7 @@
 
 	<div class="container"> <!-- Container tag open -->
 
-		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadLoading }"><span class="title"> Loading Bellewise</span></div>
+		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadSubAdminLoader }"><span class="title"> Loading Bellewise</span></div>
 
 		<!-- Main container -->
 		<nav class="level">
@@ -12,23 +12,23 @@
 			<div class="level-left">
 				<div class="level-item">
 					<p class="subtitle is-5">
-						<strong> Edit {{ loadSingleData.name }} </strong> 
+						<strong> Edit {{ loadSubAdminSingleData.name }} </strong> 
 					</p>
 				</div>
 			</div>
 
 			<!-- Right side -->
 			<div class="level-right">
-				<p class="level-item"> <router-link :to="{ name: 'driver-list' }" exact> <strong class="purple-color"> Back</strong> </router-link> </p>
+				<p class="level-item"> <router-link :to="{ name: 'sub-admin-list' }" exact> <strong class="purple-color"> Back</strong> </router-link> </p>
 			</div>
 		</nav>
 
 		<div class="box"> <!-- Box container tag open -->
 
 
-			<div class="notification purple-bg-light is-bold has-text-black" v-if="loadErrors">
+			<div class="notification purple-bg-light is-bold has-text-black" v-if="loadSubAdminErrors">
 				<ul>
-					<li v-for="(value, name, index) in loadErrors">
+					<li v-for="(value, name, index) in loadSubAdminErrors">
 						{{ index+1 }}. {{ value[0] }}
 					</li>
 				</ul>
@@ -44,33 +44,15 @@
 
 
 						<div class="field">
-							<label class="label">Driver Name <span class="has-text-danger"> * </span>  </label>
+							<label class="label">Admin Name <span class="has-text-danger"> * </span>  </label>
 							<div class="control has-icons-left has-icons-right">
-								<input class="input is-info" type="text" v-model.trim="loadSingleData.name"  required autofocus>
+								<input class="input is-info" type="text" v-model.trim="loadSubAdminSingleData.name"  required autofocus>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-truck purple-color"></i>
 								</span>
 								<!-- Has icon right -->
-								<span class="icon is-small is-right" v-if="$v.loadSingleData.name.required">
-									<i class="fas fa-check purple-color"></i>
-								</span>
-								<span class="icon is-small is-right" v-else>
-									<i class="fas fa-exclamation-triangle has-text-danger"></i>
-								</span>
-							</div>
-						</div>
-
-						<div class="field">
-							<label class="label">Driver Occupation <span class="has-text-danger"> * </span>  </label>
-							<div class="control has-icons-left has-icons-right">
-								<input class="input is-info" type="text" v-model.trim="loadSingleData.occupation"  required autofocus>
-								<!-- Has icon left -->
-								<span class="icon is-small is-left">
-									<i class="fas fa-briefcase purple-color"></i>
-								</span>
-								<!-- Has icon right -->
-								<span class="icon is-small is-right" v-if="$v.loadSingleData.occupation.required">
+								<span class="icon is-small is-right" v-if="$v.loadSubAdminSingleData.name.required">
 									<i class="fas fa-check purple-color"></i>
 								</span>
 								<span class="icon is-small is-right" v-else>
@@ -111,7 +93,7 @@
 
 				<div class="field">
 					<p class="control">
-						<button class="button" v-bind:class="{ 'is-loading': loadProgress }" :disabled="$v.loadSingleData.$invalid">
+						<button class="button" v-bind:class="{ 'is-loading': loadSubAdminProgress }" :disabled="$v.loadSubAdminSingleData.$invalid">
 							<span class="icon is-small">
 								<i class="fas fa-save purple-color"></i>
 							</span>
@@ -146,14 +128,10 @@ export default {
 
 	validations: { //Validation calibrace open 
 
-		loadSingleData: {
+		loadSubAdminSingleData: {
 
 			name: {
 				required
-			},
-
-			occupation: {
-				required,
 			},
 
 			email: {
@@ -170,13 +148,13 @@ export default {
 	},
 
 	methods: {
-		...mapActions(['fetchSingleData', 'clearErrors', 'editData']),
+		...mapActions(['fetchSubAdminSingleData', 'clearSubAdminErrors', 'editSubAdminData']),
 
 			// Local methods goes here
 
 			setId() {
 				let id = this.$route.params.id
-				this.fetchSingleData(id)
+				this.fetchSubAdminSingleData(id)
 			},
 
 
@@ -188,13 +166,12 @@ export default {
 			submitForm() {
 				let data = new FormData();
 				data.append("_method", "put");
-				data.append('name', this.$store.getters.loadSingleData.name);
-				data.append('occupation', this.$store.getters.loadSingleData.occupation);
+				data.append('name', this.$store.getters.loadSubAdminSingleData.name);
 				data.append('file', this.imageFile);
 
 				let id = this.$route.params.id
 
-				this.editData( {data, id} );
+				this.editSubAdminData( {data, id} );
 
 			},
 
@@ -203,7 +180,7 @@ export default {
 
 
 		computed: {
-			...mapGetters(['loadSingleData', 'loadLoading', 'loadProgress', 'loadSucceeded', 'loadErrors']),
+			...mapGetters(['loadSubAdminSingleData', 'loadSubAdminLoader', 'loadSubAdminProgress', 'loadSubAdminErrors']),
 
 
 		},

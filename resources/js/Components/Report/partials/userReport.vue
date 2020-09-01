@@ -51,7 +51,7 @@
 				<div class="control">
 					<label class="radio">
 						<input type="radio" value="notification" v-model="picked">
-						Send Notification 
+						Send Notification / SMS
 					</label>
 					<label class="radio">
 						<input type="radio" value="email" v-model="picked">

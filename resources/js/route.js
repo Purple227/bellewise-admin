@@ -21,16 +21,18 @@ import UserList from './Components/Users/userList.vue';
 import EditUser from './Components/Users/editUser.vue';
 import ResetUserPassword from './Components/Users/resetUserPassword.vue';
 
-import SubAdminList from './Components/SubAdmin/subAdminList.vue';
-import AdminPermission from './Components/SubAdmin/adminPermission.vue';
-import AddAdmin from './Components/SubAdmin/AddAdmin.vue';
+import SubAdminPermission from './Components/SubAdmin/subAdminPermission.vue';
+import SubAdmin from './Components/SubAdmin/index.vue';
+import AddSubAdmin from './Components/SubAdmin/addSubAdmin.vue';
+import ViewSubAdmin from './Components/SubAdmin/viewSubAdmin.vue';
+import EditSubAdmin from './Components/SubAdmin/editSubAdmin.vue';
 
 import ListPromotion from './Components/Promotion/listPromotion.vue';
 import AddPromotion from './Components/Promotion/addPromotion.vue';
 import EditPromotion from './Components/Promotion/editPromotion.vue';
 import ViewPromoRestaurant from './Components/Promotion/viewPromoRestaurant.vue';
 
-import Report from './Components/Report/reports.vue';
+import Report from './Components/Report/index.vue';
 
 import Account from './Components/Accounting/account.vue';
 
@@ -130,22 +132,36 @@ name:'reset-user-password',
 component: ResetUserPassword
 },
 
+
 { 
-path: '/subadmin',
+path: '/sub-admins',
 name:'sub-admin-list',
-component: SubAdminList
+component: SubAdmin
 },
 
 { 
-path: '/subadmin/permissions/id',
-name:'admin-permission',
-component: AdminPermission
+path: '/sub-admin/add',
+name:'add-sub-admin',
+component: AddSubAdmin
 },
 
 { 
-path: '/subadmin/add',
-name:'add-admin',
-component: AddAdmin
+path: '/sub-admin/:id',
+name:'view-sub-admin',
+component: ViewSubAdmin
+},
+
+{ 
+path: '/sub-admin/:id/edit',
+name:'edit-sub-admin',
+component: EditSubAdmin
+},
+
+
+{ 
+path: '/subadmin/permissions/:id',
+name:'sub-admin-permission',
+component: SubAdminPermission
 },
 
 { 
@@ -161,13 +177,13 @@ component: AddPromotion
 },
 
 { 
-path: '/promotions/id/edit',
+path: '/promotions/:id/edit',
 name:'edit-promotion',
 component: EditPromotion
 },
 
 { 
-path: '/promotions/restaurants',
+path: '/promotions/:id',
 name:'view-promo-restaurants',
 component: ViewPromoRestaurant
 },

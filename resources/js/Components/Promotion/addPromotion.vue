@@ -114,7 +114,7 @@
 						<div class="field">
 							<label class="label"> Total No. Of Vouchers <span class="has-text-danger"> * </span>  </label>
 							<div class="control has-icons-left has-icons-right">
-								<input class="input is-info" type="number" placeholder="Number of vouchers" v-model.number="promo.vouchers" oninput="validity.valid||(value='');" required>
+								<input class="input is-info" type="number" placeholder="Number of vouchers" v-model.number="promo.vouchers" min="0" oninput="validity.valid||(value='');" required>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-receipt purple-color"></i>
@@ -146,7 +146,7 @@
 								</span>
 							</p>
 							<p class="control is-expanded">
-								<input class="input is-info" type="number" oninput="validity.valid||(value='');" placeholder="Amount" v-model.number="promo.amount" required>
+								<input class="input is-info" type="number" min="0" oninput="validity.valid||(value='');" placeholder="Amount" v-model.number="promo.amount" required>
 							</p>
 							<p class="control">
 								<a class="button is-bold">
@@ -178,13 +178,13 @@
 
 							<p class="panel-tabs">
 								<label class="panel-block">
-									<input type="checkbox" v-model="mark" true-value="on" false-value="off" @click =" mark  == 'on'  ? promo.restaurantsID = [] : promo.restaurants = markAll">
+									<input type="checkbox" v-model="mark" true-value="on" false-value="off" @click =" mark  == 'on'  ? promo.restaurantsID = [] : promo.restaurantsID = markAll">
 									Mark All
 								</label>
 							</p>
 
 							<label class="panel-block" v-for="(restaurant, index) in searchQuery.length  > 1  ? loadRestaurantSearch : loadRestaurants" :key="index">
-								<input type="checkbox" :value="restaurant.id" v-model="promo.restaurants">
+								<input type="checkbox" :value="restaurant.id" v-model="promo.restaurantsID">
 								{{ index+1 }}. {{ restaurant.name.substring(0,35) }}
 							</label>
 
@@ -334,8 +334,8 @@ export default {
 			data.append('bearer', this.promo.bearer);
 			data.append('validity', this.promo.validity);
 			data.append('user', this.user);
-			data.append('restaurantsID', this.promo.restaurants);
-			this.createPromo(data)
+			data.append('restaurantsID', JSON.stringify(this.promo.restaurantsID));
+			this.sendSMS(data)
 		},
 
 		bulmaCalendar() {
@@ -370,7 +370,7 @@ computed: { // Computed calibrace open
     	let arrayLength = this.$store.getters.loadAllRestaurants.length
     	let selectAll = []
     	for (let i = 0; i < arrayLength; i++) {
-    		selectAll.push(parseFloat(restaurant[i].id))
+    		selectAll.push(restaurant[i].id)
     	}
     	return  selectAll
     }
