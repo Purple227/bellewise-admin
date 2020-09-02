@@ -60,7 +60,7 @@
 
 					<tbody>
 
-						<tr v-for="(driver, index) in loadBlockedDatas " :key="index">
+						<tr v-for="driver in loadBlockedDatas ">
 							<th> <span class="purple-color">  {{ driver.driver_id}}  </span> </th>
 							<td> {{ driver.name.substring(0,6) }} </td>
 							<td> {{ driver.email.substring(0,10) }} </td>

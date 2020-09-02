@@ -51,6 +51,13 @@ class DriverController extends Controller
         return response()->json($active_drivers);
     }
 
+    public function allActiveDrivers()
+    {
+        $all_active_drivers = Driver::where('status', 1)
+        ->get();
+        return response()->json($all_active_drivers);
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -88,8 +95,14 @@ class DriverController extends Controller
         }
 
 
+
+        try {
         Notification::route('mail',$request->email)
         ->notify(new DriverCredentials( $notify_info, $generated_password, $driver_id ));
+        } catch (\Exception $e) {
+            Log::error(' Your network connection is to be blame.');
+        }
+
 
 
         // New driver object

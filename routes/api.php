@@ -19,11 +19,14 @@ use Illuminate\Support\Facades\Route;
  Route::get('/driver/search', 'DriverController@search');
  Route::get('/driver/blocked', 'DriverController@blocked');
  Route::get('/driver/active', 'DriverController@activeDrivers');
+ Route::get('/driver/all-active', 'DriverController@AllActiveDrivers');
 
  Route::patch('restaurant/{id}', 'RestaurantController@statusUpdate');
  Route::get('/restaurant/search', 'RestaurantController@search');
  Route::get('/restaurant/blocked', 'RestaurantController@blocked');
  Route::get('/restaurant/all', 'RestaurantController@getAll');
+ Route::get('/restaurant/active', 'RestaurantController@activeRestaurants');
+ Route::get('/restaurant/all-active', 'RestaurantController@AllActiveRestaurants');
 
  Route::get('/promo/search', 'PromoController@search');
 
@@ -31,7 +34,7 @@ use Illuminate\Support\Facades\Route;
  Route::get('/sub-admin/search', 'SubAdminController@search');
  Route::get('/sub-admin/blocked', 'SubAdminController@blocked');
 
- Route::post('/report/notification', 'ReportController@SMSNotification');
+ Route::post('/report/notification', 'ReportController@SMSNotificationDriver');
 
 Route::apiResources([
     'driver' => 'DriverController',

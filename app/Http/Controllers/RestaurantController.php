@@ -53,6 +53,21 @@ class RestaurantController extends Controller
     }
 
 
+    public function activeRestaurants()
+    {
+        $active_restaurants = Restaurant::where('status', 1)
+        ->paginate(5);
+        return response()->json($active_restaurants);
+    }
+
+    public function allActiveRestaurant()
+    {
+        $all_active_restaurants = Restaurant::where('status', 1)
+        ->get();
+        return response()->json($all_active_restaurants);
+    }
+
+
     /**
      * Store a newly created resource in storage.
      *

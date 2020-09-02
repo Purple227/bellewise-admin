@@ -6757,8 +6757,10 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Mixins_bulmaCalendar_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Mixins/bulmaCalendar.js */ "./resources/js/Mixins/bulmaCalendar.js");
-/* harmony import */ var _Mixins_tinymceEditor_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Mixins/tinymceEditor.js */ "./resources/js/Mixins/tinymceEditor.js");
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Mixins_tinymceEditor_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Mixins/tinymceEditor.js */ "./resources/js/Mixins/tinymceEditor.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -6954,28 +6956,58 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_Mixins_bulmaCalendar_js__WEBPACK_IMPORTED_MODULE_0__["default"], _Mixins_tinymceEditor_js__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  mixins: [_Mixins_bulmaCalendar_js__WEBPACK_IMPORTED_MODULE_0__["default"], _Mixins_tinymceEditor_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
   data: function data() {
+    var _mail;
+
     return {
       display: false,
       picked: "notification",
       showModal: false,
       searchQuery: '',
-      mark: "On",
-      selectedDriver: [],
+      markNotification: "On",
+      selectedNotification: [],
       SMSMessage: "",
-      error: null
+      error: null,
+      mail: (_mail = {
+        subject: null
+      }, _defineProperty(_mail, "subject", null), _defineProperty(_mail, "error", null), _defineProperty(_mail, "selectedMail", []), _defineProperty(_mail, "markMail", "On"), _mail)
     };
   },
+  validations: {
+    //Validation calibrace open 
+    SMSMessage: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(6)
+    },
+    selectedNotification: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+    }
+  },
+  //Validation calibrace close 
+  validations2: {
+    //Validation calibrace open 
+    SMSMessage: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(6)
+    },
+    selectedNotification: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+    }
+  },
+  //Validation calibrace close 
   created: function created() {
     this.fetchActiveDatas();
     this.clearNotification();
+    this.fetchAllActiveDatas();
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['fetchActiveDatas', 'clearNotification', 'destroyData', 'searchDatas', 'updateStatus', 'sendSMS'])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['fetchActiveDatas', 'clearNotification', 'destroyData', 'searchDatas', 'updateStatus', 'sendSMS', 'fetchAllActiveDatas'])), {}, {
     // Local method
     deleteData: function deleteData(id) {
       this.destroyData(id);
@@ -6997,22 +7029,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     submitNotification: function submitNotification() {
-      if (this.selectedDriver.length >= 1) {
-        var data = new FormData();
-        data.append("_method", "post");
-        data.append('user', this.SMSMessage);
-        data.append('phones', JSON.stringify(this.selectedDriver));
-        this.sendSMS(data);
-      } else if (this.selectedDriver.length == 0) {
-        this.error = true;
-      }
+      var data = new FormData();
+      data.append("_method", "post");
+      data.append('message', this.SMSMessage);
+      data.append('phones', JSON.stringify(this.selectedDriver));
+      this.sendSMS(data);
+    },
+    submitEmail: function submitEmail() {
+      var data = new FormData();
+      data.append("_method", "post");
+      data.append('message', this.SMSMessage);
+      data.append('phones', JSON.stringify(this.selectedDriver));
+      this.sendSMS(data);
     }
   }),
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['loadActiveDrivers', 'loadLoading', 'loadNotification', 'loadPagination', 'loadSearch', 'loadReportNotification', 'loadReportProgress'])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['loadActiveDrivers', 'loadLoading', 'loadNotification', 'loadPagination', 'loadSearch', 'loadReportNotification', 'loadReportProgress', 'loadAllActiveDrivers'])), {}, {
     // Local computed properties
-    markAll: function markAll() {
-      var activeDrivers = this.$store.getters.loadActiveDrivers;
-      var arrayLength = this.$store.getters.loadActiveDrivers.length;
+    markAllNotification: function markAllNotification() {
+      var activeDrivers = this.$store.getters.loadAllActiveDrivers;
+      var arrayLength = this.$store.getters.loadAllActiveDrivers.length;
       var selectAll = [];
 
       for (var i = 0; i < arrayLength; i++) {
@@ -7304,6 +7339,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Mixins_bulmaCalendar_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Mixins/bulmaCalendar.js */ "./resources/js/Mixins/bulmaCalendar.js");
 /* harmony import */ var _Mixins_tinymceEditor_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Mixins/tinymceEditor.js */ "./resources/js/Mixins/tinymceEditor.js");
+//
 //
 //
 //
@@ -52482,8 +52518,8 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "tbody",
-                  _vm._l(_vm.loadBlockedDatas, function(driver, index) {
-                    return _c("tr", { key: index }, [
+                  _vm._l(_vm.loadBlockedDatas, function(driver) {
+                    return _c("tr", [
                       _c("th", [
                         _c("span", { staticClass: "purple-color" }, [
                           _vm._v("  " + _vm._s(driver.driver_id) + "  ")
@@ -52951,8 +52987,8 @@ var render = function() {
                   "tbody",
                   _vm._l(
                     _vm.searchQuery.length > 1 ? _vm.loadSearch : _vm.loadDatas,
-                    function(driver, index) {
-                      return _c("tr", { key: index }, [
+                    function(driver) {
+                      return _c("tr", [
                         _c("th", [
                           _c("span", { staticClass: "purple-color" }, [
                             _vm._v("  " + _vm._s(driver.driver_id) + "  ")
@@ -59221,93 +59257,178 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          "notification" == _vm.picked
-            ? _c("div", {}, [
-                _c("div", { staticClass: "field" }, [
-                  _c("label", { staticClass: "label" }, [
-                    _vm._v(" Notification / SMS ")
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "control" }, [
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.trim",
-                          value: _vm.SMSMessage,
-                          expression: "SMSMessage",
-                          modifiers: { trim: true }
-                        }
-                      ],
-                      staticClass: "textarea",
-                      attrs: { placeholder: " Enter Notification Content" },
-                      domProps: { value: _vm.SMSMessage },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.submitNotification($event)
+                }
+              }
+            },
+            [
+              "notification" == _vm.picked
+                ? _c("div", {}, [
+                    _c("div", { staticClass: "field" }, [
+                      _c("label", { staticClass: "label" }, [
+                        _vm._v(" Notification / SMS ")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "control" }, [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.trim",
+                              value: _vm.SMSMessage,
+                              expression: "SMSMessage",
+                              modifiers: { trim: true }
+                            }
+                          ],
+                          staticClass: "textarea",
+                          attrs: { placeholder: " Enter Notification Content" },
+                          domProps: { value: _vm.SMSMessage },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.SMSMessage = $event.target.value.trim()
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
                           }
-                          _vm.SMSMessage = $event.target.value.trim()
-                        },
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
-                        }
-                      }
-                    }),
+                        }),
+                        _vm._v(" "),
+                        _vm.$v.$invalid
+                          ? _c("p", { staticClass: "help is-danger is-bold" }, [
+                              _vm._v(
+                                " You have to select atleast one recipent and field is required. "
+                              )
+                            ])
+                          : _c(
+                              "p",
+                              { staticClass: "help purple-color is-bold" },
+                              [_vm._v(" You good to go. ")]
+                            )
+                      ])
+                    ]),
                     _vm._v(" "),
-                    _c("p", { staticClass: "help is-danger is-bold" }, [
-                      _vm._v(
-                        " You have to select atleast one recipent and field is required. "
-                      )
-                    ])
+                    _c(
+                      "div",
+                      { staticClass: "field is-grouped is-grouped-right" },
+                      [
+                        _c("div", { staticClass: "control" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "button purple-color is-bold",
+                              class: { "is-loading": _vm.loadReportProgress },
+                              attrs: { disabled: _vm.$v.$invalid }
+                            },
+                            [_vm._v(" Send ")]
+                          )
+                        ])
+                      ]
+                    )
                   ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "field is-grouped is-grouped-right" },
-                  [
-                    _c("div", { staticClass: "control" }, [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "button purple-color is-bold",
-                          class: { "is-loading": _vm.loadReportProgress },
-                          attrs: { disabled: _vm.selectedDriver.length == 0 }
-                        },
-                        [_vm._v(" Send ")]
-                      )
-                    ])
-                  ]
-                )
-              ])
-            : _vm._e(),
+                : _vm._e()
+            ]
+          ),
           _vm._v(" "),
-          "email" == _vm.picked
-            ? _c("div", {}, [
-                _vm._m(1),
-                _vm._v(" "),
-                _c("div", { staticClass: "field" }, [
-                  _c("label", { staticClass: "label" }, [_vm._v("Message")]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "control" },
-                    [
-                      _c("tinymce-editor", {
-                        attrs: {
-                          "api-key": "API_KEY",
-                          init: { plugins: "wordcount" }
-                        }
-                      })
-                    ],
-                    1
-                  )
-                ]),
-                _vm._v(" "),
-                _vm._m(2)
-              ])
-            : _vm._e()
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.submitEmail($event)
+                }
+              }
+            },
+            [
+              "email" == _vm.picked
+                ? _c("div", {}, [
+                    _c("div", { staticClass: "field" }, [
+                      _c("label", { staticClass: "label" }, [
+                        _vm._v(" Subject ")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "control" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.mail.subject,
+                              expression: "mail.subject"
+                            }
+                          ],
+                          staticClass: "input",
+                          attrs: { type: "text", placeholder: "Text input" },
+                          domProps: { value: _vm.mail.subject },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.mail, "subject", $event.target.value)
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "field" }, [
+                      _c("label", { staticClass: "label" }, [
+                        _vm._v("Message")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "control" },
+                        [
+                          _c("tinymce-editor", {
+                            attrs: {
+                              "api-key": "API_KEY",
+                              init: { plugins: "wordcount" }
+                            },
+                            model: {
+                              value: _vm.mail.message,
+                              callback: function($$v) {
+                                _vm.$set(_vm.mail, "message", $$v)
+                              },
+                              expression: "mail.message"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "field is-grouped is-grouped-right" },
+                      [
+                        _c("div", { staticClass: "control" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "button purple-color is-bold",
+                              class: { "is-loading": _vm.loadReportProgress },
+                              attrs: { disabled: _vm.$v.mail.$invalid }
+                            },
+                            [_vm._v("Send")]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                : _vm._e()
+            ]
+          )
         ])
       : _vm._e(),
     _vm._v(" "),
@@ -59319,8 +59440,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.mark,
-                expression: "mark"
+                value: _vm.markNotification,
+                expression: "markNotification"
               }
             ],
             attrs: {
@@ -59329,36 +59450,38 @@ var render = function() {
               "false-value": "off"
             },
             domProps: {
-              checked: Array.isArray(_vm.mark)
-                ? _vm._i(_vm.mark, null) > -1
-                : _vm._q(_vm.mark, "on")
+              checked: Array.isArray(_vm.markNotification)
+                ? _vm._i(_vm.markNotification, null) > -1
+                : _vm._q(_vm.markNotification, "on")
             },
             on: {
               click: function($event) {
-                _vm.mark == "on"
-                  ? (_vm.selectedDriver = [])
-                  : (_vm.selectedDriver = _vm.markAll)
+                _vm.markNotification == "on"
+                  ? (_vm.selectedNotification = [])
+                  : (_vm.selectedNotification = _vm.markAllNotification)
               },
               change: function($event) {
-                var $$a = _vm.mark,
+                var $$a = _vm.markNotification,
                   $$el = $event.target,
                   $$c = $$el.checked ? "on" : "off"
                 if (Array.isArray($$a)) {
                   var $$v = null,
                     $$i = _vm._i($$a, $$v)
                   if ($$el.checked) {
-                    $$i < 0 && (_vm.mark = $$a.concat([$$v]))
+                    $$i < 0 && (_vm.markNotification = $$a.concat([$$v]))
                   } else {
                     $$i > -1 &&
-                      (_vm.mark = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+                      (_vm.markNotification = $$a
+                        .slice(0, $$i)
+                        .concat($$a.slice($$i + 1)))
                   }
                 } else {
-                  _vm.mark = $$c
+                  _vm.markNotification = $$c
                 }
               }
             }
           }),
-          _vm._v("\n\t\t\t\tMark All\n\t\t\t")
+          _vm._v("\n\t\t\t\t\tMark All\n\t\t\t\t")
         ]),
         _vm._v(" "),
         _vm.loadActiveDrivers.length >= 1
@@ -59366,7 +59489,7 @@ var render = function() {
               "table",
               { staticClass: "table is-bordered is-striped is-hoverable" },
               [
-                _vm._m(3),
+                _vm._m(1),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -59382,20 +59505,23 @@ var render = function() {
                               {
                                 name: "model",
                                 rawName: "v-model",
-                                value: _vm.selectedDriver,
-                                expression: "selectedDriver"
+                                value: _vm.selectedNotification,
+                                expression: "selectedNotification"
                               }
                             ],
                             attrs: { type: "checkbox" },
                             domProps: {
                               value: driver.phone,
-                              checked: Array.isArray(_vm.selectedDriver)
-                                ? _vm._i(_vm.selectedDriver, driver.phone) > -1
-                                : _vm.selectedDriver
+                              checked: Array.isArray(_vm.selectedNotification)
+                                ? _vm._i(
+                                    _vm.selectedNotification,
+                                    driver.phone
+                                  ) > -1
+                                : _vm.selectedNotification
                             },
                             on: {
                               change: function($event) {
-                                var $$a = _vm.selectedDriver,
+                                var $$a = _vm.selectedNotification,
                                   $$el = $event.target,
                                   $$c = $$el.checked ? true : false
                                 if (Array.isArray($$a)) {
@@ -59403,15 +59529,17 @@ var render = function() {
                                     $$i = _vm._i($$a, $$v)
                                   if ($$el.checked) {
                                     $$i < 0 &&
-                                      (_vm.selectedDriver = $$a.concat([$$v]))
+                                      (_vm.selectedNotification = $$a.concat([
+                                        $$v
+                                      ]))
                                   } else {
                                     $$i > -1 &&
-                                      (_vm.selectedDriver = $$a
+                                      (_vm.selectedNotification = $$a
                                         .slice(0, $$i)
                                         .concat($$a.slice($$i + 1)))
                                   }
                                 } else {
-                                  _vm.selectedDriver = $$c
+                                  _vm.selectedNotification = $$c
                                 }
                               }
                             }
@@ -59473,17 +59601,17 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._m(4), _vm._v(" "), _c("span", [_vm._v(" Previous ")])]
+                    [_vm._m(2), _vm._v(" "), _c("span", [_vm._v(" Previous ")])]
                   )
                 : _vm._e(),
               _vm._v(" "),
               _c("a", { staticClass: "button" }, [
                 _vm._v(
-                  "\n\n\t\t\t\t\t" +
+                  "\n\n\t\t\t\t\t\t" +
                     _vm._s(_vm.loadPagination.to) +
                     " 0f " +
                     _vm._s(_vm.loadPagination.total) +
-                    "\n\t\t\t\t"
+                    "\n\t\t\t\t\t"
                 )
               ]),
               _vm._v(" "),
@@ -59500,7 +59628,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._m(5), _vm._v(" "), _c("span", [_vm._v(" Next ")])]
+                    [_vm._m(3), _vm._v(" "), _c("span", [_vm._v(" Next ")])]
                   )
                 : _vm._e()
             ])
@@ -59509,7 +59637,7 @@ var render = function() {
     ]),
     _vm._v(" "),
     _vm.loadActiveDrivers.length <= 0
-      ? _c("div", { staticClass: "card" }, [_vm._m(6)])
+      ? _c("div", { staticClass: "card" }, [_vm._m(4)])
       : _vm._e()
   ])
 }
@@ -59521,33 +59649,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "control" }, [
       _c("a", { staticClass: "button purple-color" }, [
         _vm._v("\n\t\t\t\t\t\tSearch\n\t\t\t\t\t")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field" }, [
-      _c("label", { staticClass: "label" }, [_vm._v(" Subject ")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "control" }, [
-        _c("input", {
-          staticClass: "input",
-          attrs: { type: "text", placeholder: "Text input" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field is-grouped is-grouped-right" }, [
-      _c("div", { staticClass: "control" }, [
-        _c("button", { staticClass: "button purple-color is-bold" }, [
-          _vm._v("Send")
-        ])
       ])
     ])
   },
@@ -60069,7 +60170,54 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
-    _vm._m(0),
+    _c(
+      "div",
+      {
+        staticClass: "pageloader purple-bg",
+        class: { "is-active": _vm.restaurantLoader }
+      },
+      [_c("span", { staticClass: "title" }, [_vm._v(" Bellewise loading ")])]
+    ),
+    _vm._v(" "),
+    _c("nav", { staticClass: "level" }, [
+      _c("div", { staticClass: "level-item level-left" }, [
+        _c("div", { staticClass: "field has-addons" }, [
+          _c("div", { staticClass: "control" }, [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.searchQuery,
+                  expression: "searchQuery"
+                }
+              ],
+              staticClass: "input",
+              attrs: {
+                type: "text",
+                placeholder: " Search restaurant by name"
+              },
+              domProps: { value: _vm.searchQuery },
+              on: {
+                keyup: _vm.searchMethod,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.searchQuery = $event.target.value
+                }
+              }
+            })
+          ]),
+          _vm._v(" "),
+          _vm._m(0)
+        ])
+      ]),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _vm._m(2)
+    ]),
     _vm._v(" "),
     _c(
       "div",
@@ -60139,12 +60287,12 @@ var render = function() {
           ]),
           _vm._v(" "),
           "notification" == _vm.picked
-            ? _c("div", {}, [_vm._m(1), _vm._v(" "), _vm._m(2)])
+            ? _c("div", {}, [_vm._m(3), _vm._v(" "), _vm._m(4)])
             : _vm._e(),
           _vm._v(" "),
           "email" == _vm.picked
             ? _c("div", {}, [
-                _vm._m(3),
+                _vm._m(5),
                 _vm._v(" "),
                 _c("div", { staticClass: "field" }, [
                   _c("label", { staticClass: "label" }, [_vm._v("Message")]),
@@ -60164,7 +60312,7 @@ var render = function() {
                   )
                 ]),
                 _vm._v(" "),
-                _vm._m(4)
+                _vm._m(6)
               ])
             : _vm._e()
         ])
@@ -60176,39 +60324,9 @@ var render = function() {
           "table",
           { staticClass: "table is-bordered is-striped is-hoverable" },
           [
-            _vm._m(5),
+            _vm._m(7),
             _vm._v(" "),
             _c("tbody", [
-              _c("tr", [
-                _vm._m(6),
-                _vm._v(" "),
-                _vm._m(7),
-                _vm._v(" "),
-                _c(
-                  "td",
-                  [
-                    _c(
-                      "router-link",
-                      { attrs: { to: { name: "view-restaurant" }, exact: "" } },
-                      [_vm._v(" Crunchies ")]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("td", [_vm._v(" 080XXXXXXX ")]),
-                _vm._v(" "),
-                _c("td", [_vm._v(" Bellewise@bellewise.com")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "has-text-centered" }, [_vm._v(" 8 ")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "has-text-centered" }, [
-                  _vm._v(" 68 ")
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v(" ₦54398.00 ")])
-              ]),
-              _vm._v(" "),
               _c("tr", [
                 _vm._m(8),
                 _vm._v(" "),
@@ -60297,12 +60415,42 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("td", [_vm._v(" ₦54398.00 ")])
+              ]),
+              _vm._v(" "),
+              _c("tr", [
+                _vm._m(14),
+                _vm._v(" "),
+                _vm._m(15),
+                _vm._v(" "),
+                _c(
+                  "td",
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: { name: "view-restaurant" }, exact: "" } },
+                      [_vm._v(" Crunchies ")]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("td", [_vm._v(" 080XXXXXXX ")]),
+                _vm._v(" "),
+                _c("td", [_vm._v(" Bellewise@bellewise.com")]),
+                _vm._v(" "),
+                _c("td", { staticClass: "has-text-centered" }, [_vm._v(" 8 ")]),
+                _vm._v(" "),
+                _c("td", { staticClass: "has-text-centered" }, [
+                  _vm._v(" 68 ")
+                ]),
+                _vm._v(" "),
+                _c("td", [_vm._v(" ₦54398.00 ")])
               ])
             ])
           ]
         ),
         _vm._v(" "),
-        _vm._m(14)
+        _vm._m(16)
       ])
     ])
   ])
@@ -60312,50 +60460,45 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("nav", { staticClass: "level" }, [
-      _c("div", { staticClass: "level-item has-text-centered" }, [
-        _c("div", { staticClass: "field has-addons" }, [
-          _c("div", { staticClass: "control" }, [
-            _c("input", {
-              staticClass: "input",
-              attrs: { type: "text", placeholder: "Search Drivers" }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "control" }, [
-            _c("a", { staticClass: "button purple-color" }, [
-              _vm._v("\n\t\t\t\t\t\tSearch\n\t\t\t\t\t")
-            ])
+    return _c("div", { staticClass: "control" }, [
+      _c("a", { staticClass: "button purple-color" }, [
+        _vm._v("\n\t\t\t\t\t\tSearch\n\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "level-item has-text-centered" }, [
+      _c("div", { staticClass: "field has-addons" }, [
+        _c("p", { staticClass: "control" }, [
+          _c("input", {
+            attrs: {
+              id: "my-element",
+              type: "date",
+              "data-display-mode": "dialog",
+              "data-close-on-select": "false",
+              "data-color": "info"
+            }
+          })
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "control" }, [
+          _c("a", { staticClass: "button purple-color " }, [
+            _vm._v("\n\t\t\t\t\t\tBy Date\n\t\t\t\t\t")
           ])
         ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "level-item has-text-centered" }, [
-        _c("div", { staticClass: "field has-addons" }, [
-          _c("p", { staticClass: "control" }, [
-            _c("input", {
-              attrs: {
-                id: "my-element",
-                type: "date",
-                "data-display-mode": "dialog",
-                "data-close-on-select": "false",
-                "data-color": "info"
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("p", { staticClass: "control" }, [
-            _c("a", { staticClass: "button purple-color " }, [
-              _vm._v("\n\t\t\t\t\t\tBy Date\n\t\t\t\t\t")
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "level-item has-text-centered" }, [
-        _c("button", { staticClass: "button purple-color is-bold" }, [
-          _vm._v(" Download CSV")
-        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "level-item has-text-centered" }, [
+      _c("button", { staticClass: "button purple-color is-bold" }, [
+        _vm._v(" Download CSV")
       ])
     ])
   },
@@ -91146,6 +91289,7 @@ var state = {
   datas: [],
   data: null,
   activeDrivers: [],
+  allActiveDatas: [],
   notification: false,
   loading: true,
   progress: null,
@@ -91166,6 +91310,9 @@ var getters = {
   },
   loadActiveDrivers: function loadActiveDrivers(state) {
     return state.activeDrivers;
+  },
+  loadAllActiveDrivers: function loadAllActiveDrivers(state) {
+    return state.allActiveDatas;
   },
   loadSingleData: function loadSingleData(state) {
     return state.data;
@@ -91290,7 +91437,7 @@ var actions = {
       }, _callee3);
     }))();
   },
-  fetchSingleData: function fetchSingleData(_ref4, id) {
+  fetchAllActiveDatas: function fetchAllActiveDatas(_ref4, uri) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
       var commit, api, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
@@ -91299,13 +91446,13 @@ var actions = {
             case 0:
               commit = _ref4.commit;
               commit('setLoading', true);
-              api = '/api/driver/' + id;
+              api = uri || '/api/driver/all-active';
               _context4.next = 5;
               return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(api);
 
             case 5:
               response = _context4.sent;
-              commit('setSingleData', response.data);
+              commit('setAllActiveDatas', response.data);
               commit('setLoading', false);
 
             case 8:
@@ -91316,26 +91463,25 @@ var actions = {
       }, _callee4);
     }))();
   },
-  searchDatas: function searchDatas(_ref5, searchQuery) {
+  fetchSingleData: function fetchSingleData(_ref5, id) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-      var commit, response;
+      var commit, api, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
               commit = _ref5.commit;
-              _context5.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/driver/search', {
-                params: {
-                  search_query: searchQuery
-                }
-              });
-
-            case 3:
-              response = _context5.sent;
-              commit('setSearch', response.data);
+              commit('setLoading', true);
+              api = '/api/driver/' + id;
+              _context5.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(api);
 
             case 5:
+              response = _context5.sent;
+              commit('setSingleData', response.data);
+              commit('setLoading', false);
+
+            case 8:
             case "end":
               return _context5.stop();
           }
@@ -91343,23 +91489,26 @@ var actions = {
       }, _callee5);
     }))();
   },
-  destroyData: function destroyData(_ref6, id) {
+  searchDatas: function searchDatas(_ref6, searchQuery) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
-      var commit, api, response;
+      var commit, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
               commit = _ref6.commit;
-              api = '/api/driver/' + id;
-              _context6.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default.a["delete"](api);
+              _context6.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/driver/search', {
+                params: {
+                  search_query: searchQuery
+                }
+              });
 
-            case 4:
+            case 3:
               response = _context6.sent;
-              commit('setNotification', true);
+              commit('setSearch', response.data);
 
-            case 6:
+            case 5:
             case "end":
               return _context6.stop();
           }
@@ -91367,21 +91516,45 @@ var actions = {
       }, _callee6);
     }))();
   },
-  createData: function createData(_ref7, data) {
+  destroyData: function destroyData(_ref7, id) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
-      var commit, config, response;
+      var commit, api, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
         while (1) {
           switch (_context7.prev = _context7.next) {
             case 0:
               commit = _ref7.commit;
+              api = '/api/driver/' + id;
+              _context7.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a["delete"](api);
+
+            case 4:
+              response = _context7.sent;
+              commit('setNotification', true);
+
+            case 6:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7);
+    }))();
+  },
+  createData: function createData(_ref8, data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
+      var commit, config, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              commit = _ref8.commit;
               commit('setProgress', true);
               config = {
                 headers: {
                   'content-type': 'application/x-www-form-urlencoded'
                 }
               };
-              _context7.next = 5;
+              _context8.next = 5;
               return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/driver', data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
@@ -91398,25 +91571,25 @@ var actions = {
               });
 
             case 5:
-              response = _context7.sent;
+              response = _context8.sent;
 
             case 6:
             case "end":
-              return _context7.stop();
+              return _context8.stop();
           }
         }
-      }, _callee7);
+      }, _callee8);
     }))();
   },
-  editData: function editData(_ref8, _ref9) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
+  editData: function editData(_ref9, _ref10) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9() {
       var commit, data, id, api, config, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
         while (1) {
-          switch (_context8.prev = _context8.next) {
+          switch (_context9.prev = _context9.next) {
             case 0:
-              commit = _ref8.commit;
-              data = _ref9.data, id = _ref9.id;
+              commit = _ref9.commit;
+              data = _ref10.data, id = _ref10.id;
               commit('setProgress', true);
               api = '/api/driver/' + id;
               config = {
@@ -91424,7 +91597,7 @@ var actions = {
                   'content-type': 'application/x-www-form-urlencoded'
                 }
               };
-              _context8.next = 7;
+              _context9.next = 7;
               return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(api, data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
@@ -91441,39 +91614,9 @@ var actions = {
               });
 
             case 7:
-              response = _context8.sent;
+              response = _context9.sent;
 
             case 8:
-            case "end":
-              return _context8.stop();
-          }
-        }
-      }, _callee8);
-    }))();
-  },
-  updateStatus: function updateStatus(_ref10, _ref11) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9() {
-      var commit, id, status, api, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
-        while (1) {
-          switch (_context9.prev = _context9.next) {
-            case 0:
-              commit = _ref10.commit;
-              id = _ref11.id, status = _ref11.status;
-              commit('setLoading', true);
-              console.log(status);
-              api = '/api/driver/' + id;
-              _context9.next = 7;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch(api, {
-                status: status
-              });
-
-            case 7:
-              response = _context9.sent;
-              commit('setLoading', false);
-              commit('setNotification', true);
-
-            case 10:
             case "end":
               return _context9.stop();
           }
@@ -91481,17 +91624,29 @@ var actions = {
       }, _callee9);
     }))();
   },
-  clearErrors: function clearErrors(_ref12) {
+  updateStatus: function updateStatus(_ref11, _ref12) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10() {
-      var commit;
+      var commit, id, status, api, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
         while (1) {
           switch (_context10.prev = _context10.next) {
             case 0:
-              commit = _ref12.commit;
-              commit('unsetErrors');
+              commit = _ref11.commit;
+              id = _ref12.id, status = _ref12.status;
+              commit('setLoading', true);
+              console.log(status);
+              api = '/api/driver/' + id;
+              _context10.next = 7;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch(api, {
+                status: status
+              });
 
-            case 2:
+            case 7:
+              response = _context10.sent;
+              commit('setLoading', false);
+              commit('setNotification', true);
+
+            case 10:
             case "end":
               return _context10.stop();
           }
@@ -91499,7 +91654,7 @@ var actions = {
       }, _callee10);
     }))();
   },
-  clearNotification: function clearNotification(_ref13) {
+  clearErrors: function clearErrors(_ref13) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11() {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee11$(_context11) {
@@ -91507,9 +91662,7 @@ var actions = {
           switch (_context11.prev = _context11.next) {
             case 0:
               commit = _ref13.commit;
-              setTimeout(function () {
-                commit('unsetNotification', false);
-              }, 10000);
+              commit('unsetErrors');
 
             case 2:
             case "end":
@@ -91517,6 +91670,26 @@ var actions = {
           }
         }
       }, _callee11);
+    }))();
+  },
+  clearNotification: function clearNotification(_ref14) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee12$(_context12) {
+        while (1) {
+          switch (_context12.prev = _context12.next) {
+            case 0:
+              commit = _ref14.commit;
+              setTimeout(function () {
+                commit('unsetNotification', false);
+              }, 10000);
+
+            case 2:
+            case "end":
+              return _context12.stop();
+          }
+        }
+      }, _callee12);
     }))();
   }
 }; //Actions calibrace close
@@ -91566,6 +91739,9 @@ var mutations = {
   },
   setActiveDatas: function setActiveDatas(state, active) {
     return state.activeDrivers = active;
+  },
+  setAllActiveDatas: function setAllActiveDatas(state, allActive) {
+    return state.allActiveDatas = allActive;
   }
 }; //Mutations calibrace close
 
@@ -92137,6 +92313,8 @@ var state = {
   restaurantErrors: null,
   restaurantBlockedDatas: null,
   allRestaurantsDatas: [],
+  activeRestaurants: [],
+  allActiveRestaurants: [],
   restaurantSearchResult: null,
   restaurantPagination: {
     nextPageUrl: null,
@@ -92176,6 +92354,12 @@ var getters = {
   },
   loadBlockedRestaurants: function loadBlockedRestaurants(state) {
     return state.restaurantBlockedDatas;
+  },
+  loadActiveRestaurants: function loadActiveRestaurants(state) {
+    return state.activeRestaurants;
+  },
+  loadAllActiveRestaurants: function loadAllActiveRestaurants(state) {
+    return state.allActiveRestaurants;
   }
 }; //Getters calibrace close
 
@@ -92270,25 +92454,31 @@ var actions = {
       }, _callee3);
     }))();
   },
-  fetchSingleRestaurant: function fetchSingleRestaurant(_ref4, id) {
+  fetchActiveRestaurants: function fetchActiveRestaurants(_ref4, uri) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-      var commit, api, response;
+      var commit, api, response, nextPageUrl, previousPageUrl;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               commit = _ref4.commit;
               commit('setLoading', true);
-              api = '/api/restaurant/' + id;
+              api = uri || '/api/restaurant/active';
               _context4.next = 5;
               return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(api);
 
             case 5:
               response = _context4.sent;
-              commit('setSingleData', response.data);
+              commit('setActiveDatas', response.data.data);
               commit('setLoading', false);
+              nextPageUrl = response.data.next_page_url;
+              commit('setNextPageURL', nextPageUrl ? nextPageUrl.slice(21) : null);
+              previousPageUrl = response.data.prev_page_url;
+              commit('setPrePageURL', previousPageUrl ? previousPageUrl.slice(21) : null);
+              commit('setToPage', response.data.to);
+              commit('setTotal', response.data.total);
 
-            case 8:
+            case 14:
             case "end":
               return _context4.stop();
           }
@@ -92296,27 +92486,25 @@ var actions = {
       }, _callee4);
     }))();
   },
-  searchRestaurantDatas: function searchRestaurantDatas(_ref5, searchQuery) {
+  fetchAllActiveRestaurants: function fetchAllActiveRestaurants(_ref5, uri) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-      var commit, response;
+      var commit, api, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
               commit = _ref5.commit;
-              _context5.next = 3;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/restaurant/search', {
-                params: {
-                  search_query: searchQuery
-                }
-              });
+              commit('setLoading', true);
+              api = uri || '/api/restaurant/all-active';
+              _context5.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(api);
 
-            case 3:
+            case 5:
               response = _context5.sent;
-              console.log(searchQuery);
-              commit('setSearch', response.data);
+              commit('setAllActiveDatas', response.data);
+              commit('setLoading', false);
 
-            case 6:
+            case 8:
             case "end":
               return _context5.stop();
           }
@@ -92324,7 +92512,7 @@ var actions = {
       }, _callee5);
     }))();
   },
-  destroyRestaurantData: function destroyRestaurantData(_ref6, id) {
+  fetchSingleRestaurant: function fetchSingleRestaurant(_ref6, id) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
       var commit, api, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
@@ -92332,15 +92520,17 @@ var actions = {
           switch (_context6.prev = _context6.next) {
             case 0:
               commit = _ref6.commit;
+              commit('setLoading', true);
               api = '/api/restaurant/' + id;
-              _context6.next = 4;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default.a["delete"](api);
+              _context6.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(api);
 
-            case 4:
+            case 5:
               response = _context6.sent;
-              commit('setNotification', true);
+              commit('setSingleData', response.data);
+              commit('setLoading', false);
 
-            case 6:
+            case 8:
             case "end":
               return _context6.stop();
           }
@@ -92348,16 +92538,68 @@ var actions = {
       }, _callee6);
     }))();
   },
-  createRestaurant: function createRestaurant(_ref7, data) {
+  searchRestaurantDatas: function searchRestaurantDatas(_ref7, searchQuery) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7() {
-      var _console;
-
-      var commit, config, response;
+      var commit, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
         while (1) {
           switch (_context7.prev = _context7.next) {
             case 0:
               commit = _ref7.commit;
+              _context7.next = 3;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get('/api/restaurant/search', {
+                params: {
+                  search_query: searchQuery
+                }
+              });
+
+            case 3:
+              response = _context7.sent;
+              console.log(searchQuery);
+              commit('setSearch', response.data);
+
+            case 6:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7);
+    }))();
+  },
+  destroyRestaurantData: function destroyRestaurantData(_ref8, id) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
+      var commit, api, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              commit = _ref8.commit;
+              api = '/api/restaurant/' + id;
+              _context8.next = 4;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a["delete"](api);
+
+            case 4:
+              response = _context8.sent;
+              commit('setNotification', true);
+
+            case 6:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      }, _callee8);
+    }))();
+  },
+  createRestaurant: function createRestaurant(_ref9, data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9() {
+      var _console;
+
+      var commit, config, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              commit = _ref9.commit;
               commit('setProgress', true);
 
               (_console = console).log.apply(_console, _toConsumableArray(data));
@@ -92367,7 +92609,7 @@ var actions = {
                   'content-type': 'application/x-www-form-urlencoded'
                 }
               };
-              _context7.next = 6;
+              _context9.next = 6;
               return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/restaurant', data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false); //app.$router.push({name: 'list-restaurant'})
@@ -92381,25 +92623,25 @@ var actions = {
               });
 
             case 6:
-              response = _context7.sent;
+              response = _context9.sent;
 
             case 7:
             case "end":
-              return _context7.stop();
+              return _context9.stop();
           }
         }
-      }, _callee7);
+      }, _callee9);
     }))();
   },
-  editRestaurantData: function editRestaurantData(_ref8, _ref9) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
+  editRestaurantData: function editRestaurantData(_ref10, _ref11) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10() {
       var commit, data, id, api, config, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
         while (1) {
-          switch (_context8.prev = _context8.next) {
+          switch (_context10.prev = _context10.next) {
             case 0:
-              commit = _ref8.commit;
-              data = _ref9.data, id = _ref9.id;
+              commit = _ref10.commit;
+              data = _ref11.data, id = _ref11.id;
               commit('setProgress', true);
               api = '/api/restaurant/' + id;
               config = {
@@ -92407,7 +92649,7 @@ var actions = {
                   'content-type': 'application/x-www-form-urlencoded'
                 }
               };
-              _context8.next = 7;
+              _context10.next = 7;
               return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(api, data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
@@ -92424,56 +92666,9 @@ var actions = {
               });
 
             case 7:
-              response = _context8.sent;
+              response = _context10.sent;
 
             case 8:
-            case "end":
-              return _context8.stop();
-          }
-        }
-      }, _callee8);
-    }))();
-  },
-  updateRestaurantStatus: function updateRestaurantStatus(_ref10, _ref11) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9() {
-      var commit, id, status, api, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
-        while (1) {
-          switch (_context9.prev = _context9.next) {
-            case 0:
-              commit = _ref10.commit;
-              id = _ref11.id, status = _ref11.status;
-              commit('setLoading', true);
-              api = '/api/restaurant/' + id;
-              _context9.next = 6;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch(api, {
-                status: status
-              });
-
-            case 6:
-              response = _context9.sent;
-              commit('setLoading', false);
-              commit('setNotification', true);
-
-            case 9:
-            case "end":
-              return _context9.stop();
-          }
-        }
-      }, _callee9);
-    }))();
-  },
-  clearRestaurantErrors: function clearRestaurantErrors(_ref12) {
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10() {
-      var commit;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
-        while (1) {
-          switch (_context10.prev = _context10.next) {
-            case 0:
-              commit = _ref12.commit;
-              commit('unsetErrors');
-
-            case 2:
             case "end":
               return _context10.stop();
           }
@@ -92481,24 +92676,71 @@ var actions = {
       }, _callee10);
     }))();
   },
-  clearRestaurantNotification: function clearRestaurantNotification(_ref13) {
+  updateRestaurantStatus: function updateRestaurantStatus(_ref12, _ref13) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11() {
-      var commit;
+      var commit, id, status, api, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee11$(_context11) {
         while (1) {
           switch (_context11.prev = _context11.next) {
             case 0:
-              commit = _ref13.commit;
+              commit = _ref12.commit;
+              id = _ref13.id, status = _ref13.status;
+              commit('setLoading', true);
+              api = '/api/restaurant/' + id;
+              _context11.next = 6;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.patch(api, {
+                status: status
+              });
+
+            case 6:
+              response = _context11.sent;
+              commit('setLoading', false);
+              commit('setNotification', true);
+
+            case 9:
+            case "end":
+              return _context11.stop();
+          }
+        }
+      }, _callee11);
+    }))();
+  },
+  clearRestaurantErrors: function clearRestaurantErrors(_ref14) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee12$(_context12) {
+        while (1) {
+          switch (_context12.prev = _context12.next) {
+            case 0:
+              commit = _ref14.commit;
+              commit('unsetErrors');
+
+            case 2:
+            case "end":
+              return _context12.stop();
+          }
+        }
+      }, _callee12);
+    }))();
+  },
+  clearRestaurantNotification: function clearRestaurantNotification(_ref15) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee13() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee13$(_context13) {
+        while (1) {
+          switch (_context13.prev = _context13.next) {
+            case 0:
+              commit = _ref15.commit;
               setTimeout(function () {
                 commit('unsetNotification', false);
               }, 10000);
 
             case 2:
             case "end":
-              return _context11.stop();
+              return _context13.stop();
           }
         }
-      }, _callee11);
+      }, _callee13);
     }))();
   }
 }; //Actions calibrace close
@@ -92548,6 +92790,12 @@ var mutations = {
   },
   setBlockedDatas: function setBlockedDatas(state, blockedDatas) {
     return state.restaurantBlockedDatas = blockedDatas;
+  },
+  setActiveDatas: function setActiveDatas(state, active) {
+    return state.activeRestaurants = active;
+  },
+  setAllActiveDatas: function setAllActiveDatas(state, allActive) {
+    return state.allActiveRestaurants = allActive;
   }
 }; //Mutations calibrace close
 

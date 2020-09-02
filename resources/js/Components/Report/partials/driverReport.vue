@@ -23,7 +23,6 @@
 				</div>
 			</div>
 
-
 		</nav>
 
 
@@ -49,177 +48,219 @@
 
 
 			<!-- Notification section -->
-			<div class="" v-if=" 'notification' == picked"> 
+			<form v-on:submit.prevent="submitNotification" v-if=""> <!-- Form tag open -->
+				<div class="" v-if=" 'notification' == picked"> 
 
-				<div class="field">
-					<label class="label"> Notification / SMS </label>
-					<div class="control">
-						<textarea class="textarea" v-model.trim="SMSMessage" placeholder=" Enter Notification Content"></textarea>
-						<p class="help is-danger is-bold"> You have to select atleast one recipent and field is required. </p>
+					<div class="field">
+						<label class="label"> Notification / SMS </label>
+						<div class="control">
+							<textarea class="textarea" v-model.trim="SMSMessage" placeholder=" Enter Notification Content"></textarea>
+							<p class="help is-danger is-bold" v-if="$v.$invalid"> You have to select atleast one recipent and field is required. </p>
+							<p class="help purple-color is-bold" v-else> You good to go. </p>
+						</div>
 					</div>
-				</div>
 
 
-				<div class="field is-grouped is-grouped-right">
-					<div class="control">
-						<button class="button purple-color is-bold" v-bind:class="{ 'is-loading': loadReportProgress }" :disabled="selectedDriver.length == 0"> Send </button>
+					<div class="field is-grouped is-grouped-right">
+						<div class="control">
+							<button class="button purple-color is-bold" v-bind:class="{ 'is-loading': loadReportProgress }" :disabled="$v.$invalid"> Send </button>
+						</div>
 					</div>
-				</div>
 
-			</div>
+				</div>
+			</form> <!-- Form tag close -->
 			<!-- Notification section -->
 
 
 			<!-- Email section -->
+			<form v-on:submit.prevent="submitEmail" v-if=""> <!-- Form tag open -->
 			<div class="" v-if=" 'email' == picked ">
+					<div class="field">
+						<label class="label"> Subject </label>
+						<div class="control">
+							<input class="input" type="text" placeholder="Text input" v-model="mail.subject">
+						</div>
+					</div>
 
-				<div class="field">
-					<label class="label"> Subject </label>
-					<div class="control">
-						<input class="input" type="text" placeholder="Text input">
+
+					<div class="field">
+						<label class="label">Message</label>
+						<div class="control">
+							<tinymce-editor api-key="API_KEY" :init="{plugins: 'wordcount'}" v-model="mail.message" />
+						</div>
+					</div>
+
+					<div class="field is-grouped is-grouped-right">
+						<div class="control">
+							<button class="button purple-color is-bold" v-bind:class="{ 'is-loading': loadReportProgress }" :disabled="$v.mail.$invalid">Send</button>
+						</div>
 					</div>
 				</div>
+				</form> <!-- Form tag close -->
+				<!-- Email section -->
+
+			</div> <!-- Box container tag close -->
 
 
-				<div class="field">
-					<label class="label">Message</label>
-					<div class="control">
-						<tinymce-editor api-key="API_KEY" :init="{plugins: 'wordcount'}" />
+			<div class="card"> <!-- Card tag open -->
+
+				<div class="card-content table-container"> <!-- Card content tag open -->
+
+					<label class="panel-block is-bold">
+						<input type="checkbox" v-model="markNotification" true-value="on" false-value="off" @click =" markNotification  == 'on'  ? selectedNotification = [] : selectedNotification = markAllNotification">
+						Mark All
+					</label>
+
+					<table class="table is-bordered is-striped is-hoverable" v-if="loadActiveDrivers.length >= 1"> <!-- Table tag open -->
+
+						<thead>
+							<tr>
+								<th> </th>
+								<th> <span class="purple-color"> ID </span> </th>
+								<th> <span class="purple-color"> Name </span> </th>
+								<th class="has-text-centered"> <span class="purple-color"> Email </span> </th>
+								<th class="has-text-centered"> <span class="purple-color"> Phone </span> </th>
+								<th> <span class="purple-color"> Occupation </span> </th>
+								<th> <span class="purple-color"> Total Delivery </span> </th>
+							</tr>
+						</thead>
+
+						<tbody>
+
+							<tr v-for="(driver, index) in searchQuery.length  > 1  ? loadSearch : loadActiveDrivers " :key="index">
+								<td class="has-text-centered"> <input type="checkbox" :value="driver.phone" v-model="selectedNotification"> </td>
+								<th> <span class="purple-color"> {{ driver.driver_id}} </span> </th>
+								<td> {{ driver.name.substring(0,6) }} </td>
+								<td> {{ driver.email.substring(0,10) }} </td>
+								<td> {{ driver.phone }} </td>
+								<td> {{ driver.occupation.substring(0,6) }} </td>
+								<td class="has-text-centered"> {{ driver.total_delivery}} </td>
+							</tr>
+
+						</tbody>
+
+					</table> <!-- Table tag close -->
+
+
+					<!-- Pagination section -->
+					<div class="buttons has-addons is-centered" v-if="loadActiveDrivers.length >= 1">
+						<a class="button" v-if="loadPagination.previousPageUrl" @click="paginationHandler(loadPagination.previousPageUrl)">
+							<span class="icon is-small">
+								<i class="fas fa-arrow-left purple-color"></i>
+							</span>
+							<span> Previous </span>
+						</a>
+
+
+						<a class="button">
+
+							{{ loadPagination.to}} 0f {{loadPagination.total}}
+						</a>
+
+
+						<a class="button" v-if="loadPagination.nextPageUrl" @click="paginationHandler(loadPagination.nextPageUrl)">
+							<span class="icon is-small">
+								<i class="fas fa-arrow-right purple-color"></i>
+							</span>
+							<span> Next </span>
+						</a>
+					</div>
+
+				</div> <!-- Card content tag open -->
+
+			</div> <!-- Card tag close -->
+
+
+			<div class="card" v-if="loadActiveDrivers.length <= 0">
+				<div class="card-content">
+					<div class="content is-bold has-text-centered subtitle">
+
+						<span class="fa"> No driver found. </span>
+
 					</div>
 				</div>
-
-				<div class="field is-grouped is-grouped-right">
-					<div class="control">
-						<button class="button purple-color is-bold">Send</button>
-					</div>
-				</div>
-
-
 			</div>
-			<!-- Email section -->
-
-		</div> <!-- Box container tag close -->
-
-
-		<div class="card"> <!-- Card tag open -->
-
-			<div class="card-content table-container"> <!-- Card content tag open -->
-
-				<label class="panel-block is-bold">
-					<input type="checkbox" v-model="mark" true-value="on" false-value="off" @click =" mark  == 'on'  ? selectedDriver = [] : selectedDriver = markAll">
-					Mark All
-				</label>
-
-				<table class="table is-bordered is-striped is-hoverable" v-if="loadActiveDrivers.length >= 1"> <!-- Table tag open -->
-
-					<thead>
-						<tr>
-							<th> </th>
-							<th> <span class="purple-color"> ID </span> </th>
-							<th> <span class="purple-color"> Name </span> </th>
-							<th class="has-text-centered"> <span class="purple-color"> Email </span> </th>
-							<th class="has-text-centered"> <span class="purple-color"> Phone </span> </th>
-							<th> <span class="purple-color"> Occupation </span> </th>
-							<th> <span class="purple-color"> Total Delivery </span> </th>
-						</tr>
-					</thead>
-
-					<tbody>
-
-						<tr v-for="(driver, index) in searchQuery.length  > 1  ? loadSearch : loadActiveDrivers " :key="index">
-							<td class="has-text-centered"> <input type="checkbox" :value="driver.phone" v-model="selectedDriver"> </td>
-							<th> <span class="purple-color"> {{ driver.driver_id}} </span> </th>
-							<td> {{ driver.name.substring(0,6) }} </td>
-							<td> {{ driver.email.substring(0,10) }} </td>
-							<td> {{ driver.phone }} </td>
-							<td> {{ driver.occupation.substring(0,6) }} </td>
-							<td class="has-text-centered"> {{ driver.total_delivery}} </td>
-						</tr>
-
-					</tbody>
-
-				</table> <!-- Table tag close -->
-
-
-				<!-- Pagination section -->
-				<div class="buttons has-addons is-centered" v-if="loadActiveDrivers.length >= 1">
-					<a class="button" v-if="loadPagination.previousPageUrl" @click="paginationHandler(loadPagination.previousPageUrl)">
-						<span class="icon is-small">
-							<i class="fas fa-arrow-left purple-color"></i>
-						</span>
-						<span> Previous </span>
-					</a>
-
-
-					<a class="button">
-
-						{{ loadPagination.to}} 0f {{loadPagination.total}}
-					</a>
-
-
-					<a class="button" v-if="loadPagination.nextPageUrl" @click="paginationHandler(loadPagination.nextPageUrl)">
-						<span class="icon is-small">
-							<i class="fas fa-arrow-right purple-color"></i>
-						</span>
-						<span> Next </span>
-					</a>
-				</div>
-
-			</div> <!-- Card content tag open -->
-
-		</div> <!-- Card tag close -->
-
-
-		<div class="card" v-if="loadActiveDrivers.length <= 0">
-			<div class="card-content">
-				<div class="content is-bold has-text-centered subtitle">
-
-					<span class="fa"> No driver found. </span>
-
-				</div>
-			</div>
-		</div>
 
 
 
-	</div> <!-- Container tag close -->
+		</div> <!-- Container tag close -->
 
 
-</template>
+	</template>
 
-<script>
+	<script>
 
-import BulmaCalendar from "../../../Mixins/bulmaCalendar.js";
-import Editor from "../../../Mixins/tinymceEditor.js";
-import { mapGetters, mapActions, mapState } from 'vuex';
+	import BulmaCalendar from "../../../Mixins/bulmaCalendar.js";
+	import { required, email, minLength } from 'vuelidate/lib/validators'
+	import Editor from "../../../Mixins/tinymceEditor.js";
+	import { mapGetters, mapActions, mapState } from 'vuex';
 
-export default {
+	export default {
 
-	mixins: [
-	BulmaCalendar,
-	Editor,
-	],
+		mixins: [
+		BulmaCalendar,
+		Editor,
+		],
 
-	data: () => ({
-		display: false,
-		picked: "notification",
-		showModal: false,
-		searchQuery: '',
-		mark: "On",
-		selectedDriver: [],
-		SMSMessage: "",
-		error: null,
-	}),
+		data: () => ({
+			display: false,
+			picked: "notification",
+			showModal: false,
+			searchQuery: '',
+			markNotification: "On",
+			selectedNotification: [],
+			SMSMessage: "",
+			error: null,
+
+			mail: {
+				subject: null,
+				subject: null,
+				error: null,
+				selectedMail: [],
+				markMail: "On",
+			}
+
+		}),
+
+
+	validations: { //Validation calibrace open 
+
+		SMSMessage: {
+			required,
+			minLength: minLength(6)
+		},
+
+		selectedNotification: {
+			required
+		},
+
+	}, //Validation calibrace close 
+
+	validations2: { //Validation calibrace open 
+
+		SMSMessage: {
+			required,
+			minLength: minLength(6)
+		},
+
+		selectedNotification: {
+			required
+		},
+
+	}, //Validation calibrace close 
+
+
 
 	created() {
 		this.fetchActiveDatas()
 		this.clearNotification()
+		this.fetchAllActiveDatas();
 	},
 
 
 
 	methods: {
-		...mapActions(['fetchActiveDatas', 'clearNotification', 'destroyData', 'searchDatas', 'updateStatus', 'sendSMS']),
+		...mapActions(['fetchActiveDatas', 'clearNotification', 'destroyData', 'searchDatas', 'updateStatus', 'sendSMS','fetchAllActiveDatas']),
 		// Local method
 
 		deleteData(id) {
@@ -243,28 +284,30 @@ export default {
 		},
 
 		submitNotification() {
-			if(this.selectedDriver.length >= 1) {
+			let data = new FormData();
+			data.append("_method", "post");
+			data.append('message', this.SMSMessage);
+			data.append('phones', JSON.stringify(this.selectedDriver));
+			this.sendSMS(data)
+		},
 
-				let data = new FormData();
-				data.append("_method", "post");
-				data.append('user', this.SMSMessage);
-				data.append('phones', JSON.stringify(this.selectedDriver));
-				this.sendSMS(data)
-			} else if (this.selectedDriver.length == 0) {
-				this.error = true
-			}
-
+		submitEmail() {
+			let data = new FormData();
+			data.append("_method", "post");
+			data.append('message', this.SMSMessage);
+			data.append('phones', JSON.stringify(this.selectedDriver));
+			this.sendSMS(data)
 		}
 
 	},
 
 
 	computed: {
-		...mapGetters(['loadActiveDrivers', 'loadLoading', 'loadNotification', 'loadPagination', 'loadSearch', 'loadReportNotification', 'loadReportProgress']),
+		...mapGetters(['loadActiveDrivers', 'loadLoading', 'loadNotification', 'loadPagination', 'loadSearch', 'loadReportNotification', 'loadReportProgress','loadAllActiveDrivers']),
     // Local computed properties
-    markAll() {
-    	let activeDrivers = this.$store.getters.loadActiveDrivers
-    	let arrayLength = this.$store.getters.loadActiveDrivers.length
+    markAllNotification() {
+    	let activeDrivers = this.$store.getters.loadAllActiveDrivers
+    	let arrayLength = this.$store.getters.loadAllActiveDrivers.length
     	let selectAll = []
     	for (let i = 0; i < arrayLength; i++) {
     		selectAll.push(activeDrivers[i].phone)

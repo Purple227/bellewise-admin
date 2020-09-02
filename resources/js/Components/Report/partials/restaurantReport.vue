@@ -1,16 +1,17 @@
 
-
-
 <template>
 
-	<div class="container"> <!-- Container tag open -->
+		<div class="container"> <!-- Container tag open -->
+
+
+	<div class="pageloader purple-bg" v-bind:class="{ 'is-active': restaurantLoader }"><span class="title"> Bellewise loading </span></div>
 
 		<nav class="level">
 
-			<div class="level-item has-text-centered">
+			<div class="level-item level-left">
 				<div class="field has-addons">
 					<div class="control">
-						<input class="input" type="text" placeholder="Search Drivers">
+						<input class="input" type="text" placeholder=" Search restaurant by name" v-model="searchQuery" v-on:keyup="searchMethod">
 					</div>
 					<div class="control">
 						<a class="button purple-color">

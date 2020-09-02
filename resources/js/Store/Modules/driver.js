@@ -12,6 +12,7 @@ const state = {
 	datas: [],
 	data: null,
 	activeDrivers : [],
+	allActiveDatas: [],
 	notification: false,
 	loading: true,
 	progress: null,
@@ -33,6 +34,7 @@ const getters = {
 
 	loadDatas: (state) => state.datas,
 	loadActiveDrivers: (state) => state.activeDrivers,
+	loadAllActiveDrivers: (state) => state.allActiveDatas,
 	loadSingleData: (state) => state.data,
 	loadLoading: (state) => state.loading,
 	loadProgress: (state) => state.progress,
@@ -96,6 +98,16 @@ const actions = {
 		commit('setToPage', response.data.to)
 		commit('setTotal', response.data.total)
 	},
+
+
+	async fetchAllActiveDatas({commit}, uri) {
+		commit('setLoading', true)
+		let api = uri ||'/api/driver/all-active'
+		const response = await axios.get(api);
+		commit('setAllActiveDatas', response.data)
+		commit('setLoading', false)
+	},
+
 
 	async fetchSingleData({commit}, id) {
 		commit('setLoading', true)
@@ -205,7 +217,8 @@ const mutations = {
 	setSearch: (state, searchResult) => state.searchResult = searchResult,
 
 	setBlockedDatas: (state, blockedDatas) => state.blockedDatas = blockedDatas,
-	setActiveDatas: (state, active) => state.activeDrivers = active
+	setActiveDatas: (state, active) => state.activeDrivers = active,
+	setAllActiveDatas: (state, allActive) => state.allActiveDatas = allActive
 
 
 }; //Mutations calibrace close

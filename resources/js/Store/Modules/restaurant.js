@@ -17,6 +17,8 @@ const state = {
 	restaurantErrors: null,
 	restaurantBlockedDatas: null,
 	allRestaurantsDatas: [],
+	activeRestaurants : [],
+	allActiveRestaurants: [],
 
 	restaurantSearchResult: null,
 
@@ -40,7 +42,9 @@ const getters = {
 	loadRestaurantErrors: (state) => state.restaurantErrors,
 	loadRestaurantPagination: (state) => state.restaurantPagination,
 	loadRestaurantSearch: (state) => state.restaurantSearchResult,
-	loadBlockedRestaurants: (state) => state.restaurantBlockedDatas
+	loadBlockedRestaurants: (state) => state.restaurantBlockedDatas,
+	loadActiveRestaurants: (state) => state.activeRestaurants,
+	loadAllActiveRestaurants: (state) => state.allActiveRestaurants,
 
 }; //Getters calibrace close
 
@@ -88,6 +92,31 @@ const actions = {
 		commit('setTotal', response.data.total)
 	},
 
+	async fetchActiveRestaurants({commit}, uri) {
+		commit('setLoading', true)
+		let api = uri ||'/api/restaurant/active'
+		const response = await axios.get(api);
+		commit('setActiveDatas', response.data.data)
+		commit('setLoading', false)
+
+		let nextPageUrl = response.data.next_page_url
+		commit('setNextPageURL', nextPageUrl ? nextPageUrl.slice(21) : null)
+
+		let previousPageUrl = response.data.prev_page_url
+		commit('setPrePageURL', previousPageUrl ? previousPageUrl.slice(21) : null)
+
+		commit('setToPage', response.data.to)
+		commit('setTotal', response.data.total)
+	},
+
+
+	async fetchAllActiveRestaurants({commit}, uri) {
+		commit('setLoading', true)
+		let api = uri ||'/api/restaurant/all-active'
+		const response = await axios.get(api);
+		commit('setAllActiveDatas', response.data)
+		commit('setLoading', false)
+	},
 
 	async fetchSingleRestaurant({commit}, id) {
 		commit('setLoading', true)
@@ -198,7 +227,9 @@ const mutations = {
 
 	setSearch: (state, search) => state.restaurantSearchResult = search,
 
-	setBlockedDatas: (state, blockedDatas) => state.restaurantBlockedDatas = blockedDatas
+	setBlockedDatas: (state, blockedDatas) => state.restaurantBlockedDatas = blockedDatas,
+	setActiveDatas: (state, active) => state.activeRestaurants = active,
+	setAllActiveDatas: (state, allActive) => state.allActiveRestaurants = allActive
 
 
 }; //Mutations calibrace close
