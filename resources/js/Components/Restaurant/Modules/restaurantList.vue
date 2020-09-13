@@ -90,7 +90,7 @@
                 <div class="field is-grouped">
                   <p class="control">
                     <router-link :to="{name: 'view-restaurant', params: {id: restaurant.id}}" class="button purple-color" exact>
-                      View
+                      Configure or View
                     </router-link>
                   </p>
                   <p class="control">

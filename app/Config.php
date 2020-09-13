@@ -9,7 +9,7 @@ class Config extends Model
     
     public function restaurant()
     {
-        return $this->belongsTo(Resturant::class);
+        return $this->belongsTo('App\Resturant');
     }
 
 

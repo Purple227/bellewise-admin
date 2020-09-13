@@ -11,7 +11,7 @@
 
 					<li class="" v-bind:class="{ 'active':subAdminList  }" @click="[subAdminList = true, blockSubAdmin = false]">
 						<a>
-							<span class="icon is-small" v-bind:class="{ 'has-text-white': subAdminList }"><i class="fas fa-truck" aria-hidden="true"></i></span>
+							<span class="icon is-small" v-bind:class="{ 'has-text-white': subAdminList }"><i class="fas fa-users" aria-hidden="true"></i></span>
 							<span v-bind:class="{ 'has-text-white': subAdminList }"> Sub-admins </span>
 						</a>
 					</li>
@@ -25,7 +25,6 @@
 
 				</ul>
 			</div>
-
 
 
 			<div v-if="subAdminList">

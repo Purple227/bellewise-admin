@@ -1,4 +1,5 @@
 
+
 <template>
 
 
@@ -10,25 +11,19 @@
 			<div class="level-left">
 				<div class="level-item">
 					<p class="subtitle is-5">
-						<strong> Add Driver </strong> 
+						<strong> Super Admin Registration </strong> 
 					</p>
 				</div>
 			</div>
 
-			<!-- Right side -->
-			<div class="level-right">
-				<p class="level-item"> <router-link :to="{ name: 'driver-list' }" exact> <strong class="purple-color"> Back</strong> </router-link> </p>
-			</div>
 		</nav>
-
-
 
 
 		<div class="box"> <!-- Box container tag open -->
 
-			<div class="notification purple-bg-light is-bold has-text-black" v-if="loadErrors">
+			<div class="notification purple-bg-light is-bold has-text-black" v-if="loadAdminErrors">
 				<ul>
-					<li v-for="(value, name, index) in loadErrors">
+					<li v-for="(value, name, index) in loadbAdminErrors">
 						{{ index+1 }}. {{ value[0] }}
 					</li>
 				</ul>
@@ -43,15 +38,15 @@
 
 
 						<div class="field">
-							<label class="label">Driver Name <span class="has-text-danger"> * </span>  </label>
+							<label class="label">Name <span class="has-text-danger"> * </span>  </label>
 							<div class="control has-icons-left has-icons-right">
-								<input class="input is-info" type="text" placeholder="Text input" v-model.trim="driver.name"  required autofocus>
+								<input class="input is-info" type="text" placeholder="Text input" v-model.trim="admin.name"  required autofocus>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-user purple-color"></i>
 								</span>
 								<!-- Has icon right -->
-								<span class="icon is-small is-right" v-if="$v.driver.name.required">
+								<span class="icon is-small is-right" v-if="$v.admin.name.required">
 									<i class="fas fa-check purple-color"></i>
 								</span>
 								<span class="icon is-small is-right" v-else>
@@ -69,7 +64,7 @@
 								</span>
 							</p>
 							<p class="control is-expanded has-icons-left">
-								<input class="input is-info" type="tel" minlength="10" maxlength="14" placeholder="Number input" v-model.number="driver.phone" required>
+								<input class="input is-info" type="tel" minlength="10" maxlength="14" placeholder="Number input" v-model.number="admin.phone" required>
 
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
@@ -84,19 +79,19 @@
 						</div>
 
 						<div class="field">
-							<label class="label">Driver Occupation <span class="has-text-danger"> * </span>  </label>
-							<div class="control has-icons-left has-icons-right">
-								<input class="input is-info" type="text" placeholder="Text input" v-model.trim="driver.occupation" required autofocus>
+							<label class="label"> Password <span class="has-text-danger"> * </span> </label>
+							<div class="control has-icons-right has-icons-left">
+								<input class="input is-info" type="email" placeholder="Text input" v-model="admin.password" required>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
-									<i class="fas fa-briefcase purple-color"></i>
+									<i class="fas fa-key purple-color"></i>
 								</span>
 								<!-- Has icon right -->
-								<span class="icon is-small is-right" v-if="$v.driver.occupation.required">
-									<i class="fas fa-check purple-color"></i>
+								<span class="icon is-small is-right" v-if="$v.admin.password.$invalid">
+									<i class="fas fa-exclamation-triangle has-text-danger"></i>
 								</span>
 								<span class="icon is-small is-right" v-else>
-									<i class="fas fa-exclamation-triangle has-text-danger"></i>
+									<i class="fas fa-check purple-color"></i>
 								</span>
 							</div>
 						</div>
@@ -106,15 +101,15 @@
 					<div class="column"> <!-- Second column tag open-->
 
 						<div class="field">
-							<label class="label"> Driver Email <span class="has-text-danger"> * </span> </label>
+							<label class="label"> Email <span class="has-text-danger"> * </span> </label>
 							<div class="control has-icons-right has-icons-left">
-								<input class="input is-info" type="email" placeholder="Text input" v-model="driver.email" required>
+								<input class="input is-info" type="email" placeholder="Text input" v-model="admin.email" required>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-envelope purple-color"></i>
 								</span>
 								<!-- Has icon right -->
-								<span class="icon is-small is-right" v-if="$v.driver.email.$invalid">
+								<span class="icon is-small is-right" v-if="$v.admin.email.$invalid">
 									<i class="fas fa-exclamation-triangle has-text-danger"></i>
 								</span>
 								<span class="icon is-small is-right" v-else>
@@ -137,9 +132,27 @@
 										</span>
 									</span>
 									<span class="file-name">
-										{{  driver.imageName || "Upload an image"}}
+										{{  admin.imageName || "Upload an image"}}
 									</span>
 								</label>
+							</div>
+						</div>
+
+						<div class="field">
+							<label class="label"> Repeat password <span class="has-text-danger"> * </span> </label>
+							<div class="control has-icons-right has-icons-left">
+								<input class="input is-info" type="email" placeholder="Text input" v-model="admin.passwordConfirmation" required>
+								<!-- Has icon left -->
+								<span class="icon is-small is-left">
+									<i class="fas fa-key purple-color"></i>
+								</span>
+								<!-- Has icon right -->
+								<span class="icon is-small is-right" v-if="$v.admin.passwordConfirmation.$invalid">
+									<i class="fas fa-exclamation-triangle has-text-danger"></i>
+								</span>
+								<span class="icon is-small is-right" v-else>
+									<i class="fas fa-check purple-color"></i>
+								</span>
 							</div>
 						</div>
 
@@ -150,11 +163,11 @@
 
 				<div class="field">
 					<p class="control">
-						<button class="button" v-bind:class="{ 'is-loading': loadProgress }" :disabled="$v.driver.$invalid">
+						<button class="button" v-bind:class="{ 'is-loading': loadAdminProgress }" :disabled="$v.admin.$invalid">
 							<span class="icon is-small">
 								<i class="fas fa-save purple-color"></i>
 							</span>
-							<span class="is-bold"> Save </span>
+							<span class="is-bold"> Submit </span>
 						</button>
 					</p>
 				</div>
@@ -172,7 +185,7 @@
 
 
 <script>
-import { required, email, numeric, minlength } from 'vuelidate/lib/validators';
+import { required, email, sameAs, minLength } from 'vuelidate/lib/validators';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -180,14 +193,15 @@ export default {
 
 	data: () => ({
 
-		driver: {
+		admin: {
 			name: null,
 			email: null,
 			phone: null,
-			occupation: null,
 			imageName: null,
 			imageFile: "",
 			countryCode: '+234',
+			password: null,
+			passwordConfirmation: null,
 		},
 
 	}),
@@ -196,14 +210,10 @@ export default {
 
 	validations: { //Validation calibrace open 
 
-		driver: {
+		admin: {
 
 			name: {
 				required
-			},
-
-			occupation: {
-				required,
 			},
 
 			email: {
@@ -211,42 +221,51 @@ export default {
 				required
 			},
 
-		}, // restaurant calibrace close
+			password: {
+				required,
+				minLength: minLength(6)
+			},
+
+			passwordConfirmation: {
+				sameAsPassword: sameAs('password')
+			},
+
+		} // sign up calibrace close
 
 	}, //Validation calibrace close 
 
 
 	methods: {
-		...mapActions(["createData", "clearErrors"]),
+		...mapActions(["createSuperAdminData", "clearAdminErrors"]),
 
 		// Local method goes here
 
 		fileUpload(e) {
-			this.driver.imageName = e.target.files[0].name
-			this.driver.imageFile = e.target.files[0]
+			this.admin.imageName = e.target.files[0].name
+			this.admin.imageFile = e.target.files[0]
 		},
 
 		submitForm() {
 			
 			let data = new FormData();
 			data.append("_method", "post");
-			data.append('name', this.driver.name);
-			data.append('phone', this.driver.countryCode + this.driver.phone);
-			data.append('occupation', this.driver.occupation);
-			data.append('file', this.driver.imageFile);
-			data.append('email', this.driver.email);
-			this.createData(data)
+			data.append('name', this.admin.name);
+			data.append('phone', this.admin.countryCode + this.admin.phone);
+			data.append('file', this.admin.imageFile);
+			data.append('email', this.admin.email);
+			data.append('password', this.admin.password);
+
+			this.createSuperAdminData(data)
+
 		},
 
 	}, // Method calibrace close
 
 
 	computed: {
-		...mapGetters(['loadProgress', 'loadErrors']),
+		...mapGetters(['loadAdminProgress', 'loadAdminErrors']),
 
     // Local computed properties
-
-
 
 },
 

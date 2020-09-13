@@ -45,7 +45,7 @@
 
 				<div class="box border-bottom"> <!-- Box container tag open -->
 					<div class="content"> <!-- Content tag open -->
-						<p class="is-bold"> Categories
+						<p class="is-bold"> Customers
 							<br>
 							<span class="subtitle is-bold"> 30 </span>
 						</p>

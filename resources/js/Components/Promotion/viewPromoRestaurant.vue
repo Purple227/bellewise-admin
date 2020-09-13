@@ -45,7 +45,6 @@
 		}),
 
 		created() {
-			this.fetchSinglePromo()
 			this.setId()
 		},
 

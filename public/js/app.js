@@ -2323,10 +2323,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Accounting/account.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/Accounting/account.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Accounting/index.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/Accounting/index.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2846,6 +2846,118 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [_Mixins_bulmaCalendar_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  data: function data() {
+    return {};
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Admin/Modules/signIn.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/Admin/Modules/signIn.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2872,10 +2984,384 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_Mixins_bulmaCalendar_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
   data: function data() {
-    return {};
+    return {
+      login: {
+        email: null,
+        password: null
+      }
+    };
+  },
+  validations: {
+    //Validation calibrace open 
+    login: {
+      email: {
+        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["email"],
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+      },
+      password: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(6)
+      }
+    } // login up calibrace close
+
+  },
+  //Validation calibrace close 
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["createSuperAdminData", "clearAdminErrors"])), {}, {
+    // Local method goes here
+    submitForm: function submitForm() {
+      var data = new FormData();
+      data.append("_method", "post");
+      data.append('email', this.login.email);
+      data.append('password', this.login.password);
+      this.createSuperAdminData(data);
+    }
+  }),
+  // Method calibrace close
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadAdminProgress', 'loadAdminErrors']))
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Admin/Modules/signUp.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/Admin/Modules/signUp.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      admin: {
+        name: null,
+        email: null,
+        phone: null,
+        imageName: null,
+        imageFile: "",
+        countryCode: '+234',
+        password: null,
+        passwordConfirmation: null
+      }
+    };
+  },
+  validations: {
+    //Validation calibrace open 
+    admin: {
+      name: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+      },
+      email: {
+        email: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["email"],
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
+      },
+      password: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"],
+        minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["minLength"])(6)
+      },
+      passwordConfirmation: {
+        sameAsPassword: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["sameAs"])('password')
+      }
+    } // sign up calibrace close
+
+  },
+  //Validation calibrace close 
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["createSuperAdminData", "clearAdminErrors"])), {}, {
+    // Local method goes here
+    fileUpload: function fileUpload(e) {
+      this.admin.imageName = e.target.files[0].name;
+      this.admin.imageFile = e.target.files[0];
+    },
+    submitForm: function submitForm() {
+      var data = new FormData();
+      data.append("_method", "post");
+      data.append('name', this.admin.name);
+      data.append('phone', this.admin.countryCode + this.admin.phone);
+      data.append('file', this.admin.imageFile);
+      data.append('email', this.admin.email);
+      data.append('password', this.admin.password);
+      this.createSuperAdminData(data);
+    }
+  }),
+  // Method calibrace close
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadAdminProgress', 'loadAdminErrors']))
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Admin/index.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/Admin/index.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Modules_signUp_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Modules/signUp.vue */ "./resources/js/Components/Admin/Modules/signUp.vue");
+/* harmony import */ var _Modules_signIn_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Modules/signIn.vue */ "./resources/js/Components/Admin/Modules/signIn.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    'sign-up': _Modules_signUp_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    'sign-in': _Modules_signIn_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  data: function data() {
+    return {
+      signIn: true,
+      signUp: false
+    };
   }
 });
 
@@ -3986,7 +4472,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {};
   },
   created: function created() {
-    this.fetchSingleData();
     this.setId();
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['fetchSingleData'])), {}, {
@@ -5867,8 +6352,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
 
 
 
@@ -5933,7 +6416,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       data.append('validity', this.promo.validity);
       data.append('user', this.user);
       data.append('restaurantsID', JSON.stringify(this.promo.restaurantsID));
-      this.sendSMS(data);
+      this.createPromo(data);
     },
     bulmaCalendar: function bulmaCalendar() {
       var _this = this;
@@ -6628,7 +7111,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {};
   },
   created: function created() {
-    this.fetchSinglePromo();
     this.setId();
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['fetchSinglePromo'])), {}, {
@@ -6957,6 +7439,41 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -6964,8 +7481,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 /* harmony default export */ __webpack_exports__["default"] = ({
   mixins: [_Mixins_bulmaCalendar_js__WEBPACK_IMPORTED_MODULE_0__["default"], _Mixins_tinymceEditor_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
   data: function data() {
-    var _mail;
-
     return {
       display: false,
       picked: "notification",
@@ -6974,10 +7489,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       markNotification: "On",
       selectedNotification: [],
       SMSMessage: "",
-      error: null,
-      mail: (_mail = {
-        subject: null
-      }, _defineProperty(_mail, "subject", null), _defineProperty(_mail, "error", null), _defineProperty(_mail, "selectedMail", []), _defineProperty(_mail, "markMail", "On"), _mail)
+      success: false,
+      mail: {
+        subject: null,
+        message: null,
+        error: null,
+        selectedMail: [],
+        mark: "On"
+      }
     };
   },
   validations: {
@@ -6988,6 +7507,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     selectedNotification: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+    },
+    mail: {
+      message: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+      },
+      subject: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+      }
     }
   },
   //Validation calibrace close 
@@ -7007,13 +7534,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.clearNotification();
     this.fetchAllActiveDatas();
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['fetchActiveDatas', 'clearNotification', 'destroyData', 'searchDatas', 'updateStatus', 'sendSMS', 'fetchAllActiveDatas'])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['fetchActiveDatas', 'clearNotification', 'searchDatas', 'sendDriverSMS', 'fetchAllActiveDatas', 'sendDriverMail'])), {}, {
     // Local method
-    deleteData: function deleteData(id) {
-      this.destroyData(id);
-      this.fetchActiveDatas();
-      this.showModal = false;
-    },
     paginationHandler: function paginationHandler(uri) {
       this.fetchActiveDatas(uri);
     },
@@ -7022,28 +7544,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         this.searchDatas(this.searchQuery);
       }
     },
-    statusMethod: function statusMethod(id, status) {
-      this.updateStatus({
-        id: id,
-        status: status
-      });
-    },
     submitNotification: function submitNotification() {
       var data = new FormData();
       data.append("_method", "post");
       data.append('message', this.SMSMessage);
       data.append('phones', JSON.stringify(this.selectedDriver));
-      this.sendSMS(data);
+      this.sendDriverSMS(data);
+
+      if (this.$store.getters.loadReportNotification == true) {
+        this.picked == false;
+        this.success = true;
+      }
     },
     submitEmail: function submitEmail() {
       var data = new FormData();
       data.append("_method", "post");
       data.append('message', this.SMSMessage);
       data.append('phones', JSON.stringify(this.selectedDriver));
-      this.sendSMS(data);
+      this.sendDriverMail(data);
+
+      if (this.$store.getters.loadReportNotification == true) {
+        this.picked == false;
+        this.success = true;
+      }
     }
   }),
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['loadActiveDrivers', 'loadLoading', 'loadNotification', 'loadPagination', 'loadSearch', 'loadReportNotification', 'loadReportProgress', 'loadAllActiveDrivers'])), {}, {
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['loadActiveDrivers', 'loadLoading', 'loadPagination', 'loadSearch', 'loadReportNotification', 'loadReportProgress', 'loadAllActiveDrivers', 'loadReportErrors'])), {}, {
     // Local computed properties
     markAllNotification: function markAllNotification() {
       var activeDrivers = this.$store.getters.loadAllActiveDrivers;
@@ -7052,6 +7578,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       for (var i = 0; i < arrayLength; i++) {
         selectAll.push(activeDrivers[i].phone);
+      }
+
+      return selectAll;
+    },
+    markAllMail: function markAllMail() {
+      var activeDrivers = this.$store.getters.loadAllActiveDrivers;
+      var arrayLength = this.$store.getters.loadAllActiveDrivers.length;
+      var selectAll = [];
+
+      for (var i = 0; i < arrayLength; i++) {
+        selectAll.push(activeDrivers[i].email);
       }
 
       return selectAll;
@@ -7338,7 +7875,16 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Mixins_bulmaCalendar_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Mixins/bulmaCalendar.js */ "./resources/js/Mixins/bulmaCalendar.js");
-/* harmony import */ var _Mixins_tinymceEditor_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../Mixins/tinymceEditor.js */ "./resources/js/Mixins/tinymceEditor.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Mixins_tinymceEditor_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../Mixins/tinymceEditor.js */ "./resources/js/Mixins/tinymceEditor.js");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -7562,25 +8108,126 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_Mixins_bulmaCalendar_js__WEBPACK_IMPORTED_MODULE_0__["default"], _Mixins_tinymceEditor_js__WEBPACK_IMPORTED_MODULE_1__["default"]],
+  mixins: [_Mixins_bulmaCalendar_js__WEBPACK_IMPORTED_MODULE_0__["default"], _Mixins_tinymceEditor_js__WEBPACK_IMPORTED_MODULE_2__["default"]],
   data: function data() {
     return {
       display: false,
-      picked: "notification"
+      picked: "notification",
+      showModal: false,
+      searchQuery: '',
+      markNotification: "On",
+      selectedNotification: [],
+      SMSMessage: "",
+      success: false,
+      mail: {
+        subject: null,
+        message: null,
+        error: null,
+        selectedMail: [],
+        mark: "On"
+      }
     };
-  }
+  },
+  validations: {
+    //Validation calibrace open 
+    SMSMessage: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(6)
+    },
+    selectedNotification: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+    },
+    mail: {
+      message: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+      },
+      subject: {
+        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+      }
+    }
+  },
+  //Validation calibrace close 
+  validations2: {
+    //Validation calibrace open 
+    SMSMessage: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(6)
+    },
+    selectedNotification: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
+    }
+  },
+  //Validation calibrace close 
+  created: function created() {
+    this.fetchActiveRestaurants();
+    this.clearRestaurantNotification();
+    this.fetchAllActiveRestaurants();
+  },
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(['fetchActiveRestaurants', 'clearRestaurantNotification', 'searchRestaurantDatas', 'sendRestaurantSMS', 'fetchAllActiveRestaurants', 'sendRestaurantMail'])), {}, {
+    // Local method
+    paginationHandler: function paginationHandler(uri) {
+      this.fetchActiveDatas(uri);
+    },
+    searchMethod: function searchMethod() {
+      if (this.searchQuery > 1) {
+        this.searchDatas(this.searchQuery);
+      }
+    },
+    submitNotification: function submitNotification() {
+      var data = new FormData();
+      data.append("_method", "post");
+      data.append('message', this.SMSMessage);
+      data.append('phones', JSON.stringify(this.selectedDriver));
+      this.sendRestaurantSMS(data);
+
+      if (this.$store.getters.loadReportNotification == true) {
+        this.picked == false;
+        this.success = true;
+      }
+    },
+    submitEmail: function submitEmail() {
+      var data = new FormData();
+      data.append("_method", "post");
+      data.append('message', this.SMSMessage);
+      data.append('phones', JSON.stringify(this.selectedDriver));
+      this.sendRestaurantMail(data);
+
+      if (this.$store.getters.loadReportNotification == true) {
+        this.picked == false;
+        this.success = true;
+      }
+    }
+  }),
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['loadActiveRestaurants', 'loadRestaurantLoader', 'loadRestaurantPagination', 'loadRestaurantSearch', 'loadReportNotification', 'loadReportProgress', 'loadAllActiveRestaurants', 'loadReportErrors'])), {}, {
+    // Local computed properties
+    markAllNotification: function markAllNotification() {
+      var activeRestaurantPhones = this.$store.getters.loadAllActiveRestaurants;
+      var arrayLength = this.$store.getters.loadAllActiveRestaurants.length;
+      var selectAllPhones = [];
+
+      for (var i = 0; i < arrayLength; i++) {
+        selectAllPhones.push(activeRestaurantPhones[i].phone);
+      }
+
+      return selectAllPhones;
+    },
+    markAllMail: function markAllMail() {
+      var activeRestaurantMails = this.$store.getters.loadAllActiveRestaurants;
+      var arrayLength = this.$store.getters.loadAllActiveRestaurants.length;
+      var selectAllMail = [];
+
+      for (var i = 0; i < arrayLength; i++) {
+        selectAllMail.push(activeRestaurantMails[i].email);
+      }
+
+      return selectAllMail;
+    }
+  })
 });
 
 /***/ }),
@@ -8225,6 +8872,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -8267,8 +8934,100 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var bulma_extensions_bulma_calendar_dist_js_bulma_calendar_min_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bulma-extensions/bulma-calendar/dist/js/bulma-calendar.min.js */ "./node_modules/bulma-extensions/bulma-calendar/dist/js/bulma-calendar.min.js");
 /* harmony import */ var bulma_extensions_bulma_calendar_dist_js_bulma_calendar_min_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(bulma_extensions_bulma_calendar_dist_js_bulma_calendar_min_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8459,30 +9218,62 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       restaurantConfig: {
-        preparationTime: null,
-        minimiumDeliveryTime: null,
-        maximiumDeliveryTime: null
+        preparationTime: 'none',
+        minimiumDeliveryTime: 'none',
+        maximiumDeliveryTime: 'none',
+        monday: 'none',
+        mondayStatus: 0,
+        tuesday: 'none',
+        tuesdayStatus: 0,
+        Wednesday: 'none',
+        WednesdayStatus: 0,
+        thursday: 'none',
+        thursdayStatus: 0,
+        friday: 'none',
+        fridayStatus: 0,
+        saturday: 'none',
+        saturdayStatus: 0,
+        sunday: 'none',
+        sundayStatus: 0
       },
-      blah: null
+      switcher: null
     };
   },
   mounted: function mounted() {
     this.bulmaCalendar();
+    this.setId();
   },
-  validations: {
-    //Validation calibrace open 
-    menu: {
-      name: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
-      },
-      description: {
-        required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"]
-      }
-    } //Menu calibrace close
-
-  },
-  //Validation calibrace close 
-  methods: {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['restaurantConfigSetting', 'fetchRestaurantConfig'])), {}, {
+    setId: function setId() {
+      var id = this.$route.params.id;
+      this.fetchRestaurantConfig(id);
+    },
+    submitForm: function submitForm() {
+      var data = new FormData();
+      data.append("_method", "post");
+      data.append('preparation_time', this.restaurantConfig.preparationTime);
+      data.append('minimium_delivery_time', this.restaurantConfig.minimiumDeliveryTime);
+      data.append('maximium_delivery_time', this.restaurantConfig.maximiumDeliveryTime);
+      data.append('monday', this.restaurantConfig.monday);
+      data.append('monday_status', this.restaurantConfig.mondayStatus);
+      data.append('tuesday', this.restaurantConfig.tuesday);
+      data.append('tuesday_status', this.restaurantConfig.tuesdayStatus);
+      data.append('wednesday', this.restaurantConfig.Wednesday);
+      data.append('wednesday_status', this.restaurantConfig.WednesdayStatus);
+      data.append('thursday', this.restaurantConfig.thursday);
+      data.append('thursday_status', this.restaurantConfig.thursdayStatus);
+      data.append('friday', this.restaurantConfig.friday);
+      data.append('friday_status', this.restaurantConfig.fridayStatus);
+      data.append('saturday', this.restaurantConfig.saturday);
+      data.append('saturday_status', this.restaurantConfig.saturdayStatus);
+      data.append('sunday', this.restaurantConfig.sunday);
+      data.append('sunday_status', this.restaurantConfig.sundayStatus);
+      var id = this.$route.params.id;
+      this.restaurantConfigSetting({
+        data: data,
+        id: id
+      });
+    },
     bulmaCalendar: function bulmaCalendar() {
       var _this = this;
 
@@ -8526,16 +9317,77 @@ __webpack_require__.r(__webpack_exports__);
       } // To access to bulmaCalendar instance of an element
 
 
-      var element = document.querySelector('#my-element');
+      var monday = document.querySelector('#monday');
 
-      if (element) {
+      if (monday) {
         // bulmaCalendar instance is available as element.bulmaCalendar
-        element.bulmaCalendar.on('select', function (datepicker) {
-          _this.blah = datepicker.data.value();
+        monday.bulmaCalendar.on('select', function (datepicker) {
+          _this.restaurantConfig.monday = datepicker.data.value();
+        });
+      } // To access to bulmaCalendar instance of an element
+
+
+      var tuesday = document.querySelector('#tuesday');
+
+      if (tuesday) {
+        // bulmaCalendar instance is available as element.bulmaCalendar
+        tuesday.bulmaCalendar.on('select', function (datepicker) {
+          _this.restaurantConfig.tuesday = datepicker.data.value();
+        });
+      } // To access to bulmaCalendar instance of an element
+
+
+      var Wednesday = document.querySelector('#Wednesday');
+
+      if (Wednesday) {
+        // bulmaCalendar instance is available as element.bulmaCalendar
+        Wednesday.bulmaCalendar.on('select', function (datepicker) {
+          _this.restaurantConfig.Wednesday = datepicker.data.value();
+        });
+      } // To access to bulmaCalendar instance of an element
+
+
+      var thursday = document.querySelector('#thursday');
+
+      if (thursday) {
+        // bulmaCalendar instance is available as element.bulmaCalendar
+        thursday.bulmaCalendar.on('select', function (datepicker) {
+          _this.restaurantConfig.thursday = datepicker.data.value();
+        });
+      } // To access to bulmaCalendar instance of an element
+
+
+      var friday = document.querySelector('#friday');
+
+      if (friday) {
+        // bulmaCalendar instance is available as element.bulmaCalendar
+        friday.bulmaCalendar.on('select', function (datepicker) {
+          _this.restaurantConfig.friday = datepicker.data.value();
+        });
+      } // To access to bulmaCalendar instance of an element
+
+
+      var saturday = document.querySelector('#saturday');
+
+      if (saturday) {
+        // bulmaCalendar instance is available as element.bulmaCalendar
+        saturday.bulmaCalendar.on('select', function (datepicker) {
+          _this.restaurantConfig.saturday = datepicker.data.value();
+        });
+      } // To access to bulmaCalendar instance of an element
+
+
+      var sunday = document.querySelector('#sunday');
+
+      if (sunday) {
+        // bulmaCalendar instance is available as element.bulmaCalendar
+        sunday.bulmaCalendar.on('select', function (datepicker) {
+          _this.restaurantConfig.sunday = datepicker.data.value();
         });
       }
     }
-  }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadConfigProgress', 'loadConfigNotification', 'loadRestaurantConfig', 'loadConfigLoader']))
 });
 
 /***/ }),
@@ -8701,28 +9553,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {};
   },
   created: function created() {
-    this.fetchSingleRestaurant();
     this.setId();
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['fetchSingleRestaurant'])), {}, {
@@ -9398,6 +10234,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -9412,7 +10270,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         imageFile: '',
         imageName: null,
         countryCode: '+234',
-        discount: null
+        discount: null,
+        commisson: null
       },
       simpleArray: null,
       formStep: {
@@ -9505,32 +10364,36 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       data.append('license_number', this.restaurant.licenseNumber);
       data.append('email', this.restaurant.email);
       data.append('discount', this.restaurant.discount);
-      data.append('menu', JSON.stringify(this.transformToSimpleArray));
+      data.append('menu', JSON.stringify(this.transformMenuToSimpleArray));
+      var result = this.transformMenuFileToSimpleArray;
+
+      for (var i = 0; i < result.length; i++) {
+        data.append('menuloop', JSON.stringify(result[i]));
+      }
+
+      data.append('menuFile', JSON.stringify(this.transformMenuFileToSimpleArray));
       this.createRestaurant(data);
     }
   }),
   // Method calibrace close
   computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadRestaurantProgress', 'loadRestaurantErrors'])), {}, {
     // Local computed properties
-    transformToSimpleArray: function transformToSimpleArray() {
-      /*			var keys = Object.keys(this.menu)
-      			console.log(keys)
-      			this.simpleArray = keys.name*/
-
-      /*			for (let i in this.menu) {
-      				this.simpleArray.push(this.menu[i].name)
-      			}*/
-
-      /*
-      			for (let i=0; i<this.menu.length; i++) { 
-      				this.simpleArray.push(this.menu[i].name)
-      			}*/
+    transformMenuToSimpleArray: function transformMenuToSimpleArray() {
       var result = [];
 
       for (var i = 0; i < this.menu.length; i++) {
         result.push(this.menu[i].name);
         result.push(this.menu[i].description);
         result.push(this.menu[i].price);
+        result.push(this.menu[i].imageFile);
+      }
+
+      return result;
+    },
+    transformMenuFileToSimpleArray: function transformMenuFileToSimpleArray() {
+      var result = [];
+
+      for (var i = 0; i < this.menu.length; i++) {
         result.push(this.menu[i].imageFile);
       }
 
@@ -9903,8 +10766,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Modules_restaurantDetails_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Modules/restaurantDetails.vue */ "./resources/js/Components/Restaurant/Modules/restaurantDetails.vue");
 /* harmony import */ var _Modules_foodItem_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Modules/foodItem.vue */ "./resources/js/Components/Restaurant/Modules/foodItem.vue");
 /* harmony import */ var _Modules_restaurantConfig_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Modules/restaurantConfig.vue */ "./resources/js/Components/Restaurant/Modules/restaurantConfig.vue");
-//
-//
 //
 //
 //
@@ -11383,7 +12244,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -11943,7 +12803,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {};
   },
   created: function created() {
-    this.fetchSubAdminSingleData();
     this.setId();
   },
   methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['fetchSubAdminSingleData'])), {}, {
@@ -51465,10 +52324,10 @@ exports.mixin = mixin;
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Accounting/account.vue?vue&type=template&id=c31f0684&":
-/*!*********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/Accounting/account.vue?vue&type=template&id=c31f0684& ***!
-  \*********************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Accounting/index.vue?vue&type=template&id=a1b4e9ba&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/Accounting/index.vue?vue&type=template&id=a1b4e9ba& ***!
+  \*******************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -52128,40 +52987,11 @@ var staticRenderFns = [
               ])
             ])
           ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "level-item mt-5" }, [
-          _c("button", { staticClass: "button purple-color is-bold" }, [
-            _vm._v(" Download CSV")
-          ])
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "card" }, [
         _c("div", { staticClass: "card-content table-container" }, [
-          _c("nav", { staticClass: "level" }, [
-            _c("div", { staticClass: "level-left" }, [
-              _c("div", { staticClass: "level-item" }, [
-                _c("div", { staticClass: "field has-addons" }, [
-                  _c("p", { staticClass: "control" }, [
-                    _c("input", {
-                      staticClass: "input",
-                      attrs: { type: "text", placeholder: " Search User" }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "control" }, [
-                    _c(
-                      "button",
-                      { staticClass: "button purple-bg has-text-white" },
-                      [_vm._v("\n\t\t\t\t\t\t\t\t\tSearch\n\t\t\t\t\t\t\t\t")]
-                    )
-                  ])
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
           _c(
             "table",
             { staticClass: "table is-bordered is-striped is-hoverable" },
@@ -52422,6 +53252,855 @@ var staticRenderFns = [
     ])
   }
 ]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Admin/Modules/signIn.vue?vue&type=template&id=4584b416&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/Admin/Modules/signIn.vue?vue&type=template&id=4584b416& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "box" }, [
+      _vm.loadAdminErrors
+        ? _c(
+            "div",
+            {
+              staticClass: "notification purple-bg-light is-bold has-text-black"
+            },
+            [
+              _c(
+                "ul",
+                _vm._l(_vm.loadbAdminErrors, function(value, name, index) {
+                  return _c("li", [
+                    _vm._v(
+                      "\n\t\t\t\t\t" +
+                        _vm._s(index + 1) +
+                        ". " +
+                        _vm._s(value[0]) +
+                        "\n\t\t\t\t"
+                    )
+                  ])
+                }),
+                0
+              )
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.submitForm($event)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "columns" }, [
+            _c("div", { staticClass: "column" }, [
+              _c("div", { staticClass: "field" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-right has-icons-left" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.login.email,
+                          expression: "login.email"
+                        }
+                      ],
+                      staticClass: "input is-info",
+                      attrs: {
+                        type: "email",
+                        placeholder: "Text input",
+                        required: ""
+                      },
+                      domProps: { value: _vm.login.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.login, "email", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _vm.$v.login.email.$invalid
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-exclamation-triangle has-text-danger"
+                          })
+                        ])
+                      : _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fas fa-check purple-color" })
+                        ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "column" }, [
+              _c("div", { staticClass: "field" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-right has-icons-left" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.login.password,
+                          expression: "login.password"
+                        }
+                      ],
+                      staticClass: "input is-info",
+                      attrs: {
+                        type: "email",
+                        placeholder: "Text input",
+                        required: ""
+                      },
+                      domProps: { value: _vm.login.password },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.login, "password", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _vm.$v.login.password.$invalid
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-exclamation-triangle has-text-danger"
+                          })
+                        ])
+                      : _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fas fa-check purple-color" })
+                        ])
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("p", { staticClass: "control" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "button",
+                  class: { "is-loading": _vm.loadAdminProgress },
+                  attrs: { disabled: _vm.$v.login.$invalid }
+                },
+                [
+                  _vm._m(5),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Login ")])
+                ]
+              )
+            ])
+          ])
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("nav", { staticClass: "level" }, [
+      _c("div", { staticClass: "level-left" }, [
+        _c("div", { staticClass: "level-item" }, [
+          _c("p", { staticClass: "subtitle is-5" }, [
+            _c("strong", [_vm._v(" Login ")])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "label" }, [
+      _vm._v(" Email "),
+      _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small is-left" }, [
+      _c("i", { staticClass: "fas fa-envelope purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "label" }, [
+      _vm._v(" Password "),
+      _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small is-left" }, [
+      _c("i", { staticClass: "fas fa-key purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-save purple-color" })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Admin/Modules/signUp.vue?vue&type=template&id=1c58072a&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/Admin/Modules/signUp.vue?vue&type=template&id=1c58072a& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "box" }, [
+      _vm.loadAdminErrors
+        ? _c(
+            "div",
+            {
+              staticClass: "notification purple-bg-light is-bold has-text-black"
+            },
+            [
+              _c(
+                "ul",
+                _vm._l(_vm.loadbAdminErrors, function(value, name, index) {
+                  return _c("li", [
+                    _vm._v(
+                      "\n\t\t\t\t\t" +
+                        _vm._s(index + 1) +
+                        ". " +
+                        _vm._s(value[0]) +
+                        "\n\t\t\t\t"
+                    )
+                  ])
+                }),
+                0
+              )
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.submitForm($event)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "columns" }, [
+            _c("div", { staticClass: "column" }, [
+              _c("div", { staticClass: "field" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-left has-icons-right" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.admin.name,
+                          expression: "admin.name",
+                          modifiers: { trim: true }
+                        }
+                      ],
+                      staticClass: "input is-info",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Text input",
+                        required: "",
+                        autofocus: ""
+                      },
+                      domProps: { value: _vm.admin.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.admin,
+                            "name",
+                            $event.target.value.trim()
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _vm.$v.admin.name.required
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fas fa-check purple-color" })
+                        ])
+                      : _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-exclamation-triangle has-text-danger"
+                          })
+                        ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field has-addons mt-6" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c("p", { staticClass: "control is-expanded has-icons-left" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model.number",
+                        value: _vm.admin.phone,
+                        expression: "admin.phone",
+                        modifiers: { number: true }
+                      }
+                    ],
+                    staticClass: "input is-info",
+                    attrs: {
+                      type: "tel",
+                      minlength: "10",
+                      maxlength: "14",
+                      placeholder: "Number input",
+                      required: ""
+                    },
+                    domProps: { value: _vm.admin.phone },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.admin,
+                          "phone",
+                          _vm._n($event.target.value)
+                        )
+                      },
+                      blur: function($event) {
+                        return _vm.$forceUpdate()
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm._m(4)
+                ]),
+                _vm._v(" "),
+                _vm._m(5)
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _vm._m(6),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-right has-icons-left" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.admin.password,
+                          expression: "admin.password"
+                        }
+                      ],
+                      staticClass: "input is-info",
+                      attrs: {
+                        type: "email",
+                        placeholder: "Text input",
+                        required: ""
+                      },
+                      domProps: { value: _vm.admin.password },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.admin, "password", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(7),
+                    _vm._v(" "),
+                    _vm.$v.admin.password.$invalid
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-exclamation-triangle has-text-danger"
+                          })
+                        ])
+                      : _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fas fa-check purple-color" })
+                        ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "column" }, [
+              _c("div", { staticClass: "field" }, [
+                _vm._m(8),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-right has-icons-left" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.admin.email,
+                          expression: "admin.email"
+                        }
+                      ],
+                      staticClass: "input is-info",
+                      attrs: {
+                        type: "email",
+                        placeholder: "Text input",
+                        required: ""
+                      },
+                      domProps: { value: _vm.admin.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.admin, "email", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(9),
+                    _vm._v(" "),
+                    _vm.$v.admin.email.$invalid
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-exclamation-triangle has-text-danger"
+                          })
+                        ])
+                      : _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fas fa-check purple-color" })
+                        ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field mt-6" }, [
+                _c("div", { staticClass: "file has-name" }, [
+                  _c("label", { staticClass: "file-label" }, [
+                    _c("input", {
+                      staticClass: "file-input is-info",
+                      attrs: { type: "file", name: "resume" },
+                      on: { change: _vm.fileUpload }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(10),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "file-name" }, [
+                      _vm._v(
+                        "\n\t\t\t\t\t\t\t\t\t" +
+                          _vm._s(_vm.admin.imageName || "Upload an image") +
+                          "\n\t\t\t\t\t\t\t\t"
+                      )
+                    ])
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _vm._m(11),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-right has-icons-left" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.admin.passwordConfirmation,
+                          expression: "admin.passwordConfirmation"
+                        }
+                      ],
+                      staticClass: "input is-info",
+                      attrs: {
+                        type: "email",
+                        placeholder: "Text input",
+                        required: ""
+                      },
+                      domProps: { value: _vm.admin.passwordConfirmation },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.admin,
+                            "passwordConfirmation",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(12),
+                    _vm._v(" "),
+                    _vm.$v.admin.passwordConfirmation.$invalid
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-exclamation-triangle has-text-danger"
+                          })
+                        ])
+                      : _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fas fa-check purple-color" })
+                        ])
+                  ]
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("p", { staticClass: "control" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "button",
+                  class: { "is-loading": _vm.loadAdminProgress },
+                  attrs: { disabled: _vm.$v.admin.$invalid }
+                },
+                [
+                  _vm._m(13),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Submit ")])
+                ]
+              )
+            ])
+          ])
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("nav", { staticClass: "level" }, [
+      _c("div", { staticClass: "level-left" }, [
+        _c("div", { staticClass: "level-item" }, [
+          _c("p", { staticClass: "subtitle is-5" }, [
+            _c("strong", [_vm._v(" Super Admin Registration ")])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "label" }, [
+      _vm._v("Name "),
+      _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small is-left" }, [
+      _c("i", { staticClass: "fas fa-user purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "control" }, [
+      _c("span", { staticClass: "select" }, [
+        _c("select", [_c("option", [_vm._v(" +234 ")])])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small is-left" }, [
+      _c("i", { staticClass: "fas fa-phone purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "control" }, [
+      _c("a", { staticClass: "button is-bold" }, [
+        _vm._v("\n\t\t\t\t\t\t\t\tPhone\n\t\t\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "label" }, [
+      _vm._v(" Password "),
+      _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small is-left" }, [
+      _c("i", { staticClass: "fas fa-key purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "label" }, [
+      _vm._v(" Email "),
+      _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small is-left" }, [
+      _c("i", { staticClass: "fas fa-envelope purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "file-cta" }, [
+      _c("span", { staticClass: "file-icon" }, [
+        _c("i", { staticClass: "fas fa-image purple-color" })
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "file-label is-bold" }, [
+        _vm._v("\n\t\t\t\t\t\t\t\t\t\tChoose a file…\n\t\t\t\t\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "label" }, [
+      _vm._v(" Repeat password "),
+      _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small is-left" }, [
+      _c("i", { staticClass: "fas fa-key purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-save purple-color" })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Admin/index.vue?vue&type=template&id=4f7c3817&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/Admin/index.vue?vue&type=template&id=4f7c3817& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "box" }, [
+      _c("div", { staticClass: "tabs is-toggle" }, [
+        _c("ul", [
+          _c(
+            "li",
+            {
+              class: { active: _vm.signIn },
+              on: {
+                click: function($event) {
+                  ;[(_vm.signIn = true), (_vm.signUp = false)]
+                }
+              }
+            },
+            [
+              _c("a", [
+                _c(
+                  "span",
+                  {
+                    staticClass: "icon is-small",
+                    class: { "has-text-white": _vm.signIn }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fas fa-truck",
+                      attrs: { "aria-hidden": "true" }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c("span", { class: { "has-text-white": _vm.signIn } }, [
+                  _vm._v(" Sign-in ")
+                ])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "li",
+            {
+              class: { active: _vm.signUp },
+              on: {
+                click: function($event) {
+                  ;[(_vm.signIn = false), (_vm.signUp = true)]
+                }
+              }
+            },
+            [
+              _c("a", [
+                _c(
+                  "span",
+                  {
+                    staticClass: "icon is-small",
+                    class: { "has-text-white": _vm.signUp }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fas fa-ban",
+                      attrs: { "aria-hidden": "true" }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  { staticClass: " ", class: { "has-text-white": _vm.signUp } },
+                  [_vm._v(" Sign-up ")]
+                )
+              ])
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _vm.signIn ? _c("div", [_c("sign-in")], 1) : _vm._e(),
+      _vm._v(" "),
+      _vm.signUp ? _c("div", [_c("sign-up")], 1) : _vm._e()
+    ])
+  ])
+}
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -53710,7 +55389,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "icon is-small is-left" }, [
-      _c("i", { staticClass: "fas fa-truck purple-color" })
+      _c("i", { staticClass: "fas fa-user purple-color" })
     ])
   },
   function() {
@@ -54069,7 +55748,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "icon is-small is-left" }, [
-      _c("i", { staticClass: "fas fa-truck purple-color" })
+      _c("i", { staticClass: "fas fa-user purple-color" })
     ])
   },
   function() {
@@ -54157,7 +55836,7 @@ var render = function() {
                   },
                   [
                     _c("i", {
-                      staticClass: "fas fa-truck",
+                      staticClass: "fas fa-users",
                       attrs: { "aria-hidden": "true" }
                     })
                   ]
@@ -54448,7 +56127,7 @@ var staticRenderFns = [
         _c("div", { staticClass: "box border-bottom" }, [
           _c("div", { staticClass: "content" }, [
             _c("p", { staticClass: "is-bold" }, [
-              _vm._v(" Categories\n\t\t\t\t\t\t\t"),
+              _vm._v(" Customers\n\t\t\t\t\t\t\t"),
               _c("br"),
               _vm._v(" "),
               _c("span", { staticClass: "subtitle is-bold" }, [_vm._v(" 30 ")])
@@ -59257,6 +60936,17 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
+          _vm.success
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "notification purple-bg-light is-bold has-text-black"
+                },
+                [_vm._v("\n\t\t\tTask Succeesful\n\t\t")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c(
             "form",
             {
@@ -59270,6 +60960,37 @@ var render = function() {
             [
               "notification" == _vm.picked
                 ? _c("div", {}, [
+                    _vm.loadReportErrors
+                      ? _c(
+                          "div",
+                          {
+                            staticClass:
+                              "notification purple-bg-light is-bold has-text-black"
+                          },
+                          [
+                            _c(
+                              "ul",
+                              _vm._l(_vm.loadReportErrors, function(
+                                value,
+                                name,
+                                index
+                              ) {
+                                return _c("li", [
+                                  _vm._v(
+                                    "\n\t\t\t\t\t\t\t" +
+                                      _vm._s(index + 1) +
+                                      " . " +
+                                      _vm._s(value[0]) +
+                                      "\n\t\t\t\t\t\t"
+                                  )
+                                ])
+                              }),
+                              0
+                            )
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
                     _c("div", { staticClass: "field" }, [
                       _c("label", { staticClass: "label" }, [
                         _vm._v(" Notification / SMS ")
@@ -59302,7 +61023,8 @@ var render = function() {
                           }
                         }),
                         _vm._v(" "),
-                        _vm.$v.$invalid
+                        _vm.$v.SMSMessage.$invalid ||
+                        _vm.$v.selectedNotification.$invalid
                           ? _c("p", { staticClass: "help is-danger is-bold" }, [
                               _vm._v(
                                 " You have to select atleast one recipent and field is required. "
@@ -59326,7 +61048,11 @@ var render = function() {
                             {
                               staticClass: "button purple-color is-bold",
                               class: { "is-loading": _vm.loadReportProgress },
-                              attrs: { disabled: _vm.$v.$invalid }
+                              attrs: {
+                                disabled:
+                                  _vm.$v.SMSMessage.$invalid ||
+                                  _vm.$v.selectedNotification.$invalid
+                              }
                             },
                             [_vm._v(" Send ")]
                           )
@@ -59356,29 +61082,62 @@ var render = function() {
                         _vm._v(" Subject ")
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "control" }, [
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.mail.subject,
-                              expression: "mail.subject"
-                            }
-                          ],
-                          staticClass: "input",
-                          attrs: { type: "text", placeholder: "Text input" },
-                          domProps: { value: _vm.mail.subject },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
+                      _c(
+                        "div",
+                        {
+                          staticClass: "control has-icons-left has-icons-right"
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.mail.subject,
+                                expression: "mail.subject"
                               }
-                              _vm.$set(_vm.mail, "subject", $event.target.value)
+                            ],
+                            staticClass: "input",
+                            attrs: { type: "text", placeholder: "Text input" },
+                            domProps: { value: _vm.mail.subject },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.mail,
+                                  "subject",
+                                  $event.target.value
+                                )
+                              }
                             }
-                          }
-                        })
-                      ])
+                          }),
+                          _vm._v(" "),
+                          _vm._m(1),
+                          _vm._v(" "),
+                          _vm.$v.mail.subject.required
+                            ? _c(
+                                "span",
+                                { staticClass: "icon is-small is-right" },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-check purple-color"
+                                  })
+                                ]
+                              )
+                            : _c(
+                                "span",
+                                { staticClass: "icon is-small is-right" },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "fas fa-exclamation-triangle has-text-danger"
+                                  })
+                                ]
+                              )
+                        ]
+                      )
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "field" }, [
@@ -59402,7 +61161,24 @@ var render = function() {
                               },
                               expression: "mail.message"
                             }
-                          })
+                          }),
+                          _vm._v(" "),
+                          _vm.$v.mail.message.$invalid ||
+                          _vm.$v.mail.selectedMail.$invalid
+                            ? _c(
+                                "p",
+                                { staticClass: "help is-danger is-bold" },
+                                [
+                                  _vm._v(
+                                    " You have to select atleast one recipent and field is required. "
+                                  )
+                                ]
+                              )
+                            : _c(
+                                "p",
+                                { staticClass: "help purple-color is-bold" },
+                                [_vm._v(" You good to go. ")]
+                              )
                         ],
                         1
                       )
@@ -59434,62 +61210,118 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "card-content table-container" }, [
-        _c("label", { staticClass: "panel-block is-bold" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.markNotification,
-                expression: "markNotification"
-              }
-            ],
-            attrs: {
-              type: "checkbox",
-              "true-value": "on",
-              "false-value": "off"
-            },
-            domProps: {
-              checked: Array.isArray(_vm.markNotification)
-                ? _vm._i(_vm.markNotification, null) > -1
-                : _vm._q(_vm.markNotification, "on")
-            },
-            on: {
-              click: function($event) {
-                _vm.markNotification == "on"
-                  ? (_vm.selectedNotification = [])
-                  : (_vm.selectedNotification = _vm.markAllNotification)
-              },
-              change: function($event) {
-                var $$a = _vm.markNotification,
-                  $$el = $event.target,
-                  $$c = $$el.checked ? "on" : "off"
-                if (Array.isArray($$a)) {
-                  var $$v = null,
-                    $$i = _vm._i($$a, $$v)
-                  if ($$el.checked) {
-                    $$i < 0 && (_vm.markNotification = $$a.concat([$$v]))
-                  } else {
-                    $$i > -1 &&
-                      (_vm.markNotification = $$a
-                        .slice(0, $$i)
-                        .concat($$a.slice($$i + 1)))
+        "notification" == _vm.picked
+          ? _c("label", { staticClass: "panel-block is-bold" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.markNotification,
+                    expression: "markNotification"
                   }
-                } else {
-                  _vm.markNotification = $$c
+                ],
+                attrs: {
+                  type: "checkbox",
+                  "true-value": "on",
+                  "false-value": "off"
+                },
+                domProps: {
+                  checked: Array.isArray(_vm.markNotification)
+                    ? _vm._i(_vm.markNotification, null) > -1
+                    : _vm._q(_vm.markNotification, "on")
+                },
+                on: {
+                  click: function($event) {
+                    _vm.markNotification == "on"
+                      ? (_vm.selectedNotification = [])
+                      : (_vm.selectedNotification = _vm.markAllNotification)
+                  },
+                  change: function($event) {
+                    var $$a = _vm.markNotification,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? "on" : "off"
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.markNotification = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.markNotification = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.markNotification = $$c
+                    }
+                  }
                 }
-              }
-            }
-          }),
-          _vm._v("\n\t\t\t\t\tMark All\n\t\t\t\t")
-        ]),
+              }),
+              _vm._v("\n\t\t\t\tMark All\n\t\t\t")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        "email" == _vm.picked
+          ? _c("label", { staticClass: "panel-block is-bold" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.mail.mark,
+                    expression: "mail.mark"
+                  }
+                ],
+                attrs: {
+                  type: "checkbox",
+                  "true-value": "on",
+                  "false-value": "off"
+                },
+                domProps: {
+                  checked: Array.isArray(_vm.mail.mark)
+                    ? _vm._i(_vm.mail.mark, null) > -1
+                    : _vm._q(_vm.mail.mark, "on")
+                },
+                on: {
+                  click: function($event) {
+                    _vm.mail.mark == "on"
+                      ? (_vm.mail.selectedMail = [])
+                      : (_vm.mail.selectedMail = _vm.markAllMail)
+                  },
+                  change: function($event) {
+                    var $$a = _vm.mail.mark,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? "on" : "off"
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && _vm.$set(_vm.mail, "mark", $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.mail,
+                            "mark",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.mail, "mark", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v("\n\t\t\t\tMark All\n\t\t\t")
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _vm.loadActiveDrivers.length >= 1
           ? _c(
               "table",
               { staticClass: "table is-bordered is-striped is-hoverable" },
               [
-                _vm._m(1),
+                _vm._m(2),
                 _vm._v(" "),
                 _c(
                   "tbody",
@@ -59500,50 +61332,103 @@ var render = function() {
                     function(driver, index) {
                       return _c("tr", { key: index }, [
                         _c("td", { staticClass: "has-text-centered" }, [
-                          _c("input", {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.selectedNotification,
-                                expression: "selectedNotification"
-                              }
-                            ],
-                            attrs: { type: "checkbox" },
-                            domProps: {
-                              value: driver.phone,
-                              checked: Array.isArray(_vm.selectedNotification)
-                                ? _vm._i(
-                                    _vm.selectedNotification,
-                                    driver.phone
-                                  ) > -1
-                                : _vm.selectedNotification
-                            },
-                            on: {
-                              change: function($event) {
-                                var $$a = _vm.selectedNotification,
-                                  $$el = $event.target,
-                                  $$c = $$el.checked ? true : false
-                                if (Array.isArray($$a)) {
-                                  var $$v = driver.phone,
-                                    $$i = _vm._i($$a, $$v)
-                                  if ($$el.checked) {
-                                    $$i < 0 &&
-                                      (_vm.selectedNotification = $$a.concat([
-                                        $$v
-                                      ]))
-                                  } else {
-                                    $$i > -1 &&
-                                      (_vm.selectedNotification = $$a
-                                        .slice(0, $$i)
-                                        .concat($$a.slice($$i + 1)))
+                          "notification" == _vm.picked
+                            ? _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selectedNotification,
+                                    expression: "selectedNotification"
                                   }
-                                } else {
-                                  _vm.selectedNotification = $$c
+                                ],
+                                attrs: { type: "checkbox" },
+                                domProps: {
+                                  value: driver.phone,
+                                  checked: Array.isArray(
+                                    _vm.selectedNotification
+                                  )
+                                    ? _vm._i(
+                                        _vm.selectedNotification,
+                                        driver.phone
+                                      ) > -1
+                                    : _vm.selectedNotification
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.selectedNotification,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = driver.phone,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          (_vm.selectedNotification = $$a.concat(
+                                            [$$v]
+                                          ))
+                                      } else {
+                                        $$i > -1 &&
+                                          (_vm.selectedNotification = $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1)))
+                                      }
+                                    } else {
+                                      _vm.selectedNotification = $$c
+                                    }
+                                  }
                                 }
-                              }
-                            }
-                          })
+                              })
+                            : _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.mail.selectedMail,
+                                    expression: "mail.selectedMail"
+                                  }
+                                ],
+                                attrs: { type: "checkbox" },
+                                domProps: {
+                                  value: driver.email,
+                                  checked: Array.isArray(_vm.mail.selectedMail)
+                                    ? _vm._i(
+                                        _vm.mail.selectedMail,
+                                        driver.email
+                                      ) > -1
+                                    : _vm.mail.selectedMail
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.mail.selectedMail,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = driver.email,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.mail,
+                                            "selectedMail",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.mail,
+                                            "selectedMail",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(_vm.mail, "selectedMail", $$c)
+                                    }
+                                  }
+                                }
+                              })
                         ]),
                         _vm._v(" "),
                         _c("th", [
@@ -59601,17 +61486,17 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._m(2), _vm._v(" "), _c("span", [_vm._v(" Previous ")])]
+                    [_vm._m(3), _vm._v(" "), _c("span", [_vm._v(" Previous ")])]
                   )
                 : _vm._e(),
               _vm._v(" "),
               _c("a", { staticClass: "button" }, [
                 _vm._v(
-                  "\n\n\t\t\t\t\t\t" +
+                  "\n\n\t\t\t\t\t" +
                     _vm._s(_vm.loadPagination.to) +
                     " 0f " +
                     _vm._s(_vm.loadPagination.total) +
-                    "\n\t\t\t\t\t"
+                    "\n\t\t\t\t"
                 )
               ]),
               _vm._v(" "),
@@ -59628,7 +61513,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._m(3), _vm._v(" "), _c("span", [_vm._v(" Next ")])]
+                    [_vm._m(4), _vm._v(" "), _c("span", [_vm._v(" Next ")])]
                   )
                 : _vm._e()
             ])
@@ -59637,7 +61522,7 @@ var render = function() {
     ]),
     _vm._v(" "),
     _vm.loadActiveDrivers.length <= 0
-      ? _c("div", { staticClass: "card" }, [_vm._m(4)])
+      ? _c("div", { staticClass: "card" }, [_vm._m(5)])
       : _vm._e()
   ])
 }
@@ -59656,9 +61541,17 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small is-left" }, [
+      _c("i", { staticClass: "fas fa-header purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th"),
+        _c("th", [_c("i", { staticClass: "fas fa-check purple-color" })]),
         _vm._v(" "),
         _c("th", [
           _c("span", { staticClass: "purple-color" }, [_vm._v(" ID ")])
@@ -60174,7 +62067,7 @@ var render = function() {
       "div",
       {
         staticClass: "pageloader purple-bg",
-        class: { "is-active": _vm.restaurantLoader }
+        class: { "is-active": _vm.loadRestaurantLoader }
       },
       [_c("span", { staticClass: "title" }, [_vm._v(" Bellewise loading ")])]
     ),
@@ -60212,11 +62105,7 @@ var render = function() {
           _vm._v(" "),
           _vm._m(0)
         ])
-      ]),
-      _vm._v(" "),
-      _vm._m(1),
-      _vm._v(" "),
-      _vm._m(2)
+      ])
     ]),
     _vm._v(" "),
     _c(
@@ -60286,173 +62175,596 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          "notification" == _vm.picked
-            ? _c("div", {}, [_vm._m(3), _vm._v(" "), _vm._m(4)])
+          _vm.success
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "notification purple-bg-light is-bold has-text-black"
+                },
+                [_vm._v("\n\t\t\tTask Succeesful\n\t\t")]
+              )
             : _vm._e(),
           _vm._v(" "),
-          "email" == _vm.picked
-            ? _c("div", {}, [
-                _vm._m(5),
-                _vm._v(" "),
-                _c("div", { staticClass: "field" }, [
-                  _c("label", { staticClass: "label" }, [_vm._v("Message")]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "control" },
-                    [
-                      _c("tinymce-editor", {
-                        attrs: {
-                          "api-key": "API_KEY",
-                          init: { plugins: "wordcount" }
-                        }
-                      })
-                    ],
-                    1
-                  )
-                ]),
-                _vm._v(" "),
-                _vm._m(6)
-              ])
-            : _vm._e()
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.submitNotification($event)
+                }
+              }
+            },
+            [
+              "notification" == _vm.picked
+                ? _c("div", {}, [
+                    _vm.loadRestaurantErrors
+                      ? _c(
+                          "div",
+                          {
+                            staticClass:
+                              "notification purple-bg-light is-bold has-text-black"
+                          },
+                          [
+                            _c(
+                              "ul",
+                              _vm._l(_vm.loadRestaurantErrors, function(
+                                value,
+                                name,
+                                index
+                              ) {
+                                return _c("li", [
+                                  _vm._v(
+                                    "\n\t\t\t\t\t\t\t" +
+                                      _vm._s(index + 1) +
+                                      " . " +
+                                      _vm._s(value[0]) +
+                                      "\n\t\t\t\t\t\t"
+                                  )
+                                ])
+                              }),
+                              0
+                            )
+                          ]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "field" }, [
+                      _c("label", { staticClass: "label" }, [
+                        _vm._v(" Notification / SMS ")
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "control" }, [
+                        _c("textarea", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.trim",
+                              value: _vm.SMSMessage,
+                              expression: "SMSMessage",
+                              modifiers: { trim: true }
+                            }
+                          ],
+                          staticClass: "textarea",
+                          attrs: { placeholder: " Enter Notification Content" },
+                          domProps: { value: _vm.SMSMessage },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.SMSMessage = $event.target.value.trim()
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _vm.$v.SMSMessage.$invalid ||
+                        _vm.$v.selectedNotification.$invalid
+                          ? _c("p", { staticClass: "help is-danger is-bold" }, [
+                              _vm._v(
+                                " You have to select atleast one recipent and field is required. "
+                              )
+                            ])
+                          : _c(
+                              "p",
+                              { staticClass: "help purple-color is-bold" },
+                              [_vm._v(" You good to go. ")]
+                            )
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "field is-grouped is-grouped-right" },
+                      [
+                        _c("div", { staticClass: "control" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "button purple-color is-bold",
+                              class: { "is-loading": _vm.loadReportProgress },
+                              attrs: {
+                                disabled:
+                                  _vm.$v.SMSMessage.$invalid ||
+                                  _vm.$v.selectedNotification.$invalid
+                              }
+                            },
+                            [_vm._v(" Send ")]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                : _vm._e()
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                  return _vm.submitEmail($event)
+                }
+              }
+            },
+            [
+              "email" == _vm.picked
+                ? _c("div", {}, [
+                    _c("div", { staticClass: "field" }, [
+                      _c("label", { staticClass: "label" }, [
+                        _vm._v(" Subject ")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass: "control has-icons-left has-icons-right"
+                        },
+                        [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.mail.subject,
+                                expression: "mail.subject"
+                              }
+                            ],
+                            staticClass: "input",
+                            attrs: { type: "text", placeholder: "Text input" },
+                            domProps: { value: _vm.mail.subject },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.mail,
+                                  "subject",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm._m(1),
+                          _vm._v(" "),
+                          _vm.$v.mail.subject.required
+                            ? _c(
+                                "span",
+                                { staticClass: "icon is-small is-right" },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-check purple-color"
+                                  })
+                                ]
+                              )
+                            : _c(
+                                "span",
+                                { staticClass: "icon is-small is-right" },
+                                [
+                                  _c("i", {
+                                    staticClass:
+                                      "fas fa-exclamation-triangle has-text-danger"
+                                  })
+                                ]
+                              )
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "field" }, [
+                      _c("label", { staticClass: "label" }, [
+                        _vm._v("Message")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "control" },
+                        [
+                          _c("tinymce-editor", {
+                            attrs: {
+                              "api-key": "API_KEY",
+                              init: { plugins: "wordcount" }
+                            },
+                            model: {
+                              value: _vm.mail.message,
+                              callback: function($$v) {
+                                _vm.$set(_vm.mail, "message", $$v)
+                              },
+                              expression: "mail.message"
+                            }
+                          }),
+                          _vm._v(" "),
+                          _vm.$v.mail.message.$invalid ||
+                          _vm.$v.mail.selectedMail.$invalid
+                            ? _c(
+                                "p",
+                                { staticClass: "help is-danger is-bold" },
+                                [
+                                  _vm._v(
+                                    " You have to select atleast one recipent and field is required. "
+                                  )
+                                ]
+                              )
+                            : _c(
+                                "p",
+                                { staticClass: "help purple-color is-bold" },
+                                [_vm._v(" You good to go. ")]
+                              )
+                        ],
+                        1
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "field is-grouped is-grouped-right" },
+                      [
+                        _c("div", { staticClass: "control" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "button purple-color is-bold",
+                              class: {
+                                "is-loading": _vm.loadRestaurantProgress
+                              },
+                              attrs: { disabled: _vm.$v.mail.$invalid }
+                            },
+                            [_vm._v("Send")]
+                          )
+                        ])
+                      ]
+                    )
+                  ])
+                : _vm._e()
+            ]
+          )
         ])
       : _vm._e(),
     _vm._v(" "),
     _c("div", { staticClass: "card" }, [
       _c("div", { staticClass: "card-content table-container" }, [
-        _c(
-          "table",
-          { staticClass: "table is-bordered is-striped is-hoverable" },
-          [
-            _vm._m(7),
-            _vm._v(" "),
-            _c("tbody", [
-              _c("tr", [
-                _vm._m(8),
-                _vm._v(" "),
-                _vm._m(9),
-                _vm._v(" "),
-                _c(
-                  "td",
-                  [
-                    _c(
-                      "router-link",
-                      { attrs: { to: { name: "view-restaurant" }, exact: "" } },
-                      [_vm._v(" Crunchies ")]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("td", [_vm._v(" 080XXXXXXX ")]),
-                _vm._v(" "),
-                _c("td", [_vm._v(" Bellewise@bellewise.com")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "has-text-centered" }, [_vm._v(" 8 ")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "has-text-centered" }, [
-                  _vm._v(" 68 ")
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v(" ₦54398.00 ")])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _vm._m(10),
-                _vm._v(" "),
-                _vm._m(11),
-                _vm._v(" "),
-                _c(
-                  "td",
-                  [
-                    _c(
-                      "router-link",
-                      { attrs: { to: { name: "view-restaurant" }, exact: "" } },
-                      [_vm._v(" Crunchies ")]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("td", [_vm._v(" 080XXXXXXX ")]),
-                _vm._v(" "),
-                _c("td", [_vm._v(" Bellewise@bellewise.com")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "has-text-centered" }, [_vm._v(" 8 ")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "has-text-centered" }, [
-                  _vm._v(" 68 ")
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v(" ₦54398.00 ")])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _vm._m(12),
-                _vm._v(" "),
-                _vm._m(13),
-                _vm._v(" "),
-                _c(
-                  "td",
-                  [
-                    _c(
-                      "router-link",
-                      { attrs: { to: { name: "view-restaurant" }, exact: "" } },
-                      [_vm._v(" Crunchies ")]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("td", [_vm._v(" 080XXXXXXX ")]),
-                _vm._v(" "),
-                _c("td", [_vm._v(" Bellewise@bellewise.com")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "has-text-centered" }, [_vm._v(" 8 ")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "has-text-centered" }, [
-                  _vm._v(" 68 ")
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v(" ₦54398.00 ")])
-              ]),
-              _vm._v(" "),
-              _c("tr", [
-                _vm._m(14),
-                _vm._v(" "),
-                _vm._m(15),
-                _vm._v(" "),
-                _c(
-                  "td",
-                  [
-                    _c(
-                      "router-link",
-                      { attrs: { to: { name: "view-restaurant" }, exact: "" } },
-                      [_vm._v(" Crunchies ")]
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c("td", [_vm._v(" 080XXXXXXX ")]),
-                _vm._v(" "),
-                _c("td", [_vm._v(" Bellewise@bellewise.com")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "has-text-centered" }, [_vm._v(" 8 ")]),
-                _vm._v(" "),
-                _c("td", { staticClass: "has-text-centered" }, [
-                  _vm._v(" 68 ")
-                ]),
-                _vm._v(" "),
-                _c("td", [_vm._v(" ₦54398.00 ")])
-              ])
+        "notification" == _vm.picked
+          ? _c("label", { staticClass: "panel-block is-bold" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.markNotification,
+                    expression: "markNotification"
+                  }
+                ],
+                attrs: {
+                  type: "checkbox",
+                  "true-value": "on",
+                  "false-value": "off"
+                },
+                domProps: {
+                  checked: Array.isArray(_vm.markNotification)
+                    ? _vm._i(_vm.markNotification, null) > -1
+                    : _vm._q(_vm.markNotification, "on")
+                },
+                on: {
+                  click: function($event) {
+                    _vm.markNotification == "on"
+                      ? (_vm.selectedNotification = [])
+                      : (_vm.selectedNotification = _vm.markAllNotification)
+                  },
+                  change: function($event) {
+                    var $$a = _vm.markNotification,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? "on" : "off"
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && (_vm.markNotification = $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          (_vm.markNotification = $$a
+                            .slice(0, $$i)
+                            .concat($$a.slice($$i + 1)))
+                      }
+                    } else {
+                      _vm.markNotification = $$c
+                    }
+                  }
+                }
+              }),
+              _vm._v("\n\t\t\t\tMark All\n\t\t\t")
             ])
-          ]
-        ),
+          : _vm._e(),
         _vm._v(" "),
-        _vm._m(16)
+        "email" == _vm.picked
+          ? _c("label", { staticClass: "panel-block is-bold" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.mail.mark,
+                    expression: "mail.mark"
+                  }
+                ],
+                attrs: {
+                  type: "checkbox",
+                  "true-value": "on",
+                  "false-value": "off"
+                },
+                domProps: {
+                  checked: Array.isArray(_vm.mail.mark)
+                    ? _vm._i(_vm.mail.mark, null) > -1
+                    : _vm._q(_vm.mail.mark, "on")
+                },
+                on: {
+                  click: function($event) {
+                    _vm.mail.mark == "on"
+                      ? (_vm.mail.selectedMail = [])
+                      : (_vm.mail.selectedMail = _vm.markAllMail)
+                  },
+                  change: function($event) {
+                    var $$a = _vm.mail.mark,
+                      $$el = $event.target,
+                      $$c = $$el.checked ? "on" : "off"
+                    if (Array.isArray($$a)) {
+                      var $$v = null,
+                        $$i = _vm._i($$a, $$v)
+                      if ($$el.checked) {
+                        $$i < 0 && _vm.$set(_vm.mail, "mark", $$a.concat([$$v]))
+                      } else {
+                        $$i > -1 &&
+                          _vm.$set(
+                            _vm.mail,
+                            "mark",
+                            $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                          )
+                      }
+                    } else {
+                      _vm.$set(_vm.mail, "mark", $$c)
+                    }
+                  }
+                }
+              }),
+              _vm._v("\n\t\t\t\tMark All\n\t\t\t")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.loadActiveRestaurants.length >= 1
+          ? _c(
+              "table",
+              { staticClass: "table is-bordered is-striped is-hoverable" },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(
+                    _vm.searchQuery.length > 1
+                      ? _vm.loadRestaurantSearch
+                      : _vm.loadActiveRestaurants,
+                    function(restaurant, index) {
+                      return _c("tr", { key: index }, [
+                        _c("td", { staticClass: "has-text-centered" }, [
+                          "notification" == _vm.picked
+                            ? _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.selectedNotification,
+                                    expression: "selectedNotification"
+                                  }
+                                ],
+                                attrs: { type: "checkbox" },
+                                domProps: {
+                                  value: restaurant.phone,
+                                  checked: Array.isArray(
+                                    _vm.selectedNotification
+                                  )
+                                    ? _vm._i(
+                                        _vm.selectedNotification,
+                                        restaurant.phone
+                                      ) > -1
+                                    : _vm.selectedNotification
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.selectedNotification,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = restaurant.phone,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          (_vm.selectedNotification = $$a.concat(
+                                            [$$v]
+                                          ))
+                                      } else {
+                                        $$i > -1 &&
+                                          (_vm.selectedNotification = $$a
+                                            .slice(0, $$i)
+                                            .concat($$a.slice($$i + 1)))
+                                      }
+                                    } else {
+                                      _vm.selectedNotification = $$c
+                                    }
+                                  }
+                                }
+                              })
+                            : _c("input", {
+                                directives: [
+                                  {
+                                    name: "model",
+                                    rawName: "v-model",
+                                    value: _vm.mail.selectedMail,
+                                    expression: "mail.selectedMail"
+                                  }
+                                ],
+                                attrs: { type: "checkbox" },
+                                domProps: {
+                                  value: restaurant.email,
+                                  checked: Array.isArray(_vm.mail.selectedMail)
+                                    ? _vm._i(
+                                        _vm.mail.selectedMail,
+                                        restaurant.email
+                                      ) > -1
+                                    : _vm.mail.selectedMail
+                                },
+                                on: {
+                                  change: function($event) {
+                                    var $$a = _vm.mail.selectedMail,
+                                      $$el = $event.target,
+                                      $$c = $$el.checked ? true : false
+                                    if (Array.isArray($$a)) {
+                                      var $$v = restaurant.email,
+                                        $$i = _vm._i($$a, $$v)
+                                      if ($$el.checked) {
+                                        $$i < 0 &&
+                                          _vm.$set(
+                                            _vm.mail,
+                                            "selectedMail",
+                                            $$a.concat([$$v])
+                                          )
+                                      } else {
+                                        $$i > -1 &&
+                                          _vm.$set(
+                                            _vm.mail,
+                                            "selectedMail",
+                                            $$a
+                                              .slice(0, $$i)
+                                              .concat($$a.slice($$i + 1))
+                                          )
+                                      }
+                                    } else {
+                                      _vm.$set(_vm.mail, "selectedMail", $$c)
+                                    }
+                                  }
+                                }
+                              })
+                        ]),
+                        _vm._v(" "),
+                        _c("th", [
+                          _c("span", { staticClass: "purple-color" }, [
+                            _vm._v(" " + _vm._s(index + 1) + " ")
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " " + _vm._s(restaurant.name.substring(0, 6)) + " "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(" " + _vm._s(restaurant.phone) + " ")
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " " +
+                              _vm._s(restaurant.email.substring(0, 10)) +
+                              " "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(" ₦" + _vm._s(restaurant.revenue) + " ")
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "has-text-centered" }, [
+                          _vm._v(" " + _vm._s(restaurant.commmission) + " ")
+                        ])
+                      ])
+                    }
+                  ),
+                  0
+                )
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.loadActiveRestaurants.length >= 1
+          ? _c("div", { staticClass: "buttons has-addons is-centered" }, [
+              _vm.loadRestaurantPagination.previousPageUrl
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "button",
+                      on: {
+                        click: function($event) {
+                          return _vm.paginationHandler(
+                            _vm.loadRestaurantPagination.previousPageUrl
+                          )
+                        }
+                      }
+                    },
+                    [_vm._m(3), _vm._v(" "), _c("span", [_vm._v(" Previous ")])]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c("a", { staticClass: "button" }, [
+                _vm._v(
+                  "\n\t\t\t\t\t" +
+                    _vm._s(_vm.loadRestaurantPagination.to) +
+                    " 0f " +
+                    _vm._s(_vm.loadRestaurantPagination.total) +
+                    "\n\t\t\t\t"
+                )
+              ]),
+              _vm._v(" "),
+              _vm.loadRestaurantPagination.nextPageUrl
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "button",
+                      on: {
+                        click: function($event) {
+                          return _vm.paginationHandler(
+                            _vm.loadRestaurantPagination.nextPageUrl
+                          )
+                        }
+                      }
+                    },
+                    [_vm._m(4), _vm._v(" "), _c("span", [_vm._v(" Next ")])]
+                  )
+                : _vm._e()
+            ])
+          : _vm._e()
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _vm.loadActiveRestaurants.length <= 0
+      ? _c("div", { staticClass: "card" }, [_vm._m(5)])
+      : _vm._e()
   ])
 }
 var staticRenderFns = [
@@ -60470,90 +62782,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "level-item has-text-centered" }, [
-      _c("div", { staticClass: "field has-addons" }, [
-        _c("p", { staticClass: "control" }, [
-          _c("input", {
-            attrs: {
-              id: "my-element",
-              type: "date",
-              "data-display-mode": "dialog",
-              "data-close-on-select": "false",
-              "data-color": "info"
-            }
-          })
-        ]),
-        _vm._v(" "),
-        _c("p", { staticClass: "control" }, [
-          _c("a", { staticClass: "button purple-color " }, [
-            _vm._v("\n\t\t\t\t\t\tBy Date\n\t\t\t\t\t")
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "level-item has-text-centered" }, [
-      _c("button", { staticClass: "button purple-color is-bold" }, [
-        _vm._v(" Download CSV")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field" }, [
-      _c("label", { staticClass: "label" }, [_vm._v(" Notification ")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "control" }, [
-        _c("textarea", {
-          staticClass: "textarea",
-          attrs: { placeholder: " Enter Notification Content" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field is-grouped is-grouped-right" }, [
-      _c("div", { staticClass: "control" }, [
-        _c("button", { staticClass: "button purple-color is-bold" }, [
-          _vm._v("Send")
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field" }, [
-      _c("label", { staticClass: "label" }, [_vm._v(" Subject ")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "control" }, [
-        _c("input", {
-          staticClass: "input",
-          attrs: { type: "text", placeholder: "Text input" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field is-grouped is-grouped-right" }, [
-      _c("div", { staticClass: "control" }, [
-        _c("button", { staticClass: "button purple-color is-bold" }, [
-          _vm._v("Send")
-        ])
-      ])
+    return _c("span", { staticClass: "icon is-small is-left" }, [
+      _c("i", { staticClass: "fas fa-header purple-color" })
     ])
   },
   function() {
@@ -60562,16 +62792,14 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("thead", [
       _c("tr", [
-        _c("th"),
+        _c("th", [_c("i", { staticClass: "fas fa-check purple-color" })]),
         _vm._v(" "),
         _c("th", [
           _c("span", { staticClass: "purple-color" }, [_vm._v(" ID ")])
         ]),
         _vm._v(" "),
         _c("th", [
-          _c("span", { staticClass: "purple-color" }, [
-            _vm._v(" Restaurant Name ")
-          ])
+          _c("span", { staticClass: "purple-color" }, [_vm._v(" Name ")])
         ]),
         _vm._v(" "),
         _c("th", { staticClass: "has-text-centered" }, [
@@ -60583,19 +62811,11 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("th", [
-          _c("span", { staticClass: "purple-color" }, [
-            _vm._v(" Delivery Commission ")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("th", [
-          _c("span", { staticClass: "purple-color" }, [
-            _vm._v(" Order Delivered ")
-          ])
-        ]),
-        _vm._v(" "),
-        _c("th", [
           _c("span", { staticClass: "purple-color" }, [_vm._v(" Revenue ")])
+        ]),
+        _vm._v(" "),
+        _c("th", [
+          _c("span", { staticClass: "purple-color" }, [_vm._v(" Commission ")])
         ])
       ])
     ])
@@ -60604,89 +62824,25 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "has-text-centered" }, [
-      _c("input", { attrs: { type: "checkbox" } })
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-arrow-left purple-color" })
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("th", [
-      _c("span", { staticClass: "purple-color" }, [_vm._v(" 1 ")])
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-arrow-right purple-color" })
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "has-text-centered" }, [
-      _c("input", { attrs: { type: "checkbox" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("th", [
-      _c("span", { staticClass: "purple-color" }, [_vm._v(" 2 ")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "has-text-centered" }, [
-      _c("input", { attrs: { type: "checkbox" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("th", [
-      _c("span", { staticClass: "purple-color" }, [_vm._v(" 3 ")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("td", { staticClass: "has-text-centered" }, [
-      _c("input", { attrs: { type: "checkbox" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("th", [
-      _c("span", { staticClass: "purple-color" }, [_vm._v(" 4 ")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "buttons has-addons is-centered" }, [
-      _c("a", { staticClass: "button" }, [
-        _c("span", { staticClass: "icon is-small" }, [
-          _c("i", { staticClass: "fas fa-arrow-left green" })
-        ]),
-        _vm._v(" "),
-        _c("span", [_vm._v(" Previous ")])
-      ]),
-      _vm._v(" "),
-      _c("a", { staticClass: "button" }, [
-        _vm._v("\n\n\t\t\t\t\t4 0f 6\n\t\t\t\t")
-      ]),
-      _vm._v(" "),
-      _c("a", { staticClass: "button" }, [
-        _c("span", { staticClass: "icon is-small" }, [
-          _c("i", { staticClass: "fas fa-arrow-right green" })
-        ]),
-        _vm._v(" "),
-        _c("span", [_vm._v(" Next ")])
+    return _c("div", { staticClass: "card-content" }, [
+      _c("div", { staticClass: "content is-bold has-text-centered subtitle" }, [
+        _c("span", { staticClass: "fa" }, [_vm._v(" No restaurant found. ")])
       ])
     ])
   }
@@ -61573,6 +63729,25 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c("nav", { staticClass: "level" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "level-right" }, [
+        _c(
+          "p",
+          { staticClass: "level-item" },
+          [
+            _c(
+              "router-link",
+              { attrs: { to: { name: "list-restaurant" }, exact: "" } },
+              [_c("strong", { staticClass: "purple-color" }, [_vm._v(" Back")])]
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
     _c("div", { staticClass: "tabs is-toggle is-fullwidth" }, [
       _c("ul", [
         _c("li", { class: { active: _vm.create } }, [
@@ -61645,7 +63820,7 @@ var render = function() {
       ? _c("div", { staticClass: "columns" }, [
           _c("div", { staticClass: "column" }, [
             _c("div", { staticClass: "field" }, [
-              _vm._m(0),
+              _vm._m(1),
               _vm._v(" "),
               _c(
                 "div",
@@ -61682,7 +63857,7 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _vm._m(1),
+                  _vm._m(2),
                   _vm._v(" "),
                   _vm.$v.menu.name.required
                     ? _c("span", { staticClass: "icon is-small is-right" }, [
@@ -61698,12 +63873,12 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(2)
+            _vm._m(3)
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "column" }, [
             _c("div", { staticClass: "field" }, [
-              _vm._m(3),
+              _vm._m(4),
               _vm._v(" "),
               _c(
                 "div",
@@ -61735,7 +63910,7 @@ var render = function() {
                     }
                   }),
                   _vm._v(" "),
-                  _vm._m(4),
+                  _vm._m(5),
                   _vm._v(" "),
                   _vm.$v.menu.description.required
                     ? _c("span", { staticClass: "icon is-small is-right" }, [
@@ -61751,7 +63926,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(5)
+            _vm._m(6)
           ])
         ])
       : _vm._e(),
@@ -61821,7 +63996,7 @@ var render = function() {
         }
       },
       [
-        _vm._m(6),
+        _vm._m(7),
         _vm._v(" "),
         _c("span", { staticClass: "is-bold" }, [_vm._v("Add")])
       ]
@@ -61829,6 +64004,18 @@ var render = function() {
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "level-left" }, [
+      _c("div", { staticClass: "level-item" }, [
+        _c("p", { staticClass: "subtitle is-5" }, [
+          _c("strong", [_vm._v("  Menu List ")])
+        ])
+      ])
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement
@@ -61950,51 +64137,390 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", {}, [
-    _vm._m(0),
-    _vm._v(" "),
-    _vm._m(1),
-    _vm._v(" "),
-    _vm._m(2),
-    _vm._v(" "),
-    _vm._m(3),
-    _vm._v(" "),
-    _vm._m(4),
-    _vm._v(" "),
-    _c("div", { staticClass: "field is-horizontal" }, [
-      _vm._m(5),
+    _c("nav", { staticClass: "level" }, [
+      _vm._m(0),
       _vm._v(" "),
-      _c("div", { staticClass: "field-body" }, [
-        _c("div", { staticClass: "field" }, [
-          _c("div", { staticClass: "control" }, [
-            _c("input", {
-              attrs: {
-                id: "my-element",
-                type: "date",
-                "data-display-mode": "dialog",
-                "data-color": "info",
-                "data-type": "time",
-                "data-is-range": "true"
-              },
-              on: { change: _vm.bulmaCalendar }
-            }),
-            _vm._v(" "),
-            _vm._m(6)
-          ])
-        ])
+      _c("div", { staticClass: "level-right" }, [
+        _c(
+          "p",
+          { staticClass: "level-item" },
+          [
+            _c(
+              "router-link",
+              { attrs: { to: { name: "list-restaurant" }, exact: "" } },
+              [
+                _c("strong", { staticClass: "purple-color" }, [
+                  _vm._v(" Back ")
+                ])
+              ]
+            )
+          ],
+          1
+        )
       ])
     ]),
     _vm._v(" "),
-    _vm._m(7),
+    _c(
+      "form",
+      {
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.submitForm($event)
+          }
+        }
+      },
+      [
+        _vm._m(1),
+        _vm._v(" "),
+        _vm._m(2),
+        _vm._v(" "),
+        _vm._m(3),
+        _vm._v(" "),
+        _c("div", { staticClass: "field is-horizontal box" }, [
+          _vm._m(4),
+          _vm._v(" "),
+          _c("div", { staticClass: "field-body" }, [
+            _c("div", { staticClass: "field" }, [
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  attrs: {
+                    id: "monday",
+                    type: "date",
+                    "data-display-mode": "dialog",
+                    "data-color": "info",
+                    "data-type": "time",
+                    "data-is-range": "true"
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    attrs: { type: "checkbox" },
+                    on: {
+                      change: function($event) {
+                        _vm.restaurantConfig.mondayStatus = !_vm
+                          .restaurantConfig.mondayStatus
+                      }
+                    }
+                  }),
+                  _vm._v("\n\t\t\t\t\t\t\tStatus\n\t\t\t\t\t\t")
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "field is-horizontal box" }, [
+          _vm._m(5),
+          _vm._v(" "),
+          _c("div", { staticClass: "field-body" }, [
+            _c("div", { staticClass: "field" }, [
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  attrs: {
+                    id: "tuesday",
+                    type: "date",
+                    "data-display-mode": "dialog",
+                    "data-color": "info",
+                    "data-type": "time",
+                    "data-is-range": "true"
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    attrs: { type: "checkbox" },
+                    on: {
+                      change: function($event) {
+                        _vm.restaurantConfig.tuesdayStatus = !_vm
+                          .restaurantConfig.tuesdayStatus
+                      }
+                    }
+                  }),
+                  _vm._v("\n\t\t\t\t\t\t\tStatus\n\t\t\t\t\t\t")
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "field is-horizontal box" }, [
+          _vm._m(6),
+          _vm._v(" "),
+          _c("div", { staticClass: "field-body" }, [
+            _c("div", { staticClass: "field" }, [
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  attrs: {
+                    id: "Wednesday",
+                    type: "date",
+                    "data-display-mode": "dialog",
+                    "data-color": "info",
+                    "data-type": "time",
+                    "data-is-range": "true"
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    attrs: { type: "checkbox" },
+                    on: {
+                      change: function($event) {
+                        _vm.restaurantConfig.WednesdayStatus = !_vm
+                          .restaurantConfig.WednesdayStatus
+                      }
+                    }
+                  }),
+                  _vm._v("\n\t\t\t\t\t\t\tStatus\n\t\t\t\t\t\t")
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "field is-horizontal box" }, [
+          _vm._m(7),
+          _vm._v(" "),
+          _c("div", { staticClass: "field-body" }, [
+            _c("div", { staticClass: "field" }, [
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  attrs: {
+                    id: "thursday",
+                    type: "date",
+                    "data-display-mode": "dialog",
+                    "data-color": "info",
+                    "data-type": "time",
+                    "data-is-range": "true"
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    attrs: { type: "checkbox" },
+                    on: {
+                      change: function($event) {
+                        _vm.restaurantConfig.thursdayStatus = !_vm
+                          .restaurantConfig.thursdayStatus
+                      }
+                    }
+                  }),
+                  _vm._v("\n\t\t\t\t\t\t\tStatus\n\t\t\t\t\t\t")
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "field is-horizontal box" }, [
+          _vm._m(8),
+          _vm._v(" "),
+          _c("div", { staticClass: "field-body" }, [
+            _c("div", { staticClass: "field" }, [
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  attrs: {
+                    id: "friday",
+                    type: "date",
+                    "data-display-mode": "dialog",
+                    "data-color": "info",
+                    "data-type": "time",
+                    "data-is-range": "true"
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    attrs: { type: "checkbox" },
+                    on: {
+                      change: function($event) {
+                        _vm.restaurantConfig.fridayStatus = !_vm
+                          .restaurantConfig.fridayStatus
+                      }
+                    }
+                  }),
+                  _vm._v("\n\t\t\t\t\t\t\tStatus\n\t\t\t\t\t\t")
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "field is-horizontal box" }, [
+          _vm._m(9),
+          _vm._v(" "),
+          _c("div", { staticClass: "field-body" }, [
+            _c("div", { staticClass: "field" }, [
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  attrs: {
+                    id: "saturday",
+                    type: "date",
+                    "data-display-mode": "dialog",
+                    "data-color": "info",
+                    "data-type": "time",
+                    "data-is-range": "true"
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    attrs: { type: "checkbox" },
+                    on: {
+                      change: function($event) {
+                        _vm.restaurantConfig.saturdayStatus = !_vm
+                          .restaurantConfig.saturdayStatus
+                      }
+                    }
+                  }),
+                  _vm._v("\n\t\t\t\t\t\t\tStatus\n\t\t\t\t\t\t")
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "field is-horizontal box" }, [
+          _vm._m(10),
+          _vm._v(" "),
+          _c("div", { staticClass: "field-body" }, [
+            _c("div", { staticClass: "field" }, [
+              _c("div", { staticClass: "control" }, [
+                _c("input", {
+                  attrs: {
+                    id: "sunday",
+                    type: "date",
+                    "data-display-mode": "dialog",
+                    "data-color": "info",
+                    "data-type": "time",
+                    "data-is-range": "true"
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    attrs: { type: "checkbox" },
+                    on: {
+                      change: function($event) {
+                        _vm.restaurantConfig.sundayStatus = !_vm
+                          .restaurantConfig.sundayStatus
+                      }
+                    }
+                  }),
+                  _vm._v("\n\t\t\t\t\t\t\tStatus\n\t\t\t\t\t\t")
+                ])
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "field" }, [
+          _c("p", { staticClass: "control" }, [
+            _c(
+              "button",
+              {
+                staticClass: "button",
+                class: { "is-loading": _vm.loadConfigProgress }
+              },
+              [
+                _vm._m(11),
+                _vm._v(" "),
+                _c("span", { staticClass: "is-bold" }, [_vm._v(" Save ")])
+              ]
+            )
+          ])
+        ])
+      ]
+    ),
     _vm._v(" "),
-    _vm._m(8),
-    _vm._v(" "),
-    _vm._m(9),
-    _vm._v(" "),
-    _vm._m(10),
-    _vm._v(" "),
-    _vm._m(11),
-    _vm._v(" "),
-    _vm._m(12)
+    _c("div", { staticClass: "box" }, [
+      _c("div", { staticClass: "content" }, [
+        _c("hr", { staticClass: "is-paddingless" }),
+        _vm._v(" "),
+        _c("p", { staticClass: "subtitle is-bold" }, [
+          _vm._v(" Preparation Time "),
+          _c("span", { staticClass: "purple-color" }, [_vm._v(":")]),
+          _vm._v(" " + _vm._s(_vm.loadRestaurantConfig.preparation_time) + " ")
+        ]),
+        _vm._v(" "),
+        _c("hr", { staticClass: "is-paddingless" })
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "columns is-gapless" }, [
+        _c("div", { staticClass: "column" }, [
+          _c("nav", { staticClass: "level" }, [
+            _c("div", { staticClass: "level-left" }, [
+              _c("div", { staticClass: "level-item" }, [
+                _c("div", { staticClass: "content" }, [
+                  _c("hr", { staticClass: "is-paddingless" }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "subtitle is-bold" }, [
+                    _vm._v(" Minimium Delivery Time "),
+                    _c("span", { staticClass: "purple-color" }, [_vm._v(":")]),
+                    _vm._v(
+                      " " +
+                        _vm._s(
+                          _vm.loadRestaurantConfig.minimium_delivery_time
+                        ) +
+                        " "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("hr", { staticClass: "is-paddingless" }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "subtitle is-bold" }, [
+                    _vm._v(" Monday ")
+                  ]),
+                  _vm._v(" "),
+                  _c("hr", { staticClass: "is-paddingless" })
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "level-right" }, [
+              _c("div", { staticClass: "level-item" }, [
+                _c("div", { staticClass: "content" }, [
+                  _c("hr", { staticClass: "is-paddingless" }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "subtitle is-bold" }, [
+                    _vm._v(" Maximium Delivery Time "),
+                    _c("span", { staticClass: "purple-color" }, [_vm._v(":")]),
+                    _vm._v(
+                      " " +
+                        _vm._s(
+                          _vm.loadRestaurantConfig.maximium_delivery_time
+                        ) +
+                        " "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("hr", { staticClass: "is-paddingless" }),
+                  _vm._v(" "),
+                  _c("p", { staticClass: "subtitle is-bold" }, [
+                    _vm._v(
+                      " " + _vm._s(_vm.loadRestaurantConfig.monday) + "   "
+                    ),
+                    _c("input", {
+                      staticClass: "is-pulled-right mt-2",
+                      attrs: { type: "checkbox", disabled: "" },
+                      domProps: {
+                        checked:
+                          _vm.loadRestaurantConfig.monday_status == 1
+                            ? true
+                            : false
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c("hr", { staticClass: "is-paddingless" })
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = [
@@ -62002,8 +64528,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "subtitle is-5" }, [
-      _c("strong", [_vm._v(" Delivery Timing  ")])
+    return _c("div", { staticClass: "level-left" }, [
+      _c("div", { staticClass: "level-item" }, [
+        _c("p", { staticClass: "subtitle is-5" }, [
+          _c("strong", [_vm._v(" Delivery Timing ")])
+        ])
+      ])
     ])
   },
   function() {
@@ -62084,32 +64614,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field is-horizontal" }, [
-      _c("div", { staticClass: "field-label" }, [
-        _c("label", { staticClass: "label" }, [_vm._v("Mon")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "field-body" }, [
-        _c("div", { staticClass: "field" }, [
-          _c("div", { staticClass: "control" }, [
-            _c("input", {
-              attrs: {
-                id: "element",
-                type: "date",
-                "data-display-mode": "dialog",
-                "data-color": "info",
-                "data-type": "time",
-                "data-is-range": "true"
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { staticClass: "checkbox" }, [
-              _c("input", { attrs: { type: "checkbox" } }),
-              _vm._v("\n\t\t\t\t\t\tStatus\n\t\t\t\t\t")
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "field-label" }, [
+      _c("label", { staticClass: "label" }, [_vm._v("Mon")])
     ])
   },
   function() {
@@ -62117,192 +64623,55 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "field-label" }, [
-      _c("label", { staticClass: "label" }, [_vm._v(" Tue")])
+      _c("label", { staticClass: "label" }, [_vm._v("Tue")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "checkbox" }, [
-      _c("input", { attrs: { type: "checkbox" } }),
-      _vm._v("\n\t\t\t\t\t\tStatus\n\t\t\t\t\t")
+    return _c("div", { staticClass: "field-label" }, [
+      _c("label", { staticClass: "label" }, [_vm._v("Wed")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field is-horizontal" }, [
-      _c("div", { staticClass: "field-label" }, [
-        _c("label", { staticClass: "label" }, [_vm._v(" Wed ")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "field-body" }, [
-        _c("div", { staticClass: "field" }, [
-          _c("div", { staticClass: "control" }, [
-            _c("input", {
-              attrs: {
-                id: "my-element",
-                type: "date",
-                "data-display-mode": "dialog",
-                "data-color": "info",
-                "data-type": "time",
-                "data-is-range": "true"
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { staticClass: "checkbox" }, [
-              _c("input", { attrs: { type: "checkbox" } }),
-              _vm._v("\n\t\t\t\t\t\tStatus\n\t\t\t\t\t")
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "field-label" }, [
+      _c("label", { staticClass: "label" }, [_vm._v("Thu")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field is-horizontal" }, [
-      _c("div", { staticClass: "field-label" }, [
-        _c("label", { staticClass: "label" }, [_vm._v(" Thu")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "field-body" }, [
-        _c("div", { staticClass: "field" }, [
-          _c("div", { staticClass: "control" }, [
-            _c("input", {
-              attrs: {
-                id: "my-element",
-                type: "date",
-                "data-display-mode": "dialog",
-                "data-color": "info",
-                "data-type": "time",
-                "data-is-range": "true"
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { staticClass: "checkbox" }, [
-              _c("input", { attrs: { type: "checkbox" } }),
-              _vm._v("\n\t\t\t\t\t\tStatus\n\t\t\t\t\t")
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "field-label" }, [
+      _c("label", { staticClass: "label" }, [_vm._v("Fri")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field is-horizontal" }, [
-      _c("div", { staticClass: "field-label" }, [
-        _c("label", { staticClass: "label" }, [_vm._v(" Fri ")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "field-body" }, [
-        _c("div", { staticClass: "field" }, [
-          _c("div", { staticClass: "control" }, [
-            _c("input", {
-              attrs: {
-                id: "my-element",
-                type: "date",
-                "data-display-mode": "dialog",
-                "data-color": "info",
-                "data-type": "time",
-                "data-is-range": "true"
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { staticClass: "checkbox" }, [
-              _c("input", { attrs: { type: "checkbox" } }),
-              _vm._v("\n\t\t\t\t\t\tStatus\n\t\t\t\t\t")
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "field-label" }, [
+      _c("label", { staticClass: "label" }, [_vm._v("Sat")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field is-horizontal" }, [
-      _c("div", { staticClass: "field-label" }, [
-        _c("label", { staticClass: "label" }, [_vm._v(" Sat ")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "field-body" }, [
-        _c("div", { staticClass: "field" }, [
-          _c("div", { staticClass: "control" }, [
-            _c("input", {
-              attrs: {
-                id: "my-element",
-                type: "date",
-                "data-display-mode": "dialog",
-                "data-color": "info",
-                "data-type": "time",
-                "data-is-range": "true"
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { staticClass: "checkbox" }, [
-              _c("input", { attrs: { type: "checkbox" } }),
-              _vm._v("\n\t\t\t\t\t\tStatus\n\t\t\t\t\t")
-            ])
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "field-label" }, [
+      _c("label", { staticClass: "label" }, [_vm._v("Sun")])
     ])
   },
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field is-horizontal" }, [
-      _c("div", { staticClass: "field-label" }, [
-        _c("label", { staticClass: "label" }, [_vm._v(" Sun ")])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "field-body" }, [
-        _c("div", { staticClass: "field" }, [
-          _c("div", { staticClass: "control" }, [
-            _c("input", {
-              attrs: {
-                id: "my-element",
-                type: "date",
-                "data-display-mode": "dialog",
-                "data-color": "info",
-                "data-type": "time",
-                "data-is-range": "true"
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { staticClass: "checkbox" }, [
-              _c("input", { attrs: { type: "checkbox" } }),
-              _vm._v("\n\t\t\t\t\t\tStatus\n\t\t\t\t\t")
-            ])
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field" }, [
-      _c("p", { staticClass: "control" }, [
-        _c("button", { staticClass: "button" }, [
-          _c("span", { staticClass: "icon is-small" }, [
-            _c("i", { staticClass: "fas fa-save purple-color" })
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "is-bold" }, [_vm._v(" Save ")])
-        ])
-      ])
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-save purple-color" })
     ])
   }
 ]
@@ -62328,6 +64697,15 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass: "pageloader purple-bg",
+        class: { "is-active": _vm.loadRestaurantLoader }
+      },
+      [_c("span", { staticClass: "title" }, [_vm._v(" Bellewise loading ")])]
+    ),
+    _vm._v(" "),
     _c("nav", { staticClass: "level" }, [
       _c("div", { staticClass: "level-left" }, [
         _c("div", { staticClass: "level-item" }, [
@@ -62357,38 +64735,6 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "columns" }, [
       _c("div", { staticClass: "column" }, [
-        _c("div", { staticClass: "field" }, [
-          _c("label", { staticClass: "label" }, [_vm._v("Restaurant Name ")]),
-          _vm._v(" "),
-          _c("div", { staticClass: "control " }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.loadSingleRestaurant.name,
-                  expression: "loadSingleRestaurant.name"
-                }
-              ],
-              staticClass: "input is-info",
-              attrs: { type: "text", disabled: "" },
-              domProps: { value: _vm.loadSingleRestaurant.name },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(
-                    _vm.loadSingleRestaurant,
-                    "name",
-                    $event.target.value
-                  )
-                }
-              }
-            })
-          ])
-        ]),
-        _vm._v(" "),
         _c("div", { staticClass: "field" }, [
           _c("label", { staticClass: "label" }, [_vm._v("Restaurant Phone ")]),
           _vm._v(" "),
@@ -62623,7 +64969,22 @@ var render = function() {
           _vm._m(5)
         ]),
         _vm._v(" "),
-        _vm._m(6)
+        _c("div", { staticClass: "field mt-6" }, [
+          _c("div", { staticClass: "content" }, [
+            _c("figure", { staticClass: "image is-128x128" }, [
+              _vm.loadSingleRestaurant.image.length <=
+              "default_image.svg".length
+                ? _c("img", {
+                    staticClass: "is-rounded",
+                    attrs: { src: "/images/default_image.svg" }
+                  })
+                : _c("img", {
+                    staticClass: "is-rounded",
+                    attrs: { src: _vm.imagePath }
+                  })
+            ])
+          ])
+        ])
       ])
     ])
   ])
@@ -62686,37 +65047,6 @@ var staticRenderFns = [
     return _c("p", { staticClass: "control" }, [
       _c("a", { staticClass: "button is-bold" }, [
         _vm._v("\n\t\t\t\t\t\tCommision\n\t\t\t\t\t")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field mt-6" }, [
-      _c("div", { staticClass: "file has-name" }, [
-        _c("label", { staticClass: "file-label" }, [
-          _c("input", {
-            staticClass: "file-input is-info",
-            attrs: { type: "file", name: "resume" }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "file-cta" }, [
-            _c("span", { staticClass: "file-icon" }, [
-              _c("i", { staticClass: "fas fa-image purple-color" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "file-label is-bold" }, [
-              _vm._v("\n\t\t\t\t\t\t\t\tChoose a file…\n\t\t\t\t\t\t\t")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "file-name" }, [
-            _vm._v(
-              "\n\t\t\t\t\t\t\tScreen Shot 2017-07-29 at 15.54.25.png\n\t\t\t\t\t\t"
-            )
-          ])
-        ])
       ])
     ])
   }
@@ -62941,7 +65271,7 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\r\n                      View\r\n                    "
+                                      "\r\n                      Configure or View\r\n                    "
                                     )
                                   ]
                                 )
@@ -63502,12 +65832,50 @@ var render = function() {
                               )
                         ]
                       )
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "field has-addons mt-6" }, [
+                      _vm._m(8),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "control is-expanded" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.restaurant.commisson,
+                              expression: "restaurant.commisson",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          staticClass: "input is-info",
+                          attrs: { type: "number", placeholder: "Percentage" },
+                          domProps: { value: _vm.restaurant.commisson },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.restaurant,
+                                "commisson",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(9)
                     ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "column" }, [
                     _c("div", { staticClass: "field" }, [
-                      _vm._m(8),
+                      _vm._m(10),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -63549,7 +65917,7 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _vm._m(9),
+                          _vm._m(11),
                           _vm._v(" "),
                           _vm.$v.restaurant.address.required
                             ? _c(
@@ -63576,7 +65944,7 @@ var render = function() {
                     ]),
                     _vm._v(" "),
                     _c("div", { staticClass: "field" }, [
-                      _vm._m(10),
+                      _vm._m(12),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -63618,7 +65986,7 @@ var render = function() {
                             }
                           }),
                           _vm._v(" "),
-                          _vm._m(11),
+                          _vm._m(13),
                           _vm._v(" "),
                           _vm.$v.restaurant.licenseNumber.required
                             ? _c(
@@ -63653,7 +66021,7 @@ var render = function() {
                             on: { change: _vm.fileUploadRestaurant }
                           }),
                           _vm._v(" "),
-                          _vm._m(12),
+                          _vm._m(14),
                           _vm._v(" "),
                           _c("span", { staticClass: "file-name" }, [
                             _vm._v(
@@ -63666,46 +66034,46 @@ var render = function() {
                           ])
                         ])
                       ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "field has-addons mt-6" }, [
+                      _vm._m(15),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "control is-expanded" }, [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model.number",
+                              value: _vm.restaurant.discount,
+                              expression: "restaurant.discount",
+                              modifiers: { number: true }
+                            }
+                          ],
+                          staticClass: "input is-info",
+                          attrs: { type: "number", placeholder: "Percentage" },
+                          domProps: { value: _vm.restaurant.discount },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.restaurant,
+                                "discount",
+                                _vm._n($event.target.value)
+                              )
+                            },
+                            blur: function($event) {
+                              return _vm.$forceUpdate()
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _vm._m(16)
                     ])
                   ])
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "field has-addons" }, [
-                  _vm._m(13),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "control is-expanded" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.number",
-                          value: _vm.restaurant.discount,
-                          expression: "restaurant.discount",
-                          modifiers: { number: true }
-                        }
-                      ],
-                      staticClass: "input is-info",
-                      attrs: { type: "number", placeholder: "Percentage" },
-                      domProps: { value: _vm.restaurant.discount },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.restaurant,
-                            "discount",
-                            _vm._n($event.target.value)
-                          )
-                        },
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
-                        }
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _vm._m(14)
                 ])
               ])
             : _vm._e(),
@@ -63792,7 +66160,7 @@ var render = function() {
                   ? _c("div", { staticClass: "columns" }, [
                       _c("div", { staticClass: "column" }, [
                         _c("div", { staticClass: "field" }, [
-                          _vm._m(15),
+                          _vm._m(17),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -63838,7 +66206,7 @@ var render = function() {
                                 }
                               }),
                               _vm._v(" "),
-                              _vm._m(16),
+                              _vm._m(18),
                               _vm._v(" "),
                               _vm.$v.menu.$each[_vm.menu.length - 1].name
                                 .required
@@ -63866,7 +66234,7 @@ var render = function() {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "field has-addons mt-3" }, [
-                          _vm._m(17),
+                          _vm._m(19),
                           _vm._v(" "),
                           _c("p", { staticClass: "control is-expanded" }, [
                             _c("input", {
@@ -63903,13 +66271,13 @@ var render = function() {
                             })
                           ]),
                           _vm._v(" "),
-                          _vm._m(18)
+                          _vm._m(20)
                         ])
                       ]),
                       _vm._v(" "),
                       _c("div", { staticClass: "column" }, [
                         _c("div", { staticClass: "field" }, [
-                          _vm._m(19),
+                          _vm._m(21),
                           _vm._v(" "),
                           _c(
                             "div",
@@ -63953,7 +66321,7 @@ var render = function() {
                                 }
                               }),
                               _vm._v(" "),
-                              _vm._m(20),
+                              _vm._m(22),
                               _vm._v(" "),
                               _vm.$v.menu.$each[_vm.menu.length - 1].description
                                 .required
@@ -63989,7 +66357,7 @@ var render = function() {
                                 on: { change: _vm.fileUploadMenu }
                               }),
                               _vm._v(" "),
-                              _vm._m(21),
+                              _vm._m(23),
                               _vm._v(" "),
                               _c("span", { staticClass: "file-name" }, [
                                 _vm._v(
@@ -64051,7 +66419,7 @@ var render = function() {
                         on: { click: _vm.addMenuForm }
                       },
                       [
-                        _vm._m(22),
+                        _vm._m(24),
                         _vm._v(" "),
                         _c("span", { staticClass: "is-bold" }, [_vm._v("Add")])
                       ]
@@ -64070,7 +66438,7 @@ var render = function() {
                         }
                       },
                       [
-                        _vm._m(23),
+                        _vm._m(25),
                         _vm._v(" "),
                         _c("span", { staticClass: "is-bold" }, [
                           _vm._v("Add More")
@@ -64095,7 +66463,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._m(24)]
+                    [_vm._m(26)]
                   )
                 : _vm._e()
             ]),
@@ -64121,7 +66489,7 @@ var render = function() {
                           attrs: { disabled: _vm.$v.restaurant.$invalid }
                         },
                         [
-                          _vm._m(25),
+                          _vm._m(27),
                           _vm._v(" "),
                           _c("span", { staticClass: "is-bold" }, [
                             _vm._v(" Next ")
@@ -64142,7 +66510,7 @@ var render = function() {
                         attrs: { disabled: _vm.$v.$invalid }
                       },
                       [
-                        _vm._m(26),
+                        _vm._m(28),
                         _vm._v(" "),
                         _c("span", { staticClass: "is-bold" }, [
                           _vm._v(" Save ")
@@ -64237,6 +66605,26 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "control" }, [
+      _c("span", { staticClass: "select" }, [
+        _c("select", [_c("option", { staticClass: "is-bold" }, [_vm._v("%")])])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "control" }, [
+      _c("a", { staticClass: "button is-bold" }, [
+        _vm._v("\n\t\t\t\t\t\t\t\t\tCommission \n\t\t\t\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("label", { staticClass: "label" }, [
       _vm._v("Restaurant Address "),
       _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
@@ -64297,7 +66685,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "control" }, [
       _c("a", { staticClass: "button is-bold" }, [
-        _vm._v("\n\t\t\t\t\t\t\tRestaurant Discount Off\n\t\t\t\t\t\t")
+        _vm._v("\n\t\t\t\t\t\t\t\t\tRestaurant Discount Off\n\t\t\t\t\t\t\t\t")
       ])
     ])
   },
@@ -67149,7 +69537,7 @@ var render = function() {
                     _vm._v(
                       "\n\t\t\t\t\t" +
                         _vm._s(index + 1) +
-                        ". " +
+                        " . " +
                         _vm._s(value[0]) +
                         "\n\t\t\t\t"
                     )
@@ -67365,7 +69753,7 @@ var render = function() {
                   },
                   [
                     _c("i", {
-                      staticClass: "fas fa-truck",
+                      staticClass: "fas fa-users",
                       attrs: { "aria-hidden": "true" }
                     })
                   ]
@@ -87660,17 +90048,17 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/js/Components/Accounting/account.vue":
-/*!********************************************************!*\
-  !*** ./resources/js/Components/Accounting/account.vue ***!
-  \********************************************************/
+/***/ "./resources/js/Components/Accounting/index.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/Components/Accounting/index.vue ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _account_vue_vue_type_template_id_c31f0684___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./account.vue?vue&type=template&id=c31f0684& */ "./resources/js/Components/Accounting/account.vue?vue&type=template&id=c31f0684&");
-/* harmony import */ var _account_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./account.vue?vue&type=script&lang=js& */ "./resources/js/Components/Accounting/account.vue?vue&type=script&lang=js&");
+/* harmony import */ var _index_vue_vue_type_template_id_a1b4e9ba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=a1b4e9ba& */ "./resources/js/Components/Accounting/index.vue?vue&type=template&id=a1b4e9ba&");
+/* harmony import */ var _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.vue?vue&type=script&lang=js& */ "./resources/js/Components/Accounting/index.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -87680,9 +90068,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _account_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _account_vue_vue_type_template_id_c31f0684___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _account_vue_vue_type_template_id_c31f0684___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _index_vue_vue_type_template_id_a1b4e9ba___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _index_vue_vue_type_template_id_a1b4e9ba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -87692,38 +90080,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/Components/Accounting/account.vue"
+component.options.__file = "resources/js/Components/Accounting/index.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/Components/Accounting/account.vue?vue&type=script&lang=js&":
-/*!*********************************************************************************!*\
-  !*** ./resources/js/Components/Accounting/account.vue?vue&type=script&lang=js& ***!
-  \*********************************************************************************/
+/***/ "./resources/js/Components/Accounting/index.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/Components/Accounting/index.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./account.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Accounting/account.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Accounting/index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/Components/Accounting/account.vue?vue&type=template&id=c31f0684&":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/Components/Accounting/account.vue?vue&type=template&id=c31f0684& ***!
-  \***************************************************************************************/
+/***/ "./resources/js/Components/Accounting/index.vue?vue&type=template&id=a1b4e9ba&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/Components/Accounting/index.vue?vue&type=template&id=a1b4e9ba& ***!
+  \*************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_template_id_c31f0684___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./account.vue?vue&type=template&id=c31f0684& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Accounting/account.vue?vue&type=template&id=c31f0684&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_template_id_c31f0684___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_a1b4e9ba___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=template&id=a1b4e9ba& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Accounting/index.vue?vue&type=template&id=a1b4e9ba&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_a1b4e9ba___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_account_vue_vue_type_template_id_c31f0684___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_a1b4e9ba___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -87862,6 +90250,213 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_accountstatement_vue_vue_type_template_id_408a9ee0___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_accountstatement_vue_vue_type_template_id_408a9ee0___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Components/Admin/Modules/signIn.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/Components/Admin/Modules/signIn.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _signIn_vue_vue_type_template_id_4584b416___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./signIn.vue?vue&type=template&id=4584b416& */ "./resources/js/Components/Admin/Modules/signIn.vue?vue&type=template&id=4584b416&");
+/* harmony import */ var _signIn_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./signIn.vue?vue&type=script&lang=js& */ "./resources/js/Components/Admin/Modules/signIn.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _signIn_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _signIn_vue_vue_type_template_id_4584b416___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _signIn_vue_vue_type_template_id_4584b416___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Components/Admin/Modules/signIn.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Components/Admin/Modules/signIn.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/Components/Admin/Modules/signIn.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_signIn_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./signIn.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Admin/Modules/signIn.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_signIn_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Components/Admin/Modules/signIn.vue?vue&type=template&id=4584b416&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/Components/Admin/Modules/signIn.vue?vue&type=template&id=4584b416& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_signIn_vue_vue_type_template_id_4584b416___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./signIn.vue?vue&type=template&id=4584b416& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Admin/Modules/signIn.vue?vue&type=template&id=4584b416&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_signIn_vue_vue_type_template_id_4584b416___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_signIn_vue_vue_type_template_id_4584b416___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Components/Admin/Modules/signUp.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/Components/Admin/Modules/signUp.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _signUp_vue_vue_type_template_id_1c58072a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./signUp.vue?vue&type=template&id=1c58072a& */ "./resources/js/Components/Admin/Modules/signUp.vue?vue&type=template&id=1c58072a&");
+/* harmony import */ var _signUp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./signUp.vue?vue&type=script&lang=js& */ "./resources/js/Components/Admin/Modules/signUp.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _signUp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _signUp_vue_vue_type_template_id_1c58072a___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _signUp_vue_vue_type_template_id_1c58072a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Components/Admin/Modules/signUp.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Components/Admin/Modules/signUp.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/Components/Admin/Modules/signUp.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_signUp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./signUp.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Admin/Modules/signUp.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_signUp_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Components/Admin/Modules/signUp.vue?vue&type=template&id=1c58072a&":
+/*!*****************************************************************************************!*\
+  !*** ./resources/js/Components/Admin/Modules/signUp.vue?vue&type=template&id=1c58072a& ***!
+  \*****************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_signUp_vue_vue_type_template_id_1c58072a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./signUp.vue?vue&type=template&id=1c58072a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Admin/Modules/signUp.vue?vue&type=template&id=1c58072a&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_signUp_vue_vue_type_template_id_1c58072a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_signUp_vue_vue_type_template_id_1c58072a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Components/Admin/index.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/Components/Admin/index.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _index_vue_vue_type_template_id_4f7c3817___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=4f7c3817& */ "./resources/js/Components/Admin/index.vue?vue&type=template&id=4f7c3817&");
+/* harmony import */ var _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.vue?vue&type=script&lang=js& */ "./resources/js/Components/Admin/index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _index_vue_vue_type_template_id_4f7c3817___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _index_vue_vue_type_template_id_4f7c3817___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Components/Admin/index.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Components/Admin/index.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/Components/Admin/index.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Admin/index.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Components/Admin/index.vue?vue&type=template&id=4f7c3817&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/Components/Admin/index.vue?vue&type=template&id=4f7c3817& ***!
+  \********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_4f7c3817___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./index.vue?vue&type=template&id=4f7c3817& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Admin/index.vue?vue&type=template&id=4f7c3817&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_4f7c3817___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_index_vue_vue_type_template_id_4f7c3817___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -91255,6 +93850,304 @@ data() {
 
 /***/ }),
 
+/***/ "./resources/js/Store/Modules/admin.js":
+/*!*********************************************!*\
+  !*** ./resources/js/Store/Modules/admin.js ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-axios */ "./node_modules/vue-axios/dist/vue-axios.min.js");
+/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../app.js */ "./resources/js/app.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_3___default.a, axios__WEBPACK_IMPORTED_MODULE_2___default.a); //routes
+
+
+var state = {
+  adminNotification: null,
+  adminProgress: null,
+  adminErrors: null
+}; // State calibrace close
+
+var getters = {
+  loadAdminNotification: function loadAdminNotification(state) {
+    return state.adminNotification;
+  },
+  loadAdminProgress: function loadAdminProgress(state) {
+    return state.adminProgress;
+  },
+  loadAdminErrors: function loadAdminErrors(state) {
+    return state.adminErrors;
+  }
+}; //Getters calibrace close
+
+var actions = {
+  createSuperAdmin: function createSuperAdmin(_ref, data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var commit, config, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              commit('setProgress', true);
+              config = {
+                headers: {
+                  'content-type': 'application/x-www-form-urlencoded'
+                }
+              };
+              _context.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/admin', data, config).then(function (response) {
+                commit('setNotification', true);
+                commit('setProgress', false);
+                _app_js__WEBPACK_IMPORTED_MODULE_4__["app"].$router.push({
+                  name: 'sub-admin-list'
+                });
+              })["catch"](function (error) {
+                var failure = error.response.data;
+                commit('setErrors', failure);
+                commit('setProgress', false);
+                setTimeout(function () {
+                  commit('setErrors', null);
+                }, 10000);
+              });
+
+            case 5:
+              response = _context.sent;
+
+            case 6:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  clearAdminErrors: function clearAdminErrors(_ref2) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              commit('unsetErrors');
+
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  }
+}; //Actions calibrace close
+
+var mutations = {
+  setNotification: function setNotification(state, notification) {
+    return state.adminNotification = notification;
+  },
+  unsetNotification: function unsetNotification(state, notification) {
+    return state.adminNotification = notification;
+  },
+  setProgress: function setProgress(state, progress) {
+    return state.adminProgress = progress;
+  },
+  setErrors: function setErrors(state, errors) {
+    return state.adminErrors = errors;
+  },
+  unsetErrors: function unsetErrors(state, errors) {
+    return state.adminErrors = null;
+  }
+}; //Mutations calibrace close
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
+
+/***/ }),
+
+/***/ "./resources/js/Store/Modules/config.js":
+/*!**********************************************!*\
+  !*** ./resources/js/Store/Modules/config.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue-axios */ "./node_modules/vue-axios/dist/vue-axios.min.js");
+/* harmony import */ var vue_axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(vue_axios__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../app.js */ "./resources/js/app.js");
+
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+
+
+
+vue__WEBPACK_IMPORTED_MODULE_1___default.a.use(vue_axios__WEBPACK_IMPORTED_MODULE_3___default.a, axios__WEBPACK_IMPORTED_MODULE_2___default.a); //routes
+
+
+var state = {
+  configNotification: null,
+  configProgress: null,
+  configLoader: null,
+  restaurantConfig: null
+}; // State calibrace close
+
+var getters = {
+  loadConfigProgress: function loadConfigProgress(state) {
+    return state.configProgress;
+  },
+  loadConfigNotification: function loadConfigNotification(state) {
+    return state.configNotification;
+  },
+  loadRestaurantConfig: function loadRestaurantConfig(state) {
+    return state.restaurantConfig;
+  },
+  loadConfigLoader: function loadConfigLoader(state) {
+    return state.configLoader;
+  }
+}; //Getters calibrace close
+
+var actions = {
+  restaurantConfigSetting: function restaurantConfigSetting(_ref, _ref2) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      var _console;
+
+      var commit, data, id, api, config, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              commit = _ref.commit;
+              data = _ref2.data, id = _ref2.id;
+              commit('setProgress', true);
+
+              (_console = console).log.apply(_console, _toConsumableArray(data));
+
+              api = '/api/restaurant-config/' + id;
+              config = {
+                headers: {
+                  'content-type': 'application/x-www-form-urlencoded'
+                }
+              };
+              _context.next = 8;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(api, data, config).then(function (response) {
+                commit('setNotification', true);
+                commit('setProgress', false); //app.$router.push({name: 'list-restaurant'})
+              })["catch"](function (error) {
+                var failure = error.response.data;
+                commit('setProgress', false);
+              });
+
+            case 8:
+              response = _context.sent;
+
+            case 9:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
+  },
+  fetchRestaurantConfig: function fetchRestaurantConfig(_ref3, id) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var commit, api, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref3.commit;
+              commit('setLoader', true);
+              api = '/api/restaurant-config/' + id;
+              _context2.next = 5;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.get(api);
+
+            case 5:
+              response = _context2.sent;
+              commit('setRestaurantConfig', response.data);
+              commit('setLoader', false);
+
+            case 8:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  }
+}; //Actions calibrace close
+
+var mutations = {
+  setNotification: function setNotification(state, notification) {
+    return state.configNotification = notification;
+  },
+  unsetNotification: function unsetNotification(state, notification) {
+    return state.configNotification = notification;
+  },
+  setProgress: function setProgress(state, progress) {
+    return state.configProgress = progress;
+  },
+  setLoader: function setLoader(state, loader) {
+    return state.configLoader = loader;
+  },
+  setRestaurantConfig: function setRestaurantConfig(state, config) {
+    return state.restaurantConfig = config;
+  }
+}; //Mutations calibrace close
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+});
+
+/***/ }),
+
 /***/ "./resources/js/Store/Modules/driver.js":
 /*!**********************************************!*\
   !*** ./resources/js/Store/Modules/driver.js ***!
@@ -92196,7 +95089,7 @@ var getters = {
 }; //Getters calibrace close
 
 var actions = {
-  sendSMS: function sendSMS(_ref, data) {
+  sendDriverSMS: function sendDriverSMS(_ref, data) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
       var _console;
 
@@ -92216,7 +95109,7 @@ var actions = {
                 }
               };
               _context.next = 6;
-              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/report/notification', data, config).then(function (response) {
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/report/driver-notification', data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
               })["catch"](function (error) {
@@ -92237,6 +95130,135 @@ var actions = {
           }
         }
       }, _callee);
+    }))();
+  },
+  sendRestaurantSMS: function sendRestaurantSMS(_ref2, data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+      var _console2;
+
+      var commit, config, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              commit = _ref2.commit;
+              commit('setProgress', true);
+
+              (_console2 = console).log.apply(_console2, _toConsumableArray(data));
+
+              config = {
+                headers: {
+                  'content-type': 'application/x-www-form-urlencoded'
+                }
+              };
+              _context2.next = 6;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/report/restaurant-notification', data, config).then(function (response) {
+                commit('setNotification', true);
+                commit('setProgress', false);
+              })["catch"](function (error) {
+                var failure = error.response.data;
+                commit('setErrors', failure);
+                commit('setProgress', false);
+                setTimeout(function () {
+                  commit('setErrors', null);
+                }, 10000);
+              });
+
+            case 6:
+              response = _context2.sent;
+
+            case 7:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }))();
+  },
+  sendDriverMail: function sendDriverMail(_ref3, data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+      var _console3;
+
+      var commit, config, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              commit = _ref3.commit;
+              commit('setProgress', true);
+
+              (_console3 = console).log.apply(_console3, _toConsumableArray(data));
+
+              config = {
+                headers: {
+                  'content-type': 'application/x-www-form-urlencoded'
+                }
+              };
+              _context3.next = 6;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/report/driver-mail', data, config).then(function (response) {
+                commit('setNotification', true);
+                commit('setProgress', false);
+              })["catch"](function (error) {
+                var failure = error.response.data;
+                commit('setErrors', failure);
+                commit('setProgress', false);
+                setTimeout(function () {
+                  commit('setErrors', null);
+                }, 10000);
+              });
+
+            case 6:
+              response = _context3.sent;
+
+            case 7:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    }))();
+  },
+  sendRestaurantMail: function sendRestaurantMail(_ref4, data) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      var _console4;
+
+      var commit, config, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit;
+              commit('setProgress', true);
+
+              (_console4 = console).log.apply(_console4, _toConsumableArray(data));
+
+              config = {
+                headers: {
+                  'content-type': 'application/x-www-form-urlencoded'
+                }
+              };
+              _context4.next = 6;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default.a.post('/api/report/restaurant-mail', data, config).then(function (response) {
+                commit('setNotification', true);
+                commit('setProgress', false);
+              })["catch"](function (error) {
+                var failure = error.response.data;
+                commit('setErrors', failure);
+                commit('setProgress', false);
+                setTimeout(function () {
+                  commit('setErrors', null);
+                }, 10000);
+              });
+
+            case 6:
+              response = _context4.sent;
+
+            case 7:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
     }))();
   }
 }; //Actions calibrace close
@@ -93252,9 +96274,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Modules_promo_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Modules/promo.js */ "./resources/js/Store/Modules/promo.js");
 /* harmony import */ var _Modules_subAdmin_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Modules/subAdmin.js */ "./resources/js/Store/Modules/subAdmin.js");
 /* harmony import */ var _Modules_report_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Modules/report.js */ "./resources/js/Store/Modules/report.js");
+/* harmony import */ var _Modules_admin_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Modules/admin.js */ "./resources/js/Store/Modules/admin.js");
+/* harmony import */ var _Modules_config_js__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Modules/config.js */ "./resources/js/Store/Modules/config.js");
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__["default"]);
+
+
 
 
 
@@ -93266,7 +96292,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
     'driver': _Modules_driver_js__WEBPACK_IMPORTED_MODULE_2__["default"],
     'promo': _Modules_promo_js__WEBPACK_IMPORTED_MODULE_4__["default"],
     'sub-admin': _Modules_subAdmin_js__WEBPACK_IMPORTED_MODULE_5__["default"],
-    'report': _Modules_report_js__WEBPACK_IMPORTED_MODULE_6__["default"]
+    'report': _Modules_report_js__WEBPACK_IMPORTED_MODULE_6__["default"],
+    'admin': _Modules_admin_js__WEBPACK_IMPORTED_MODULE_7__["default"],
+    'config': _Modules_config_js__WEBPACK_IMPORTED_MODULE_8__["default"]
   }
 }));
 
@@ -93407,10 +96435,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_Promotion_editPromotion_vue__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./Components/Promotion/editPromotion.vue */ "./resources/js/Components/Promotion/editPromotion.vue");
 /* harmony import */ var _Components_Promotion_viewPromoRestaurant_vue__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./Components/Promotion/viewPromoRestaurant.vue */ "./resources/js/Components/Promotion/viewPromoRestaurant.vue");
 /* harmony import */ var _Components_Report_index_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./Components/Report/index.vue */ "./resources/js/Components/Report/index.vue");
-/* harmony import */ var _Components_Accounting_account_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./Components/Accounting/account.vue */ "./resources/js/Components/Accounting/account.vue");
+/* harmony import */ var _Components_Accounting_index_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./Components/Accounting/index.vue */ "./resources/js/Components/Accounting/index.vue");
 /* harmony import */ var _Components_Setting_setting_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./Components/Setting/setting.vue */ "./resources/js/Components/Setting/setting.vue");
+/* harmony import */ var _Components_Admin_index_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./Components/Admin/index.vue */ "./resources/js/Components/Admin/index.vue");
 // Define route components.
 // These can be imported from other files
+
 
 
 
@@ -93448,6 +96478,10 @@ var routes = [{
   path: '/',
   name: 'home',
   component: _Components_Home_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+}, {
+  path: '/admin-access',
+  name: 'admin',
+  component: _Components_Admin_index_vue__WEBPACK_IMPORTED_MODULE_26__["default"]
 }, {
   path: '/restaurants',
   name: 'list-restaurant',
@@ -93543,7 +96577,7 @@ var routes = [{
 }, {
   path: '/account',
   name: 'account',
-  component: _Components_Accounting_account_vue__WEBPACK_IMPORTED_MODULE_24__["default"]
+  component: _Components_Accounting_index_vue__WEBPACK_IMPORTED_MODULE_24__["default"]
 }, {
   path: '/setting',
   name: 'setting',

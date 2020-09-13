@@ -26,8 +26,6 @@
 		</nav>
 
 
-
-
 		<div class="box"> <!-- Box container tag open -->
 
 			<div class="notification purple-bg-light is-bold has-text-black" v-if="loadPromoErrors">
@@ -335,7 +333,7 @@ export default {
 			data.append('validity', this.promo.validity);
 			data.append('user', this.user);
 			data.append('restaurantsID', JSON.stringify(this.promo.restaurantsID));
-			this.sendSMS(data)
+			this.createPromo(data);
 		},
 
 		bulmaCalendar() {
@@ -365,6 +363,7 @@ if (element) {
 computed: { // Computed calibrace open
 	...mapGetters(['loadRestaurants', 'loadRestaurantPagination', 'loadRestaurantSearch', 'loadAllRestaurants', 'loadRestaurantLoader', 'loadPromoProgress', 'loadPromoErrors']),
     // Local computed properties
+
     markAll() {
     	let restaurant = this.$store.getters.loadAllRestaurants
     	let arrayLength = this.$store.getters.loadAllRestaurants.length
@@ -373,11 +372,10 @@ computed: { // Computed calibrace open
     		selectAll.push(restaurant[i].id)
     	}
     	return  selectAll
-    }
+    },
+
 
 }, // Computed calibrace close
-
-
 
 
 }

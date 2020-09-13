@@ -86,7 +86,6 @@ export default {
 	}),
 
 	created() {
-		this.fetchSubAdminSingleData()
 		this.setId()
 	},
 

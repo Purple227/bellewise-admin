@@ -18,7 +18,7 @@ class Restaurant extends Model
 
         public function config()
         {
-        	return $this->hasOne(Config::class);
+        	return $this->hasOne('App\Config');
         }
 
         public function promos()

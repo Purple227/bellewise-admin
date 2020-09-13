@@ -3,6 +3,8 @@
 
 	<div> <!-- Root element tag open -->
 
+<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadRestaurantLoader }"><span class="title"> Bellewise loading </span></div>
+
 		<!-- Main container -->
 		<nav class="level">
 			<!-- Left side -->
@@ -21,18 +23,9 @@
 		</nav>
 
 
-
 		<div class="columns"> <!-- Columns wrapper tag open -->
 
 			<div class="column"> <!-- First column tag open-->
-
-
-				<div class="field">
-					<label class="label">Restaurant Name </label>
-					<div class="control ">
-						<input class="input is-info" type="text" v-model="loadSingleRestaurant.name"  disabled>
-					</div>
-				</div>
 
 				<div class="field">
 					<label class="label">Restaurant Phone </label>
@@ -128,21 +121,13 @@
 
 
 			<div class="field mt-6">
-				<div class="file has-name">
-					<label class="file-label">
-						<input class="file-input is-info" type="file" name="resume">
-						<span class="file-cta">
-							<span class="file-icon">
-								<i class="fas fa-image purple-color"></i>
-							</span>
-							<span class="file-label is-bold">
-								Choose a file…
-							</span>
-						</span>
-						<span class="file-name">
-							Screen Shot 2017-07-29 at 15.54.25.png
-						</span>
-					</label>
+						<div class="content">
+							<figure class="image is-128x128">
+								<img class="is-rounded" src="/images/default_image.svg" v-if="loadSingleRestaurant.image.length <= 'default_image.svg'.length ">
+								<img class="is-rounded" :src="imagePath" v-else>
+							</figure>
+
+						</div>
 				</div>
 			</div>
 
@@ -168,7 +153,6 @@ export default {
 	}),
 
 	created() {
-		this.fetchSingleRestaurant()
 		this.setId()
 	},
 

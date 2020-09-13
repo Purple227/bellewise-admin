@@ -14,32 +14,42 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+	return $request->user();
+});
 
- Route::patch('driver/{id}', 'DriverController@statusUpdate');
- Route::get('/driver/search', 'DriverController@search');
- Route::get('/driver/blocked', 'DriverController@blocked');
- Route::get('/driver/active', 'DriverController@activeDrivers');
- Route::get('/driver/all-active', 'DriverController@AllActiveDrivers');
 
- Route::patch('restaurant/{id}', 'RestaurantController@statusUpdate');
- Route::get('/restaurant/search', 'RestaurantController@search');
- Route::get('/restaurant/blocked', 'RestaurantController@blocked');
- Route::get('/restaurant/all', 'RestaurantController@getAll');
- Route::get('/restaurant/active', 'RestaurantController@activeRestaurants');
- Route::get('/restaurant/all-active', 'RestaurantController@AllActiveRestaurants');
+Route::patch('driver/{id}', 'DriverController@statusUpdate');
+Route::get('/driver/search', 'DriverController@search');
+Route::get('/driver/blocked', 'DriverController@blocked');
+Route::get('/driver/active', 'DriverController@activeDrivers');
+Route::get('/driver/all-active', 'DriverController@AllActiveDrivers');
 
- Route::get('/promo/search', 'PromoController@search');
+Route::patch('restaurant/{id}', 'RestaurantController@statusUpdate');
+Route::get('/restaurant/search', 'RestaurantController@search');
+Route::get('/restaurant/blocked', 'RestaurantController@blocked');
+Route::get('/restaurant/all', 'RestaurantController@getAll');
+Route::get('/restaurant/active', 'RestaurantController@activeRestaurants');
+Route::get('/restaurant/all-active', 'RestaurantController@allActiveRestaurants');
 
- Route::patch('sub-admin/{id}', 'SubAdminController@statusUpdate');
- Route::get('/sub-admin/search', 'SubAdminController@search');
- Route::get('/sub-admin/blocked', 'SubAdminController@blocked');
+Route::get('/promo/search', 'PromoController@search');
 
- Route::post('/report/notification', 'ReportController@SMSNotificationDriver');
+Route::patch('sub-admin/{id}', 'SubAdminController@statusUpdate');
+Route::get('/sub-admin/search', 'SubAdminController@search');
+Route::get('/sub-admin/blocked', 'SubAdminController@blocked');
+
+Route::post('/report/driver-notification', 'ReportController@SMSNotification');
+Route::post('/report/driver-mail', 'ReportController@mailNotification');
+Route::post('/report/restaurant-notification', 'ReportController@SMSNotification');
+Route::post('/report/restaurant-mail', 'ReportController@mailNotification');
+
+Route::post('/restaurant-config/{id}', 'ConfigController@storeConfig');
+Route::get('/restaurant-config/{id}', 'ConfigController@show');
 
 Route::apiResources([
-    'driver' => 'DriverController',
-    'restaurant' => 'RestaurantController',
-    'promo' => 'PromoController',
-    'sub-admin' => 'SubAdminController',
+	'driver' => 'DriverController',
+	'restaurant' => 'RestaurantController',
+	'promo' => 'PromoController',
+	'sub-admin' => 'SubAdminController',
 ]);
 

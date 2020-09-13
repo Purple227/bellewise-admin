@@ -26,13 +26,34 @@ loadReportErrors: (state) => state.reportErrors
 
 const actions = {
 
-	async sendSMS({ commit }, data) {
+	async sendDriverSMS({ commit }, data) {
 		commit('setProgress', true)
 		console.log(...data)
 		const config = {
 			headers: { 'content-type': 'application/x-www-form-urlencoded' }
 		}
-		const response = await axios.post('/api/report/notification', data, config )
+		const response = await axios.post('/api/report/driver-notification', data, config )
+		.then((response) => {
+			commit('setNotification', true)
+			commit('setProgress', false)
+		}).catch(error=>{
+			let failure = error.response.data
+			commit('setErrors', failure)
+			commit('setProgress', false)
+
+			setTimeout(() => {
+				commit('setErrors', null)
+			}, 10000)
+		})
+	},
+
+	async sendRestaurantSMS({ commit }, data) {
+		commit('setProgress', true)
+		console.log(...data)
+		const config = {
+			headers: { 'content-type': 'application/x-www-form-urlencoded' }
+		}
+		const response = await axios.post('/api/report/restaurant-notification', data, config )
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
@@ -48,6 +69,48 @@ const actions = {
 	},
 
 
+	async sendDriverMail({ commit }, data) {
+		commit('setProgress', true)
+		console.log(...data)
+		const config = {
+			headers: { 'content-type': 'application/x-www-form-urlencoded' }
+		}
+		const response = await axios.post('/api/report/driver-mail', data, config )
+		.then((response) => {
+			commit('setNotification', true)
+			commit('setProgress', false)
+		}).catch(error=>{
+			let failure = error.response.data
+			commit('setErrors', failure)
+			commit('setProgress', false)
+
+			setTimeout(() => {
+				commit('setErrors', null)
+			}, 10000)
+		})
+	},
+
+
+	async sendRestaurantMail({ commit }, data) {
+		commit('setProgress', true)
+		console.log(...data)
+		const config = {
+			headers: { 'content-type': 'application/x-www-form-urlencoded' }
+		}
+		const response = await axios.post('/api/report/restaurant-mail', data, config )
+		.then((response) => {
+			commit('setNotification', true)
+			commit('setProgress', false)
+		}).catch(error=>{
+			let failure = error.response.data
+			commit('setErrors', failure)
+			commit('setProgress', false)
+
+			setTimeout(() => {
+				commit('setErrors', null)
+			}, 10000)
+		})
+	},
 
 
 }; //Actions calibrace close

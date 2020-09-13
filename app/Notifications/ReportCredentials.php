@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\NexmoMessage;
 
 
-class DriverReportCredentials extends Notification implements ShouldQueue
+class ReportCredentials extends Notification implements ShouldQueue
 {
     use Queueable;
     public $data;
@@ -31,7 +31,7 @@ class DriverReportCredentials extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['nexmo'];
+        return ['nexmo', 'mail'];
     }
 
     /**
@@ -45,6 +45,23 @@ class DriverReportCredentials extends Notification implements ShouldQueue
         return (new NexmoMessage)
         ->content($this->data->message);
     }
+
+
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toMail($notifiable)
+    {
+        return (new MailMessage)
+        ->subject('Your bellewise Details')
+        ->line($this->data->message) 
+        //->action('Get the app', url('/') )
+        ->line('Thanks for using our application!');
+    }
+
 
     /**
      * Get the array representation of the notification.

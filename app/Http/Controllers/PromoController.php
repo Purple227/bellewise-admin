@@ -55,23 +55,6 @@ class PromoController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-
-/*        $notify_info = $request->all();
-        unset($notify_info['restaurantID']);
-        $notify_info = (object) $notify_info;*/
-
-/*        try {
-            Notification::route('nexmo', $request->phone )
-            ->notify(new DriverCredentials($notify_info,));
-        } catch (\Exception $e) {
-            Log::error(' Nexmo API developer are to be blame.');
-        }*/
-
-
-/*        Notification::route('mail',$request->email)
-        ->notify(new DriverCredentials( $notify_info, $generated_password, $driver_id ));*/
-
-
         // New promo object
         $promo = new Promo;
         // Save to database

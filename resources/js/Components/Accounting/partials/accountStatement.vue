@@ -33,10 +33,6 @@
 				</div>
 			</div>
 
-			<div class="level-item mt-5">
-				<button class="button purple-color is-bold"> Download CSV</button>
-			</div>
-
 		</nav>
 
 
@@ -45,27 +41,6 @@
 		<div class="card"> <!-- Card tag open -->
 
 			<div class="card-content table-container"> <!-- Card content tag open -->
-
-				<!-- Main container -->
-				<nav class="level">
-					<!-- Left side -->
-					<div class="level-left">
-
-						<div class="level-item">
-							<div class="field has-addons">
-								<p class="control">
-									<input class="input" type="text" placeholder=" Search User">
-								</p>
-								<p class="control">
-									<button class="button purple-bg has-text-white">
-										Search
-									</button>
-								</p>
-							</div>
-						</div>
-					</div>
-
-				</nav>
 
 
 				<table class="table is-bordered is-striped is-hoverable"> <!-- Table tag open -->

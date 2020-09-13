@@ -94,15 +94,12 @@ class DriverController extends Controller
             Log::error(' Nexmo API developer are to be blame.');
         }
 
-
-
         try {
         Notification::route('mail',$request->email)
         ->notify(new DriverCredentials( $notify_info, $generated_password, $driver_id ));
         } catch (\Exception $e) {
             Log::error(' Your network connection is to be blame.');
         }
-
 
 
         // New driver object

@@ -49,7 +49,7 @@
 								<input class="input is-info" type="text" v-model.trim="loadSingleData.name"  required autofocus>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
-									<i class="fas fa-truck purple-color"></i>
+									<i class="fas fa-user purple-color"></i>
 								</span>
 								<!-- Has icon right -->
 								<span class="icon is-small is-right" v-if="$v.loadSingleData.name.required">

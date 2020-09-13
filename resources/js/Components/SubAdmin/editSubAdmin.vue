@@ -29,7 +29,7 @@
 			<div class="notification purple-bg-light is-bold has-text-black" v-if="loadSubAdminErrors">
 				<ul>
 					<li v-for="(value, name, index) in loadSubAdminErrors">
-						{{ index+1 }}. {{ value[0] }}
+						{{ index+1 }} . {{ value[0] }}
 					</li>
 				</ul>
 
@@ -181,8 +181,6 @@ export default {
 
 		computed: {
 			...mapGetters(['loadSubAdminSingleData', 'loadSubAdminLoader', 'loadSubAdminProgress', 'loadSubAdminErrors']),
-
-
 		},
 
 } // Export calibrace closes

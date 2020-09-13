@@ -88,7 +88,6 @@ export default {
 	}),
 
 	created() {
-		this.fetchSingleData()
 		this.setId()
 	},
 

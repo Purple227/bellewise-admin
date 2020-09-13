@@ -183,6 +183,7 @@ const actions = {
 
 	},
 
+
 	async updateRestaurantStatus({commit}, {id, status}) {
 		commit('setLoading', true)
 		let api = '/api/restaurant/' + id

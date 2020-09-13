@@ -105,6 +105,27 @@
 							</div>
 
 
+							<div class="field has-addons mt-6">
+								<p class="control">
+									<span class="select">
+										<select>
+											<option class="is-bold">%</option>
+										</select>
+									</span>
+								</p>
+								<p class="control is-expanded">
+									<input class="input is-info" type="number" placeholder="Percentage" v-model.number="restaurant.commisson">
+								</p>
+								<p class="control">
+									<a class="button is-bold">
+										Commission 
+									</a>
+								</p>
+							</div>
+
+
+
+
 						</div> <!-- First column tag close -->
 
 
@@ -166,29 +187,30 @@
 								</div>
 							</div>
 
+
+							<div class="field has-addons mt-6">
+								<p class="control">
+									<span class="select">
+										<select>
+											<option class="is-bold">%</option>
+										</select>
+									</span>
+								</p>
+								<p class="control is-expanded">
+									<input class="input is-info" type="number" placeholder="Percentage" v-model.number="restaurant.discount">
+								</p>
+								<p class="control">
+									<a class="button is-bold">
+										Restaurant Discount Off
+									</a>
+								</p>
+							</div>
+
+
 						</div> <!-- Second column tag close -->
 
 
 					</div> <!-- Columns wrapper tag close -->
-
-
-					<div class="field has-addons">
-						<p class="control">
-							<span class="select">
-								<select>
-									<option class="is-bold">%</option>
-								</select>
-							</span>
-						</p>
-						<p class="control is-expanded">
-							<input class="input is-info" type="number" placeholder="Percentage" v-model.number="restaurant.discount">
-						</p>
-						<p class="control">
-							<a class="button is-bold">
-								Restaurant Discount Off
-							</a>
-						</p>
-					</div>
 
 
 				</div> <!-- First step tag close -->
@@ -400,6 +422,7 @@ export default {
 			imageName: null,
 			countryCode: '+234',
 			discount: null,
+			commisson: null,
 		},
 
 		simpleArray: null,
@@ -506,7 +529,9 @@ export default {
 			this.restaurant.imageFile = e.target.files[0]
 		},
 
-		submitForm() {			
+		submitForm() {
+
+
 			let data = new FormData();
 			data.append("_method", "post");
 			data.append('restaurant_name', this.restaurant.name);
@@ -516,7 +541,14 @@ export default {
 			data.append('license_number', this.restaurant.licenseNumber);
 			data.append('email', this.restaurant.email);
 			data.append('discount', this.restaurant.discount);
-			data.append('menu', JSON.stringify(this.transformToSimpleArray));
+			data.append('menu', JSON.stringify(this.transformMenuToSimpleArray));
+
+			var result = this.transformMenuFileToSimpleArray
+			for (let i=0; i<result.length; i++) {
+				data.append('menuloop', JSON.stringify(result[i]) )
+			}
+			
+			data.append('menuFile', JSON.stringify(this.transformMenuFileToSimpleArray));
 			this.createRestaurant(data)
 		},
 
@@ -527,32 +559,31 @@ export default {
 		...mapGetters(['loadRestaurantProgress', 'loadRestaurantErrors']),
     // Local computed properties
 
-    transformToSimpleArray() {
-/*			var keys = Object.keys(this.menu)
-			console.log(keys)
-			this.simpleArray = keys.name*/
+    transformMenuToSimpleArray() {
 
-/*			for (let i in this.menu) {
-				this.simpleArray.push(this.menu[i].name)
-			}*/
-
-/*
-			for (let i=0; i<this.menu.length; i++) { 
-				this.simpleArray.push(this.menu[i].name)
-			}*/
-
-			let result = []
-			for (let i=0; i<this.menu.length; i++) {
-			result.push(this.menu[i].name)
-			result.push(this.menu[i].description)
-			result.push(this.menu[i].price)
-			result.push(this.menu[i].imageFile)
-			}
-			return result
-		},
+    	let result = []
+    	for (let i=0; i<this.menu.length; i++) {
+    		result.push(this.menu[i].name)
+    		result.push(this.menu[i].description)
+    		result.push(this.menu[i].price)
+    		result.push(this.menu[i].imageFile)
+    	}
+    	return result
+    },
 
 
-	},
+    transformMenuFileToSimpleArray() {
+
+    	let result = []
+    	for (let i=0; i<this.menu.length; i++) {
+    		result.push(this.menu[i].imageFile)
+    	}
+    	return result
+    },
+
+
+
+},
 
 
 

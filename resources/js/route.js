@@ -33,10 +33,10 @@ import EditPromotion from './Components/Promotion/editPromotion.vue';
 import ViewPromoRestaurant from './Components/Promotion/viewPromoRestaurant.vue';
 
 import Report from './Components/Report/index.vue';
-
-import Account from './Components/Accounting/account.vue';
+import Account from './Components/Accounting/index.vue';
 
 import Setting from './Components/Setting/setting.vue';
+import Admin from './Components/Admin/index.vue';
 
 const Bar = { template: '<div>bar</div>' }
 
@@ -52,6 +52,12 @@ const routes = [
 path: '/',
 name:'home',
 component: Home 
+},
+
+{ 
+path: '/admin-access',
+name:'admin',
+component: Admin
 },
 
 { 
@@ -132,7 +138,6 @@ name:'reset-user-password',
 component: ResetUserPassword
 },
 
-
 { 
 path: '/sub-admins',
 name:'sub-admin-list',
@@ -156,7 +161,6 @@ path: '/sub-admin/:id/edit',
 name:'edit-sub-admin',
 component: EditSubAdmin
 },
-
 
 { 
 path: '/subadmin/permissions/:id',
@@ -205,8 +209,6 @@ path: '/setting',
 name:'setting',
 component: Setting
 },
-
-
 
 { path: '/bar', component: Bar }
 

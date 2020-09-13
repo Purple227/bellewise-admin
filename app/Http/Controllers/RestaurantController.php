@@ -34,8 +34,6 @@ class RestaurantController extends Controller
         return response()->json($all_restaurants);
     }
 
-
-
     public function search(Request $request)
     {
         $search_query = $request->search_query;
@@ -60,13 +58,12 @@ class RestaurantController extends Controller
         return response()->json($active_restaurants);
     }
 
-    public function allActiveRestaurant()
+    public function allActiveRestaurants()
     {
         $all_active_restaurants = Restaurant::where('status', 1)
         ->get();
         return response()->json($all_active_restaurants);
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -77,7 +74,7 @@ class RestaurantController extends Controller
     public function store(Request $request)
     {
 
-        return json_decode($request->menu);
+        return json_decode($request->menuloop);
 
         $validator = Validator::make($request->all(), [
             'restaurant_name' => 'required',
@@ -86,7 +83,7 @@ class RestaurantController extends Controller
             'phone' => ['required', 'unique:drivers'],
             'address' => 'required',
             'license_number' => 'required',
-            //'email' => ['email:rfc,dns', 'unique:drivers'],
+            'email' => ['email:rfc,dns', 'unique:drivers'],
             'restaurant_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -119,10 +116,10 @@ class RestaurantController extends Controller
         $restaurant->name = $request->restaurant_name;
         $restaurant->phone = $request->phone;
         $restaurant->address = $request->address;
-        //$restaurant->email = $request->email;
+        $restaurant->email = $request->email;
         $restaurant->discount = $request->discount;
         $restaurant->license_number = $request->license_number;
-        //$restaurant->password = Hash::make($generated_password);
+        $restaurant->password = Hash::make($generated_password);
 
         $menu = new Menu;
         // Image set up for menu
@@ -176,15 +173,6 @@ class RestaurantController extends Controller
         $restaurant = Restaurant::find($id);
         $restaurant->status = $request->status;
         $restaurant->save();
-    }
-
-    public function configOption(Request $request, $id)
-    {
-        $config = new Config();
-        $config->dob = '20-03-1999';
-        $profile->bio = 'A professional programmer.';
-        $user = User::find(1);
-        $user->profile()->save($profile);
     }
 
     /**

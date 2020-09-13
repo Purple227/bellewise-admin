@@ -6,6 +6,26 @@
 
 		<div> <!-- Second step tag open -->
 
+		<!-- Main container -->
+		<nav class="level">
+			<!-- Left side -->
+			<div class="level-left">
+				<div class="level-item">
+					<p class="subtitle is-5">
+						<strong>  Menu List </strong> 
+					</p>
+				</div>
+			</div>
+
+			<!-- Right side -->
+			<div class="level-right">
+				<p class="level-item"> <router-link :to="{ name: 'list-restaurant' }" exact> <strong class="purple-color"> Back</strong> </router-link> </p>
+			</div>
+		</nav>
+
+
+
+
 			<div class="tabs is-toggle is-fullwidth">
 				<ul>
 					<li class="" v-bind:class="{ 'active': create }">

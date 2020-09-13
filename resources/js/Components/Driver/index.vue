@@ -11,7 +11,7 @@
 
 					<li class="" v-bind:class="{ 'active':driverList  }" @click="[driverList = true, blockDriver = false]">
 						<a>
-							<span class="icon is-small" v-bind:class="{ 'has-text-white': driverList }"><i class="fas fa-truck" aria-hidden="true"></i></span>
+							<span class="icon is-small" v-bind:class="{ 'has-text-white': driverList }"><i class="fas fa-users" aria-hidden="true"></i></span>
 							<span v-bind:class="{ 'has-text-white': driverList }"> Drivers </span>
 						</a>
 					</li>
