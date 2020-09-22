@@ -9,6 +9,8 @@ import AddRestaurant from './Components/Restaurant/addRestaurant.vue';
 import ViewRestaurant from './Components/Restaurant/viewRestaurant.vue';
 import EditRestaurant from './Components/Restaurant/editRestaurant.vue';
 
+import Menu from './Components/Restaurant/menu.vue';
+
 import Driver from './Components/Driver/index.vue';
 import AddDriver from './Components/Driver/addDriver.vue';
 import ViewDriver from './Components/Driver/viewDriver.vue';
@@ -82,6 +84,12 @@ component: ViewRestaurant
 path: '/restaurant/:id/edit',
 name:'edit-restaurant',
 component: EditRestaurant
+},
+
+{ 
+path: '/restaurant/:id/menus',
+name:'restaurant-menu',
+component: Menu
 },
 
 { 

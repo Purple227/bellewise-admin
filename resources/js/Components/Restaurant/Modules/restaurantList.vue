@@ -89,8 +89,18 @@
               <td>  
                 <div class="field is-grouped">
                   <p class="control">
+                    <router-link :to="{name: 'restaurant-menu', params: {id: restaurant.id}}" class="button purple-color" exact>
+                      Menu
+                    </router-link>
+                  </p>
+                  <p class="control">
+                    <router-link :to="{name: 'restaurant-setting', params: {id: restaurant.id}}" class="button purple-color" exact>
+                      Settings
+                    </router-link>
+                  </p>
+                  <p class="control">
                     <router-link :to="{name: 'view-restaurant', params: {id: restaurant.id}}" class="button purple-color" exact>
-                      Configure or View
+                      View
                     </router-link>
                   </p>
                   <p class="control">

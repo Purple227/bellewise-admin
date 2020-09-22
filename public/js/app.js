@@ -9782,6 +9782,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -52230,100 +52240,6 @@ var reactiveProp = {
 
 /***/ }),
 
-/***/ "./node_modules/vue-clickaway/dist/vue-clickaway.common.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/vue-clickaway/dist/vue-clickaway.common.js ***!
-  \*****************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-Vue = 'default' in Vue ? Vue['default'] : Vue;
-
-var version = '2.2.2';
-
-var compatible = (/^2\./).test(Vue.version);
-if (!compatible) {
-  Vue.util.warn('VueClickaway ' + version + ' only supports Vue 2.x, and does not support Vue ' + Vue.version);
-}
-
-
-
-// @SECTION: implementation
-
-var HANDLER = '_vue_clickaway_handler';
-
-function bind(el, binding, vnode) {
-  unbind(el);
-
-  var vm = vnode.context;
-
-  var callback = binding.value;
-  if (typeof callback !== 'function') {
-    if (true) {
-      Vue.util.warn(
-        'v-' + binding.name + '="' +
-        binding.expression + '" expects a function value, ' +
-        'got ' + callback
-      );
-    }
-    return;
-  }
-
-  // @NOTE: Vue binds directives in microtasks, while UI events are dispatched
-  //        in macrotasks. This causes the listener to be set up before
-  //        the "origin" click event (the event that lead to the binding of
-  //        the directive) arrives at the document root. To work around that,
-  //        we ignore events until the end of the "initial" macrotask.
-  // @REFERENCE: https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/
-  // @REFERENCE: https://github.com/simplesmiler/vue-clickaway/issues/8
-  var initialMacrotaskEnded = false;
-  setTimeout(function() {
-    initialMacrotaskEnded = true;
-  }, 0);
-
-  el[HANDLER] = function(ev) {
-    // @NOTE: this test used to be just `el.containts`, but working with path is better,
-    //        because it tests whether the element was there at the time of
-    //        the click, not whether it is there now, that the event has arrived
-    //        to the top.
-    // @NOTE: `.path` is non-standard, the standard way is `.composedPath()`
-    var path = ev.path || (ev.composedPath ? ev.composedPath() : undefined);
-    if (initialMacrotaskEnded && (path ? path.indexOf(el) < 0 : !el.contains(ev.target))) {
-      return callback.call(vm, ev);
-    }
-  };
-
-  document.documentElement.addEventListener('click', el[HANDLER], false);
-}
-
-function unbind(el) {
-  document.documentElement.removeEventListener('click', el[HANDLER], false);
-  delete el[HANDLER];
-}
-
-var directive = {
-  bind: bind,
-  update: function(el, binding) {
-    if (binding.value === binding.oldValue) return;
-    bind(el, binding);
-  },
-  unbind: unbind,
-};
-
-var mixin = {
-  directives: { onClickaway: directive },
-};
-
-exports.version = version;
-exports.directive = directive;
-exports.mixin = mixin;
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Accounting/index.vue?vue&type=template&id=a1b4e9ba&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/Accounting/index.vue?vue&type=template&id=a1b4e9ba& ***!
@@ -65263,6 +65179,58 @@ var render = function() {
                                     staticClass: "button purple-color",
                                     attrs: {
                                       to: {
+                                        name: "restaurant-menu",
+                                        params: { id: restaurant.id }
+                                      },
+                                      exact: ""
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\r\n                      Menu\r\n                    "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "p",
+                              { staticClass: "control" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "button purple-color",
+                                    attrs: {
+                                      to: {
+                                        name: "restaurant-setting",
+                                        params: { id: restaurant.id }
+                                      },
+                                      exact: ""
+                                    }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\r\n                      Settings\r\n                    "
+                                    )
+                                  ]
+                                )
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "p",
+                              { staticClass: "control" },
+                              [
+                                _c(
+                                  "router-link",
+                                  {
+                                    staticClass: "button purple-color",
+                                    attrs: {
+                                      to: {
                                         name: "view-restaurant",
                                         params: { id: restaurant.id }
                                       },
@@ -65271,7 +65239,7 @@ var render = function() {
                                   },
                                   [
                                     _vm._v(
-                                      "\r\n                      Configure or View\r\n                    "
+                                      "\r\n                      View\r\n                    "
                                     )
                                   ]
                                 )
@@ -92633,6 +92601,38 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Components/Restaurant/menu.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/Components/Restaurant/menu.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+var render, staticRenderFns
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_0__["default"])(
+  script,
+  render,
+  staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+component.options.__file = "resources/js/Components/Restaurant/menu.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Components/Restaurant/viewRestaurant.vue":
 /*!***************************************************************!*\
   !*** ./resources/js/Components/Restaurant/viewRestaurant.vue ***!
@@ -93725,11 +93725,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_clickaway__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-clickaway */ "./node_modules/vue-clickaway/dist/vue-clickaway.common.js");
-/* harmony import */ var vue_clickaway__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue_clickaway__WEBPACK_IMPORTED_MODULE_0__);
-
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [vue_clickaway__WEBPACK_IMPORTED_MODULE_0__["mixin"]],
   data: function data() {
     return {
       isActive: false,
@@ -93745,9 +93741,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     addDropDown: function addDropDown() {
       this.dropDown = !this.dropDown;
-    },
-    away: function away() {
-      this.isActive = false;
     }
   }
 });
@@ -96416,30 +96409,32 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_Restaurant_addRestaurant_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Components/Restaurant/addRestaurant.vue */ "./resources/js/Components/Restaurant/addRestaurant.vue");
 /* harmony import */ var _Components_Restaurant_viewRestaurant_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Components/Restaurant/viewRestaurant.vue */ "./resources/js/Components/Restaurant/viewRestaurant.vue");
 /* harmony import */ var _Components_Restaurant_editRestaurant_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Components/Restaurant/editRestaurant.vue */ "./resources/js/Components/Restaurant/editRestaurant.vue");
-/* harmony import */ var _Components_Driver_index_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Components/Driver/index.vue */ "./resources/js/Components/Driver/index.vue");
-/* harmony import */ var _Components_Driver_addDriver_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Components/Driver/addDriver.vue */ "./resources/js/Components/Driver/addDriver.vue");
-/* harmony import */ var _Components_Driver_viewDriver_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Components/Driver/viewDriver.vue */ "./resources/js/Components/Driver/viewDriver.vue");
-/* harmony import */ var _Components_Driver_editDriver_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Components/Driver/editDriver.vue */ "./resources/js/Components/Driver/editDriver.vue");
-/* harmony import */ var _Components_Order_orderList_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Components/Order/orderList.vue */ "./resources/js/Components/Order/orderList.vue");
-/* harmony import */ var _components_Order_viewOrder_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/Order/viewOrder.vue */ "./resources/js/components/Order/viewOrder.vue");
-/* harmony import */ var _Components_Users_userList_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Components/Users/userList.vue */ "./resources/js/Components/Users/userList.vue");
-/* harmony import */ var _Components_Users_editUser_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Components/Users/editUser.vue */ "./resources/js/Components/Users/editUser.vue");
-/* harmony import */ var _Components_Users_resetUserPassword_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Components/Users/resetUserPassword.vue */ "./resources/js/Components/Users/resetUserPassword.vue");
-/* harmony import */ var _Components_SubAdmin_subAdminPermission_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Components/SubAdmin/subAdminPermission.vue */ "./resources/js/Components/SubAdmin/subAdminPermission.vue");
-/* harmony import */ var _Components_SubAdmin_index_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Components/SubAdmin/index.vue */ "./resources/js/Components/SubAdmin/index.vue");
-/* harmony import */ var _Components_SubAdmin_addSubAdmin_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./Components/SubAdmin/addSubAdmin.vue */ "./resources/js/Components/SubAdmin/addSubAdmin.vue");
-/* harmony import */ var _Components_SubAdmin_viewSubAdmin_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./Components/SubAdmin/viewSubAdmin.vue */ "./resources/js/Components/SubAdmin/viewSubAdmin.vue");
-/* harmony import */ var _Components_SubAdmin_editSubAdmin_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./Components/SubAdmin/editSubAdmin.vue */ "./resources/js/Components/SubAdmin/editSubAdmin.vue");
-/* harmony import */ var _Components_Promotion_listPromotion_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./Components/Promotion/listPromotion.vue */ "./resources/js/Components/Promotion/listPromotion.vue");
-/* harmony import */ var _Components_Promotion_addPromotion_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./Components/Promotion/addPromotion.vue */ "./resources/js/Components/Promotion/addPromotion.vue");
-/* harmony import */ var _Components_Promotion_editPromotion_vue__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./Components/Promotion/editPromotion.vue */ "./resources/js/Components/Promotion/editPromotion.vue");
-/* harmony import */ var _Components_Promotion_viewPromoRestaurant_vue__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./Components/Promotion/viewPromoRestaurant.vue */ "./resources/js/Components/Promotion/viewPromoRestaurant.vue");
-/* harmony import */ var _Components_Report_index_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./Components/Report/index.vue */ "./resources/js/Components/Report/index.vue");
-/* harmony import */ var _Components_Accounting_index_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./Components/Accounting/index.vue */ "./resources/js/Components/Accounting/index.vue");
-/* harmony import */ var _Components_Setting_setting_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./Components/Setting/setting.vue */ "./resources/js/Components/Setting/setting.vue");
-/* harmony import */ var _Components_Admin_index_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./Components/Admin/index.vue */ "./resources/js/Components/Admin/index.vue");
+/* harmony import */ var _Components_Restaurant_menu_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Components/Restaurant/menu.vue */ "./resources/js/Components/Restaurant/menu.vue");
+/* harmony import */ var _Components_Driver_index_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Components/Driver/index.vue */ "./resources/js/Components/Driver/index.vue");
+/* harmony import */ var _Components_Driver_addDriver_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Components/Driver/addDriver.vue */ "./resources/js/Components/Driver/addDriver.vue");
+/* harmony import */ var _Components_Driver_viewDriver_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Components/Driver/viewDriver.vue */ "./resources/js/Components/Driver/viewDriver.vue");
+/* harmony import */ var _Components_Driver_editDriver_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Components/Driver/editDriver.vue */ "./resources/js/Components/Driver/editDriver.vue");
+/* harmony import */ var _Components_Order_orderList_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Components/Order/orderList.vue */ "./resources/js/Components/Order/orderList.vue");
+/* harmony import */ var _components_Order_viewOrder_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/Order/viewOrder.vue */ "./resources/js/components/Order/viewOrder.vue");
+/* harmony import */ var _Components_Users_userList_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Components/Users/userList.vue */ "./resources/js/Components/Users/userList.vue");
+/* harmony import */ var _Components_Users_editUser_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Components/Users/editUser.vue */ "./resources/js/Components/Users/editUser.vue");
+/* harmony import */ var _Components_Users_resetUserPassword_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Components/Users/resetUserPassword.vue */ "./resources/js/Components/Users/resetUserPassword.vue");
+/* harmony import */ var _Components_SubAdmin_subAdminPermission_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Components/SubAdmin/subAdminPermission.vue */ "./resources/js/Components/SubAdmin/subAdminPermission.vue");
+/* harmony import */ var _Components_SubAdmin_index_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./Components/SubAdmin/index.vue */ "./resources/js/Components/SubAdmin/index.vue");
+/* harmony import */ var _Components_SubAdmin_addSubAdmin_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./Components/SubAdmin/addSubAdmin.vue */ "./resources/js/Components/SubAdmin/addSubAdmin.vue");
+/* harmony import */ var _Components_SubAdmin_viewSubAdmin_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./Components/SubAdmin/viewSubAdmin.vue */ "./resources/js/Components/SubAdmin/viewSubAdmin.vue");
+/* harmony import */ var _Components_SubAdmin_editSubAdmin_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./Components/SubAdmin/editSubAdmin.vue */ "./resources/js/Components/SubAdmin/editSubAdmin.vue");
+/* harmony import */ var _Components_Promotion_listPromotion_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./Components/Promotion/listPromotion.vue */ "./resources/js/Components/Promotion/listPromotion.vue");
+/* harmony import */ var _Components_Promotion_addPromotion_vue__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./Components/Promotion/addPromotion.vue */ "./resources/js/Components/Promotion/addPromotion.vue");
+/* harmony import */ var _Components_Promotion_editPromotion_vue__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./Components/Promotion/editPromotion.vue */ "./resources/js/Components/Promotion/editPromotion.vue");
+/* harmony import */ var _Components_Promotion_viewPromoRestaurant_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./Components/Promotion/viewPromoRestaurant.vue */ "./resources/js/Components/Promotion/viewPromoRestaurant.vue");
+/* harmony import */ var _Components_Report_index_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./Components/Report/index.vue */ "./resources/js/Components/Report/index.vue");
+/* harmony import */ var _Components_Accounting_index_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./Components/Accounting/index.vue */ "./resources/js/Components/Accounting/index.vue");
+/* harmony import */ var _Components_Setting_setting_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./Components/Setting/setting.vue */ "./resources/js/Components/Setting/setting.vue");
+/* harmony import */ var _Components_Admin_index_vue__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./Components/Admin/index.vue */ "./resources/js/Components/Admin/index.vue");
 // Define route components.
 // These can be imported from other files
+
 
 
 
@@ -96481,7 +96476,7 @@ var routes = [{
 }, {
   path: '/admin-access',
   name: 'admin',
-  component: _Components_Admin_index_vue__WEBPACK_IMPORTED_MODULE_26__["default"]
+  component: _Components_Admin_index_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
 }, {
   path: '/restaurants',
   name: 'list-restaurant',
@@ -96499,89 +96494,93 @@ var routes = [{
   name: 'edit-restaurant',
   component: _Components_Restaurant_editRestaurant_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
 }, {
+  path: '/restaurant/:id/menus',
+  name: 'restaurant-menu',
+  component: _Components_Restaurant_menu_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+}, {
   path: '/drivers',
   name: 'driver-list',
-  component: _Components_Driver_index_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+  component: _Components_Driver_index_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
 }, {
   path: '/driver/add',
   name: 'add-driver',
-  component: _Components_Driver_addDriver_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+  component: _Components_Driver_addDriver_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
 }, {
   path: '/driver/:id',
   name: 'view-driver',
-  component: _Components_Driver_viewDriver_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
+  component: _Components_Driver_viewDriver_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
 }, {
   path: '/driver/:id/edit',
   name: 'edit-driver',
-  component: _Components_Driver_editDriver_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+  component: _Components_Driver_editDriver_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
 }, {
   path: '/orders',
   name: 'order-list',
-  component: _Components_Order_orderList_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
+  component: _Components_Order_orderList_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
 }, {
   path: '/orders/1d',
   name: 'view-order',
-  component: _components_Order_viewOrder_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
+  component: _components_Order_viewOrder_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
 }, {
   path: '/users',
   name: 'users-list',
-  component: _Components_Users_userList_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
+  component: _Components_Users_userList_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
 }, {
   path: '/user/edit',
   name: 'edit-user',
-  component: _Components_Users_editUser_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
+  component: _Components_Users_editUser_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
 }, {
   path: '/user/id/reset',
   name: 'reset-user-password',
-  component: _Components_Users_resetUserPassword_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
+  component: _Components_Users_resetUserPassword_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
 }, {
   path: '/sub-admins',
   name: 'sub-admin-list',
-  component: _Components_SubAdmin_index_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
+  component: _Components_SubAdmin_index_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
 }, {
   path: '/sub-admin/add',
   name: 'add-sub-admin',
-  component: _Components_SubAdmin_addSubAdmin_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
+  component: _Components_SubAdmin_addSubAdmin_vue__WEBPACK_IMPORTED_MODULE_17__["default"]
 }, {
   path: '/sub-admin/:id',
   name: 'view-sub-admin',
-  component: _Components_SubAdmin_viewSubAdmin_vue__WEBPACK_IMPORTED_MODULE_17__["default"]
+  component: _Components_SubAdmin_viewSubAdmin_vue__WEBPACK_IMPORTED_MODULE_18__["default"]
 }, {
   path: '/sub-admin/:id/edit',
   name: 'edit-sub-admin',
-  component: _Components_SubAdmin_editSubAdmin_vue__WEBPACK_IMPORTED_MODULE_18__["default"]
+  component: _Components_SubAdmin_editSubAdmin_vue__WEBPACK_IMPORTED_MODULE_19__["default"]
 }, {
   path: '/subadmin/permissions/:id',
   name: 'sub-admin-permission',
-  component: _Components_SubAdmin_subAdminPermission_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+  component: _Components_SubAdmin_subAdminPermission_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
 }, {
   path: '/promotions',
   name: 'list-promotion',
-  component: _Components_Promotion_listPromotion_vue__WEBPACK_IMPORTED_MODULE_19__["default"]
+  component: _Components_Promotion_listPromotion_vue__WEBPACK_IMPORTED_MODULE_20__["default"]
 }, {
   path: '/promotions/add',
   name: 'add-promotion',
-  component: _Components_Promotion_addPromotion_vue__WEBPACK_IMPORTED_MODULE_20__["default"]
+  component: _Components_Promotion_addPromotion_vue__WEBPACK_IMPORTED_MODULE_21__["default"]
 }, {
   path: '/promotions/:id/edit',
   name: 'edit-promotion',
-  component: _Components_Promotion_editPromotion_vue__WEBPACK_IMPORTED_MODULE_21__["default"]
+  component: _Components_Promotion_editPromotion_vue__WEBPACK_IMPORTED_MODULE_22__["default"]
 }, {
   path: '/promotions/:id',
   name: 'view-promo-restaurants',
-  component: _Components_Promotion_viewPromoRestaurant_vue__WEBPACK_IMPORTED_MODULE_22__["default"]
+  component: _Components_Promotion_viewPromoRestaurant_vue__WEBPACK_IMPORTED_MODULE_23__["default"]
 }, {
   path: '/reports',
   name: 'report',
-  component: _Components_Report_index_vue__WEBPACK_IMPORTED_MODULE_23__["default"]
+  component: _Components_Report_index_vue__WEBPACK_IMPORTED_MODULE_24__["default"]
 }, {
   path: '/account',
   name: 'account',
-  component: _Components_Accounting_index_vue__WEBPACK_IMPORTED_MODULE_24__["default"]
+  component: _Components_Accounting_index_vue__WEBPACK_IMPORTED_MODULE_25__["default"]
 }, {
   path: '/setting',
   name: 'setting',
-  component: _Components_Setting_setting_vue__WEBPACK_IMPORTED_MODULE_25__["default"]
+  component: _Components_Setting_setting_vue__WEBPACK_IMPORTED_MODULE_26__["default"]
 }, {
   path: '/bar',
   component: Bar

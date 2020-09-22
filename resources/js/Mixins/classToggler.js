@@ -1,8 +1,5 @@
 
-import { mixin as clickaway } from 'vue-clickaway';
-
 export default {
- mixins: [ clickaway ],
 
  data() {
 
@@ -23,11 +20,6 @@ export default {
 
   addDropDown() {
     this.dropDown = !this.dropDown;
-  },
-
-
-  away: function() {
-    this.isActive = false;
   },
 
 },
