@@ -42,7 +42,7 @@ const getters = {
 
 const actions = {
 
-	async fetchDatas({commit}, uri) {
+	async fetchMenuDatas({commit}, uri) {
 		commit('setLoading', true)
 		let api = uri || '/api/driver'
 		const response = await axios.get(api);
@@ -59,51 +59,8 @@ const actions = {
 		commit('setTotal', response.data.total)
 	},
 
-	async fetchBlockedDatas({commit}, uri) {
-		commit('setLoading', true)
-		let api = uri ||'/api/driver/blocked'
-		const response = await axios.get(api);
-		commit('setBlockedDatas', response.data.data)
-		commit('setLoading', false)
 
-		let nextPageUrl = response.data.next_page_url
-		commit('setNextPageURL', nextPageUrl ? nextPageUrl.slice(21) : null)
-
-		let previousPageUrl = response.data.prev_page_url
-		commit('setPrePageURL', previousPageUrl ? previousPageUrl.slice(21) : null)
-
-		commit('setToPage', response.data.to)
-		commit('setTotal', response.data.total)
-	},
-
-	async fetchActiveDatas({commit}, uri) {
-		commit('setLoading', true)
-		let api = uri ||'/api/driver/active'
-		const response = await axios.get(api);
-		commit('setActiveDatas', response.data.data)
-		commit('setLoading', false)
-
-		let nextPageUrl = response.data.next_page_url
-		commit('setNextPageURL', nextPageUrl ? nextPageUrl.slice(21) : null)
-
-		let previousPageUrl = response.data.prev_page_url
-		commit('setPrePageURL', previousPageUrl ? previousPageUrl.slice(21) : null)
-
-		commit('setToPage', response.data.to)
-		commit('setTotal', response.data.total)
-	},
-
-
-	async fetchAllActiveDatas({commit}, uri) {
-		commit('setLoading', true)
-		let api = uri ||'/api/driver/all-active'
-		const response = await axios.get(api);
-		commit('setAllActiveDatas', response.data)
-		commit('setLoading', false)
-	},
-
-
-	async fetchSingleData({commit}, id) {
+	async fetchSingleMenu({commit}, id) {
 		commit('setLoading', true)
 		let api = '/api/driver/' + id
 		const response = await axios.get(api);
@@ -111,18 +68,18 @@ const actions = {
 		commit('setLoading', false)
 	},
 
-	async searchDatas({commit}, searchQuery) {
+	async searchMenuDatas({commit}, searchQuery) {
 		const response = await axios.get('/api/driver/search',{params: {search_query: searchQuery}})
 		commit('setSearch', response.data)
 	},
 
-	async destroyData({commit}, id ) {
+	async destroyMenuData({commit}, id ) {
 		let api = '/api/driver/' + id
 		const response = await axios.delete(api);
 		commit('setNotification', true)
 	},
 
-	async createData({ commit }, data) {
+	async createMenuData({ commit }, data) {
 		commit('setProgress', true)
 		const config = {
 			headers: { 'content-type': 'application/x-www-form-urlencoded' }
@@ -143,7 +100,7 @@ const actions = {
 		})
 	},
 
-	async editData({ commit }, {data, id}) {
+	async editMenuData({ commit }, {data, id}) {
 		commit('setProgress', true)
 		let api = '/api/driver/' + id
 		const config = {
@@ -166,15 +123,6 @@ const actions = {
 
 	},
 
-	async updateStatus({commit}, {id, status}) {
-		commit('setLoading', true)
-		console.log(status)
-		let api = '/api/driver/' + id
-		const response = await axios.patch(api, {status:status})
-		commit('setLoading', false)
-		commit('setNotification', true)
-	},
-
 
 	async clearErrors ({commit}) {
 		commit('unsetErrors')
@@ -190,29 +138,25 @@ const actions = {
 
 const mutations = {
 
-	setDatas: (state, datas) => state.datas = datas,
-	setSingleData: (state, data) => state.data = data,
+	setDatas: (state, datas) => state.menuDatas = datas,
+	setSingleData: (state, data) => state.singleMenu = data,
 
-	setNotification: (state, notification) => state.notification = notification,
-	unsetNotification: (state, notification) => state.notification = notification,
+	setNotification: (state, notification) => state.menuNotification = notification,
+	unsetNotification: (state, notification) => state.menuNotification = notification,
 
-	setLoading: (state, loading) => state.loading = loading,
+	setLoading: (state, loading) => state.menuLoader = loading,
 
-	setProgress: (state, progress) => state.progress = progress,
+	setProgress: (state, progress) => state.menuProgress = progress,
 
-	setErrors: (state, errors) => state.errors = errors,
-	unsetErrors: (state, errors) => state.errors = null,
+	setErrors: (state, errors) => state.menuErrors = errors,
+	unsetErrors: (state, errors) => state.menuErrors = null,
 
-	setNextPageURL: (state, next) => state.pagination.nextPageUrl = next,
-	setPrePageURL: (state, previous) => state.pagination.previousPageUrl = previous,
-	setToPage: (state, to) => state.pagination.to = to,
-	setTotal: (state, total) => state.pagination.total = total,
+	setNextPageURL: (state, next) => state.menuPagination.nextPageUrl = next,
+	setPrePageURL: (state, previous) => state.menuPagination.previousPageUrl = previous,
+	setToPage: (state, to) => state.menuPagination.to = to,
+	setTotal: (state, total) => state.menuPagination.total = total,
 
-	setSearch: (state, searchResult) => state.searchResult = searchResult,
-
-	setBlockedDatas: (state, blockedDatas) => state.blockedDatas = blockedDatas,
-	setActiveDatas: (state, active) => state.activeDrivers = active,
-	setAllActiveDatas: (state, allActive) => state.allActiveDatas = allActive
+	setSearch: (state, searchResult) => state.menuSearch = searchResult,
 
 
 }; //Mutations calibrace close

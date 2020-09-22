@@ -11,6 +11,7 @@ import SubAdmin from './Modules/subAdmin.js'
 import Report from './Modules/report.js'
 import Admin from './Modules/admin.js'
 import Config from './Modules/config.js'
+import Menu from './Modules/menu.js'
 
 export default new Vuex.Store({
 
@@ -22,6 +23,7 @@ export default new Vuex.Store({
     'report': Report,
     'admin': Admin,
     'config': Config,
+    'menu': Menu,
   },
   
 })
