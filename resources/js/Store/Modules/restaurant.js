@@ -148,7 +148,7 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			//app.$router.push({name: 'list-restaurant'})
+			app.$router.push({name: 'list-restaurant'})
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)

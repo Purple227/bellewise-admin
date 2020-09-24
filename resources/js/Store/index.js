@@ -12,6 +12,7 @@ import Report from './Modules/report.js'
 import Admin from './Modules/admin.js'
 import Config from './Modules/config.js'
 import Menu from './Modules/menu.js'
+import Setting from './Modules/setting.js'
 
 export default new Vuex.Store({
 
@@ -24,6 +25,7 @@ export default new Vuex.Store({
     'admin': Admin,
     'config': Config,
     'menu': Menu,
+    'setting': Setting
   },
   
 })

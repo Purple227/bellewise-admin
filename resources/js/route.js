@@ -8,8 +8,9 @@ import ListRestaurant from './Components/Restaurant/index.vue';
 import AddRestaurant from './Components/Restaurant/addRestaurant.vue';
 import ViewRestaurant from './Components/Restaurant/viewRestaurant.vue';
 import EditRestaurant from './Components/Restaurant/editRestaurant.vue';
-
 import Menu from './Components/Restaurant/menu.vue';
+import AddMenu from './Components/Restaurant/addMenu.vue';
+import RestaurantSetting from './Components/Restaurant/restaurantSetting.vue';
 
 import Driver from './Components/Driver/index.vue';
 import AddDriver from './Components/Driver/addDriver.vue';
@@ -90,6 +91,18 @@ component: EditRestaurant
 path: '/restaurant/:id/menus',
 name:'restaurant-menu',
 component: Menu
+},
+
+{ 
+path: '/restaurant/:id/menu/add',
+name:'add-menu',
+component: AddMenu
+},
+
+{ 
+path: '/restaurant-setting/:id',
+name:'restaurant-setting',
+component: RestaurantSetting
 },
 
 { 

@@ -2,7 +2,28 @@
 
 <template>
 
-	<div class="container"> <!-- Container tag open -->
+<div>
+	
+
+
+
+<div class="card">
+  <div class="card-content">
+    <div class="content is-bold has-text-centered subtitle">
+
+  <span class="fa"> Content will be gotten from customer app. </span>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+	<div class="container" v-if="false"> <!-- Container tag open -->
 
 		<!-- Main container -->
 		<nav class="level">
@@ -236,6 +257,12 @@
 
 
 	</div> <!-- Container tag close -->
+
+
+
+
+
+</div>
 
 
 </template>

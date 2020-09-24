@@ -16,11 +16,16 @@ class CreateMenusTable extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
 
-            $table->unsignedBigInteger('restaurant_id');
             $table->string('name');
             $table->string('image')->default('default_image.svg');
             $table->string('description');
             $table->float('price', 10, 2);
+
+            $table->unsignedBigInteger('restaurant_id');
+            $table->foreign('restaurant_id')
+            ->references('id')->on('restaurants')
+            ->onDelete('cascade');            
+
             $table->timestamps();
         });
     }

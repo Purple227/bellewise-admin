@@ -10,7 +10,7 @@
 
 		<nav class="level">
 
-			<div class="level-item level-left">
+			<div class="level-item has-text-centered">
 				<div class="field has-addons">
 					<div class="control">
 						<input class="input" type="text" placeholder=" Search restaurant by name" v-model="searchQuery" v-on:keyup="searchMethod">

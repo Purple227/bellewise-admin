@@ -3,7 +3,26 @@
 	
 	<div class="container"> <!-- Container tag open -->
 
-		<div class="box"> <!-- Box tag open -->
+
+
+<div class="card">
+  <div class="card-content">
+    <div class="content is-bold has-text-centered subtitle">
+
+  <span class="fa"> Content will be gotten from customer app. </span>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+		<div class="box" v-if="false"> <!-- Box tag open -->
 
 			<div class="tabs is-toggle">
 

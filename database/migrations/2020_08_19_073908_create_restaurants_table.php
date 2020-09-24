@@ -21,13 +21,12 @@ class CreateRestaurantsTable extends Migration
             $table->string('phone');
             $table->string('image')->default('default_image.svg');
             $table->string('email')->unique();
-            $table->string('password');
             $table->boolean('status')->default(true);
             $table->string('address');
-            $table->integer('commmission');
-            $table->float('revenue', 10, 2);
+            $table->integer('commmission')->nullable();
+            $table->float('revenue', 10, 2)->nullable();
             $table->string('license_number');
-            $table->integer('discount');
+            $table->integer('discount')->nullable();
             
             $table->timestamps();
         });

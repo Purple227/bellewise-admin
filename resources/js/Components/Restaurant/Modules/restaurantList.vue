@@ -89,16 +89,6 @@
               <td>  
                 <div class="field is-grouped">
                   <p class="control">
-                    <router-link :to="{name: 'restaurant-menu', params: {id: restaurant.id}}" class="button purple-color" exact>
-                      Menu
-                    </router-link>
-                  </p>
-                  <p class="control">
-                    <router-link :to="{name: 'restaurant-setting', params: {id: restaurant.id}}" class="button purple-color" exact>
-                      Settings
-                    </router-link>
-                  </p>
-                  <p class="control">
                     <router-link :to="{name: 'view-restaurant', params: {id: restaurant.id}}" class="button purple-color" exact>
                       View
                     </router-link>
@@ -106,6 +96,16 @@
                   <p class="control">
                     <router-link :to="{name: 'edit-restaurant', params: {id: restaurant.id} }" class="button purple-color" exact>
                       Edit
+                    </router-link>
+                  </p>
+                  <p class="control">
+                    <router-link :to="{name: 'restaurant-menu', params: {id: restaurant.id}}" class="button purple-color" exact>
+                      Menu
+                    </router-link>
+                  </p>
+                  <p class="control">
+                    <router-link :to="{name: 'restaurant-setting', params: {id: restaurant.id}}" class="button purple-color" exact>
+                      Settings
                     </router-link>
                   </p>
                   <p class="control" @click="showModal = true">
@@ -125,7 +125,7 @@
                             </p>
                           </div>
                           <footer class="card-footer">
-                            <p class="card-footer-item is-bold purple-color pointer" v-on:click="deleteData(restaurant.id)">
+                            <p class="card-footer-item is-bold purple-color pointer" v-on:click="deleteData(restaurant.id, index)">
                               Delete
                             </p>
                             <p class="card-footer-item is-bold purple-color pointer" @click="showModal = false">
@@ -219,8 +219,8 @@ export default {
       this.searchRestaurantDatas(this.searchQuery)
     },
 
-    deleteData(id) {
-      this.destroyRestaurantData(id)
+    async deleteData(id, index) {
+      this.destroyRestaurantData(id).then(() => this.$store.getters.loadRestaurants.splice(index, 1) )
       this.fetchRestaurantDatas()
       this.showModal = false
     },

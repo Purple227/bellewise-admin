@@ -46,6 +46,14 @@ Route::post('/report/restaurant-mail', 'ReportController@mailNotification');
 Route::post('/restaurant-config/{id}', 'ConfigController@storeConfig');
 Route::get('/restaurant-config/{id}', 'ConfigController@show');
 
+Route::get('/restaurant-menu/search/{id}', 'MenuController@searchMenu');
+Route::get('/restaurant-menu/{id}', 'MenuController@menus');
+Route::post('/restaurant-menu/create/{id}', 'MenuController@createMenu');
+Route::delete('/restaurant-menu/delete/{id}', 'MenuController@destroy');
+
+Route::post('/setting/write-up', 'SettingController@createWriteUp');
+Route::get('/setting/write-up/{id}', 'SettingController@showWriteUp');
+
 Route::apiResources([
 	'driver' => 'DriverController',
 	'restaurant' => 'RestaurantController',

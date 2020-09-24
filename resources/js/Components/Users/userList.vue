@@ -3,7 +3,24 @@
 
 	<div class="container"> <!-- Container tag open -->
 
-		<div class="card"> <!-- Card tag open -->
+
+
+
+
+<div class="card">
+  <div class="card-content">
+    <div class="content is-bold has-text-centered subtitle">
+
+  <span class="fa"> Content will be gotten from customer app. </span>
+
+    </div>
+  </div>
+</div>
+
+
+		
+
+		<div class="card" v-if="false"> <!-- Card tag open -->
 
 			<div class="card-content table-container"> <!-- Card content tag open -->
 

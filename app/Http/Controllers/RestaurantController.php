@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Restaurant;
 use App\Menu;
-use App\Config;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
@@ -74,16 +73,12 @@ class RestaurantController extends Controller
     public function store(Request $request)
     {
 
-        return json_decode($request->menuloop);
-
         $validator = Validator::make($request->all(), [
             'restaurant_name' => 'required',
-            'description' => 'required',
-            'price' => 'required',
-            'phone' => ['required', 'unique:drivers'],
+            'phone' => ['required', 'unique:restaurants'],
             'address' => 'required',
             'license_number' => 'required',
-            'email' => ['email:rfc,dns', 'unique:drivers'],
+            'email' => ['email:rfc,dns', 'unique:restaurants'],
             'restaurant_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -91,17 +86,25 @@ class RestaurantController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-/*        $generated_password = mt_rand(100000, 999999);
+        $notify_info = $request->all();
+        unset($notify_info['file']);
+        $notify_info = (object) $notify_info;
+
 
         try {
             Notification::route('nexmo', $request->phone )
-            ->notify(new RestaurantCredentials($notify_info, $generated_password));
+            ->notify(new RestaurantCredentials($notify_info));
         } catch (\Exception $e) {
             Log::error(' Nexmo API developer are to be blame.');
         }
 
+        try {
         Notification::route('mail',$request->email)
-        ->notify(new RestaurantCredentials( $notify_info, $generated_password));*/
+        ->notify(new RestaurantCredentials( $notify_info));        
+        } catch (\Exception $e) {
+            Log::error(' Your network connection is to be blame.');
+        }
+
 
         // New driver object
         $restaurant = new Restaurant;
@@ -119,25 +122,8 @@ class RestaurantController extends Controller
         $restaurant->email = $request->email;
         $restaurant->discount = $request->discount;
         $restaurant->license_number = $request->license_number;
-        $restaurant->password = Hash::make($generated_password);
-
-        $menu = new Menu;
-        // Image set up for menu
-        if ( $request->hasFile('menu_file') ) {
-            $path = Storage::disk('public')->putFile('menu',$request->file('menu_file'));
-            $menu->image = $path;
-        }
-
-        $menu = $request->description;
-        $menu = array($menu);
-
-        $restaurant->menus()->createMany([
-            $menu
-        ]);
-
-
-        $restaurant->menus()->save($menu);
-
+        $restaurant->commmission = $request->commmision;
+        $restaurant->save();
 
         return 'Suceess';
 
@@ -165,7 +151,45 @@ class RestaurantController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $restaurant = Restaurant::find($id);
+
+        $validator = Validator::make($request->all(), [
+            'restaurant_name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'phone' => ['required', 'unique:restaurants'],
+            'address' => 'required',
+            'license_number' => 'required',
+            'email' => ['email:rfc,dns', 'unique:restaurants'],
+            'restaurant_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json($validator->errors(), 400);
+        }
+
+        // Image set up
+        $restaurant->image = 'default_image.svg';
+        if ( $request->hasFile('file') ) {
+            Storage::disk('public')->delete($restaurant->image);
+            $path = Storage::disk('public')->putFile('restaurant',$request->file('file'));
+            $restaurant->image = $path;
+        }
+
+        // Save to database
+        $restaurant->name = $request->restaurant_name;
+        $restaurant->phone = $request->phone;
+        $restaurant->address = $request->address;
+        $restaurant->email = $request->email;
+        $restaurant->discount = $request->discount;
+        $restaurant->license_number = $request->license_number;
+        $restaurant->password = Hash::make($generated_password);
+        $restaurant->save();
+
+        return 'Suceess';
+
+
     }
 
     public function statusUpdate(Request $request, $id)
@@ -183,6 +207,8 @@ class RestaurantController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $restaurant = Restaurant::findOrFail($id);
+        Storage::disk('public')->delete($restaurant->image);
+        $restaurant->menus()->delete();
     }
 }

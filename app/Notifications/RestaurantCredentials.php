@@ -6,26 +6,21 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Notifications\Messages\NexmoMessage;
 
 class RestaurantCredentials extends Notification implements ShouldQueue
 {
     use Queueable;
 
-
-    public $restaurant
-    public $password 
-
+    public $restaurant;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($restaurant, $password)
+    public function __construct($restaurant)
     {
         $this->restaurant = $restaurant;
-        $this->password = $password;
     }
 
     /**
@@ -48,11 +43,10 @@ class RestaurantCredentials extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->subject('Bellewise')
-        ->greeting( $this->restaurant->restaurant_name)
-        ->line(  'You decide to partner with bellewise.') 
-        ->action('Get the app', url('/') )
-        ->line('Thank you for partnering with us!'); 
+        ->subject('Partnership')
+        ->greeting($this->restaurant->restaurant_name)
+        ->line('Congratulation and welcome' . ' ' . $this->restaurant->restaurant_name . ' ' . ', Thanks for partnering with us.') 
+        ->line('Regards Bellewise'); 
     }
 
     /**
@@ -68,11 +62,16 @@ class RestaurantCredentials extends Notification implements ShouldQueue
         ];
     }
 
-
+    /**
+     * Get the Nexmo / SMS representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return NexmoMessage
+     */
     public function toNexmo($notifiable)
     {
 
-        $message = 'Thanks for joining bellewise';
+        $message = 'Congratulation and welcomee' . ' ' . $this->restaurant->restaurant_name . ' ' . ', Thanks for partnering with us. Regards Bellewise';
         return (new NexmoMessage)
         ->content($message);
     }

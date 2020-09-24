@@ -16,7 +16,7 @@ const state = {
 	menuProgress: null,
 	menuErrors: null,
 
-	menuSearch: null,
+	menuSearch: [],
 
 	menuPagination: {
 		nextPageUrl: null,
@@ -42,9 +42,9 @@ const getters = {
 
 const actions = {
 
-	async fetchMenuDatas({commit}, uri) {
+	async fetchMenuDatas({commit}, {uri, id} ) {
 		commit('setLoading', true)
-		let api = uri || '/api/driver'
+		let api = uri || '/api/restaurant-menu/' +id
 		const response = await axios.get(api);
 		commit('setDatas', response.data.data)
 		commit('setLoading', false)
@@ -68,27 +68,31 @@ const actions = {
 		commit('setLoading', false)
 	},
 
-	async searchMenuDatas({commit}, searchQuery) {
-		const response = await axios.get('/api/driver/search',{params: {search_query: searchQuery}})
+	async searchMenuDatas({commit}, {searchQuery, id}) {
+		let api = '/api/restaurant-menu/search/' +id
+		const response = await axios.get(api ,{params: {search_query: searchQuery}})
 		commit('setSearch', response.data)
 	},
 
 	async destroyMenuData({commit}, id ) {
-		let api = '/api/driver/' + id
+		let api = '/api/restaurant-menu/delete/' + id
 		const response = await axios.delete(api);
 		commit('setNotification', true)
 	},
 
-	async createMenuData({ commit }, data) {
+	async createMenuData({ commit }, { data, id } ) {
 		commit('setProgress', true)
+		let api = '/api/restaurant-menu/create/' + id
+		console.log(data)
+		console.log(id)
 		const config = {
 			headers: { 'content-type': 'application/x-www-form-urlencoded' }
 		}
-		const response = await axios.post('/api/driver', data, config )
+		const response = await axios.post(api, data, config )
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			app.$router.push({name: 'driver-list'})
+			app.$router.push({name: 'restaurant-menu'})
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -124,11 +128,11 @@ const actions = {
 	},
 
 
-	async clearErrors ({commit}) {
+	async clearMenuErrors ({commit}) {
 		commit('unsetErrors')
 	},
 
-	async clearNotification ({commit}) {
+	async clearMenuNotification ({commit}) {
 		setTimeout(() => {
 			commit('unsetNotification', false)
 		}, 10000)

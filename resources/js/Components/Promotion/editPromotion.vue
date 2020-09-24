@@ -243,15 +243,10 @@
 <script>
 
 import { required, email, numeric, minLength } from 'vuelidate/lib/validators'
-import BulmaCalendar from "../../Mixins/bulmaCalendar.js";
 import { mapGetters, mapActions, mapState } from 'vuex';
 import bulmaCalendar from 'bulma-extensions/bulma-calendar/dist/js/bulma-calendar.min.js';
 
 export default {
-
-	mixins: [
-	BulmaCalendar
-	],
 
 	data: () => ({
 		searchQuery: '',
@@ -265,6 +260,7 @@ export default {
 		this.fetchRestaurantDatas()
 		this.fetchAllRestaurantDatas()
 		this.loadRestaurantPreviouslySelectedId()
+		this.bulmaCalendar()
 	},
 
 	methods: {

@@ -2,7 +2,29 @@
 
 <template>
 
-	<div class="container"> <!-- Container tag open -->
+<div>
+
+
+
+	<div class="card">
+  <div class="card-content">
+    <div class="content is-bold has-text-centered subtitle">
+
+  <span class="fa"> Content will be gotten from customer app. </span>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+	<div class="container" v-if="false"> <!-- Container tag open -->
 
 		<nav class="level">
 
@@ -17,24 +39,6 @@
 						</a>
 					</div>
 				</div>
-			</div>
-
-			<div class="level-item has-text-centered">
-				<div class="field has-addons">
-					<p class="control">
-						<input id="my-element" type="date" data-display-mode="dialog"  data-close-on-select="false" data-color="info">
-					</p>
-					<p class="control">
-						<a class="button purple-color ">
-							By Date
-						</a>
-					</p>
-				</div>
-			</div>
-
-
-			<div class="level-item has-text-centered">
-				<button class="button purple-color is-bold"> Download CSV</button>
 			</div>
 
 		</nav>
@@ -228,6 +232,15 @@
 
 
 	</div> <!-- Container tag close -->
+
+
+
+
+
+
+
+
+</div>
 
 
 </template>
