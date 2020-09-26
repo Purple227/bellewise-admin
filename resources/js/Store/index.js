@@ -12,7 +12,8 @@ import Report from './Modules/report.js'
 import Admin from './Modules/admin.js'
 import Config from './Modules/config.js'
 import Menu from './Modules/menu.js'
-import Setting from './Modules/setting.js'
+import SettingBasic from './Modules/settingBasic.js'
+import SettingTermPolicy from './Modules/settingTermPolicy.js'
 
 export default new Vuex.Store({
 
@@ -25,7 +26,8 @@ export default new Vuex.Store({
     'admin': Admin,
     'config': Config,
     'menu': Menu,
-    'setting': Setting
+    'setting-basic': SettingBasic,
+    'setting-term-policy': SettingTermPolicy
   },
   
 })

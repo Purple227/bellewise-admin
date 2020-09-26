@@ -16,13 +16,14 @@ class CreateCancellationPoliciesTable extends Migration
         Schema::create('cancellation_policies', function (Blueprint $table) {
             $table->id();
 
-            $table->date('max_canellation_time');
-            $table->string('pending');
-            $table->string('confirmed');
-            $table->string('on_the_way');
-            $table->string('delivered');
-            $table->string('ready_to_be_picked');
-            $table->string('in_kitchen');
+            $table->string('max_canellation_time')->nullable();
+            $table->float('partial_deduction_charge', 10, 2);
+            $table->string('pending')->nullable();
+            $table->string('confirmed')->nullable();
+            $table->string('on_the_way')->nullable();
+            $table->string('delivered')->nullable();
+            $table->string('ready_to_be_picked')->nullable();
+            $table->string('in_kitchen')->nullable();
 
             $table->timestamps();
         });

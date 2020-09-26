@@ -22,12 +22,6 @@
 						</a>
 					</li>
 
-					<li v-bind:class="{ 'active': about }" @click="[basic = false, tc=false, about=true]">
-						<a>
-							<span class=" " v-bind:class="{ 'has-text-white': about }"> About </span>
-						</a>
-					</li>
-
 				</ul>
 
 			</div>
@@ -38,10 +32,6 @@
 
 			<div class="" v-if="tc">
 				<tc-pp> </tc-pp>
-			</div>
-
-			<div class="" v-if="about">
-				<about-section> </about-section>
 			</div>
 
 
@@ -56,20 +46,17 @@
 <script>
 import Basic from "./partials/basic.vue"
 import TCPP from "./partials/TC-PP.vue"
-import AboutSection from "./partials/about.vue"
 
 export default {
 
 	components: {
 		'basic-section': Basic,
 		'tc-pp': TCPP,
-		'about-section': AboutSection,
 	},
 
 	data: () => ({
 		basic: true,
 		tc: false,
-		about: false,
 	}),
 
 }

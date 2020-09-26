@@ -9,19 +9,21 @@ import { app } from '../../app.js'
 
 
 const state = {
-	writeUpDatas: null,
+
+	writeUpDatas: {},
+	cancellationPolicy: {},
 	settingLoader: false,
 	settingProgress: false,
 	SettingErrors: null,
 	settingNotification: null,
-
 
 }; // State calibrace close
 
 const getters = {
 
 	loadWriteUp: (state) => state.writeUpDatas,
-	loadSettingLoader: (state) => state.SettingLoader,
+	loadCancellationPolicy: (state) => state.cancellationPolicy,
+	loadSettingLoader: (state) => state.settingLoader,
 	loadSettingNotification: (state) => state.settingNotification,
 	loadSettingErrors: (state) => state.SettingErrors,
 	loadSettingProgress: (state) => state.settingProgress,
@@ -38,6 +40,16 @@ const actions = {
 		commit('setLoading', false)
 	},
 
+	async fetchCancellationPolicy({commit} ) {
+		commit('setLoading', true)
+		let api = '/api/setting/cancellation-policy/' + 1
+		const response = await axios.get(api);
+		commit('setCancellationPolicy', response.data)
+		commit('setLoading', false)
+	},
+
+
+
 	async createWriteUp({ commit }, data) {
 		commit('setProgress', true)
 		const config = {
@@ -47,6 +59,28 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
+			history.go();
+		}).catch(error=>{
+			let failure = error.response.data
+			commit('setErrors', failure)
+			commit('setProgress', false)
+
+			setTimeout(() => {
+				commit('setErrors', null)
+			}, 10000)
+		})
+	},
+
+	async createCancellationPolicy({ commit }, data) {
+		commit('setProgress', true)
+		const config = {
+			headers: { 'content-type': 'application/x-www-form-urlencoded' }
+		}
+		const response = await axios.post('/api/setting/cancellation-policy', data, config )
+		.then((response) => {
+			commit('setNotification', true)
+			commit('setProgress', false)
+			history.go();
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -60,7 +94,7 @@ const actions = {
 
 	async editWriteUp({ commit }, {data, id}) {
 		commit('setProgress', true)
-		let api = '/api/driver/' + id
+		let api = '/api/setting/write-up/' + id
 		const config = {
 			headers: { 'content-type': 'application/x-www-form-urlencoded' }
 		}
@@ -68,7 +102,7 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			app.$router.push({name: 'driver-list'})
+			history.go();
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -80,6 +114,30 @@ const actions = {
 		})
 
 	},
+
+	async editCancellationPolicy({ commit }, {data, id}) {
+		commit('setProgress', true)
+		let api = '/api/setting/cancellation-policy/' + id
+		const config = {
+			headers: { 'content-type': 'application/x-www-form-urlencoded' }
+		}
+		const response = await axios.post(api, data, config )
+		.then((response) => {
+			commit('setNotification', true)
+			commit('setProgress', false)
+			history.go();
+		}).catch(error=>{
+			let failure = error.response.data
+			commit('setErrors', failure)
+			commit('setProgress', false)
+
+			setTimeout(() => {
+				commit('setErrors', null)
+			}, 10000)
+		})
+
+	},
+
 
 
 	async clearSettingErrors ({commit}) {
@@ -97,11 +155,12 @@ const actions = {
 const mutations = {
 
 	setWriteUp: (state, data) => state.writeUpDatas = data,
+	setCancellationPolicy : (state, datas) => state.cancellationPolicy = datas,
 
 	setNotification: (state, notification) => state.settingNotification = notification,
 	unsetNotification: (state, notification) => state.settingNotification = notification,
 
-	setLoading: (state, loading) => state.SettingLoading = loading,
+	setLoading: (state, loading) => state.settingLoader = loading,
 
 	setProgress: (state, progress) => state.settingProgress = progress,
 

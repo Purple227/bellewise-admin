@@ -51,8 +51,19 @@ Route::get('/restaurant-menu/{id}', 'MenuController@menus');
 Route::post('/restaurant-menu/create/{id}', 'MenuController@createMenu');
 Route::delete('/restaurant-menu/delete/{id}', 'MenuController@destroy');
 
-Route::post('/setting/write-up', 'SettingController@createWriteUp');
-Route::get('/setting/write-up/{id}', 'SettingController@showWriteUp');
+Route::post('/setting/write-up', 'SettingBasicController@createWriteUp');
+Route::get('/setting/write-up/{id}', 'SettingBasicController@showWriteUp');
+Route::patch('/setting/write-up/{id}', 'SettingBasicController@updateWriteUp');
+Route::post('/setting/cancellation-policy', 'SettingBasicController@createCancellationPolicy');
+Route::get('/setting/cancellation-policy/{id}', 'SettingBasicController@showCancellationPolicy');
+Route::patch('/setting/cancellation-policy/{id}', 'SettingBasicController@updateCancellationPolicy');
+
+Route::post('/setting/policy', 'SettingTermPolicyController@createPolicy');
+Route::get('/setting/policy/{id}', 'SettingTermPolicyController@showPolicy');
+Route::patch('/setting/policy/{id}', 'SettingTermPolicyController@updatePolicy');
+Route::post('/setting/term', 'SettingTermPolicyController@createTerm');
+Route::get('/setting/term/{id}', 'SettingTermPolicyController@showTerm');
+Route::patch('/setting/term/{id}', 'SettingTermPolicyController@updateTerm');
 
 Route::apiResources([
 	'driver' => 'DriverController',
