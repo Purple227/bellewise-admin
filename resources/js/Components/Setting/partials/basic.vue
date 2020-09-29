@@ -91,11 +91,11 @@
   <label class="label"> Max. Cancellation Waiting Time  </label>
   <div class="field has-addons">
     <p class="control is-expanded ">
-      <input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time" data-time-format="HH:MM">
+      <input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time" data-time-format="HH:MM" required>
     </p>
     <p class="control">
       <a class="button is-bold">
-        {{ loadCancellationPolicy.max_canellation_time == null ? "00:00" : loadCancellationPolicy.max_canellation_time }}
+        Currently : {{ loadCancellationPolicy.max_canellation_time == 'null' ? "00:00" : loadCancellationPolicy.max_canellation_time }}
       </a>
     </p>
   </div>
@@ -108,7 +108,7 @@
 <div class="column"> <!-- Second column tag open-->
 
   <label class="label "> Partial Refund Deduction Charges </label>
-  <div class="field has-addons">
+  <div class="field has-addons" v-if="Object.keys(loadCancellationPolicy).length == 0">
     <p class="control">
       <span class="select">
         <select>
@@ -117,9 +117,9 @@
       </span>
     </p>
     <p class="control is-expanded has-icons-right">
-      <input class="input is-info" type="number" min="0" oninput="validity.valid||(value='');" placeholder="Amount of money" v-model="partialRefundDeductionCharge">
+      <input class="input is-info" type="number" min="0" oninput="validity.valid||(value='');" placeholder="Amount of money" v-model="cancellationPolicy.partialRefundDeductionCharge">
       <!-- Has icon right -->
-      <span class="icon is-small is-right" v-if="$v.partialRefundDeductionCharge.required">
+      <span class="icon is-small is-right" v-if="$v.cancellationPolicy.partialRefundDeductionCharge.required">
         <i class="fas fa-check purple-color"></i>
       </span>
       <span class="icon is-small is-right" v-else>
@@ -128,21 +128,34 @@
     </p>
   </div>
 
-
+  <div class="field has-addons" v-else>
+    <p class="control">
+      <span class="select">
+        <select>
+          <option>₦</option>
+        </select>
+      </span>
+    </p>
+    <p class="control is-expanded has-icons-right">
+      <input class="input is-info" type="number" min="0" oninput="validity.valid||(value='');" placeholder="Amount of money" v-model="loadCancellationPolicy.partial_deduction_charge">
+      <!-- Has icon right -->
+      <span class="icon is-small is-right" v-if="$v.loadCancellationPolicy.partial_deduction_charge.required">
+        <i class="fas fa-check purple-color"></i>
+      </span>
+      <span class="icon is-small is-right" v-else>
+        <i class="fas fa-exclamation-triangle has-text-danger"></i>
+      </span>
+    </p>
+  </div>
 
 </div> <!-- Second column tag close -->
 
-
 </div> <!-- Columns wrapper tag close -->
-
-
-
 
 
 <div class="content is-bold"> <!-- Content tag open -->
 
   <span class="mr-6 ml-5 mb-3 purple-color"> Status </span> <span class="ml-6 mb-3 purple-color"> Refund Type </span>
-
 
   <div class="field is-horizontal">
     <div class="field-label is-normal ">
@@ -152,12 +165,21 @@
       <div class="field is-narrow">
         <div class="control">
           <div class="select is-fullwidth">
-            <select v-model="pending.selected">
-              <option disabled value=""> {{ loadCancellationPolicy.pending  == null ? 'Please select one' : loadCancellationPolicy.pending }} </option>
+
+            <select v-model="pending.selected" v-if="loadCancellationPolicy.pending == null">
+              <option disabled value=""> Please select one </option>
               <option> Full Refund </option>
               <option> Partial Refund </option>
               <option> No Refund </option>
             </select>
+
+            <select v-model="loadCancellationPolicy.pending" v-else>
+              <option disabled value=""> {{ loadCancellationPolicy.pending }} </option>
+              <option> Full Refund </option>
+              <option> Partial Refund </option>
+              <option> No Refund </option>
+            </select>
+
           </div>
         </div>
       </div>
@@ -172,17 +194,29 @@
       <div class="field is-narrow">
         <div class="control">
           <div class="select is-fullwidth">
-            <select v-model="confirmed.selected">
-              <option disabled value=""> {{ loadCancellationPolicy.confirmed  == null ? 'Please select one' : loadCancellationPolicy.confirmed }} </option>
+
+            <select v-model="confirmed.selected" v-if="loadCancellationPolicy.confirmed == null ">
+              <option disabled value=""> Please select one </option>
               <option> Full Refund </option>
               <option> Partial Refund </option>
               <option> No Refund </option>
             </select>
+
+            <select v-model="loadCancellationPolicy.confirmed" v-else>
+              <option disabled value=""> {{ loadCancellationPolicy.confirmed }} </option>
+              <option> Full Refund </option>
+              <option> Partial Refund </option>
+              <option> No Refund </option>
+            </select>
+
+
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
 
   <div class="field is-horizontal">
     <div class="field-label is-normal ">
@@ -192,12 +226,21 @@
       <div class="field is-narrow">
         <div class="control">
           <div class="select is-fullwidth">
-            <select v-model="onTheWay.selected">
-              <option disabled value=""> {{ loadCancellationPolicy.on_the_way  == null ? 'Please select one' : loadCancellationPolicy.on_the_way }} </option>
+
+            <select v-model="onTheWay.selected" v-if="loadCancellationPolicy.on_the_way == null ">
+              <option disabled value=""> Please select one </option>
               <option> Full Refund </option>
               <option> Partial Refund </option>
               <option> No Refund </option>
             </select>
+
+            <select v-model="loadCancellationPolicy.on_the_way" v-else>
+              <option disabled value=""> {{ loadCancellationPolicy.on_the_way }} </option>
+              <option> Full Refund </option>
+              <option> Partial Refund </option>
+              <option> No Refund </option>
+            </select>
+
           </div>
         </div>
       </div>
@@ -213,12 +256,23 @@
       <div class="field is-narrow">
         <div class="control">
           <div class="select is-fullwidth">
-            <select v-model="delivered.selected">
-              <option disabled value=""> {{ loadCancellationPolicy.delivered  == null ? 'Please select one' : loadCancellationPolicy.delivered }} </option>
+
+
+            <select v-model="delivered.selected" v-if="loadCancellationPolicy.delivered == null ">
+              <option disabled value=""> Please select one </option>
               <option> Full Refund </option>
               <option> Partial Refund </option>
               <option> No Refund </option>
             </select>
+
+            <select v-model="loadCancellationPolicy.delivered" v-else>
+              <option disabled value=""> {{ loadCancellationPolicy.delivered }} </option>
+              <option> Full Refund </option>
+              <option> Partial Refund </option>
+              <option> No Refund </option>
+            </select>
+
+
           </div>
         </div>
       </div>
@@ -234,12 +288,23 @@
       <div class="field is-narrow">
         <div class="control">
           <div class="select is-fullwidth">
-            <select v-model="readyToBePicked.selected">
-              <option disabled value=""> {{ loadCancellationPolicy.ready_to_be_picked  == null ? 'Please select one' : loadCancellationPolicy.ready_to_be_picked }} </option>
+
+
+            <select v-model="readyToBePicked.selected" v-if="loadCancellationPolicy.ready_to_be_picked == null ">
+              <option disabled value=""> Please select one </option>
               <option> Full Refund </option>
               <option> Partial Refund </option>
               <option> No Refund </option>
             </select>
+
+            <select v-model="loadCancellationPolicy.ready_to_be_picked" v-else>
+              <option disabled value=""> {{ loadCancellationPolicy.ready_to_be_picked }} </option>
+              <option> Full Refund </option>
+              <option> Partial Refund </option>
+              <option> No Refund </option>
+            </select>
+
+
           </div>
         </div>
       </div>
@@ -254,12 +319,23 @@
       <div class="field is-narrow">
         <div class="control">
           <div class="select  has-addons-fullwidth">
-            <select v-model="inKitchen.selected">
-              <option disabled value=""> {{ loadCancellationPolicy.in_kitchen  == null ? 'Please select one' : loadCancellationPolicy.in_kitchen }} </option>
+
+
+            <select v-model="inKitchen.selected" v-if="loadCancellationPolicy.in_kitchen == null ">
+              <option disabled value=""> Please select one </option>
               <option> Full Refund </option>
               <option> Partial Refund </option>
               <option> No Refund </option>
             </select>
+
+            <select v-model="loadCancellationPolicy.in_kitchen" v-else>
+              <option disabled value=""> {{ loadCancellationPolicy.in_kitchen }} </option>
+              <option> Full Refund </option>
+              <option> Partial Refund </option>
+              <option> No Refund </option>
+            </select>
+
+
           </div>
         </div>
       </div>
@@ -269,9 +345,9 @@
 </div> <!-- Content tag open -->
 
 
-<div class="field">
+<div class="field" v-if="Object.keys(loadCancellationPolicy).length == 0">
   <p class="control">
-   <button class="button" v-bind:class="{ 'is-loading': loadSettingProgress }" @click="submitFormTwo" :disabled="$v.partialRefundDeductionCharge.$invalid">
+   <button class="button" v-bind:class="{ 'is-loading': loadSettingProgress }" @click="submitFormTwo" :disabled="$v.cancellationPolicy.$invalid">
     <span class="icon is-small">
      <i class="fas fa-save purple-color"></i>
    </span>
@@ -279,6 +355,19 @@
  </button>
 </p>
 </div>
+
+
+<div class="field" v-else>
+  <p class="control">
+   <button class="button" v-bind:class="{ 'is-loading': loadSettingProgress }" @click="submitFormTwoUpdate" :disabled="$v.loadCancellationPolicy.$invalid">
+    <span class="icon is-small">
+     <i class="fas fa-save purple-color"></i>
+   </span>
+   <span class="is-bold"> Update </span>
+ </button>
+</p>
+</div>
+
 
 
 </div> <!-- column tag close -->
@@ -307,8 +396,11 @@ export default {
 	data: () => ({
 
    writeUp : null,
-   maxCancellationTime: null,
-   partialRefundDeductionCharge: null,
+
+   cancellationPolicy: {
+     maxCancellationTime: null,
+     partialRefundDeductionCharge: null,
+   },
 
    pending : {
     selected: '',
@@ -344,8 +436,14 @@ export default {
       maxLength: maxLength(225)
     },
 
-    partialRefundDeductionCharge: {
-      required
+
+    cancellationPolicy: {
+      maxCancellationTime: {
+        required,
+      },
+      partialRefundDeductionCharge: {
+        required
+      }
     },
 
     loadWriteUp: {
@@ -355,11 +453,22 @@ export default {
       }
     },
 
+    loadCancellationPolicy: {
+      max_canellation_time: { 
+        required,
+      },
+      partial_deduction_charge: { 
+        required,
+      }
+    },
+
   },
 
   mounted() {
-   Object.keys(this.$store.getters.loadWriteUp == 0) ? this.fetchWriteUp() : ''
-   Object.keys(this.$store.getters.loadCancellationPolicy == 0) ? this.fetchCancellationPolicy() : ''
+    this.setWriteUpId()
+    this.setcancellationPolicy()
+   //Object.keys(this.$store.getters.loadWriteUp == 0) ? console.log('yes') : console.log('no')
+   //Object.keys(this.$store.getters.loadCancellationPolicy == 0) ? this.fetchCancellationPolicy() : ''
    this.bulmaCalendar()
  },
 
@@ -368,6 +477,15 @@ export default {
 
     // Local method goes here
 
+    setWriteUpId() {
+      let id = 1
+      this.fetchWriteUp(id)
+    },
+
+    setcancellationPolicy() {
+      let id = 1
+      this.fetchCancellationPolicy(id)
+    },
 
     submitFormOne() {
       let data = new FormData();
@@ -379,8 +497,8 @@ export default {
     submitFormTwo() {
       let data = new FormData();
       data.append("_method", "post");
-      data.append('max_canellation_time', this.maxCancellationTime);
-      data.append('partial_deduction_charge', this.partialRefundDeductionCharge);
+      data.append('max_canellation_time', this.cancellationPolicy.maxCancellationTime);
+      data.append('partial_deduction_charge', this.cancellationPolicy.partialRefundDeductionCharge);
       data.append('pending', this.pending.selected);
       data.append('confirmed', this.confirmed.selected);
       data.append('on_the_way', this.onTheWay.selected);
@@ -400,16 +518,17 @@ export default {
 
     submitFormTwoUpdate() {
       let data = new FormData();
-      data.append("_method", "post");
-      data.append('max_canellation_time', this.maxCancellationTime);
-      data.append('partial_deduction_charge', this.partialRefundDeductionCharge);
-      data.append('pending', this.pending.selected);
-      data.append('confirmed', this.confirmed.selected);
-      data.append('on_the_way', this.onTheWay.selected);
-      data.append('delivered', this.delivered.selected);
-      data.append('ready_to_be_picked', this.readyToBePicked.selected);
-      data.append('in_kitchen', this.inKitchen.selected);
-      this.editCancellationPolicy(data)
+      data.append("_method", "patch");
+      data.append('max_canellation_time', this.$store.getters.loadCancellationPolicy.max_canellation_time);
+      data.append('partial_deduction_charge', this.$store.getters.loadCancellationPolicy.partial_deduction_charge);
+      data.append('pending', this.$store.getters.loadCancellationPolicy.pending == null ? this.pending.selected : this.$store.getters.loadCancellationPolicy.pending );
+      data.append('confirmed', this.$store.getters.loadCancellationPolicy.confirmed == null ? this.confirmed.selected : this.$store.getters.loadCancellationPolicy.confirmed);
+      data.append('on_the_way', this.$store.getters.loadCancellationPolicy.on_the_way == null ? this.onTheWay.selected : this.$store.getters.loadCancellationPolicy.on_the_way);
+      data.append('delivered', this.$store.getters.loadCancellationPolicy.delivered == null ? this.delivered.selected : this.$store.getters.loadCancellationPolicy.delivered);
+      data.append('ready_to_be_picked', this.$store.getters.loadCancellationPolicy.ready_to_be_picked == null ? this.readyToBePicked.selected : this.$store.getters.loadCancellationPolicy.ready_to_be_picked);
+      data.append('in_kitchen', this.$store.getters.loadCancellationPolicy.in_kitchen == null ? this.inKitchen.selected : this.$store.getters.loadCancellationPolicy.in_kitchen);
+      let id = this.$store.getters.loadCancellationPolicy.id
+      this.editCancellationPolicy({data, id})
     },
 
     bulmaCalendar() {
@@ -429,7 +548,8 @@ const element = document.querySelector('#my-element');
 if (element) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   element.bulmaCalendar.on('select', datepicker => {
-    this.maxCancellationTime = datepicker.data.value();
+    this.cancellationPolicy.maxCancellationTime = datepicker.data.value();
+    Object.keys(this.$store.getters.loadCancellationPolicy == 0) ? '' : this.$store.getters.loadCancellationPolicy.max_canellation_time = datepicker.data.value();
   });
 }
 

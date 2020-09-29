@@ -1,9 +1,5 @@
 import Vue from 'vue'
 
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-Vue.use(VueAxios, axios)
-
 //routes
 import { app } from '../../app.js'
 
@@ -32,17 +28,17 @@ const getters = {
 
 const actions = {
 
-	async fetchWriteUp({commit} ) {
+	async fetchWriteUp({commit}, id ) {
 		commit('setLoading', true)
-		let api = '/api/setting/write-up/' + 1
+		let api = '/api/setting/write-up/' + id
 		const response = await axios.get(api);
 		commit('setWriteUp', response.data)
 		commit('setLoading', false)
 	},
 
-	async fetchCancellationPolicy({commit} ) {
+	async fetchCancellationPolicy({commit}, id ) {
 		commit('setLoading', true)
-		let api = '/api/setting/cancellation-policy/' + 1
+		let api = '/api/setting/cancellation-policy/' + id
 		const response = await axios.get(api);
 		commit('setCancellationPolicy', response.data)
 		commit('setLoading', false)
@@ -117,6 +113,8 @@ const actions = {
 
 	async editCancellationPolicy({ commit }, {data, id}) {
 		commit('setProgress', true)
+		console.log(...data)
+		console.log(id)
 		let api = '/api/setting/cancellation-policy/' + id
 		const config = {
 			headers: { 'content-type': 'application/x-www-form-urlencoded' }

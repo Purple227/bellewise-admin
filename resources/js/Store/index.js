@@ -10,10 +10,11 @@ import Promo from './Modules/promo.js'
 import SubAdmin from './Modules/subAdmin.js'
 import Report from './Modules/report.js'
 import Admin from './Modules/admin.js'
-import Config from './Modules/config.js'
+import RestaurantSetting from './Modules/restaurantSetting.js'
 import Menu from './Modules/menu.js'
 import SettingBasic from './Modules/settingBasic.js'
 import SettingTermPolicy from './Modules/settingTermPolicy.js'
+import Auth from './Modules/auth.js'
 
 export default new Vuex.Store({
 
@@ -24,10 +25,11 @@ export default new Vuex.Store({
     'sub-admin': SubAdmin, 
     'report': Report,
     'admin': Admin,
-    'config': Config,
+    'restaurant-setting': RestaurantSetting,
     'menu': Menu,
     'setting-basic': SettingBasic,
-    'setting-term-policy': SettingTermPolicy
+    'setting-term-policy': SettingTermPolicy,
+    'auth': Auth,
   },
   
 })

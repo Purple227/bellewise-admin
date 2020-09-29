@@ -39,7 +39,8 @@ import Report from './Components/Report/index.vue';
 import Account from './Components/Accounting/index.vue';
 
 import Setting from './Components/Setting/setting.vue';
-import Admin from './Components/Admin/index.vue';
+
+import Auth from './Components/Auth/index.vue';
 
 const Bar = { template: '<div>bar</div>' }
 
@@ -58,9 +59,9 @@ component: Home
 },
 
 { 
-path: '/admin-access',
-name:'admin',
-component: Admin
+path: '/auth/access',
+name:'auth-access',
+component: Auth
 },
 
 { 

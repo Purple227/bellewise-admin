@@ -1,9 +1,5 @@
 import Vue from 'vue'
 
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-Vue.use(VueAxios, axios)
-
 //routes
 import { app } from '../../app.js'
 
@@ -13,7 +9,7 @@ const state = {
 	configNotification: null,
 	configProgress: null,
 	configLoader: null,
-	restaurantConfig: null,
+	restaurantConfig: {},
 
 
 }; // State calibrace close
@@ -32,7 +28,7 @@ const actions = {
 	async restaurantConfigSetting({ commit }, {data, id}) {
 		commit('setProgress', true)
 		console.log(...data)
-		let api = '/api/restaurant-config/' + id
+		let api = '/api/restaurant-setting/' + id
 		const config = {
 			headers: { 'content-type': 'application/x-www-form-urlencoded' }
 		}
@@ -40,7 +36,7 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			//app.$router.push({name: 'list-restaurant'})
+			history.go();
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setProgress', false)
@@ -50,12 +46,36 @@ const actions = {
 
 	async fetchRestaurantConfig({commit}, id) {
 		commit('setLoader', true)
-		let api = '/api/restaurant-config/' + id
+		let api = '/api/restaurant-setting/' + id
 		const response = await axios.get(api);
 		commit('setRestaurantConfig', response.data)
 		commit('setLoader', false)
 	},
 
+
+	async editRestaurantConfig({ commit }, {data, id}) {
+		commit('setProgress', true)
+		console.log(...data)
+		console.log(id)
+		let api = '/api/restaurant-setting/' + id
+		const config = {
+			headers: { 'content-type': 'application/x-www-form-urlencoded' }
+		}
+		const response = await axios.post(api, data, config )
+		.then((response) => {
+			commit('setNotification', true)
+			commit('setProgress', false)
+		}).catch(error=>{
+			let failure = error.response.data
+			commit('setErrors', failure)
+			commit('setProgress', false)
+
+			setTimeout(() => {
+				commit('setErrors', null)
+			}, 10000)
+		})
+
+	},
 
 }; //Actions calibrace close
 
@@ -75,4 +95,3 @@ export default {
 	actions,
 	mutations
 };
-

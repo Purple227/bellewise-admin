@@ -1,9 +1,5 @@
 import Vue from 'vue'
 
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-Vue.use(VueAxios, axios)
-
 //routes
 import { app } from '../../app.js'
 
@@ -13,6 +9,8 @@ const state = {
 	adminNotification: null,
 	adminProgress: null,
 	adminErrors: null,
+	adminCounter: null,
+	adminLoader: null,
 
 }; // State calibrace close
 
@@ -21,6 +19,8 @@ const getters = {
 	loadAdminNotification: (state) => state.adminNotification,
 	loadAdminProgress: (state) => state.adminProgress,
 	loadAdminErrors: (state) => state.adminErrors,
+	loadAdminCounter: (state) => state.adminCounter,
+	loadAdminLoader: (state) => state.adminLoader,
 
 }; //Getters calibrace close
 
@@ -35,7 +35,7 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			app.$router.push({name: 'sub-admin-list'})
+			app.$router.push({name: 'auth-access'})
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -47,10 +47,25 @@ const actions = {
 		})
 	},
 
+	async fetchAdmin({commit}) {
+		commit('setLoading', true)
+		let api ='/api/admin'
+		const response = await axios.get(api);
+		commit('setDatas', response.data)
+		commit('setLoading', false)
+	},
+
+
 	async clearAdminErrors ({commit}) {
 		commit('unsetErrors')
 	},
 
+
+	async clearAdminNotification ({commit}) {
+		setTimeout(() => {
+			commit('unsetNotification', false)
+		}, 10000)
+	},
 
 }; //Actions calibrace close
 
@@ -59,10 +74,16 @@ const mutations = {
 	setNotification: (state, notification) => state.adminNotification = notification,
 	unsetNotification: (state, notification) => state.adminNotification = notification,
 
+	setDatas: (state, data) => state.adminCounter = data,
+
 	setProgress: (state, progress) => state.adminProgress = progress,
 
 	setErrors: (state, errors) => state.adminErrors = errors,
 	unsetErrors: (state, errors) => state.adminErrors = null,
+
+	setLoading: (state, loader) => state.adminLoader = loader,
+
+	setData: (state, data) => state.adminCounter = data,
 
 }; //Mutations calibrace close
 

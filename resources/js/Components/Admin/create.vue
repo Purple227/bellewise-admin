@@ -1,9 +1,10 @@
 
-
 <template>
 
 
 	<div class="container"> <!-- Container tag open -->
+
+		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadAdminLoader }"><span class="title"> Loading Bellewise</span></div>
 
 		<!-- Main container -->
 		<nav class="level">
@@ -19,11 +20,11 @@
 		</nav>
 
 
-		<div class="box"> <!-- Box container tag open -->
+		<div class="box" v-if="loadAdminCounter == 0"> <!-- Box container tag open -->
 
 			<div class="notification purple-bg-light is-bold has-text-black" v-if="loadAdminErrors">
 				<ul>
-					<li v-for="(value, name, index) in loadbAdminErrors">
+					<li v-for="(value, name, index) in loadAdminErrors">
 						{{ index+1 }}. {{ value[0] }}
 					</li>
 				</ul>
@@ -81,7 +82,7 @@
 						<div class="field">
 							<label class="label"> Password <span class="has-text-danger"> * </span> </label>
 							<div class="control has-icons-right has-icons-left">
-								<input class="input is-info" type="email" placeholder="Text input" v-model="admin.password" required>
+								<input class="input is-info" type="password" placeholder="Text input" v-model="admin.password" required>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-key purple-color"></i>
@@ -141,7 +142,7 @@
 						<div class="field">
 							<label class="label"> Repeat password <span class="has-text-danger"> * </span> </label>
 							<div class="control has-icons-right has-icons-left">
-								<input class="input is-info" type="email" placeholder="Text input" v-model="admin.passwordConfirmation" required>
+								<input class="input is-info" type="password" placeholder="Text input" v-model="admin.passwordConfirmation" required>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-key purple-color"></i>
@@ -167,7 +168,7 @@
 							<span class="icon is-small">
 								<i class="fas fa-save purple-color"></i>
 							</span>
-							<span class="is-bold"> Submit </span>
+							<span class="is-bold"> Register </span>
 						</button>
 					</p>
 				</div>
@@ -175,6 +176,17 @@
 			</form> <!-- Form tag close -->
 
 		</div>  <!-- Box container tag open -->
+
+
+		<div class="card" v-if ="loadAdminCounter >= 1">
+			<div class="card-content">
+				<div class="content is-bold has-text-centered subtitle">
+
+					<span class="fa"> Only one super administrator allowed if this a problem try contacting the technical team. </span>
+
+				</div>
+			</div>
+		</div>
 
 
 	</div> <!-- Container tag close -->
@@ -235,8 +247,13 @@ export default {
 	}, //Validation calibrace close 
 
 
+	mounted() {
+		this.fetchAdmin()
+	},
+
+
 	methods: {
-		...mapActions(["createSuperAdminData", "clearAdminErrors"]),
+		...mapActions(["createSuperAdmin", "clearAdminErrors", 'fetchAdmin']),
 
 		// Local method goes here
 
@@ -255,7 +272,7 @@ export default {
 			data.append('email', this.admin.email);
 			data.append('password', this.admin.password);
 
-			this.createSuperAdminData(data)
+			this.createSuperAdmin(data)
 
 		},
 
@@ -263,7 +280,7 @@ export default {
 
 
 	computed: {
-		...mapGetters(['loadAdminProgress', 'loadAdminErrors']),
+		...mapGetters(['loadAdminProgress', 'loadAdminErrors', 'loadAdminCounter', 'loadAdminLoader']),
 
     // Local computed properties
 

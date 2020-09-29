@@ -18,7 +18,8 @@ class AdminController extends Controller
      */
     public function index()
     {
-        //
+        $admin_count = User::count();
+        return $admin_count;
     }
 
     /**
@@ -33,7 +34,7 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'phone' => ['required', 'unique:users'],
-            'email' => ['email:rfc,dns', 'unique:admins'],
+            //'email' => ['email:rfc,dns', 'unique:users'],
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 

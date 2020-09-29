@@ -210,5 +210,6 @@ class RestaurantController extends Controller
         $restaurant = Restaurant::findOrFail($id);
         Storage::disk('public')->delete($restaurant->image);
         $restaurant->menus()->delete();
+        $restaurant->config()->delete();
     }
 }

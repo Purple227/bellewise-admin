@@ -10,6 +10,9 @@ Vue.use(Vuelidate)
 import Store from './Store'
 import Welcome from './Components/Layouts/app.vue'
 
+window.axios = require('axios');
+window.axios.defaults.withCredentials = true;
+
 
 //routes
 import routes from './route.js'

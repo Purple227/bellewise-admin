@@ -1,6 +1,4 @@
 
-
-
 <template>
 
 
@@ -22,9 +20,13 @@
 
 		<div class="box"> <!-- Box container tag open -->
 
-			<div class="notification purple-bg-light is-bold has-text-black" v-if="loadAdminErrors">
+			<div class="notification purple-bg-light is-bold has-text-black" v-if="loadAdminNotification">
+				Registration Succeesful
+			</div>
+
+			<div class="notification purple-bg-light is-bold has-text-black" v-if="loadAuthErrors">
 				<ul>
-					<li v-for="(value, name, index) in loadbAdminErrors">
+					<li v-for="(value, name, index) in loadbAuthErrors">
 						{{ index+1 }}. {{ value[0] }}
 					</li>
 				</ul>
@@ -41,7 +43,7 @@
 						<div class="field">
 							<label class="label"> Email <span class="has-text-danger"> * </span> </label>
 							<div class="control has-icons-right has-icons-left">
-								<input class="input is-info" type="email" placeholder="Text input" v-model="login.email" required>
+								<input class="input is-info" type="email" placeholder="Email input" v-model="login.email" autofocus required>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-envelope purple-color"></i>
@@ -64,7 +66,7 @@
 						<div class="field">
 							<label class="label"> Password <span class="has-text-danger"> * </span> </label>
 							<div class="control has-icons-right has-icons-left">
-								<input class="input is-info" type="email" placeholder="Text input" v-model="login.password" required>
+								<input class="input is-info" type="password" placeholder="Password input" v-model="login.password" required>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-key purple-color"></i>
@@ -86,7 +88,7 @@
 
 				<div class="field">
 					<p class="control">
-						<button class="button" v-bind:class="{ 'is-loading': loadAdminProgress }" :disabled="$v.login.$invalid">
+						<button class="button" v-bind:class="{ 'is-loading': loadAuthProgress }" :disabled="$v.login.$invalid">
 							<span class="icon is-small">
 								<i class="fas fa-save purple-color"></i>
 							</span>
@@ -108,7 +110,7 @@
 
 
 <script>
-import { required, email, sameAs, minLength } from 'vuelidate/lib/validators';
+import { required, email, minLength } from 'vuelidate/lib/validators';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
@@ -145,8 +147,7 @@ export default {
 
 
 	methods: {
-		...mapActions(["createSuperAdminData", "clearAdminErrors"]),
-
+		...mapActions(['signIn','clearAuthErrors']),
 		// Local method goes here
 		
 		submitForm() {
@@ -156,7 +157,7 @@ export default {
 			data.append('email', this.login.email);
 			data.append('password', this.login.password);
 
-			this.createSuperAdminData(data)
+			this.signIn(data)
 
 		},
 
@@ -164,10 +165,9 @@ export default {
 
 
 	computed: {
-		...mapGetters(['loadAdminProgress', 'loadAdminErrors']),
+		...mapGetters(['loadAuthUser', 'loadAuthenticated', 'loadAuthErrors', 'loadAuthProgress', 'loadAdminNotification']),
 
     // Local computed properties
-
 },
 
 }

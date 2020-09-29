@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	return $request->user();
 });
 
@@ -43,8 +43,9 @@ Route::post('/report/driver-mail', 'ReportController@mailNotification');
 Route::post('/report/restaurant-notification', 'ReportController@SMSNotification');
 Route::post('/report/restaurant-mail', 'ReportController@mailNotification');
 
-Route::post('/restaurant-config/{id}', 'ConfigController@storeConfig');
-Route::get('/restaurant-config/{id}', 'ConfigController@show');
+Route::post('/restaurant-setting/{id}', 'ConfigController@storeConfig');
+Route::get('/restaurant-setting/{id}', 'ConfigController@show');
+Route::patch('/restaurant-setting/{id}', 'ConfigController@updateConfig');
 
 Route::get('/restaurant-menu/search/{id}', 'MenuController@searchMenu');
 Route::get('/restaurant-menu/{id}', 'MenuController@menus');
@@ -65,10 +66,13 @@ Route::post('/setting/term', 'SettingTermPolicyController@createTerm');
 Route::get('/setting/term/{id}', 'SettingTermPolicyController@showTerm');
 Route::patch('/setting/term/{id}', 'SettingTermPolicyController@updateTerm');
 
+Route::post('/login', 'Auth\LoginController@login');
+
 Route::apiResources([
 	'driver' => 'DriverController',
 	'restaurant' => 'RestaurantController',
 	'promo' => 'PromoController',
 	'sub-admin' => 'SubAdminController',
+	'admin' => 'AdminController'
 ]);
 

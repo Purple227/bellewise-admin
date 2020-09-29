@@ -61,7 +61,8 @@ class SettingBasicController extends Controller
 	{
 
 		$validator = Validator::make($request->all(), [
-			'partial_deduction_charge' => 'required'
+			'partial_deduction_charge' => 'required',
+			'max_canellation_time' => 'required'
 		]);
 
 		if ($validator->fails()) {
@@ -94,8 +95,11 @@ class SettingBasicController extends Controller
 	public function updateCancellationPolicy(Request $request, $id)
 	{
 
+		$cancellation_policy = CancellationPolicy::find($id);
+
 		$validator = Validator::make($request->all(), [
-			'partial_deduction_charge' => 'required'
+			'partial_deduction_charge' => 'required',
+			'max_canellation_time' => 'required'
 		]);
 
 		if ($validator->fails()) {

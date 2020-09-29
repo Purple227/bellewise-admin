@@ -17,22 +17,22 @@ class CreateConfigsTable extends Migration
         Schema::create('configs', function (Blueprint $table) {
             $table->id();
 
-            $table->string('preparation_time');
-            $table->string('minimium_delivery_time');
-            $table->string('maximium_delivery_time');
-            $table->string('monday');
+            $table->string('preparation_time')->nullable();
+            $table->string('minimium_delivery_time')->nullable();
+            $table->string('maximium_delivery_time')->nullable();
+            $table->string('monday')->nullable();
             $table->boolean('monday_status');
-            $table->string('tuesday');
+            $table->string('tuesday')->nullable();
             $table->boolean('tuesday_status');
-            $table->string('wednesday');
+            $table->string('wednesday')->nullable();
             $table->boolean('wednesday_status');
-            $table->string('thursday');
+            $table->string('thursday')->nullable();
             $table->boolean('thursday_status');
-            $table->string('friday');
+            $table->string('friday')->nullable();
             $table->boolean('friday_status');
-            $table->string('saturday');
+            $table->string('saturday')->nullable();
             $table->boolean('saturday_status');
-            $table->string('sunday');
+            $table->string('sunday')->nullable();
             $table->boolean('sunday_status');
 
             $table->unsignedBigInteger('restaurant_id');
