@@ -54,7 +54,7 @@ class AdminController extends Controller
         // Save to database
 
         $admin->name = $request->name;
-        $admin->super_admin = 'super_admin';
+        $admin->admin = 'super_admin';
         $admin->phone = $request->phone;
         $admin->email = $request->email;
         $admin->password = Hash::make($request->password);

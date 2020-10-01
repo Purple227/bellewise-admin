@@ -111,7 +111,7 @@
 
 <script>
 import { required, email, minLength } from 'vuelidate/lib/validators';
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters, mapState } from 'vuex';
 
 export default {
 

@@ -1,3 +1,4 @@
+
 import Vue from 'vue'
 
 //routes
@@ -6,29 +7,29 @@ import { app } from '../../app.js'
 
 const state = {
 
-	configNotification: null,
-	configProgress: null,
-	configLoader: null,
-	restaurantConfig: {},
+	roleNotification: null,
+	roleProgress: null,
+	roleLoader: null,
+	role: {},
 
 
 }; // State calibrace close
 
 const getters = {
 
-	loadConfigProgress: (state) => state.configProgress,
-	loadConfigNotification: (state) => state.configNotification,
-	loadRestaurantConfig: (state) => state.restaurantConfig,
-	loadConfigLoader: (state) => state.configLoader,
+	loadRoleProgress: (state) => state.roleProgress,
+	loadRoleNotification: (state) => state.roleNotification,
+	loadRole: (state) => state.role,
+	loadRoleLoader: (state) => state.roleLoader,
 
 }; //Getters calibrace close
 
 const actions = {
 
-	async restaurantConfigSetting({ commit }, {data, id}) {
+	async createRole({ commit }, {data, id}) {
 		commit('setProgress', true)
 		console.log(...data)
-		let api = '/api/restaurant-setting/' + id
+		let api = '/api/role/' + id
 		const config = {
 			headers: { 'content-type': 'application/x-www-form-urlencoded' }
 		}
@@ -44,20 +45,20 @@ const actions = {
 
 	},
 
-	async fetchRestaurantConfig({commit}, id) {
+	async fetchRole({commit}, id) {
 		commit('setLoader', true)
-		let api = '/api/restaurant-setting/' + id
+		let api = '/api/role/' + id
 		const response = await axios.get(api);
-		commit('setRestaurantConfig', response.data)
+		commit('setRole', response.data)
 		commit('setLoader', false)
 	},
 
 
-	async editRestaurantConfig({ commit }, {data, id}) {
+	async editRole({ commit }, {data, id}) {
 		commit('setProgress', true)
 		console.log(...data)
 		console.log(id)
-		let api = '/api/restaurant-setting/' + id
+		let api = '/api/role/' + id
 		const config = {
 			headers: { 'content-type': 'application/x-www-form-urlencoded' }
 		}
@@ -82,11 +83,11 @@ const actions = {
 
 const mutations = {
 
-	setNotification: (state, notification) => state.configNotification = notification,
-	unsetNotification: (state, notification) => state.configNotification = notification,
-	setProgress: (state, progress) => state.configProgress = progress,
-	setLoader: (state, loader) => state.configLoader = loader,
-	setRestaurantConfig: (state, config) => state.restaurantConfig = config,
+	setNotification: (state, notification) => state.roleNotification = notification,
+	unsetNotification: (state, notification) => state.roleNotification = notification,
+	setProgress: (state, progress) => state.roleProgress = progress,
+	setLoader: (state, loader) => state.roleLoader = loader,
+	setRestaurantConfig: (state, role) => state.role = role,
 
 }; //Mutations calibrace close
 
@@ -96,3 +97,4 @@ export default {
 	actions,
 	mutations
 };
+

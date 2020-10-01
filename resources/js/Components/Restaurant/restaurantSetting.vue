@@ -141,7 +141,7 @@
 				<a class="button">
 					<input type="checkbox" @change="[restaurantConfig.WednesdayStatus = !restaurantConfig.WednesdayStatus]" :checked="restaurantConfig.WednesdayStatus == 1 ? true : false" v-if="Object.keys(loadRestaurantConfig).length == 0">
 					<input type="checkbox" @change="[loadRestaurantConfig.wednesday_status = !loadRestaurantConfig.wednesday_status]" :checked="loadRestaurantConfig.wednesday_status == 1 ? true : false" v-else>
-					<p class="ml-1"> {{ loadRestaurantConfig.wednesday_status || restaurantConfig.WednesdayStatus == true ? 'Active' : 'Inactive' }} </p>
+					<p class="ml-1"> {{ loadRestaurantConfig.wednesday_status || restaurantConfig.WsednesdayStatus == true ? 'Active' : 'Inactive' }} </p>
 				</a>
 			</p>
 		</div>
@@ -348,19 +348,19 @@ export default {
 			data.append('minimium_delivery_time', this.$store.getters.loadRestaurantConfig.minimium_delivery_time);
 			data.append('maximium_delivery_time', this.$store.getters.loadRestaurantConfig.maximium_delivery_time);
 			data.append('monday', this.$store.getters.loadRestaurantConfig.monday);
-			data.append('monday_status', this.$store.getters.loadRestaurantConfig.monday_status);
+			data.append('monday_status', this.$store.getters.loadRestaurantConfig.monday_status == true ? this.$store.getters.loadRestaurantConfig.monday_status = 1 : this.$store.getters.loadRestaurantConfig.monday_status = 0);
 			data.append('tuesday', this.$store.getters.loadRestaurantConfig.tuesday);
-			data.append('tuesday_status', this.$store.getters.loadRestaurantConfig.tuesday_status);
+			data.append('tuesday_status', this.$store.getters.loadRestaurantConfig.tuesday_status == true ? this.$store.getters.loadRestaurantConfig.tuesday_status = 1 : this.$store.getters.loadRestaurantConfig.tuesday_status = 0);
 			data.append('wednesday', this.$store.getters.loadRestaurantConfig.Wednesday);
-			data.append('wednesday_status', this.$store.getters.loadRestaurantConfig.wednesday_status);
+			data.append('wednesday_status', this.$store.getters.loadRestaurantConfig.wednesday_status == true ? this.$store.getters.loadRestaurantConfig.wednesday_status = 1 : this.$store.getters.loadRestaurantConfig.wednesday_status = 0);
 			data.append('thursday', this.$store.getters.loadRestaurantConfig.thursday);
-			data.append('thursday_status', this.$store.getters.loadRestaurantConfig.thursday_status);
+			data.append('thursday_status', this.$store.getters.loadRestaurantConfig.thursday_status == true ? this.$store.getters.loadRestaurantConfig.thursday_status = 1 : this.$store.getters.loadRestaurantConfig.thursday_status = 0);
 			data.append('friday', this.$store.getters.loadRestaurantConfig.friday);
-			data.append('friday_status', this.$store.getters.loadRestaurantConfig.friday_status);
+			data.append('friday_status', this.$store.getters.loadRestaurantConfig.friday_status == true ? this.$store.getters.loadRestaurantConfig.friday_status = 1 : this.$store.getters.loadRestaurantConfig.friday_status = 0);
 			data.append('saturday', this.$store.getters.loadRestaurantConfig.saturday);
-			data.append('saturday_status', this.$store.getters.loadRestaurantConfig.saturday_status);
+			data.append('saturday_status', this.$store.getters.loadRestaurantConfig.saturday_status == true ? this.$store.getters.loadRestaurantConfig.saturday_status = 1 : this.$store.getters.loadRestaurantConfig.saturday_status = 0);
 			data.append('sunday', this.$store.getters.loadRestaurantConfig.sunday);
-			data.append('sunday_status', this.$store.getters.loadRestaurantConfig.sunday_status);
+			data.append('sunday_status', this.$store.getters.loadRestaurantConfig.sunday_status == true ? this.$store.getters.loadRestaurantConfig.sunday_status = 1 : this.$store.getters.loadRestaurantConfig.sunday_status = 0);
 
 			let id = this.$route.params.id
 			this.editRestaurantConfig({data, id})
@@ -412,7 +412,7 @@ if (monday) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   monday.bulmaCalendar.on('select', datepicker => {
   	this.restaurantConfig.monday = datepicker.data.value();
-  	this.$store.getters.loadRestaurantConfig.monday = datepicker.data.value();
+  	Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? '' : this.$store.getters.loadRestaurantConfig.monday = datepicker.data.value();
   });
 }
 
@@ -422,6 +422,7 @@ if (tuesday) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   tuesday.bulmaCalendar.on('select', datepicker => {
   	this.restaurantConfig.tuesday = datepicker.data.value();
+  	Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? '' : this.$store.getters.loadRestaurantConfig.tuesday = datepicker.data.value();
   });
 }
 
@@ -431,6 +432,7 @@ if (Wednesday) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   Wednesday.bulmaCalendar.on('select', datepicker => {
   	this.restaurantConfig.Wednesday = datepicker.data.value();
+  	Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? '' : this.$store.getters.loadRestaurantConfig.wednesday = datepicker.data.value();
   });
 }
 
@@ -440,6 +442,7 @@ if (thursday) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   thursday.bulmaCalendar.on('select', datepicker => {
   	this.restaurantConfig.thursday = datepicker.data.value();
+  	Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? '' : this.$store.getters.loadRestaurantConfig.thursday = datepicker.data.value();
   });
 }
 
@@ -449,6 +452,7 @@ if (friday) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   friday.bulmaCalendar.on('select', datepicker => {
   	this.restaurantConfig.friday = datepicker.data.value();
+  	Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? '' : this.$store.getters.loadRestaurantConfig.friday = datepicker.data.value();
   });
 }
 
@@ -458,6 +462,7 @@ if (saturday) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   saturday.bulmaCalendar.on('select', datepicker => {
   	this.restaurantConfig.saturday = datepicker.data.value();
+  	Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? '' : this.$store.getters.loadRestaurantConfig.saturday = datepicker.data.value();
   });
 }
 
@@ -467,6 +472,7 @@ if (sunday) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   sunday.bulmaCalendar.on('select', datepicker => {
   	this.restaurantConfig.sunday = datepicker.data.value();
+  	Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? '' : this.$store.getters.loadRestaurantConfig.sunday = datepicker.data.value();
   });
 }
 

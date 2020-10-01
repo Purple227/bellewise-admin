@@ -68,6 +68,10 @@ Route::patch('/setting/term/{id}', 'SettingTermPolicyController@updateTerm');
 
 Route::post('/login', 'Auth\LoginController@login');
 
+Route::post('/role/{id}', 'RoleController@storePermission');
+Route::get('/role/{id}', 'RoleController@show');
+Route::patch('/role/{id}', 'RoleController@updatePermission');
+
 Route::apiResources([
 	'driver' => 'DriverController',
 	'restaurant' => 'RestaurantController',

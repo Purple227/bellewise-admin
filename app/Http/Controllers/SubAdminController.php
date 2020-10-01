@@ -72,14 +72,14 @@ class SubAdminController extends Controller
             Notification::route('nexmo', $request->phone )
             ->notify(new SubAdminCredentials($notify_info, $generated_password, $sub_admin_id));
         } catch (\Exception $e) {
-            return response()->json(['message' => ["Can't send sms due to bad network"]], 500);
+            Log::error(' Nexmo API developer are to be blame.');
         }
 
         try {
         Notification::route('mail',$request->email)
         ->notify(new SubAdminCredentials( $notify_info, $generated_password, $sub_admin_id ));
         } catch (\Exception $e) {
-            return response()->json(['message' => ["Can't send email due to bad network"]], 500);
+            Log::error(' Your network connection is to be blame.');
         }
 
 
@@ -89,6 +89,7 @@ class SubAdminController extends Controller
         // Save to database
         $sub_admin->sub_admin_id = $sub_admin_id;
         $sub_admin->name = $request->name;
+        $sub_admin->admn = 'sub_admin';
         $sub_admin->phone = $request->phone;
         $sub_admin->email = $request->email;
         $sub_admin->password = Hash::make($generated_password);

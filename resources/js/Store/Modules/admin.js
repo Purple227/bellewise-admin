@@ -35,7 +35,7 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			app.$router.push({name: 'auth-access'})
+			history.go();
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)

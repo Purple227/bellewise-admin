@@ -245,9 +245,6 @@ export default {
 		...mapGetters(['loadProgress', 'loadErrors']),
 
     // Local computed properties
-
-
-
 },
 
 }

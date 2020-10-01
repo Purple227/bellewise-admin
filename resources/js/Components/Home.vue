@@ -11,7 +11,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Pending Orders 
 							<br>
-							<span class="subtitle is-bold"> 237 </span>
+							<span class="subtitle is-bold"> Unavailable </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
@@ -21,7 +21,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Restaurants
 							<br>
-							<span class="subtitle is-bold"> 42 </span>
+							<span class="subtitle is-bold"> {{ loadRestaurantPagination.total }} </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
@@ -37,7 +37,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Active Orders
 							<br>
-							<span class="subtitle is-bold"> 164 </span>
+							<span class="subtitle is-bold"> Unavailable </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
@@ -47,7 +47,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Customers
 							<br>
-							<span class="subtitle is-bold"> 30 </span>
+							<span class="subtitle is-bold"> Unavailable </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
@@ -62,7 +62,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Unfulfilled Orders
 							<br>
-							<span class="subtitle is-bold"> 77 </span>
+							<span class="subtitle is-bold"> Unavailable </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
@@ -72,7 +72,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Promotion
 							<br>
-							<span class="subtitle is-bold"> 10 </span>
+							<span class="subtitle is-bold"> {{ loadPromoPagination.total }} </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
@@ -85,43 +85,43 @@
 		</div> <!-- Columns wrapper tag close -->
 
 
-<div class="box"> <!-- Box tag open -->
+		<div class="box"> <!-- Box tag open -->
 
-		<span class="columns">
+			<span class="columns">
 
-			<div class="column">
-				<input id="my-element" type="date" data-display-mode="dialog"  data-close-on-select="false" data-color="info">
-			</div>
-
-
-			<div class="column">
-				<button class="button is-inline">
-					<span class="icon">
-						<i class="fas fa-calendar-alt purple-color"></i>
-					</span>
-					<span> Filter Chart By Date</span>
-				</button>
-			</div>
-
-		</span>
+				<div class="column">
+					<input id="my-element" type="date" data-display-mode="dialog"  data-close-on-select="false" data-color="info">
+				</div>
 
 
-		<div class="columns"> <!-- Columns wrapper tag open -->
+				<div class="column">
+					<button class="button is-inline">
+						<span class="icon">
+							<i class="fas fa-calendar-alt purple-color"></i>
+						</span>
+						<span> Filter Chart By Date</span>
+					</button>
+				</div>
 
-			<div class="column"> <!-- First column tag open -->
-				<bar-order-chart :chartdata="orderChartData" :options="optionsOrder"/>
-			</div> <!-- First column tag close -->
-
-
-			<div class="column"> <!-- Second column tag open -->
-				<bar-order-chart :chartdata="revenueChartData" :options="optionsRevenue"/>
-			</div> <!-- Second column tag close -->
-
-
-		</div> <!-- Columns wrapper tag close -->
+			</span>
 
 
-</div> <!-- Box tag close -->
+			<div class="columns"> <!-- Columns wrapper tag open -->
+
+				<div class="column"> <!-- First column tag open -->
+					<bar-order-chart :chartdata="orderChartData" :options="optionsOrder"/>
+				</div> <!-- First column tag close -->
+
+
+				<div class="column"> <!-- Second column tag open -->
+					<bar-order-chart :chartdata="revenueChartData" :options="optionsRevenue"/>
+				</div> <!-- Second column tag close -->
+
+
+			</div> <!-- Columns wrapper tag close -->
+
+
+		</div> <!-- Box tag close -->
 
 
 	</div> <!-- Container tag close -->
@@ -134,6 +134,7 @@
 import BarOrderChart from "./Chart/barOrderChart.js";
 import BarRevenueChart from "./Chart/barRevenueChart.js";
 import BulmaCalendar from "../Mixins/bulmaCalendar.js";
+import { mapGetters, mapActions, mapState } from 'vuex';
 
 export default {
 	name: 'Home',
@@ -178,69 +179,27 @@ export default {
 
 
 
-        layout: {
-            padding: {
-                left: 0,
-                right: 35,
-                top: 0,
-                bottom: 0
-            }
-        },
+			layout: {
+				padding: {
+					left: 0,
+					right: 35,
+					top: 0,
+					bottom: 0
+				}
+			},
 
 
-        legend: {
-            display: true,
-            labels: {
-                fontColor: 'rgb(255, 99, 132)'
-            }
-        },
+			legend: {
+				display: true,
+				labels: {
+					fontColor: 'rgb(255, 99, 132)'
+				}
+			},
 
-        title: {
-            display: true,
-            text: 'Total Order Placed: 6545'
-        },
-
-
-/*        scales:
-        {
-            yAxes: [{
-                gridLines : {
-                    display : false
-                }
-            }]
-        },*/
-
-		},
-
-
-
-		optionsRevenue: {
-			responsive: true,
-			maintainAspectRatio: false,
-
-
-
-        layout: {
-            padding: {
-                left: 0,
-                right: 35,
-                top: 0,
-                bottom: 0
-            }
-        },
-
-
-        legend: {
-            display: true,
-            labels: {
-                fontColor: 'rgb(255, 99, 132)'
-            }
-        },
-
-        title: {
-            display: true,
-            text: 'Total Order Delivered: N245 876 00 '
-        },
+			title: {
+				display: true,
+				text: 'Total Order Placed: 6545'
+			},
 
 
 /*        scales:
@@ -252,13 +211,70 @@ export default {
             }]
         },*/
 
-		},
+    },
 
 
 
+    optionsRevenue: {
+    	responsive: true,
+    	maintainAspectRatio: false,
 
 
-	}),
+
+    	layout: {
+    		padding: {
+    			left: 0,
+    			right: 35,
+    			top: 0,
+    			bottom: 0
+    		}
+    	},
+
+
+    	legend: {
+    		display: true,
+    		labels: {
+    			fontColor: 'rgb(255, 99, 132)'
+    		}
+    	},
+
+    	title: {
+    		display: true,
+    		text: 'Total Order Delivered: N245 876 00 '
+    	},
+
+
+/*        scales:
+        {
+            yAxes: [{
+                gridLines : {
+                    display : false
+                }
+            }]
+        },*/
+
+    },
+
+	}), // Data calibrace close
+
+	created() {
+		this.fetchRestaurantDatas()
+		this.fetchPromoDatas()
+	},
+
+	methods: {
+		...mapActions(["fetchRestaurantDatas", "fetchPromoDatas"]),
+
+		// Local method goes here
+
+	}, // Method calibrace close
+
+
+	computed: {
+		...mapGetters(['loadRestaurantPagination', 'loadPromoPagination']),
+
+    // Local computed properties
+},
 
 
 }

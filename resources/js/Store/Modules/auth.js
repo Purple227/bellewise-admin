@@ -75,8 +75,8 @@ const actions = {
 
 const mutations = {
 
-	SET_AUTHENTICATED: (state, value) => state.authenticated = value,
-	SET_USER: (state, value) => state.authUser = value,
+	SET_AUTHENTICATED: (state, auth) => state.authenticated = auth,
+	SET_USER: (state, user) => state.authUser = user,
 
 
 	setNotification: (state, notification) => state.authNotification = notification,

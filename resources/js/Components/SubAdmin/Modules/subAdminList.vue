@@ -82,9 +82,9 @@
 								<div class="field is-grouped">
 
 									<p class="control">  
-										<a class="button purple-color">
+										<router-link :to="{name: 'sub-admin-permission', params: {id: subadmin.id}}" class="button purple-color" exact>
 											Permission
-										</a>
+										</router-link>
 									</p>
 
 									<p class="control">
