@@ -3,6 +3,13 @@
 
 	<div class="container"> <!-- Container tag open -->
 
+
+        <div class="notification purple-bg-light is-bold has-text-black has-text-centered " v-if="loadAuthenticated">
+          Welcome {{ loadAuthUser.name }}
+        </div>
+
+
+
 		<div class="columns"> <!-- Columns wrapper tag open -->
 
 			<div class="column"> <!-- First column tag open -->
@@ -11,7 +18,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Pending Orders 
 							<br>
-							<span class="subtitle is-bold"> Unavailable </span>
+							<span class="subtitle is-bold"> 0 </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
@@ -37,7 +44,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Active Orders
 							<br>
-							<span class="subtitle is-bold"> Unavailable </span>
+							<span class="subtitle is-bold"> 0 </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
@@ -47,7 +54,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Customers
 							<br>
-							<span class="subtitle is-bold"> Unavailable </span>
+							<span class="subtitle is-bold"> 0 </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
@@ -62,7 +69,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Unfulfilled Orders
 							<br>
-							<span class="subtitle is-bold"> Unavailable </span>
+							<span class="subtitle is-bold"> 0 </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
@@ -271,7 +278,7 @@ export default {
 
 
 	computed: {
-		...mapGetters(['loadRestaurantPagination', 'loadPromoPagination']),
+		...mapGetters(['loadRestaurantPagination', 'loadPromoPagination', 'loadAuthenticated', 'loadAuthUser']),
 
     // Local computed properties
 },

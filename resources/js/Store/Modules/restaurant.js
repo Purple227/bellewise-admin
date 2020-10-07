@@ -1,8 +1,5 @@
 import Vue from 'vue'
-
-//routes
-import { app } from '../../app.js'
-
+import {router} from '../../app.js'
 
 const state = {
 	restaurantDatas: [],
@@ -144,7 +141,7 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			app.$router.push({name: 'list-restaurant'})
+			router.push({name: 'list-restaurant'})
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -166,7 +163,7 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			app.$router.push({name: 'list-restaurant'})
+			router.push({name: 'list-restaurant'})
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -182,7 +179,7 @@ const actions = {
 
 	async updateRestaurantStatus({commit}, {id, status}) {
 		commit('setLoading', true)
-		let api = '/api/restaurant/' + id
+		let api = '/api/restaurant-status/' + id
 		const response = await axios.patch(api, {status:status})
 		commit('setLoading', false)
 		commit('setNotification', true)

@@ -25,7 +25,7 @@ Route::get('/driver/blocked', 'DriverController@blocked');
 Route::get('/driver/active', 'DriverController@activeDrivers');
 Route::get('/driver/all-active', 'DriverController@AllActiveDrivers');
 
-Route::patch('restaurant/{id}', 'RestaurantController@statusUpdate');
+Route::patch('restaurant-status/{id}', 'RestaurantController@statusUpdate');
 Route::get('/restaurant/search', 'RestaurantController@search');
 Route::get('/restaurant/blocked', 'RestaurantController@blocked');
 Route::get('/restaurant/all', 'RestaurantController@getAll');
@@ -67,6 +67,7 @@ Route::get('/setting/term/{id}', 'SettingTermPolicyController@showTerm');
 Route::patch('/setting/term/{id}', 'SettingTermPolicyController@updateTerm');
 
 Route::post('/login', 'Auth\LoginController@login');
+Route::post('/logout', 'Auth\LoginController@logout');
 
 Route::post('/role/{id}', 'RoleController@storePermission');
 Route::get('/role/{id}', 'RoleController@show');

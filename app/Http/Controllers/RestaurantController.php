@@ -156,12 +156,10 @@ class RestaurantController extends Controller
 
         $validator = Validator::make($request->all(), [
             'restaurant_name' => 'required',
-            'description' => 'required',
-            'price' => 'required',
-            'phone' => ['required', 'unique:restaurants'],
+            'phone' => ['required'],
             'address' => 'required',
             'license_number' => 'required',
-            'email' => ['email:rfc,dns', 'unique:restaurants'],
+            'email' => ['email:rfc,dns'],
             'restaurant_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -170,10 +168,10 @@ class RestaurantController extends Controller
         }
 
         // Image set up
-        $restaurant->image = 'default_image.svg';
-        if ( $request->hasFile('file') ) {
+       // $restaurant->image = 'default_image.svg';
+        if ( $request->hasFile('restaurant_file') ) {
             Storage::disk('public')->delete($restaurant->image);
-            $path = Storage::disk('public')->putFile('restaurant',$request->file('file'));
+            $path = Storage::disk('public')->putFile('restaurant',$request->file('restaurant_file'));
             $restaurant->image = $path;
         }
 
@@ -184,11 +182,10 @@ class RestaurantController extends Controller
         $restaurant->email = $request->email;
         $restaurant->discount = $request->discount;
         $restaurant->license_number = $request->license_number;
-        $restaurant->password = Hash::make($generated_password);
+        $restaurant->commmission = $request->commmision;
         $restaurant->save();
 
         return 'Suceess';
-
 
     }
 
@@ -211,5 +208,6 @@ class RestaurantController extends Controller
         Storage::disk('public')->delete($restaurant->image);
         $restaurant->menus()->delete();
         $restaurant->config()->delete();
+        $restaurant->delete();
     }
 }

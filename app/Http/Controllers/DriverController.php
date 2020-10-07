@@ -159,7 +159,7 @@ class DriverController extends Controller
         }
 
         // Image set up
-        $driver->image = 'default_image.svg';
+        //$driver->image = 'default_image.svg';
         if ( $request->hasFile('file') ) {
             Storage::disk('public')->delete($driver->image);
             $path = Storage::disk('public')->putFile('driver',$request->file('file'));

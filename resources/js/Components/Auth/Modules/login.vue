@@ -20,13 +20,9 @@
 
 		<div class="box"> <!-- Box container tag open -->
 
-			<div class="notification purple-bg-light is-bold has-text-black" v-if="loadAdminNotification">
-				Registration Succeesful
-			</div>
-
 			<div class="notification purple-bg-light is-bold has-text-black" v-if="loadAuthErrors">
 				<ul>
-					<li v-for="(value, name, index) in loadbAuthErrors">
+					<li v-for="(value, name, index) in loadAuthErrors">
 						{{ index+1 }}. {{ value[0] }}
 					</li>
 				</ul>
@@ -165,10 +161,10 @@ export default {
 
 
 	computed: {
-		...mapGetters(['loadAuthUser', 'loadAuthenticated', 'loadAuthErrors', 'loadAuthProgress', 'loadAdminNotification']),
+		...mapGetters(['loadAuthUser', 'loadAuthenticated', 'loadAuthErrors', 'loadAuthProgress']),
 
     // Local computed properties
-},
+    },
 
 }
 

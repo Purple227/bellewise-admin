@@ -242,8 +242,8 @@ export default {
 			imageFile: '',
 			imageName: null,
 			countryCode: '+234',
-			discount: null,
-			commisson: null,
+			discount: 0,
+			commisson: 0,
 		},
 
 	}),

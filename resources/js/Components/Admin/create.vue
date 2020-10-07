@@ -31,6 +31,11 @@
 			</div>
 
 
+				<div class="notification purple-bg-light is-bold has-text-black" v-if="loadAdminNotification">
+					Task Succeesful
+				</div>
+
+
 			<form v-on:submit.prevent="submitForm"> <!-- Form tag open -->
 
 				<div class="columns"> <!-- Columns wrapper tag open -->
@@ -280,7 +285,7 @@ export default {
 
 
 	computed: {
-		...mapGetters(['loadAdminProgress', 'loadAdminErrors', 'loadAdminCounter', 'loadAdminLoader']),
+		...mapGetters(['loadAdminProgress', 'loadAdminErrors', 'loadAdminCounter', 'loadAdminLoader', 'loadAdminNotification']),
 
     // Local computed properties
 

@@ -1,8 +1,5 @@
 import Vue from 'vue'
-
-//routes
-import { app } from '../../app.js'
-
+import {router} from '../../app.js'
 
 const state = {
 	promoDatas: [],
@@ -85,7 +82,7 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			app.$router.push({name: 'list-promotion'})
+			router.push({name: 'list-promotion'})
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -108,7 +105,7 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			app.$router.push({name: 'list-promotion'})
+			router.push({name: 'list-promotion'})
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)

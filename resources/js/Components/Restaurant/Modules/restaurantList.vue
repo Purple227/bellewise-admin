@@ -108,7 +108,7 @@
                       Settings
                     </router-link>
                   </p>
-                  <p class="control" @click="showModal = true">
+                  <p class="control" @click="[showModal = true, getDestroyId(restaurant.id)]" >
                     <button class="button purple-color">
                       Delete 
                     </button>
@@ -125,7 +125,7 @@
                             </p>
                           </div>
                           <footer class="card-footer">
-                            <p class="card-footer-item is-bold purple-color pointer" v-on:click="deleteData(restaurant.id, index)">
+                            <p class="card-footer-item is-bold purple-color pointer" v-on:click="deleteData">
                               Delete
                             </p>
                             <p class="card-footer-item is-bold purple-color pointer" @click="showModal = false">
@@ -202,6 +202,7 @@ export default {
     spin: false,
     showModal: false,
     searchQuery: '',
+    destroyId: null
   }),
 
   created() {
@@ -219,8 +220,12 @@ export default {
       this.searchRestaurantDatas(this.searchQuery)
     },
 
-    async deleteData(id, index) {
-      this.destroyRestaurantData(id).then(() => this.$store.getters.loadRestaurants.splice(index, 1) )
+    getDestroyId(id) {
+      this.destroyId = id
+    },
+
+    deleteData() {
+      this.destroyRestaurantData(this.destroyId)
       this.fetchRestaurantDatas()
       this.showModal = false
     },

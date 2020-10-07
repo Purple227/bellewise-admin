@@ -16,7 +16,7 @@
       </div>
 
 
-      <div class="notification purple-bg-light is-bold has-text-black" v-if="loadSettingNotification">
+      <div class="notification purple-bg-light is-bold has-text-black" v-if="loadWriteUpNotification">
         Task Succeesful
       </div>
 
@@ -79,76 +79,82 @@
 
 <div class="box"> <!-- Box tag open -->
 
- <p class="subtitle is-5">
-  <strong> Cancellation Policy </strong> 
-</p>
 
-<div class="columns"> <!-- Columns wrapper tag open -->
-
- <div class="column"> <!-- First column tag open-->
-
-
-  <label class="label"> Max. Cancellation Waiting Time  </label>
-  <div class="field has-addons">
-    <p class="control is-expanded ">
-      <input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time" data-time-format="HH:MM" required>
-    </p>
-    <p class="control">
-      <a class="button is-bold">
-        Currently : {{ loadCancellationPolicy.max_canellation_time == 'null' ? "00:00" : loadCancellationPolicy.max_canellation_time }}
-      </a>
-    </p>
+  <div class="notification purple-bg-light is-bold has-text-black" v-if="loadCancellationPolicyNotification">
+    Task Succeesful
   </div>
 
 
-</div> <!-- First column tag close -->
+  <p class="subtitle is-5">
+    <strong> Cancellation Policy </strong> 
+  </p>
+
+  <div class="columns"> <!-- Columns wrapper tag open -->
+
+   <div class="column"> <!-- First column tag open-->
+
+
+    <label class="label"> Max. Cancellation Waiting Time  </label>
+    <div class="field has-addons">
+      <p class="control is-expanded ">
+        <input id="my-element" type="date" data-display-mode="dialog"  data-color="info" data-type="time" data-time-format="HH:MM" required>
+      </p>
+      <p class="control">
+        <a class="button is-bold">
+          Currently : {{ loadCancellationPolicy.max_canellation_time == 'null' ? "00:00" : loadCancellationPolicy.max_canellation_time }}
+        </a>
+      </p>
+    </div>
+
+
+  </div> <!-- First column tag close -->
 
 
 
-<div class="column"> <!-- Second column tag open-->
+  <div class="column"> <!-- Second column tag open-->
 
-  <label class="label "> Partial Refund Deduction Charges </label>
-  <div class="field has-addons" v-if="Object.keys(loadCancellationPolicy).length == 0">
-    <p class="control">
-      <span class="select">
-        <select>
-          <option>₦</option>
-        </select>
-      </span>
-    </p>
-    <p class="control is-expanded has-icons-right">
-      <input class="input is-info" type="number" min="0" oninput="validity.valid||(value='');" placeholder="Amount of money" v-model="cancellationPolicy.partialRefundDeductionCharge">
-      <!-- Has icon right -->
-      <span class="icon is-small is-right" v-if="$v.cancellationPolicy.partialRefundDeductionCharge.required">
-        <i class="fas fa-check purple-color"></i>
-      </span>
-      <span class="icon is-small is-right" v-else>
-        <i class="fas fa-exclamation-triangle has-text-danger"></i>
-      </span>
-    </p>
-  </div>
+    <label class="label "> Partial Refund Deduction Charges </label>
+    <div class="field has-addons" v-if="Object.keys(loadCancellationPolicy).length == 0">
+      <p class="control">
+        <span class="select">
+          <select>
+            <option>₦</option>
+          </select>
+        </span>
+      </p>
+      <p class="control is-expanded has-icons-right">
+        <input class="input is-info" type="number" min="0" oninput="validity.valid||(value='');" placeholder="Amount of money" v-model="cancellationPolicy.partialRefundDeductionCharge">
+        <!-- Has icon right -->
+        <span class="icon is-small is-right" v-if="$v.cancellationPolicy.partialRefundDeductionCharge.required">
+          <i class="fas fa-check purple-color"></i>
+        </span>
+        <span class="icon is-small is-right" v-else>
+          <i class="fas fa-exclamation-triangle has-text-danger"></i>
+        </span>
+      </p>
+    </div>
 
-  <div class="field has-addons" v-else>
-    <p class="control">
-      <span class="select">
-        <select>
-          <option>₦</option>
-        </select>
-      </span>
-    </p>
-    <p class="control is-expanded has-icons-right">
-      <input class="input is-info" type="number" min="0" oninput="validity.valid||(value='');" placeholder="Amount of money" v-model="loadCancellationPolicy.partial_deduction_charge">
-      <!-- Has icon right -->
-      <span class="icon is-small is-right" v-if="$v.loadCancellationPolicy.partial_deduction_charge.required">
-        <i class="fas fa-check purple-color"></i>
-      </span>
-      <span class="icon is-small is-right" v-else>
-        <i class="fas fa-exclamation-triangle has-text-danger"></i>
-      </span>
-    </p>
-  </div>
+    <div class="field has-addons" v-else>
+      <p class="control">
+        <span class="select">
+          <select>
+            <option>₦</option>
+          </select>
+        </span>
+      </p>
+      <p class="control is-expanded has-icons-right">
+        <input class="input is-info" type="number" min="0" oninput="validity.valid||(value='');" placeholder="Amount of money" v-model="loadCancellationPolicy.partial_deduction_charge">
+        <!-- Has icon right -->
+        <span class="icon is-small is-right" v-if="$v.loadCancellationPolicy.partial_deduction_charge.required">
+          <i class="fas fa-check purple-color"></i>
+        </span>
+        <span class="icon is-small is-right" v-else>
+          <i class="fas fa-exclamation-triangle has-text-danger"></i>
+        </span>
+      </p>
+    </div>
 
-</div> <!-- Second column tag close -->
+  </div> <!-- Second column tag close -->
 
 </div> <!-- Columns wrapper tag close -->
 
@@ -470,10 +476,12 @@ export default {
    //Object.keys(this.$store.getters.loadWriteUp == 0) ? console.log('yes') : console.log('no')
    //Object.keys(this.$store.getters.loadCancellationPolicy == 0) ? this.fetchCancellationPolicy() : ''
    this.bulmaCalendar()
+   this.clearWriteUpNotification()
+   this.clearCancellatonPolicyNotification()
  },
 
  methods: {
-  ...mapActions(["createWriteUp", "clearSettingErrors", "fetchWriteUp", "editWriteUp", "createCancellationPolicy", "fetchCancellationPolicy", "editCancellationPolicy"]),
+  ...mapActions(["createWriteUp", "clearSettingErrors", "fetchWriteUp", "editWriteUp", "createCancellationPolicy", "fetchCancellationPolicy", "editCancellationPolicy", "clearWriteUpNotification", "clearCancellatonPolicyNotification"]),
 
     // Local method goes here
 
@@ -491,7 +499,7 @@ export default {
       let data = new FormData();
       data.append("_method", "post");
       data.append('write_up', this.writeUp);
-      this.createWriteUp(data)
+      this.createWriteUp(data).then(() => this.setWriteUpId() )
     },
 
     submitFormTwo() {
@@ -505,7 +513,7 @@ export default {
       data.append('delivered', this.delivered.selected);
       data.append('ready_to_be_picked', this.readyToBePicked.selected);
       data.append('in_kitchen', this.inKitchen.selected);
-      this.createCancellationPolicy(data)
+      this.createCancellationPolicy(data).then(() => this.setcancellationPolicy() )
     },
 
     submitFormOneUpdate() {
@@ -513,7 +521,7 @@ export default {
       data.append("_method", "patch");
       data.append('write_up', this.$store.getters.loadWriteUp.write_up );
       let id = this.$store.getters.loadWriteUp.id
-      this.editWriteUp({data, id})
+      this.editWriteUp({data, id}).then(() => this.setWriteUpId() )
     },
 
     submitFormTwoUpdate() {
@@ -528,7 +536,7 @@ export default {
       data.append('ready_to_be_picked', this.$store.getters.loadCancellationPolicy.ready_to_be_picked == null ? this.readyToBePicked.selected : this.$store.getters.loadCancellationPolicy.ready_to_be_picked);
       data.append('in_kitchen', this.$store.getters.loadCancellationPolicy.in_kitchen == null ? this.inKitchen.selected : this.$store.getters.loadCancellationPolicy.in_kitchen);
       let id = this.$store.getters.loadCancellationPolicy.id
-      this.editCancellationPolicy({data, id})
+      this.editCancellationPolicy({data, id}).then(() => this.setcancellationPolicy() )
     },
 
     bulmaCalendar() {
@@ -560,7 +568,7 @@ if (element) {
 
 
   computed: {
-    ...mapGetters(['loadSettingProgress', 'loadSettingErrors', 'loadWriteUp', 'loadSettingLoader','loadSettingNotification', 'loadCancellationPolicy']),
+    ...mapGetters(['loadSettingProgress', 'loadSettingErrors', 'loadWriteUp', 'loadSettingLoader','loadWriteUpNotification', 'loadCancellationPolicy', 'loadCancellationPolicyNotification']),
     // Local computed properties
 
   },

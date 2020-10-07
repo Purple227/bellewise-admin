@@ -22,7 +22,7 @@ class CreateDriversTable extends Migration
             $table->integer('total_delivery')->default(0); 
             $table->string('image')->default('default_image.svg');
             $table->boolean('status')->default(true);     
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('password');
             $table->timestamps();
         });

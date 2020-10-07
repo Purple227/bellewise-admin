@@ -15,33 +15,33 @@ class RoleController extends Controller
 
         $role = new Role;
 
-        $role->restaurant_list = $request->restaurant_list == true ? 1 : 0;
-        $role->restaurant_create = $request->restaurant_create == true ? 1 : 0;
-        $role->restaurant_update = $request->restaurant_update == true ? 1 : 0;
-        $role->restaurant_block = $request->restaurant_block == true ? 1 : 0;
-        $role->restaurant_delete = $request->restaurant_delete == true ? 1 : 0;
+        $role->restaurant_list = $request->restaurant_list;
+        $role->restaurant_create = $request->restaurant_create; 
+        $role->restaurant_update = $request->restaurant_update; 
+        $role->restaurant_block = $request->restaurant_block; 
+        $role->restaurant_delete = $request->restaurant_delete;
 
 
-        $role->driver_list = $request->driver_list == true ? 1 : 0;
-        $role->driver_create = $request->driver_create == true ? 1 : 0;
-        $role->driver_update = $request->driver_update == true ? 1 : 0;
-        $role->driver_block = $request->driver_block == true ? 1 : 0;
-        $role->driver_delete = $request->driver_delete == true ? 1 : 0;
+        $role->driver_list = $request->driver_list;
+        $role->driver_create = $request->driver_create;
+        $role->driver_update = $request->driver_update;
+        $role->driver_block = $request->driver_block;
+        $role->driver_delete = $request->driver_delete;
 
-        $role->promo_list = $request->promo_list == true ? 1 : 0;
-        $role->promo_create = $request->promo_create == true ? 1 : 0;
-        $role->promo_update = $request->promo_update == true ? 1 : 0;
-        $role->promo_delete = $request->promo_delete == true ? 1 : 0;
+        $role->promo_list = $request->promo_list;
+        $role->promo_create = $request->promo_create;
+        $role->promo_update = $request->promo_update;
+        $role->promo_delete = $request->promo_delete;
 
-        $role->order_list = $request->order_list == true ? 1 : 0;
-        $role->order_confirm = $request->order_confirm == true ? 1 : 0;
-        $role->order_reject = $request->order_reject == true ? 1 : 0;
+        $role->order_list = $request->order_list;
+        $role->order_confirm = $request->order_confirm;
+        $role->order_reject = $request->order_reject;
 
-        $role->user_list = $request->user_list == true ? 1 : 0;
-        $role->user_block = $request->user_block == true ? 1 : 0;
-        $role->user_password_reset = $request->user_password_reset == true ? 1 : 0;
+        $role->user_list = $request->user_list;
+        $role->user_block = $request->user_block;
+        $role->user_password_reset = $request->user_password_reset;
 
-        $role->sub_admin_list = $request->sub_admin_list == true ? 1 : 0;
+        $role->sub_admin_list = $request->sub_admin_list;
 
 
         $role->user_id = $id;
@@ -54,50 +54,49 @@ class RoleController extends Controller
 
     public function show($id)
     {
-        $role = Role::find($id)->role;
+        $role = User::find($id)->role;
         return response()->json($role);
     }
 
 
     public function updatePermission(Request $request, $id)
     {
+        
         $role = Role::find($id);
 
+        $role->restaurant_list = $request->restaurant_list;
+        $role->restaurant_create = $request->restaurant_create; 
+        $role->restaurant_update = $request->restaurant_update; 
+        $role->restaurant_block = $request->restaurant_block; 
+        $role->restaurant_delete = $request->restaurant_delete;
 
-        $role->restaurant_list = $request->restaurant_list == true ? 1 : 0;
-        $role->restaurant_create = $request->restaurant_create == true ? 1 : 0;
-        $role->restaurant_update = $request->restaurant_update == true ? 1 : 0;
-        $role->restaurant_block = $request->restaurant_block == true ? 1 : 0;
-        $role->restaurant_delete = $request->restaurant_delete == true ? 1 : 0;
 
+        $role->driver_list = $request->driver_list;
+        $role->driver_create = $request->driver_create;
+        $role->driver_update = $request->driver_update;
+        $role->driver_block = $request->driver_block;
+        $role->driver_delete = $request->driver_delete;
 
-        $role->driver_list = $request->driver_list == true ? 1 : 0;
-        $role->driver_create = $request->driver_create == true ? 1 : 0;
-        $role->driver_update = $request->driver_update == true ? 1 : 0;
-        $role->driver_block = $request->driver_block == true ? 1 : 0;
-        $role->driver_delete = $request->driver_delete == true ? 1 : 0;
+        $role->promo_list = $request->promo_list;
+        $role->promo_create = $request->promo_create;
+        $role->promo_update = $request->promo_update;
+        $role->promo_delete = $request->promo_delete;
 
-        $role->promo_list = $request->promo_list == true ? 1 : 0;
-        $role->promo_create = $request->promo_create == true ? 1 : 0;
-        $role->promo_update = $request->promo_update == true ? 1 : 0;
-        $role->promo_delete = $request->promo_delete == true ? 1 : 0;
+        $role->order_list = $request->order_list;
+        $role->order_confirm = $request->order_confirm;
+        $role->order_reject = $request->order_reject;
 
-        $role->order_list = $request->order_list == true ? 1 : 0;
-        $role->order_confirm = $request->order_confirm == true ? 1 : 0;
-        $role->order_reject = $request->order_reject == true ? 1 : 0;
+        $role->user_list = $request->user_list;
+        $role->user_block = $request->user_block;
+        $role->user_password_reset = $request->user_password_reset;
 
-        $role->user_list = $request->user_list == true ? 1 : 0;
-        $role->user_block = $request->user_block == true ? 1 : 0;
-        $role->user_password_reset = $request->user_password_reset == true ? 1 : 0;
-
-        $role->sub_admin_list = $request->sub_admin_list == true ? 1 : 0;
-
+        $role->sub_admin_list = $request->sub_admin_list;
 
         $role->user_id = $id;
 
         $role->save();
 
-        return 'Success';
+       // return 'Success';
     }
 
 

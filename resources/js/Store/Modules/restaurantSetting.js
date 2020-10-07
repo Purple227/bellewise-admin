@@ -1,9 +1,5 @@
 import Vue from 'vue'
 
-//routes
-import { app } from '../../app.js'
-
-
 const state = {
 
 	configNotification: null,
@@ -36,7 +32,6 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			history.go();
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setProgress', false)
@@ -65,7 +60,6 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			history.go();
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -77,6 +71,14 @@ const actions = {
 		})
 
 	},
+
+
+	async clearConfigNotification ({commit}) {
+		setTimeout(() => {
+			commit('unsetNotification', false)
+		}, 10000)
+	},
+
 
 }; //Actions calibrace close
 

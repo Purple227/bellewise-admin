@@ -1,9 +1,5 @@
 import Vue from 'vue'
-
-
-//routes
-import { app } from '../../app.js'
-
+import {router} from '../../app.js'
 
 const state = {
 	menuDatas: [],
@@ -89,7 +85,7 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			app.$router.push({name: 'restaurant-menu'})
+			router.push({name: 'restaurant-menu'})
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -111,7 +107,7 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			app.$router.push({name: 'driver-list'})
+			router.push({name: 'restaurant-menu'})
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)

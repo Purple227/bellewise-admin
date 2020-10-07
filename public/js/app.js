@@ -3091,6 +3091,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3150,7 +3155,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   // Method calibrace close
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadAdminProgress', 'loadAdminErrors', 'loadAdminCounter', 'loadAdminLoader']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadAdminProgress', 'loadAdminErrors', 'loadAdminCounter', 'loadAdminLoader', 'loadAdminNotification']))
 });
 
 /***/ }),
@@ -3173,10 +3178,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
-//
-//
 //
 //
 //
@@ -3321,7 +3322,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   // Method calibrace close
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadAuthUser', 'loadAuthenticated', 'loadAuthErrors', 'loadAuthProgress', 'loadAdminNotification']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadAuthUser', 'loadAuthenticated', 'loadAuthErrors', 'loadAuthProgress']))
 });
 
 /***/ }),
@@ -3599,7 +3600,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       spin: false,
-      showModal: false
+      showModal: false,
+      destroyId: null
     };
   },
   created: function created() {
@@ -3616,8 +3618,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return _this.spin = false;
       });
     },
-    deleteData: function deleteData(id) {
-      this.destroyData(id);
+    getDestroyId: function getDestroyId(id) {
+      this.destroyId = id;
+    },
+    deleteData: function deleteData() {
+      this.destroyData(this.destroyId);
       this.fetchBlockedDatas();
       this.showModal = false;
     },
@@ -3841,7 +3846,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       spin: false,
       showModal: false,
-      searchQuery: ''
+      searchQuery: '',
+      destroyId: null
     };
   },
   created: function created() {
@@ -3860,8 +3866,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.searchQuery = "";
       this.searchDatas(this.searchQuery);
     },
-    deleteData: function deleteData(id) {
-      this.destroyData(id);
+    getDestroyId: function getDestroyId(id) {
+      this.destroyId = id;
+    },
+    deleteData: function deleteData() {
+      this.destroyData(this.destroyId);
       this.fetchDatas();
       this.showModal = false;
     },
@@ -4325,7 +4334,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       data.append('name', this.$store.getters.loadSingleData.name);
       data.append('occupation', this.$store.getters.loadSingleData.occupation);
       data.append('file', this.imageFile);
-      var id = this.$route.params.id;
+      var id = this.$store.getters.loadSingleData.id;
       this.editData({
         data: data,
         id: id
@@ -4687,6 +4696,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 // Home.vue
 
 
@@ -4788,7 +4804,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapActions"])(["fetchRestaurantDatas", "fetchPromoDatas"])),
   // Method calibrace close
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['loadRestaurantPagination', 'loadPromoPagination']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_3__["mapGetters"])(['loadRestaurantPagination', 'loadPromoPagination', 'loadAuthenticated', 'loadAuthUser']))
 });
 
 /***/ }),
@@ -4804,6 +4820,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _partials_Navbar_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partials/Navbar.vue */ "./resources/js/Components/Layouts/partials/Navbar.vue");
 /* harmony import */ var _partials_Sidebar_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./partials/Sidebar.vue */ "./resources/js/Components/Layouts/partials/Sidebar.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -4834,13 +4857,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     'navbar': _partials_Navbar_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     'sidebar': _partials_Sidebar_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
-  }
+  },
+
+  /*	created() {
+  		this.me()
+  	},*/
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['me'])),
+  // Method calibrace close
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['loadAuthUser', 'loadAuthenticated', 'loadAuthLoader']))
 });
 
 /***/ }),
@@ -4855,11 +4888,13 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Mixins_classToggler__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../Mixins/classToggler */ "./resources/js/Mixins/classToggler.js");
-//
-//
-//
-//
-//
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -4955,8 +4990,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 // Navbar.vue
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [_Mixins_classToggler__WEBPACK_IMPORTED_MODULE_0__["default"]]
+  props: ['user'],
+  mixins: [_Mixins_classToggler__WEBPACK_IMPORTED_MODULE_0__["default"]],
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['signOut'])), {}, {
+    // Local method goes here
+    Logout: function Logout() {
+      this.signOut();
+    }
+  }),
+  // Method calibrace close
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['']))
 });
 
 /***/ }),
@@ -5056,9 +5101,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 // Navbar.vue
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['authenticated'],
   mixins: [_Mixins_classToggler__WEBPACK_IMPORTED_MODULE_0__["default"]]
 });
 
@@ -6437,7 +6484,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         vouchers: null,
         amount: null,
         discount: null,
-        bearer: null,
+        bearer: '',
         validity: null,
         restaurantsID: []
       },
@@ -6797,6 +6844,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -6808,7 +6856,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       restaurantsID: []
     };
   },
-  created: function created() {
+  mounted: function mounted() {
     this.setId();
     this.fetchRestaurantDatas();
     this.fetchAllRestaurantDatas();
@@ -8792,7 +8840,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       spin: false,
-      showModal: false
+      showModal: false,
+      destroyId: null
     };
   },
   created: function created() {
@@ -8809,8 +8858,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return _this.spin = false;
       });
     },
-    deleteData: function deleteData(id) {
-      this.destroyRestaurantData(id);
+    getDestroyId: function getDestroyId(id) {
+      this.destroyId = id;
+    },
+    deleteData: function deleteData() {
+      this.destroyRestaurantData(this.destroyId);
       this.fetchBlockedRestaurants();
       this.showModal = false;
     },
@@ -8826,475 +8878,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['loadBlockedRestaurants', 'loadRestaurantLoader', 'loadRestaurantNotification', 'loadRestaurantPagination']))
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Restaurant/Modules/restaurantConfig.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/Restaurant/Modules/restaurantConfig.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var bulma_extensions_bulma_calendar_dist_js_bulma_calendar_min_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! bulma-extensions/bulma-calendar/dist/js/bulma-calendar.min.js */ "./node_modules/bulma-extensions/bulma-calendar/dist/js/bulma-calendar.min.js");
-/* harmony import */ var bulma_extensions_bulma_calendar_dist_js_bulma_calendar_min_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(bulma_extensions_bulma_calendar_dist_js_bulma_calendar_min_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      restaurantConfig: {
-        preparationTime: 'none',
-        minimiumDeliveryTime: 'none',
-        maximiumDeliveryTime: 'none',
-        monday: 'none',
-        mondayStatus: 0,
-        tuesday: 'none',
-        tuesdayStatus: 0,
-        Wednesday: 'none',
-        WednesdayStatus: 0,
-        thursday: 'none',
-        thursdayStatus: 0,
-        friday: 'none',
-        fridayStatus: 0,
-        saturday: 'none',
-        saturdayStatus: 0,
-        sunday: 'none',
-        sundayStatus: 0
-      },
-      switcher: null
-    };
-  },
-  mounted: function mounted() {
-    this.bulmaCalendar();
-    this.setId();
-  },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['restaurantConfigSetting', 'fetchRestaurantConfig'])), {}, {
-    setId: function setId() {
-      var id = this.$route.params.id;
-      this.fetchRestaurantConfig(id);
-    },
-    submitForm: function submitForm() {
-      var data = new FormData();
-      data.append("_method", "post");
-      data.append('preparation_time', this.restaurantConfig.preparationTime);
-      data.append('minimium_delivery_time', this.restaurantConfig.minimiumDeliveryTime);
-      data.append('maximium_delivery_time', this.restaurantConfig.maximiumDeliveryTime);
-      data.append('monday', this.restaurantConfig.monday);
-      data.append('monday_status', this.restaurantConfig.mondayStatus);
-      data.append('tuesday', this.restaurantConfig.tuesday);
-      data.append('tuesday_status', this.restaurantConfig.tuesdayStatus);
-      data.append('wednesday', this.restaurantConfig.Wednesday);
-      data.append('wednesday_status', this.restaurantConfig.WednesdayStatus);
-      data.append('thursday', this.restaurantConfig.thursday);
-      data.append('thursday_status', this.restaurantConfig.thursdayStatus);
-      data.append('friday', this.restaurantConfig.friday);
-      data.append('friday_status', this.restaurantConfig.fridayStatus);
-      data.append('saturday', this.restaurantConfig.saturday);
-      data.append('saturday_status', this.restaurantConfig.saturdayStatus);
-      data.append('sunday', this.restaurantConfig.sunday);
-      data.append('sunday_status', this.restaurantConfig.sundayStatus);
-      var id = this.$route.params.id;
-      this.restaurantConfigSetting({
-        data: data,
-        id: id
-      });
-    },
-    bulmaCalendar: function bulmaCalendar() {
-      var _this = this;
-
-      // Initialize all input of date type.
-      var calendars = bulma_extensions_bulma_calendar_dist_js_bulma_calendar_min_js__WEBPACK_IMPORTED_MODULE_0___default.a.attach('[type="date"]', '[color="info"]', '[]'); // Loop on each calendar initialized
-
-
-      calendars.forEach(function (calendar) {
-        // Add listener to date:selected event
-        calendar.on('date:selected', function (date) {//console.log(date);
-        });
-      }); // To access to bulmaCalendar instance of an element
-
-      var preparationTime = document.querySelector('#preparation-time');
-
-      if (preparationTime) {
-        // bulmaCalendar instance is available as element.bulmaCalendar
-        preparationTime.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.preparationTime = datepicker.data.value();
-        });
-      } // To access to bulmaCalendar instance of an element
-
-
-      var minimiumDeliveryTime = document.querySelector('#minimium-delivery-time');
-
-      if (minimiumDeliveryTime) {
-        // bulmaCalendar instance is available as element.bulmaCalendar
-        minimiumDeliveryTime.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.minimiumDeliveryTime = datepicker.data.value();
-        });
-      } // To access to bulmaCalendar instance of an element
-
-
-      var maximiumDeliveryTime = document.querySelector('#maximium-delivery-time');
-
-      if (maximiumDeliveryTime) {
-        // bulmaCalendar instance is available as element.bulmaCalendar
-        maximiumDeliveryTime.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.maximiumDeliveryTime = datepicker.data.value();
-        });
-      } // To access to bulmaCalendar instance of an element
-
-
-      var monday = document.querySelector('#monday');
-
-      if (monday) {
-        // bulmaCalendar instance is available as element.bulmaCalendar
-        monday.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.monday = datepicker.data.value();
-        });
-      } // To access to bulmaCalendar instance of an element
-
-
-      var tuesday = document.querySelector('#tuesday');
-
-      if (tuesday) {
-        // bulmaCalendar instance is available as element.bulmaCalendar
-        tuesday.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.tuesday = datepicker.data.value();
-        });
-      } // To access to bulmaCalendar instance of an element
-
-
-      var Wednesday = document.querySelector('#Wednesday');
-
-      if (Wednesday) {
-        // bulmaCalendar instance is available as element.bulmaCalendar
-        Wednesday.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.Wednesday = datepicker.data.value();
-        });
-      } // To access to bulmaCalendar instance of an element
-
-
-      var thursday = document.querySelector('#thursday');
-
-      if (thursday) {
-        // bulmaCalendar instance is available as element.bulmaCalendar
-        thursday.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.thursday = datepicker.data.value();
-        });
-      } // To access to bulmaCalendar instance of an element
-
-
-      var friday = document.querySelector('#friday');
-
-      if (friday) {
-        // bulmaCalendar instance is available as element.bulmaCalendar
-        friday.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.friday = datepicker.data.value();
-        });
-      } // To access to bulmaCalendar instance of an element
-
-
-      var saturday = document.querySelector('#saturday');
-
-      if (saturday) {
-        // bulmaCalendar instance is available as element.bulmaCalendar
-        saturday.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.saturday = datepicker.data.value();
-        });
-      } // To access to bulmaCalendar instance of an element
-
-
-      var sunday = document.querySelector('#sunday');
-
-      if (sunday) {
-        // bulmaCalendar instance is available as element.bulmaCalendar
-        sunday.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.sunday = datepicker.data.value();
-        });
-      }
-    }
-  }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadConfigProgress', 'loadConfigNotification', 'loadRestaurantConfig', 'loadConfigLoader']))
 });
 
 /***/ }),
@@ -9497,15 +9080,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -9713,14 +9288,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       spin: false,
       showModal: false,
-      searchQuery: ''
+      searchQuery: '',
+      destroyId: null
     };
   },
   created: function created() {
     this.fetchRestaurantDatas();
     this.clearRestaurantNotification();
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['fetchRestaurantDatas', 'clearRestaurantNotification', 'destroyRestaurantData', 'searchRestaurantDatas', 'updateRestaurantStatus'])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['fetchRestaurantDatas', 'clearRestaurantNotification', 'destroyRestaurantData', 'searchRestaurantDatas', 'updateRestaurantStatus'])), {}, {
     // Local method
     refresh: function refresh() {
       var _this = this;
@@ -9732,29 +9308,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.searchQuery = "";
       this.searchRestaurantDatas(this.searchQuery);
     },
-    deleteData: function deleteData(id, index) {
-      var _this2 = this;
-
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                _this2.destroyRestaurantData(id).then(function () {
-                  return _this2.$store.getters.loadRestaurants.splice(index, 1);
-                });
-
-                _this2.fetchRestaurantDatas();
-
-                _this2.showModal = false;
-
-              case 3:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }))();
+    getDestroyId: function getDestroyId(id) {
+      this.destroyId = id;
+    },
+    deleteData: function deleteData() {
+      this.destroyRestaurantData(this.destroyId);
+      this.fetchRestaurantDatas();
+      this.showModal = false;
     },
     paginationHandler: function paginationHandler(uri) {
       this.fetchRestaurantDatas(uri);
@@ -9771,7 +9331,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadRestaurants', 'loadRestaurantLoader', 'loadRestaurantNotification', 'loadRestaurantPagination', 'loadRestaurantSearch']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['loadRestaurants', 'loadRestaurantLoader', 'loadRestaurantNotification', 'loadRestaurantPagination', 'loadRestaurantSearch']))
 });
 
 /***/ }),
@@ -10249,8 +9809,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         imageFile: '',
         imageName: null,
         countryCode: '+234',
-        discount: null,
-        commisson: null
+        discount: 0,
+        commisson: 0
       }
     };
   },
@@ -10312,6 +9872,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
 /* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -10533,24 +10107,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       restaurant: {
-        name: "Crunchies",
-        email: "Bellewise@bellewise.com",
-        address: "8 Mary Slessor Ave, Bogoberi, Calabar",
-        phone: "080XXXXXXX",
-        licenseNumber: null,
-        file: null,
-        commission: 8,
-        revenue: 54398.00
+        countryCode: '+234',
+        imageName: null,
+        imageFile: ""
       }
     };
   },
   validations: {
-    //Validation calibrace open 
-    restaurant: {
+    loadSingleRestaurant: {
       name: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       },
@@ -10564,13 +10133,45 @@ __webpack_require__.r(__webpack_exports__);
       address: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       },
-      licenseNumber: {
+      license_number: {
         required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_0__["required"]
       }
     } // restaurant calibrace close
 
-  } //Validation calibrace close 
-
+  },
+  created: function created() {
+    this.getRestaurant();
+  },
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["editRestaurantData", "clearRestaurantErrors", "fetchSingleRestaurant"])), {}, {
+    // Local method goes here
+    getRestaurant: function getRestaurant() {
+      var id = this.$route.params.id;
+      this.fetchSingleRestaurant(id);
+    },
+    fileUploadRestaurant: function fileUploadRestaurant(e) {
+      this.restaurant.imageName = e.target.files[0].name;
+      this.restaurant.imageFile = e.target.files[0];
+    },
+    submitForm: function submitForm() {
+      var data = new FormData();
+      data.append("_method", "patch");
+      data.append('restaurant_name', this.$store.getters.loadSingleRestaurant.name);
+      data.append('phone', this.$store.getters.loadSingleRestaurant.phone);
+      data.append('address', this.$store.getters.loadSingleRestaurant.address);
+      data.append('restaurant_file', this.restaurant.imageFile);
+      data.append('license_number', this.$store.getters.loadSingleRestaurant.license_number);
+      data.append('email', this.$store.getters.loadSingleRestaurant.email);
+      data.append('discount', this.$store.getters.loadSingleRestaurant.discount);
+      data.append('commmision', this.$store.getters.loadSingleRestaurant.commmission);
+      var id = this.$store.getters.loadSingleRestaurant.id;
+      this.editRestaurantData({
+        data: data,
+        id: id
+      });
+    }
+  }),
+  // Method calibrace close
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadRestaurantProgress', 'loadRestaurantErrors', 'loadSingleRestaurant']))
 });
 
 /***/ }),
@@ -11212,6 +10813,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -11241,13 +10845,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     this.bulmaCalendar();
     this.setId();
+    this.clearConfigNotification();
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['restaurantConfigSetting', 'fetchRestaurantConfig', 'editRestaurantConfig'])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(['restaurantConfigSetting', 'fetchRestaurantConfig', 'editRestaurantConfig', 'clearConfigNotification'])), {}, {
     setId: function setId() {
       var id = this.$route.params.id;
       this.fetchRestaurantConfig(id);
     },
     submitForm: function submitForm() {
+      var _this = this;
+
       var data = new FormData();
       data.append("_method", "post");
       data.append('preparation_time', this.restaurantConfig.preparationTime);
@@ -11271,9 +10878,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.restaurantConfigSetting({
         data: data,
         id: id
+      }).then(function () {
+        return _this.setId();
       });
     },
     submitFormUpdate: function submitFormUpdate() {
+      var _this2 = this;
+
       var data = new FormData();
       data.append("_method", "patch");
       data.append('preparation_time', this.$store.getters.loadRestaurantConfig.preparation_time);
@@ -11297,10 +10908,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.editRestaurantConfig({
         data: data,
         id: id
+      }).then(function () {
+        return _this2.setId();
       });
     },
     bulmaCalendar: function bulmaCalendar() {
-      var _this = this;
+      var _this3 = this;
 
       // Initialize all input of date type.
       var calendars = bulma_extensions_bulma_calendar_dist_js_bulma_calendar_min_js__WEBPACK_IMPORTED_MODULE_0___default.a.attach('[type="date"]', '[color="info"]', '[]'); // Loop on each calendar initialized
@@ -11317,7 +10930,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (preparationTime) {
         // bulmaCalendar instance is available as element.bulmaCalendar
         preparationTime.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.preparationTime = datepicker.data.value();
+          _this3.restaurantConfig.preparationTime = datepicker.data.value();
         });
       } // To access to bulmaCalendar instance of an element
 
@@ -11327,7 +10940,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (minimiumDeliveryTime) {
         // bulmaCalendar instance is available as element.bulmaCalendar
         minimiumDeliveryTime.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.minimiumDeliveryTime = datepicker.data.value();
+          _this3.restaurantConfig.minimiumDeliveryTime = datepicker.data.value();
         });
       } // To access to bulmaCalendar instance of an element
 
@@ -11337,7 +10950,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (maximiumDeliveryTime) {
         // bulmaCalendar instance is available as element.bulmaCalendar
         maximiumDeliveryTime.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.maximiumDeliveryTime = datepicker.data.value();
+          _this3.restaurantConfig.maximiumDeliveryTime = datepicker.data.value();
         });
       } // To access to bulmaCalendar instance of an element
 
@@ -11347,8 +10960,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (monday) {
         // bulmaCalendar instance is available as element.bulmaCalendar
         monday.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.monday = datepicker.data.value();
-          Object.keys(_this.$store.getters.loadRestaurantConfig == 0) ? '' : _this.$store.getters.loadRestaurantConfig.monday = datepicker.data.value();
+          _this3.restaurantConfig.monday = datepicker.data.value();
+          Object.keys(_this3.$store.getters.loadRestaurantConfig == 0) ? '' : _this3.$store.getters.loadRestaurantConfig.monday = datepicker.data.value();
         });
       } // To access to bulmaCalendar instance of an element
 
@@ -11358,8 +10971,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (tuesday) {
         // bulmaCalendar instance is available as element.bulmaCalendar
         tuesday.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.tuesday = datepicker.data.value();
-          Object.keys(_this.$store.getters.loadRestaurantConfig == 0) ? '' : _this.$store.getters.loadRestaurantConfig.tuesday = datepicker.data.value();
+          _this3.restaurantConfig.tuesday = datepicker.data.value();
+          Object.keys(_this3.$store.getters.loadRestaurantConfig == 0) ? '' : _this3.$store.getters.loadRestaurantConfig.tuesday = datepicker.data.value();
         });
       } // To access to bulmaCalendar instance of an element
 
@@ -11369,8 +10982,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (Wednesday) {
         // bulmaCalendar instance is available as element.bulmaCalendar
         Wednesday.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.Wednesday = datepicker.data.value();
-          Object.keys(_this.$store.getters.loadRestaurantConfig == 0) ? '' : _this.$store.getters.loadRestaurantConfig.wednesday = datepicker.data.value();
+          _this3.restaurantConfig.Wednesday = datepicker.data.value();
+          Object.keys(_this3.$store.getters.loadRestaurantConfig == 0) ? '' : _this3.$store.getters.loadRestaurantConfig.wednesday = datepicker.data.value();
         });
       } // To access to bulmaCalendar instance of an element
 
@@ -11380,8 +10993,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (thursday) {
         // bulmaCalendar instance is available as element.bulmaCalendar
         thursday.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.thursday = datepicker.data.value();
-          Object.keys(_this.$store.getters.loadRestaurantConfig == 0) ? '' : _this.$store.getters.loadRestaurantConfig.thursday = datepicker.data.value();
+          _this3.restaurantConfig.thursday = datepicker.data.value();
+          Object.keys(_this3.$store.getters.loadRestaurantConfig == 0) ? '' : _this3.$store.getters.loadRestaurantConfig.thursday = datepicker.data.value();
         });
       } // To access to bulmaCalendar instance of an element
 
@@ -11391,8 +11004,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (friday) {
         // bulmaCalendar instance is available as element.bulmaCalendar
         friday.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.friday = datepicker.data.value();
-          Object.keys(_this.$store.getters.loadRestaurantConfig == 0) ? '' : _this.$store.getters.loadRestaurantConfig.friday = datepicker.data.value();
+          _this3.restaurantConfig.friday = datepicker.data.value();
+          Object.keys(_this3.$store.getters.loadRestaurantConfig == 0) ? '' : _this3.$store.getters.loadRestaurantConfig.friday = datepicker.data.value();
         });
       } // To access to bulmaCalendar instance of an element
 
@@ -11402,8 +11015,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (saturday) {
         // bulmaCalendar instance is available as element.bulmaCalendar
         saturday.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.saturday = datepicker.data.value();
-          Object.keys(_this.$store.getters.loadRestaurantConfig == 0) ? '' : _this.$store.getters.loadRestaurantConfig.saturday = datepicker.data.value();
+          _this3.restaurantConfig.saturday = datepicker.data.value();
+          Object.keys(_this3.$store.getters.loadRestaurantConfig == 0) ? '' : _this3.$store.getters.loadRestaurantConfig.saturday = datepicker.data.value();
         });
       } // To access to bulmaCalendar instance of an element
 
@@ -11413,13 +11026,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (sunday) {
         // bulmaCalendar instance is available as element.bulmaCalendar
         sunday.bulmaCalendar.on('select', function (datepicker) {
-          _this.restaurantConfig.sunday = datepicker.data.value();
-          Object.keys(_this.$store.getters.loadRestaurantConfig == 0) ? '' : _this.$store.getters.loadRestaurantConfig.sunday = datepicker.data.value();
+          _this3.restaurantConfig.sunday = datepicker.data.value();
+          Object.keys(_this3.$store.getters.loadRestaurantConfig == 0) ? '' : _this3.$store.getters.loadRestaurantConfig.sunday = datepicker.data.value();
         });
       }
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadConfigProgress', 'loadConfigNotification', 'loadRestaurantConfig', 'loadConfigLoader']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadConfigProgress', 'loadConfigNotification', 'loadRestaurantConfig', 'loadConfigLoader', 'loadConfigNotification']))
 });
 
 /***/ }),
@@ -11435,7 +11048,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Modules_restaurantDetails_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Modules/restaurantDetails.vue */ "./resources/js/Components/Restaurant/Modules/restaurantDetails.vue");
 /* harmony import */ var _menu_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./menu.vue */ "./resources/js/Components/Restaurant/menu.vue");
-/* harmony import */ var _Modules_restaurantConfig_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Modules/restaurantConfig.vue */ "./resources/js/Components/Restaurant/Modules/restaurantConfig.vue");
+/* harmony import */ var _restaurantSetting_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./restaurantSetting.vue */ "./resources/js/Components/Restaurant/restaurantSetting.vue");
 //
 //
 //
@@ -11500,7 +11113,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     'restaurant-details': _Modules_restaurantDetails_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     'food-item': _menu_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    'restaurant-config': _Modules_restaurantConfig_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    'restaurant-config': _restaurantSetting_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -12128,6 +11741,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -12193,8 +11812,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     //Object.keys(this.$store.getters.loadCancellationPolicy == 0) ? this.fetchCancellationPolicy() : ''
 
     this.bulmaCalendar();
+    this.clearWriteUpNotification();
+    this.clearCancellatonPolicyNotification();
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["createWriteUp", "clearSettingErrors", "fetchWriteUp", "editWriteUp", "createCancellationPolicy", "fetchCancellationPolicy", "editCancellationPolicy"])), {}, {
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])(["createWriteUp", "clearSettingErrors", "fetchWriteUp", "editWriteUp", "createCancellationPolicy", "fetchCancellationPolicy", "editCancellationPolicy", "clearWriteUpNotification", "clearCancellatonPolicyNotification"])), {}, {
     // Local method goes here
     setWriteUpId: function setWriteUpId() {
       var id = 1;
@@ -12205,12 +11826,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.fetchCancellationPolicy(id);
     },
     submitFormOne: function submitFormOne() {
+      var _this = this;
+
       var data = new FormData();
       data.append("_method", "post");
       data.append('write_up', this.writeUp);
-      this.createWriteUp(data);
+      this.createWriteUp(data).then(function () {
+        return _this.setWriteUpId();
+      });
     },
     submitFormTwo: function submitFormTwo() {
+      var _this2 = this;
+
       var data = new FormData();
       data.append("_method", "post");
       data.append('max_canellation_time', this.cancellationPolicy.maxCancellationTime);
@@ -12221,9 +11848,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       data.append('delivered', this.delivered.selected);
       data.append('ready_to_be_picked', this.readyToBePicked.selected);
       data.append('in_kitchen', this.inKitchen.selected);
-      this.createCancellationPolicy(data);
+      this.createCancellationPolicy(data).then(function () {
+        return _this2.setcancellationPolicy();
+      });
     },
     submitFormOneUpdate: function submitFormOneUpdate() {
+      var _this3 = this;
+
       var data = new FormData();
       data.append("_method", "patch");
       data.append('write_up', this.$store.getters.loadWriteUp.write_up);
@@ -12231,9 +11862,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.editWriteUp({
         data: data,
         id: id
+      }).then(function () {
+        return _this3.setWriteUpId();
       });
     },
     submitFormTwoUpdate: function submitFormTwoUpdate() {
+      var _this4 = this;
+
       var data = new FormData();
       data.append("_method", "patch");
       data.append('max_canellation_time', this.$store.getters.loadCancellationPolicy.max_canellation_time);
@@ -12248,10 +11883,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.editCancellationPolicy({
         data: data,
         id: id
+      }).then(function () {
+        return _this4.setcancellationPolicy();
       });
     },
     bulmaCalendar: function bulmaCalendar() {
-      var _this = this;
+      var _this5 = this;
 
       // Initialize all input of date type.
       var calendars = bulma_extensions_bulma_calendar_dist_js_bulma_calendar_min_js__WEBPACK_IMPORTED_MODULE_2___default.a.attach('[type="date"]', '[color="info"]'); // Loop on each calendar initialized
@@ -12269,14 +11906,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (element) {
         // bulmaCalendar instance is available as element.bulmaCalendar
         element.bulmaCalendar.on('select', function (datepicker) {
-          _this.cancellationPolicy.maxCancellationTime = datepicker.data.value();
-          Object.keys(_this.$store.getters.loadCancellationPolicy == 0) ? '' : _this.$store.getters.loadCancellationPolicy.max_canellation_time = datepicker.data.value();
+          _this5.cancellationPolicy.maxCancellationTime = datepicker.data.value();
+          Object.keys(_this5.$store.getters.loadCancellationPolicy == 0) ? '' : _this5.$store.getters.loadCancellationPolicy.max_canellation_time = datepicker.data.value();
         });
       }
     }
   }),
   // Method calibrace close
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadSettingProgress', 'loadSettingErrors', 'loadWriteUp', 'loadSettingLoader', 'loadSettingNotification', 'loadCancellationPolicy']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])(['loadSettingProgress', 'loadSettingErrors', 'loadWriteUp', 'loadSettingLoader', 'loadWriteUpNotification', 'loadCancellationPolicy', 'loadCancellationPolicyNotification']))
 });
 
 /***/ }),
@@ -12350,6 +11987,529 @@ __webpack_require__.r(__webpack_exports__);
       tc: false
     };
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/Modules/addPermission.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/Modules/addPermission.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      restaurant: {
+        list: false,
+        create: false,
+        update: false,
+        block: false,
+        "delete": false,
+        selectAll: false
+      },
+      driver: {
+        list: false,
+        create: false,
+        update: false,
+        block: false,
+        "delete": false,
+        selectAll: false
+      },
+      promo: {
+        list: false,
+        create: false,
+        update: false,
+        "delete": false,
+        selectAll: false
+      },
+      order: {
+        list: false,
+        confirm: false,
+        reject: false,
+        selectAll: false
+      },
+      user: {
+        list: false,
+        resetPassword: false,
+        block: false,
+        selectAll: false
+      },
+      subAdmin: false
+    };
+  },
+  created: function created() {
+    this.setId();
+    this.clearRoleNotification();
+  },
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['fetchSubAdminSingleData', 'createRole', 'fetchRole', 'clearRoleNotification'])), {}, {
+    //+ this.$route.params.slug
+    setId: function setId() {
+      var id = this.$route.params.id;
+      this.fetchSubAdminSingleData(id);
+      this.fetchRole(id);
+    },
+    submitForm: function submitForm() {
+      var _this = this;
+
+      var data = new FormData();
+      data.append("_method", "post");
+      data.append('restaurant_list', this.restaurant.list == true ? this.restaurant.list = 1 : this.restaurant.list = 0);
+      data.append('restaurant_create', this.restaurant.create == true ? this.restaurant.create = 1 : this.restaurant.create = 0);
+      data.append('restaurant_block', this.restaurant.block == true ? this.restaurant.block = 1 : this.restaurant.block = 0);
+      data.append('restaurant_delete', this.restaurant["delete"] == true ? this.restaurant["delete"] = 1 : this.restaurant["delete"] = 0);
+      data.append('restaurant_update', this.restaurant.update == true ? this.restaurant.update = 1 : this.restaurant.update = 0);
+      data.append('driver_update', this.driver.update == true ? this.driver.update = 1 : this.driver.update = 0);
+      data.append('driver_list', this.driver.list == true ? this.driver.list = 1 : this.driver.list = 0);
+      data.append('driver_create', this.driver.create == true ? this.driver.create = 1 : this.driver.create = 0);
+      data.append('driver_block', this.driver.block == true ? this.driver.block = 1 : this.driver.block = 0);
+      data.append('driver_delete', this.driver["delete"] == true ? this.driver["delete"] = 1 : this.driver["delete"] = 0);
+      data.append('promo_list', this.promo.list == true ? this.promo.list = 1 : this.promo.list = 0);
+      data.append('promo_create', this.promo.create == true ? this.promo.create = 1 : this.promo.create = 0);
+      data.append('promo_delete', this.promo["delete"] == true ? this.promo["delete"] = 1 : this.promo["delete"] = 0);
+      data.append('promo_update', this.promo.update == true ? this.promo.update = 1 : this.promo.update = 0);
+      data.append('user_list', this.user.list == true ? this.user.list = 1 : this.user.list = 0);
+      data.append('user_block', this.user.block == true ? this.user.block = 1 : this.user.block = 0);
+      data.append('user_password_reset', this.user.resetPassword == true ? this.user.resetPassword = 1 : this.user.resetPassword = 0);
+      data.append('order_list', this.order.list == true ? this.order.list = 1 : this.order.list = 0);
+      data.append('order_confirm', this.order.confirm == true ? this.order.confirm = 1 : this.order.confirm = 0);
+      data.append('order_reject', this.order.reject == true ? this.order.reject = 1 : this.order.reject = 0);
+      data.append('sub_admin_list', this.subAdmin == true ? this.subAdmin = 1 : this.subAdmin = 0);
+      var id = this.$route.params.id;
+      this.createRole({
+        data: data,
+        id: id
+      }).then(function () {
+        return _this.setId();
+      });
+    }
+  }),
+  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['loadSubAdminSingleData', 'loadSubAdminLoader', 'loadRole', 'loadRoleNotification', 'loadRoleProgress', 'loadRoleLoader'])), {}, {
+    // Local computed properties
+    selectAllRestaurantRole: function selectAllRestaurantRole() {
+      for (var key in this.restaurant) {
+        this.restaurant[key] = this.restaurant.selectAll == true ? this.restaurant[key] = true : this.restaurant[key] = false;
+      }
+
+      return this.restaurant;
+    },
+    selectAllDriverRole: function selectAllDriverRole() {
+      for (var key in this.driver) {
+        this.driver[key] = this.driver.selectAll == true ? this.driver[key] = true : this.driver[key] = false;
+      }
+
+      return this.driver;
+    },
+    selectAllPromoRole: function selectAllPromoRole() {
+      for (var key in this.promo) {
+        this.promo[key] = this.promo.selectAll == true ? this.promo[key] = true : this.promo[key] = false;
+      }
+
+      return this.promo;
+    },
+    selectAllOrderRole: function selectAllOrderRole() {
+      for (var key in this.order) {
+        this.order[key] = this.order.selectAll == true ? this.order[key] = true : this.order[key] = false;
+      }
+
+      return this.order;
+    },
+    selectAllUserRole: function selectAllUserRole() {
+      for (var key in this.user) {
+        this.user[key] = this.user.selectAll == true ? this.user[key] = true : this.user[key] = false;
+      }
+
+      return this.user;
+    }
+  })
 });
 
 /***/ }),
@@ -12546,7 +12706,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   data: function data() {
     return {
       spin: false,
-      showModal: false
+      showModal: false,
+      destroyId: null
     };
   },
   created: function created() {
@@ -12563,8 +12724,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return _this.spin = false;
       });
     },
+    getDestroyId: function getDestroyId(id) {
+      this.destroyId = id;
+    },
     deleteData: function deleteData(id) {
-      this.destroySubAdminData(id);
+      this.destroySubAdminData(this.destroyId);
       this.fetchSubAdminBlockedDatas();
       this.showModal = false;
     },
@@ -12579,7 +12743,417 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.refresh();
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['loadSubAdminBlockedDatas', 'loadSubAdminLoader', 'loadSubAdminNotification', 'loadSubAdminPagination']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['loadSubAdminBlockedDatas', 'loadSubAdminLoader', 'loadSubAdminNotification', 'loadSubAdminPagination', 'loadAuthUser']))
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/Modules/editPermission.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/Modules/editPermission.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
+  created: function created() {
+    this.setId();
+    this.clearRoleNotification();
+  },
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['fetchSubAdminSingleData', 'editRole', 'fetchRole', 'clearRoleNotification'])), {}, {
+    //+ this.$route.params.slug
+    setId: function setId() {
+      var id = this.$route.params.id;
+      this.fetchSubAdminSingleData(id);
+      this.fetchRole(id);
+    },
+    submitForm: function submitForm() {
+      var _this = this;
+
+      var data = new FormData();
+      data.append("_method", "patch");
+      data.append('restaurant_list', this.loadRole.restaurant_list == true ? this.loadRole.restaurant_list = 1 : this.loadRole.restaurant_list = 0);
+      data.append('restaurant_create', this.loadRole.restaurant_create == true ? this.loadRole.restaurant_create = 1 : this.loadRole.restaurant_create = 0);
+      data.append('restaurant_block', this.loadRole.restaurant_block == true ? this.loadRole.restaurant_block = 1 : this.loadRole.restaurant_block = 0);
+      data.append('restaurant_delete', this.loadRole.restaurant_delete == true ? this.loadRole.restaurant_delete = 1 : this.loadRole.restaurant_delete = 0);
+      data.append('restaurant_update', this.loadRole.restaurant_update == true ? this.loadRole.restaurant_update = 1 : this.loadRole.restaurant_update = 0);
+      data.append('driver_update', this.loadRole.driver_update == true ? this.loadRole.driver_update = 1 : this.loadRole.driver_update = 0);
+      data.append('driver_list', this.loadRole.driver_list == true ? this.loadRole.driver_list = 1 : this.loadRole.driver_list = 0);
+      data.append('driver_create', this.loadRole.driver_create == true ? this.loadRole.driver_create = 1 : this.loadRole.driver_create = 0);
+      data.append('driver_block', this.loadRole.driver_block == true ? this.loadRole.driver_block = 1 : this.loadRole.driver_block = 0);
+      data.append('driver_delete', this.loadRole.driver_delete == true ? this.loadRole.driver_delete = 1 : this.loadRole.driver_delete = 0);
+      data.append('promo_list', this.loadRole.promo_list == true ? this.loadRole.promo_list = 1 : this.loadRole.promo_list = 0);
+      data.append('promo_create', this.loadRole.promo_create == true ? this.loadRole.promo_create = 1 : this.loadRole.promo_create = 0);
+      data.append('promo_delete', this.loadRole.promo_delete == true ? this.loadRole.promo_delete = 1 : this.loadRole.promo_delete = 0);
+      data.append('promo_update', this.loadRole.promo_update == true ? this.loadRole.promo_update = 1 : this.loadRole.promo_update = 0);
+      data.append('user_list', this.loadRole.user_list == true ? this.loadRole.user_list = 1 : this.loadRole.user_list = 0);
+      data.append('user_block', this.loadRole.user_block == true ? this.loadRole.user_block = 1 : this.loadRole.user_block = 0);
+      data.append('user_password_reset', this.loadRole.user_password_reset == true ? this.loadRole.user_password_reset = 1 : this.loadRole.user_password_reset = 0);
+      data.append('order_list', this.loadRole.order_list == true ? this.loadRole.order_list = 1 : this.loadRole.order_list = 0);
+      data.append('order_confirm', this.loadRole.order_confirm == true ? this.loadRole.order_confirm = 1 : this.loadRole.order_confirm = 0);
+      data.append('order_reject', this.loadRole.order_reject == true ? this.loadRole.order_reject = 1 : this.loadRole.order_reject = 0);
+      data.append('sub_admin_list', this.loadRole.sub_admin_list == true ? this.loadRole.sub_admin_list = 1 : this.loadRole.sub_admin_list = 0);
+      var id = this.$route.params.id;
+      this.editRole({
+        data: data,
+        id: id
+      }).then(function () {
+        return _this.setId();
+      });
+    }
+  }),
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['loadSubAdminSingleData', 'loadSubAdminLoader', 'loadRole', 'loadRoleNotification', 'loadRoleProgress', 'loadRoleLoader']))
 });
 
 /***/ }),
@@ -12791,7 +13365,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return {
       spin: false,
       showModal: false,
-      searchQuery: ''
+      searchQuery: '',
+      destroyId: null
     };
   },
   created: function created() {
@@ -12810,8 +13385,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.searchQuery = "";
       this.searchSubAdminDatas(this.searchQuery);
     },
-    deleteData: function deleteData(id) {
-      this.destroySubAdminData(id);
+    getDestroyId: function getDestroyId(id) {
+      this.destroyId = id;
+    },
+    deleteData: function deleteData() {
+      this.destroySubAdminData(this.destroyId);
       this.fetchSubAdminDatas();
       this.showModal = false;
     },
@@ -12830,7 +13408,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     }
   }),
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['loadSubAdminDatas', 'loadSubAdminLoader', 'loadSubAdminNotification', 'loadSubAdminPagination', 'loadSubAdminSearch']))
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['loadSubAdminDatas', 'loadSubAdminLoader', 'loadSubAdminNotification', 'loadSubAdminPagination', 'loadSubAdminSearch', 'loadAuthUser']))
 });
 
 /***/ }),
@@ -13325,7 +13903,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _Modules_addPermission_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Modules/addPermission.vue */ "./resources/js/Components/SubAdmin/Modules/addPermission.vue");
+/* harmony import */ var _Modules_editPermission_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Modules/editPermission.vue */ "./resources/js/Components/SubAdmin/Modules/editPermission.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -13353,481 +13933,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    'add-permission': _Modules_addPermission_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    'edit-permission': _Modules_editPermission_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   data: function data() {
     return {
-      restaurant: {
-        list: false,
-        create: false,
-        update: false,
-        block: false,
-        "delete": false,
-        selectAll: false
-      },
-      driver: {
-        list: false,
-        create: false,
-        update: false,
-        block: false,
-        "delete": false,
-        selectAll: false
-      },
-      promo: {
-        list: false,
-        create: false,
-        update: false,
-        "delete": false,
-        selectAll: false
-      },
-      order: {
-        list: false,
-        confirm: false,
-        reject: false,
-        selectAll: false
-      },
-      user: {
-        list: false,
-        resetPassword: false,
-        block: false,
-        selectAll: false
-      },
-      subAdmin: false
+      /*    addPermission: true,
+          editPermission: false,*/
     };
   },
   created: function created() {
     this.setId();
   },
-  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])(['fetchSubAdminSingleData', 'createRole', 'fetchRole', 'editRole'])), {}, {
-    //+ this.$route.params.slug
+  methods: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapActions"])(['fetchRole'])), {}, {
     setId: function setId() {
       var id = this.$route.params.id;
-      this.fetchSubAdminSingleData(id);
       this.fetchRole(id);
-    },
-    submitForm: function submitForm() {
-      var data = new FormData();
-      data.append("_method", "post");
-      data.append('restaurant_list', this.restaurant.list);
-      data.append('restaurant_create', this.restaurant.create);
-      data.append('restaurant_block', this.restaurant.block);
-      data.append('restaurant_delete', this.restaurant["delete"]);
-      data.append('restaurant_update', this.restaurant.update);
-      data.append('driver_update', this.driver.update);
-      data.append('driver_list', this.driver.list);
-      data.append('driver_create', this.driver.create);
-      data.append('driver_block', this.driver.block);
-      data.append('driver_delete', this.driver["delete"]);
-      data.append('promo_list', this.promo.list);
-      data.append('promo_create', this.promo.create);
-      data.append('promo_delete', this.promo["delete"]);
-      data.append('promo_update', this.promo.update);
-      data.append('user_list', this.user.list);
-      data.append('user_block', this.user.block);
-      data.append('user_password_reset', this.user.resetPassword);
-      data.append('order_list', this.order.list);
-      data.append('order_confirm', this.order.confirm);
-      data.append('order_reject', this.order.reject);
-      data.append('sub_admin_list', this.subAdmin);
-      var id = this.$route.params.id;
-      this.createRole({
-        data: data,
-        id: id
-      });
     }
   }),
-  computed: _objectSpread(_objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['loadSubAdminSingleData', 'loadSubAdminLoader', 'loadRole', 'loadRoleNotification', 'loadRoleProgress'])), {}, {
-    // Local computed properties
-    selectAllRestaurantRole: function selectAllRestaurantRole() {
-      for (var key in this.restaurant) {
-        this.restaurant[key] = this.restaurant.selectAll == true ? this.restaurant[key] = true : this.restaurant[key] = false;
-      }
-
-      return this.restaurant;
-    },
-    selectAllDriverRole: function selectAllDriverRole() {
-      for (var key in this.driver) {
-        this.driver[key] = this.driver.selectAll == true ? this.driver[key] = true : this.driver[key] = false;
-      }
-
-      return this.driver;
-    },
-    selectAllPromoRole: function selectAllPromoRole() {
-      for (var key in this.promo) {
-        this.promo[key] = this.promo.selectAll == true ? this.promo[key] = true : this.promo[key] = false;
-      }
-
-      return this.promo;
-    },
-    selectAllOrderRole: function selectAllOrderRole() {
-      for (var key in this.order) {
-        this.order[key] = this.order.selectAll == true ? this.order[key] = true : this.order[key] = false;
-      }
-
-      return this.order;
-    },
-    selectAllUserRole: function selectAllUserRole() {
-      for (var key in this.user) {
-        this.user[key] = this.user.selectAll == true ? this.user[key] = true : this.user[key] = false;
-      }
-
-      return this.user;
-    }
-  })
+  // Method calibrace close
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_2__["mapGetters"])(['loadRole']))
 });
 
 /***/ }),
@@ -54297,6 +54427,17 @@ var render = function() {
               )
             : _vm._e(),
           _vm._v(" "),
+          _vm.loadAdminNotification
+            ? _c(
+                "div",
+                {
+                  staticClass:
+                    "notification purple-bg-light is-bold has-text-black"
+                },
+                [_vm._v("\n\t\t\t\tTask Succeesful\n\t\t\t")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
           _c(
             "form",
             {
@@ -54841,16 +54982,6 @@ var render = function() {
     _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "box" }, [
-      _vm.loadAdminNotification
-        ? _c(
-            "div",
-            {
-              staticClass: "notification purple-bg-light is-bold has-text-black"
-            },
-            [_vm._v("\n\t\t\tRegistration Succeesful\n\t\t")]
-          )
-        : _vm._e(),
-      _vm._v(" "),
       _vm.loadAuthErrors
         ? _c(
             "div",
@@ -54860,7 +54991,7 @@ var render = function() {
             [
               _c(
                 "ul",
-                _vm._l(_vm.loadbAuthErrors, function(value, name, index) {
+                _vm._l(_vm.loadAuthErrors, function(value, name, index) {
                   return _c("li", [
                     _vm._v(
                       "\n\t\t\t\t\t" +
@@ -55381,7 +55512,10 @@ var render = function() {
                               staticClass: "control",
                               on: {
                                 click: function($event) {
-                                  _vm.showModal = true
+                                  ;[
+                                    (_vm.showModal = true),
+                                    _vm.getDestroyId(driver.id)
+                                  ]
                                 }
                               }
                             },
@@ -55414,11 +55548,7 @@ var render = function() {
                                           {
                                             staticClass:
                                               "card-footer-item is-bold purple-color pointer",
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.deleteData(driver.id)
-                                              }
-                                            }
+                                            on: { click: _vm.deleteData }
                                           },
                                           [
                                             _vm._v(
@@ -55854,7 +55984,10 @@ var render = function() {
                                 staticClass: "control",
                                 on: {
                                   click: function($event) {
-                                    _vm.showModal = true
+                                    ;[
+                                      (_vm.showModal = true),
+                                      _vm.getDestroyId(driver.id)
+                                    ]
                                   }
                                 }
                               },
@@ -55889,13 +56022,7 @@ var render = function() {
                                             {
                                               staticClass:
                                                 "card-footer-item is-bold purple-color pointer",
-                                              on: {
-                                                click: function($event) {
-                                                  return _vm.deleteData(
-                                                    driver.id
-                                                  )
-                                                }
-                                              }
+                                              on: { click: _vm.deleteData }
                                             },
                                             [
                                               _vm._v(
@@ -57122,6 +57249,23 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _vm.loadAuthenticated
+      ? _c(
+          "div",
+          {
+            staticClass:
+              "notification purple-bg-light is-bold has-text-black has-text-centered "
+          },
+          [
+            _vm._v(
+              "\n          Welcome " +
+                _vm._s(_vm.loadAuthUser.name) +
+                "\n        "
+            )
+          ]
+        )
+      : _vm._e(),
+    _vm._v(" "),
     _c("div", { staticClass: "columns" }, [
       _c("div", { staticClass: "column" }, [
         _vm._m(0),
@@ -57129,7 +57273,7 @@ var render = function() {
         _c("div", { staticClass: "box border-bottom" }, [
           _c("div", { staticClass: "content" }, [
             _c("p", { staticClass: "is-bold" }, [
-              _vm._v(" Restaurants\n\t\t\t\t\t\t"),
+              _vm._v(" Restaurants\n\t\t\t\t\t\t\t"),
               _c("br"),
               _vm._v(" "),
               _c("span", { staticClass: "subtitle is-bold" }, [
@@ -57148,7 +57292,7 @@ var render = function() {
         _c("div", { staticClass: "box border-bottom" }, [
           _c("div", { staticClass: "content" }, [
             _c("p", { staticClass: "is-bold" }, [
-              _vm._v(" Promotion\n\t\t\t\t\t\t"),
+              _vm._v(" Promotion\n\t\t\t\t\t\t\t"),
               _c("br"),
               _vm._v(" "),
               _c("span", { staticClass: "subtitle is-bold" }, [
@@ -57203,12 +57347,10 @@ var staticRenderFns = [
     return _c("div", { staticClass: "box border-bottom" }, [
       _c("div", { staticClass: "content" }, [
         _c("p", { staticClass: "is-bold" }, [
-          _vm._v(" Pending Orders \n\t\t\t\t\t\t"),
+          _vm._v(" Pending Orders \n\t\t\t\t\t\t\t"),
           _c("br"),
           _vm._v(" "),
-          _c("span", { staticClass: "subtitle is-bold" }, [
-            _vm._v(" Unavailable ")
-          ])
+          _c("span", { staticClass: "subtitle is-bold" }, [_vm._v(" 0 ")])
         ])
       ])
     ])
@@ -57221,12 +57363,10 @@ var staticRenderFns = [
       _c("div", { staticClass: "box border-bottom" }, [
         _c("div", { staticClass: "content" }, [
           _c("p", { staticClass: "is-bold" }, [
-            _vm._v(" Active Orders\n\t\t\t\t\t\t"),
+            _vm._v(" Active Orders\n\t\t\t\t\t\t\t"),
             _c("br"),
             _vm._v(" "),
-            _c("span", { staticClass: "subtitle is-bold" }, [
-              _vm._v(" Unavailable ")
-            ])
+            _c("span", { staticClass: "subtitle is-bold" }, [_vm._v(" 0 ")])
           ])
         ])
       ]),
@@ -57234,12 +57374,10 @@ var staticRenderFns = [
       _c("div", { staticClass: "box border-bottom" }, [
         _c("div", { staticClass: "content" }, [
           _c("p", { staticClass: "is-bold" }, [
-            _vm._v(" Customers\n\t\t\t\t\t\t"),
+            _vm._v(" Customers\n\t\t\t\t\t\t\t"),
             _c("br"),
             _vm._v(" "),
-            _c("span", { staticClass: "subtitle is-bold" }, [
-              _vm._v(" Unavailable ")
-            ])
+            _c("span", { staticClass: "subtitle is-bold" }, [_vm._v(" 0 ")])
           ])
         ])
       ])
@@ -57252,12 +57390,10 @@ var staticRenderFns = [
     return _c("div", { staticClass: "box border-bottom" }, [
       _c("div", { staticClass: "content" }, [
         _c("p", { staticClass: "is-bold" }, [
-          _vm._v(" Unfulfilled Orders\n\t\t\t\t\t\t"),
+          _vm._v(" Unfulfilled Orders\n\t\t\t\t\t\t\t"),
           _c("br"),
           _vm._v(" "),
-          _c("span", { staticClass: "subtitle is-bold" }, [
-            _vm._v(" Unavailable ")
-          ])
+          _c("span", { staticClass: "subtitle is-bold" }, [_vm._v(" 0 ")])
         ])
       ])
     ])
@@ -57313,13 +57449,33 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container main-container" }, [
+    _c(
+      "div",
+      {
+        staticClass: "pageloader purple-bg",
+        class: { "is-active": _vm.loadAuthLoader }
+      },
+      [_c("span", { staticClass: "title" }, [_vm._v(" Bellewise loading ")])]
+    ),
+    _vm._v(" "),
     _c("div", { staticClass: "columns" }, [
-      _c("div", { staticClass: "column is-3 box mt-3" }, [_c("sidebar")], 1),
+      _c(
+        "div",
+        { staticClass: "column is-3 box mt-3" },
+        [_c("sidebar", { attrs: { authenticated: _vm.loadAuthenticated } })],
+        1
+      ),
       _vm._v(" "),
       _c(
         "div",
         { staticClass: "column is-9" },
-        [_c("navbar"), _vm._v(" "), _c("router-view")],
+        [
+          _vm.loadAuthenticated
+            ? _c("navbar", { attrs: { user: _vm.loadAuthUser } })
+            : _vm._e(),
+          _vm._v(" "),
+          _c("router-view")
+        ],
         1
       )
     ])
@@ -57412,7 +57568,39 @@ var render = function() {
                   }
                 }
               },
-              [_vm._m(3), _vm._v(" "), _vm._m(4)]
+              [
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "dropdown-menu",
+                    attrs: { id: "dropdown-menu", role: "menu" }
+                  },
+                  [
+                    _c("div", { staticClass: "dropdown-content" }, [
+                      _c(
+                        "a",
+                        { staticClass: "dropdown-item", attrs: { href: "#" } },
+                        [
+                          _vm._v(
+                            "\n                Update Profile\n              "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass: "dropdown-item",
+                          on: { click: _vm.Logout }
+                        },
+                        [_vm._v("\n                Logout\n              ")]
+                      )
+                    ])
+                  ]
+                )
+              ]
             )
           ])
         ]
@@ -57525,45 +57713,6 @@ var staticRenderFns = [
         ]
       )
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "dropdown-menu",
-        attrs: { id: "dropdown-menu", role: "menu" }
-      },
-      [
-        _c("div", { staticClass: "dropdown-content" }, [
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("\n                Dropdown item\n              ")
-          ]),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item" }, [
-            _vm._v("\n                Other dropdown item\n              ")
-          ]),
-          _vm._v(" "),
-          _c(
-            "a",
-            { staticClass: "dropdown-item is-active", attrs: { href: "#" } },
-            [_vm._v("\n                Active dropdown item\n              ")]
-          ),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("\n                Other dropdown item\n              ")
-          ]),
-          _vm._v(" "),
-          _c("hr", { staticClass: "dropdown-divider" }),
-          _vm._v(" "),
-          _c("a", { staticClass: "dropdown-item", attrs: { href: "#" } }, [
-            _vm._v("\n                With a divider\n              ")
-          ])
-        ])
-      ]
-    )
   }
 ]
 render._withStripped = true
@@ -57621,460 +57770,541 @@ var render = function() {
         _vm._v(" "),
         _c("hr", { staticClass: "mt-0" }),
         _vm._v(" "),
-        _vm.sidebar
-          ? _c("ul", { staticClass: "menu-list" }, [
-              _c(
-                "li",
-                [
-                  _c(
-                    "router-link",
-                    {
-                      attrs: { to: { name: "home" }, exact: "" },
-                      on: { click: _vm.away }
-                    },
-                    [
-                      _c(
-                        "i",
-                        { staticClass: "fas fa-chart-line purple-color" },
-                        [
-                          _c(
-                            "span",
-                            { staticClass: "ml-3 is-bold has-text-black" },
-                            [_vm._v(" Dashboard ")]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                [
-                  _c(
-                    "router-link",
-                    { attrs: { to: { name: "list-restaurant" }, exact: "" } },
-                    [
-                      _c(
-                        "i",
-                        { staticClass: "fas fa-store-alt purple-color mt-3" },
-                        [
-                          _c(
-                            "span",
-                            { staticClass: "ml-3 is-bold has-text-black" },
-                            [_vm._v(" Restaurants ")]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                [
-                  _c(
-                    "router-link",
-                    { attrs: { to: { name: "driver-list" }, exact: "" } },
-                    [
-                      _c(
-                        "i",
-                        { staticClass: "fas fa-truck purple-color mt-3" },
-                        [
-                          _c(
-                            "span",
-                            { staticClass: "ml-3 is-bold has-text-black" },
-                            [_vm._v(" Drivers ")]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                [
-                  _c(
-                    "router-link",
-                    { attrs: { to: { name: "order-list" }, exact: "" } },
-                    [
-                      _c(
-                        "i",
-                        { staticClass: "fas fa-clipboard purple-color mt-3" },
-                        [
-                          _c(
-                            "span",
-                            { staticClass: "ml-3 is-bold has-text-black" },
-                            [_vm._v(" Orders ")]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                [
-                  _c(
-                    "router-link",
-                    { attrs: { to: { name: "list-promotion" }, exact: "" } },
-                    [
-                      _c(
-                        "i",
-                        { staticClass: "fas fa-volume-up purple-color mt-3" },
-                        [
-                          _c(
-                            "span",
-                            { staticClass: "ml-3 is-bold has-text-black" },
-                            [_vm._v(" Promotions")]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                [
-                  _c(
-                    "router-link",
-                    { attrs: { to: { name: "users-list" }, exact: "" } },
-                    [
-                      _c(
-                        "i",
-                        { staticClass: "fas fa-users purple-color mt-3" },
-                        [
-                          _c(
-                            "span",
-                            { staticClass: "ml-3 is-bold has-text-black" },
-                            [_vm._v(" Users ")]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                [
-                  _c(
-                    "router-link",
-                    { attrs: { to: { name: "sub-admin-list" }, exact: "" } },
-                    [
-                      _c(
-                        "i",
-                        { staticClass: "fas fa-users-cog purple-color mt-3" },
-                        [
-                          _c(
-                            "span",
-                            { staticClass: "ml-3 is-bold has-text-black" },
-                            [_vm._v(" Sub Admins ")]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                [
-                  _c(
-                    "router-link",
-                    { attrs: { to: { name: "report" }, exact: "" } },
-                    [
-                      _c("i", { staticClass: "fas fa-bug purple-color mt-3" }, [
+        _vm.authenticated
+          ? _c("div", [
+              _vm.sidebar
+                ? _c("ul", { staticClass: "menu-list" }, [
+                    _c(
+                      "li",
+                      [
                         _c(
-                          "span",
-                          { staticClass: "ml-3 is-bold has-text-black" },
-                          [_vm._v(" Reports ")]
+                          "router-link",
+                          { attrs: { to: { name: "home" }, exact: "" } },
+                          [
+                            _c(
+                              "i",
+                              { staticClass: "fas fa-chart-line purple-color" },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "ml-3 is-bold has-text-black"
+                                  },
+                                  [_vm._v(" Dashboard ")]
+                                )
+                              ]
+                            )
+                          ]
                         )
-                      ])
-                    ]
-                  )
-                ],
-                1
-              ),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            attrs: {
+                              to: { name: "list-restaurant" },
+                              exact: ""
+                            }
+                          },
+                          [
+                            _c(
+                              "i",
+                              {
+                                staticClass:
+                                  "fas fa-store-alt purple-color mt-3"
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "ml-3 is-bold has-text-black"
+                                  },
+                                  [_vm._v(" Restaurants ")]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: { name: "driver-list" }, exact: "" } },
+                          [
+                            _c(
+                              "i",
+                              { staticClass: "fas fa-truck purple-color mt-3" },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "ml-3 is-bold has-text-black"
+                                  },
+                                  [_vm._v(" Drivers ")]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: { name: "order-list" }, exact: "" } },
+                          [
+                            _c(
+                              "i",
+                              {
+                                staticClass:
+                                  "fas fa-clipboard purple-color mt-3"
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "ml-3 is-bold has-text-black"
+                                  },
+                                  [_vm._v(" Orders ")]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            attrs: { to: { name: "list-promotion" }, exact: "" }
+                          },
+                          [
+                            _c(
+                              "i",
+                              {
+                                staticClass:
+                                  "fas fa-volume-up purple-color mt-3"
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "ml-3 is-bold has-text-black"
+                                  },
+                                  [_vm._v(" Promotions")]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: { name: "users-list" }, exact: "" } },
+                          [
+                            _c(
+                              "i",
+                              { staticClass: "fas fa-users purple-color mt-3" },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "ml-3 is-bold has-text-black"
+                                  },
+                                  [_vm._v(" Users ")]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            attrs: { to: { name: "sub-admin-list" }, exact: "" }
+                          },
+                          [
+                            _c(
+                              "i",
+                              {
+                                staticClass:
+                                  "fas fa-users-cog purple-color mt-3"
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "ml-3 is-bold has-text-black"
+                                  },
+                                  [_vm._v(" Sub Admins ")]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: { name: "report" }, exact: "" } },
+                          [
+                            _c(
+                              "i",
+                              { staticClass: "fas fa-bug purple-color mt-3" },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "ml-3 is-bold has-text-black"
+                                  },
+                                  [_vm._v(" Reports ")]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: { name: "account" }, exact: "" } },
+                          [
+                            _c(
+                              "i",
+                              {
+                                staticClass:
+                                  "fas fa-calculator purple-color mt-3"
+                              },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "ml-3 is-bold has-text-black"
+                                  },
+                                  [_vm._v(" Accounting ")]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "li",
+                      [
+                        _c(
+                          "router-link",
+                          { attrs: { to: { name: "setting" }, exact: "" } },
+                          [
+                            _c(
+                              "i",
+                              { staticClass: "fas fa-cogs purple-color mt-3 " },
+                              [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "ml-3 is-bold has-text-black"
+                                  },
+                                  [_vm._v(" Settings ")]
+                                )
+                              ]
+                            )
+                          ]
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                : _vm._e(),
               _vm._v(" "),
-              _c(
-                "li",
-                [
-                  _c(
-                    "router-link",
-                    { attrs: { to: { name: "account" }, exact: "" } },
-                    [
-                      _c(
-                        "i",
-                        { staticClass: "fas fa-calculator purple-color mt-3" },
-                        [
-                          _c(
-                            "span",
-                            { staticClass: "ml-3 is-bold has-text-black" },
-                            [_vm._v(" Accounting ")]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "li",
-                [
-                  _c(
-                    "router-link",
-                    { attrs: { to: { name: "setting" }, exact: "" } },
-                    [
-                      _c(
-                        "i",
-                        { staticClass: "fas fa-cogs purple-color mt-3 " },
-                        [
-                          _c(
-                            "span",
-                            { staticClass: "ml-3 is-bold has-text-black" },
-                            [_vm._v(" Settings ")]
-                          )
-                        ]
-                      )
-                    ]
-                  )
-                ],
-                1
-              )
+              _c("ul", { staticClass: "menu-list is-hidden-mobile" }, [
+                _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: { name: "home" }, exact: "" } },
+                      [
+                        _c(
+                          "i",
+                          { staticClass: "fas fa-chart-line purple-color" },
+                          [
+                            _c(
+                              "span",
+                              { staticClass: "ml-3 is-bold has-text-black" },
+                              [_vm._v(" Dashboard ")]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: { name: "list-restaurant" }, exact: "" } },
+                      [
+                        _c(
+                          "i",
+                          { staticClass: "fas fa-store-alt purple-color mt-3" },
+                          [
+                            _c(
+                              "span",
+                              { staticClass: "ml-3 is-bold has-text-black" },
+                              [_vm._v(" Restaurants ")]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: { name: "driver-list" }, exact: "" } },
+                      [
+                        _c(
+                          "i",
+                          { staticClass: "fas fa-truck purple-color mt-3" },
+                          [
+                            _c(
+                              "span",
+                              { staticClass: "ml-3 is-bold has-text-black" },
+                              [_vm._v(" Drivers ")]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: { name: "order-list" }, exact: "" } },
+                      [
+                        _c(
+                          "i",
+                          { staticClass: "fas fa-clipboard purple-color mt-3" },
+                          [
+                            _c(
+                              "span",
+                              { staticClass: "ml-3 is-bold has-text-black" },
+                              [_vm._v(" Orders ")]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: { name: "list-promotion" }, exact: "" } },
+                      [
+                        _c(
+                          "i",
+                          { staticClass: "fas fa-volume-up purple-color mt-3" },
+                          [
+                            _c(
+                              "span",
+                              { staticClass: "ml-3 is-bold has-text-black" },
+                              [_vm._v(" Promotions")]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: { name: "users-list" }, exact: "" } },
+                      [
+                        _c(
+                          "i",
+                          { staticClass: "fas fa-users purple-color mt-3" },
+                          [
+                            _c(
+                              "span",
+                              { staticClass: "ml-3 is-bold has-text-black" },
+                              [_vm._v(" Users ")]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: { name: "sub-admin-list" }, exact: "" } },
+                      [
+                        _c(
+                          "i",
+                          { staticClass: "fas fa-users-cog purple-color mt-3" },
+                          [
+                            _c(
+                              "span",
+                              { staticClass: "ml-3 is-bold has-text-black" },
+                              [_vm._v(" Sub Admins ")]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: { name: "report" }, exact: "" } },
+                      [
+                        _c(
+                          "i",
+                          { staticClass: "fas fa-bug purple-color mt-3" },
+                          [
+                            _c(
+                              "span",
+                              { staticClass: "ml-3 is-bold has-text-black" },
+                              [_vm._v(" Reports ")]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: { name: "account" }, exact: "" } },
+                      [
+                        _c(
+                          "i",
+                          {
+                            staticClass: "fas fa-calculator purple-color mt-3"
+                          },
+                          [
+                            _c(
+                              "span",
+                              { staticClass: "ml-3 is-bold has-text-black" },
+                              [_vm._v(" Accounting ")]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: { name: "setting" }, exact: "" } },
+                      [
+                        _c(
+                          "i",
+                          { staticClass: "fas fa-cogs purple-color mt-3 " },
+                          [
+                            _c(
+                              "span",
+                              { staticClass: "ml-3 is-bold has-text-black" },
+                              [_vm._v(" Settings ")]
+                            )
+                          ]
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ])
             ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("ul", { staticClass: "menu-list is-hidden-mobile" }, [
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                { attrs: { to: { name: "home" }, exact: "" } },
-                [
-                  _c("i", { staticClass: "fas fa-chart-line purple-color" }, [
-                    _c("span", { staticClass: "ml-3 is-bold has-text-black" }, [
-                      _vm._v(" Dashboard ")
-                    ])
-                  ])
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                { attrs: { to: { name: "list-restaurant" }, exact: "" } },
-                [
-                  _c(
-                    "i",
-                    { staticClass: "fas fa-store-alt purple-color mt-3" },
-                    [
-                      _c(
-                        "span",
-                        { staticClass: "ml-3 is-bold has-text-black" },
-                        [_vm._v(" Restaurants ")]
-                      )
-                    ]
-                  )
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                { attrs: { to: { name: "driver-list" }, exact: "" } },
-                [
-                  _c("i", { staticClass: "fas fa-truck purple-color mt-3" }, [
-                    _c("span", { staticClass: "ml-3 is-bold has-text-black" }, [
-                      _vm._v(" Drivers ")
-                    ])
-                  ])
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                { attrs: { to: { name: "order-list" }, exact: "" } },
-                [
-                  _c(
-                    "i",
-                    { staticClass: "fas fa-clipboard purple-color mt-3" },
-                    [
-                      _c(
-                        "span",
-                        { staticClass: "ml-3 is-bold has-text-black" },
-                        [_vm._v(" Orders ")]
-                      )
-                    ]
-                  )
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                { attrs: { to: { name: "list-promotion" }, exact: "" } },
-                [
-                  _c(
-                    "i",
-                    { staticClass: "fas fa-volume-up purple-color mt-3" },
-                    [
-                      _c(
-                        "span",
-                        { staticClass: "ml-3 is-bold has-text-black" },
-                        [_vm._v(" Promotions")]
-                      )
-                    ]
-                  )
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                { attrs: { to: { name: "users-list" }, exact: "" } },
-                [
-                  _c("i", { staticClass: "fas fa-users purple-color mt-3" }, [
-                    _c("span", { staticClass: "ml-3 is-bold has-text-black" }, [
-                      _vm._v(" Users ")
-                    ])
-                  ])
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                { attrs: { to: { name: "sub-admin-list" }, exact: "" } },
-                [
-                  _c(
-                    "i",
-                    { staticClass: "fas fa-users-cog purple-color mt-3" },
-                    [
-                      _c(
-                        "span",
-                        { staticClass: "ml-3 is-bold has-text-black" },
-                        [_vm._v(" Sub Admins ")]
-                      )
-                    ]
-                  )
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                { attrs: { to: { name: "report" }, exact: "" } },
-                [
-                  _c("i", { staticClass: "fas fa-bug purple-color mt-3" }, [
-                    _c("span", { staticClass: "ml-3 is-bold has-text-black" }, [
-                      _vm._v(" Reports ")
-                    ])
-                  ])
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                { attrs: { to: { name: "account" }, exact: "" } },
-                [
-                  _c(
-                    "i",
-                    { staticClass: "fas fa-calculator purple-color mt-3" },
-                    [
-                      _c(
-                        "span",
-                        { staticClass: "ml-3 is-bold has-text-black" },
-                        [_vm._v(" Accounting ")]
-                      )
-                    ]
-                  )
-                ]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            [
-              _c(
-                "router-link",
-                { attrs: { to: { name: "setting" }, exact: "" } },
-                [
-                  _c("i", { staticClass: "fas fa-cogs purple-color mt-3 " }, [
-                    _c("span", { staticClass: "ml-3 is-bold has-text-black" }, [
-                      _vm._v(" Settings ")
-                    ])
-                  ])
-                ]
-              )
-            ],
-            1
-          )
-        ])
+          : _vm._e()
       ],
       1
     )
@@ -59751,17 +59981,9 @@ var render = function() {
                         }
                       },
                       [
-                        _c(
-                          "option",
-                          {
-                            attrs: {
-                              disabled: "",
-                              value: "Please select bearer",
-                              selected: ""
-                            }
-                          },
-                          [_vm._v(" " + _vm._s("Please select bearer"))]
-                        ),
+                        _c("option", { attrs: { disabled: "", value: "" } }, [
+                          _vm._v(" Please select bearer ")
+                        ]),
                         _vm._v(" "),
                         _c("option", [_vm._v(" Restaurant ")]),
                         _vm._v(" "),
@@ -59841,10 +60063,10 @@ var render = function() {
                     directives: [
                       {
                         name: "model",
-                        rawName: "v-model.number",
+                        rawName: "v-model.trim",
                         value: _vm.promo.amount,
                         expression: "promo.amount",
-                        modifiers: { number: true }
+                        modifiers: { trim: true }
                       }
                     ],
                     staticClass: "input is-info",
@@ -59864,7 +60086,7 @@ var render = function() {
                         _vm.$set(
                           _vm.promo,
                           "amount",
-                          _vm._n($event.target.value)
+                          $event.target.value.trim()
                         )
                       },
                       blur: function($event) {
@@ -60475,12 +60697,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "input is-info",
-                      attrs: {
-                        type: "text",
-                        placeholder: "Text input",
-                        required: "",
-                        autofocus: ""
-                      },
+                      attrs: { type: "text", required: "", autofocus: "" },
                       domProps: { value: _vm.loadSinglePromo.promo.name },
                       on: {
                         input: function($event) {
@@ -60522,8 +60739,7 @@ var render = function() {
                     attrs: {
                       type: "number",
                       min: "0",
-                      oninput: "validity.valid||(value='');",
-                      placeholder: "Percentage "
+                      oninput: "validity.valid||(value='');"
                     },
                     domProps: { value: _vm.loadSinglePromo.promo.discount },
                     on: {
@@ -60584,6 +60800,12 @@ var render = function() {
                         }
                       },
                       [
+                        _c("option", { attrs: { disabled: "", value: "" } }, [
+                          _vm._v(
+                            " " + _vm._s(_vm.loadSinglePromo.promo.bearer) + " "
+                          )
+                        ]),
+                        _vm._v(" "),
                         _c("option", [_vm._v(" Restaurant ")]),
                         _vm._v(" "),
                         _c("option", [_vm._v(" bellewise ")])
@@ -60649,10 +60871,9 @@ var render = function() {
                     directives: [
                       {
                         name: "model",
-                        rawName: "v-model.number",
+                        rawName: "v-model",
                         value: _vm.loadSinglePromo.promo.validity,
-                        expression: "loadSinglePromo.promo.validity",
-                        modifiers: { number: true }
+                        expression: "loadSinglePromo.promo.validity"
                       }
                     ],
                     attrs: {
@@ -60673,11 +60894,8 @@ var render = function() {
                         _vm.$set(
                           _vm.loadSinglePromo.promo,
                           "validity",
-                          _vm._n($event.target.value)
+                          $event.target.value
                         )
-                      },
-                      blur: function($event) {
-                        return _vm.$forceUpdate()
                       }
                     }
                   })
@@ -60695,10 +60913,10 @@ var render = function() {
                       directives: [
                         {
                           name: "model",
-                          rawName: "v-model.number",
+                          rawName: "v-model.trim",
                           value: _vm.loadSinglePromo.promo.amount,
                           expression: "loadSinglePromo.promo.amount",
-                          modifiers: { number: true }
+                          modifiers: { trim: true }
                         }
                       ],
                       staticClass: "input is-info",
@@ -60718,7 +60936,7 @@ var render = function() {
                           _vm.$set(
                             _vm.loadSinglePromo.promo,
                             "amount",
-                            _vm._n($event.target.value)
+                            $event.target.value.trim()
                           )
                         },
                         blur: function($event) {
@@ -64290,7 +64508,10 @@ var render = function() {
                               staticClass: "control",
                               on: {
                                 click: function($event) {
-                                  _vm.showModal = true
+                                  ;[
+                                    (_vm.showModal = true),
+                                    _vm.getDestroyId(restaurant.id)
+                                  ]
                                 }
                               }
                             },
@@ -64323,13 +64544,7 @@ var render = function() {
                                           {
                                             staticClass:
                                               "card-footer-item is-bold purple-color pointer",
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.deleteData(
-                                                  restaurant.id
-                                                )
-                                              }
-                                            }
+                                            on: { click: _vm.deleteData }
                                           },
                                           [
                                             _vm._v(
@@ -64523,566 +64738,6 @@ var staticRenderFns = [
       _c("div", { staticClass: "content is-bold has-text-centered subtitle" }, [
         _c("span", { staticClass: "fa" }, [_vm._v(" No restaurant blocked. ")])
       ])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Restaurant/Modules/restaurantConfig.vue?vue&type=template&id=700aa89e&":
-/*!**************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/Restaurant/Modules/restaurantConfig.vue?vue&type=template&id=700aa89e& ***!
-  \**************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", {}, [
-    _c("nav", { staticClass: "level" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "level-right" }, [
-        _c(
-          "p",
-          { staticClass: "level-item" },
-          [
-            _c(
-              "router-link",
-              { attrs: { to: { name: "list-restaurant" }, exact: "" } },
-              [
-                _c("strong", { staticClass: "purple-color" }, [
-                  _vm._v(" Back ")
-                ])
-              ]
-            )
-          ],
-          1
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c(
-      "form",
-      {
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.submitForm($event)
-          }
-        }
-      },
-      [
-        _vm._m(1),
-        _vm._v(" "),
-        _vm._m(2),
-        _vm._v(" "),
-        _vm._m(3),
-        _vm._v(" "),
-        _c("div", { staticClass: "field is-horizontal box" }, [
-          _vm._m(4),
-          _vm._v(" "),
-          _c("div", { staticClass: "field-body" }, [
-            _c("div", { staticClass: "field" }, [
-              _c("div", { staticClass: "control" }, [
-                _c("input", {
-                  attrs: {
-                    id: "monday",
-                    type: "date",
-                    "data-display-mode": "dialog",
-                    "data-color": "info",
-                    "data-type": "time",
-                    "data-is-range": "true"
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { staticClass: "checkbox" }, [
-                  _c("input", {
-                    attrs: { type: "checkbox" },
-                    on: {
-                      change: function($event) {
-                        _vm.restaurantConfig.mondayStatus = !_vm
-                          .restaurantConfig.mondayStatus
-                      }
-                    }
-                  }),
-                  _vm._v("\n\t\t\t\t\t\t\tStatus\n\t\t\t\t\t\t")
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "field is-horizontal box" }, [
-          _vm._m(5),
-          _vm._v(" "),
-          _c("div", { staticClass: "field-body" }, [
-            _c("div", { staticClass: "field" }, [
-              _c("div", { staticClass: "control" }, [
-                _c("input", {
-                  attrs: {
-                    id: "tuesday",
-                    type: "date",
-                    "data-display-mode": "dialog",
-                    "data-color": "info",
-                    "data-type": "time",
-                    "data-is-range": "true"
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { staticClass: "checkbox" }, [
-                  _c("input", {
-                    attrs: { type: "checkbox" },
-                    on: {
-                      change: function($event) {
-                        _vm.restaurantConfig.tuesdayStatus = !_vm
-                          .restaurantConfig.tuesdayStatus
-                      }
-                    }
-                  }),
-                  _vm._v("\n\t\t\t\t\t\t\tStatus\n\t\t\t\t\t\t")
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "field is-horizontal box" }, [
-          _vm._m(6),
-          _vm._v(" "),
-          _c("div", { staticClass: "field-body" }, [
-            _c("div", { staticClass: "field" }, [
-              _c("div", { staticClass: "control" }, [
-                _c("input", {
-                  attrs: {
-                    id: "Wednesday",
-                    type: "date",
-                    "data-display-mode": "dialog",
-                    "data-color": "info",
-                    "data-type": "time",
-                    "data-is-range": "true"
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { staticClass: "checkbox" }, [
-                  _c("input", {
-                    attrs: { type: "checkbox" },
-                    on: {
-                      change: function($event) {
-                        _vm.restaurantConfig.WednesdayStatus = !_vm
-                          .restaurantConfig.WednesdayStatus
-                      }
-                    }
-                  }),
-                  _vm._v("\n\t\t\t\t\t\t\tStatus\n\t\t\t\t\t\t")
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "field is-horizontal box" }, [
-          _vm._m(7),
-          _vm._v(" "),
-          _c("div", { staticClass: "field-body" }, [
-            _c("div", { staticClass: "field" }, [
-              _c("div", { staticClass: "control" }, [
-                _c("input", {
-                  attrs: {
-                    id: "thursday",
-                    type: "date",
-                    "data-display-mode": "dialog",
-                    "data-color": "info",
-                    "data-type": "time",
-                    "data-is-range": "true"
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { staticClass: "checkbox" }, [
-                  _c("input", {
-                    attrs: { type: "checkbox" },
-                    on: {
-                      change: function($event) {
-                        _vm.restaurantConfig.thursdayStatus = !_vm
-                          .restaurantConfig.thursdayStatus
-                      }
-                    }
-                  }),
-                  _vm._v("\n\t\t\t\t\t\t\tStatus\n\t\t\t\t\t\t")
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "field is-horizontal box" }, [
-          _vm._m(8),
-          _vm._v(" "),
-          _c("div", { staticClass: "field-body" }, [
-            _c("div", { staticClass: "field" }, [
-              _c("div", { staticClass: "control" }, [
-                _c("input", {
-                  attrs: {
-                    id: "friday",
-                    type: "date",
-                    "data-display-mode": "dialog",
-                    "data-color": "info",
-                    "data-type": "time",
-                    "data-is-range": "true"
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { staticClass: "checkbox" }, [
-                  _c("input", {
-                    attrs: { type: "checkbox" },
-                    on: {
-                      change: function($event) {
-                        _vm.restaurantConfig.fridayStatus = !_vm
-                          .restaurantConfig.fridayStatus
-                      }
-                    }
-                  }),
-                  _vm._v("\n\t\t\t\t\t\t\tStatus\n\t\t\t\t\t\t")
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "field is-horizontal box" }, [
-          _vm._m(9),
-          _vm._v(" "),
-          _c("div", { staticClass: "field-body" }, [
-            _c("div", { staticClass: "field" }, [
-              _c("div", { staticClass: "control" }, [
-                _c("input", {
-                  attrs: {
-                    id: "saturday",
-                    type: "date",
-                    "data-display-mode": "dialog",
-                    "data-color": "info",
-                    "data-type": "time",
-                    "data-is-range": "true"
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { staticClass: "checkbox" }, [
-                  _c("input", {
-                    attrs: { type: "checkbox" },
-                    on: {
-                      change: function($event) {
-                        _vm.restaurantConfig.saturdayStatus = !_vm
-                          .restaurantConfig.saturdayStatus
-                      }
-                    }
-                  }),
-                  _vm._v("\n\t\t\t\t\t\t\tStatus\n\t\t\t\t\t\t")
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "field is-horizontal box" }, [
-          _vm._m(10),
-          _vm._v(" "),
-          _c("div", { staticClass: "field-body" }, [
-            _c("div", { staticClass: "field" }, [
-              _c("div", { staticClass: "control" }, [
-                _c("input", {
-                  attrs: {
-                    id: "sunday",
-                    type: "date",
-                    "data-display-mode": "dialog",
-                    "data-color": "info",
-                    "data-type": "time",
-                    "data-is-range": "true"
-                  }
-                }),
-                _vm._v(" "),
-                _c("label", { staticClass: "checkbox" }, [
-                  _c("input", {
-                    attrs: { type: "checkbox" },
-                    on: {
-                      change: function($event) {
-                        _vm.restaurantConfig.sundayStatus = !_vm
-                          .restaurantConfig.sundayStatus
-                      }
-                    }
-                  }),
-                  _vm._v("\n\t\t\t\t\t\t\tStatus\n\t\t\t\t\t\t")
-                ])
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "field" }, [
-          _c("p", { staticClass: "control" }, [
-            _c(
-              "button",
-              {
-                staticClass: "button",
-                class: { "is-loading": _vm.loadConfigProgress }
-              },
-              [
-                _vm._m(11),
-                _vm._v(" "),
-                _c("span", { staticClass: "is-bold" }, [_vm._v(" Save ")])
-              ]
-            )
-          ])
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "box" }, [
-      _c("div", { staticClass: "content" }, [
-        _c("hr", { staticClass: "is-paddingless" }),
-        _vm._v(" "),
-        _c("p", { staticClass: "subtitle is-bold" }, [
-          _vm._v(" Preparation Time "),
-          _c("span", { staticClass: "purple-color" }, [_vm._v(":")]),
-          _vm._v(" " + _vm._s(_vm.loadRestaurantConfig.preparation_time) + " ")
-        ]),
-        _vm._v(" "),
-        _c("hr", { staticClass: "is-paddingless" })
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "columns is-gapless" }, [
-        _c("div", { staticClass: "column" }, [
-          _c("nav", { staticClass: "level" }, [
-            _c("div", { staticClass: "level-left" }, [
-              _c("div", { staticClass: "level-item" }, [
-                _c("div", { staticClass: "content" }, [
-                  _c("hr", { staticClass: "is-paddingless" }),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "subtitle is-bold" }, [
-                    _vm._v(" Minimium Delivery Time "),
-                    _c("span", { staticClass: "purple-color" }, [_vm._v(":")]),
-                    _vm._v(
-                      " " +
-                        _vm._s(
-                          _vm.loadRestaurantConfig.minimium_delivery_time
-                        ) +
-                        " "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("hr", { staticClass: "is-paddingless" }),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "subtitle is-bold" }, [
-                    _vm._v(" Monday ")
-                  ]),
-                  _vm._v(" "),
-                  _c("hr", { staticClass: "is-paddingless" })
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "level-right" }, [
-              _c("div", { staticClass: "level-item" }, [
-                _c("div", { staticClass: "content" }, [
-                  _c("hr", { staticClass: "is-paddingless" }),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "subtitle is-bold" }, [
-                    _vm._v(" Maximium Delivery Time "),
-                    _c("span", { staticClass: "purple-color" }, [_vm._v(":")]),
-                    _vm._v(
-                      " " +
-                        _vm._s(
-                          _vm.loadRestaurantConfig.maximium_delivery_time
-                        ) +
-                        " "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("hr", { staticClass: "is-paddingless" }),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "subtitle is-bold" }, [
-                    _vm._v(
-                      " " + _vm._s(_vm.loadRestaurantConfig.monday) + "   "
-                    ),
-                    _c("input", {
-                      staticClass: "is-pulled-right mt-2",
-                      attrs: { type: "checkbox", disabled: "" },
-                      domProps: {
-                        checked:
-                          _vm.loadRestaurantConfig.monday_status == 1
-                            ? true
-                            : false
-                      }
-                    })
-                  ]),
-                  _vm._v(" "),
-                  _c("hr", { staticClass: "is-paddingless" })
-                ])
-              ])
-            ])
-          ])
-        ])
-      ])
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "level-left" }, [
-      _c("div", { staticClass: "level-item" }, [
-        _c("p", { staticClass: "subtitle is-5" }, [
-          _c("strong", [_vm._v(" Delivery Timing ")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field" }, [
-      _c("label", { staticClass: "label" }, [_vm._v(" Preparation Time  ")]),
-      _vm._v(" "),
-      _c("div", { staticClass: "control" }, [
-        _c("input", {
-          attrs: {
-            id: "preparation-time",
-            type: "date",
-            "data-display-mode": "dialog",
-            "data-color": "info",
-            "data-type": "time"
-          }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "columns" }, [
-      _c("div", { staticClass: "column" }, [
-        _c("div", { staticClass: "field" }, [
-          _c("label", { staticClass: "label" }, [
-            _vm._v(" Minimium DeliveryTime  ")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "control" }, [
-            _c("input", {
-              attrs: {
-                id: "minimium-delivery-time",
-                type: "date",
-                "data-display-mode": "dialog",
-                "data-color": "info",
-                "data-type": "time"
-              }
-            })
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "column" }, [
-        _c("div", { staticClass: "field" }, [
-          _c("label", { staticClass: "label" }, [
-            _vm._v(" Maximum DeliveryTime  ")
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "control" }, [
-            _c("input", {
-              attrs: {
-                id: "maximium-delivery-time",
-                type: "date",
-                "data-display-mode": "dialog",
-                "data-color": "info",
-                "data-type": "time"
-              }
-            })
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "subtitle is-5" }, [
-      _c("strong", [_vm._v(" Opening/Closing Slot  ")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field-label" }, [
-      _c("label", { staticClass: "label" }, [_vm._v("Mon")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field-label" }, [
-      _c("label", { staticClass: "label" }, [_vm._v("Tue")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field-label" }, [
-      _c("label", { staticClass: "label" }, [_vm._v("Wed")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field-label" }, [
-      _c("label", { staticClass: "label" }, [_vm._v("Thu")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field-label" }, [
-      _c("label", { staticClass: "label" }, [_vm._v("Fri")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field-label" }, [
-      _c("label", { staticClass: "label" }, [_vm._v("Sat")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field-label" }, [
-      _c("label", { staticClass: "label" }, [_vm._v("Sun")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small" }, [
-      _c("i", { staticClass: "fas fa-save purple-color" })
     ])
   }
 ]
@@ -65774,7 +65429,10 @@ var render = function() {
                                 staticClass: "control",
                                 on: {
                                   click: function($event) {
-                                    _vm.showModal = true
+                                    ;[
+                                      (_vm.showModal = true),
+                                      _vm.getDestroyId(restaurant.id)
+                                    ]
                                   }
                                 }
                               },
@@ -65809,14 +65467,7 @@ var render = function() {
                                             {
                                               staticClass:
                                                 "card-footer-item is-bold purple-color pointer",
-                                              on: {
-                                                click: function($event) {
-                                                  return _vm.deleteData(
-                                                    restaurant.id,
-                                                    index
-                                                  )
-                                                }
-                                              }
+                                              on: { click: _vm.deleteData }
                                             },
                                             [
                                               _vm._v(
@@ -67066,12 +66717,14 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "container" }, [
     _c("nav", { staticClass: "level" }, [
       _c("div", { staticClass: "level-left" }, [
         _c("div", { staticClass: "level-item" }, [
           _c("p", { staticClass: "subtitle is-5" }, [
-            _c("strong", [_vm._v(" " + _vm._s(_vm.restaurant.name) + " info ")])
+            _c("strong", [
+              _vm._v(" Edit " + _vm._s(_vm.loadSingleRestaurant.name) + " ")
+            ])
           ])
         ])
       ]),
@@ -67084,7 +66737,13 @@ var render = function() {
             _c(
               "router-link",
               { attrs: { to: { name: "list-restaurant" }, exact: "" } },
-              [_c("strong", { staticClass: "purple-color" }, [_vm._v(" Back")])]
+              [
+                _vm.$v.loadSingleRestaurant.$invalid
+                  ? _c("strong", { staticClass: "purple-color" }, [
+                      _vm._v(" Back ")
+                    ])
+                  : _vm._e()
+              ]
             )
           ],
           1
@@ -67092,312 +66751,441 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c("div", { staticClass: "columns" }, [
-      _c("div", { staticClass: "column" }, [
-        _c("div", { staticClass: "field" }, [
-          _vm._m(0),
-          _vm._v(" "),
-          _c("div", { staticClass: "control has-icons-left has-icons-right" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model.trim",
-                  value: _vm.restaurant.name,
-                  expression: "restaurant.name",
-                  modifiers: { trim: true }
-                }
-              ],
-              staticClass: "input is-info",
-              attrs: {
-                type: "text",
-                placeholder: "Text input",
-                required: "",
-                autofocus: ""
-              },
-              domProps: { value: _vm.restaurant.name },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.restaurant, "name", $event.target.value.trim())
-                },
-                blur: function($event) {
-                  return _vm.$forceUpdate()
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm._m(1),
-            _vm._v(" "),
-            _vm.$v.restaurant.name.required
-              ? _c("span", { staticClass: "icon is-small is-right" }, [
-                  _c("i", { staticClass: "fas fa-check purple-color" })
-                ])
-              : _c("span", { staticClass: "icon is-small is-right" }, [
-                  _c("i", {
-                    staticClass: "fas fa-exclamation-triangle has-text-danger"
-                  })
-                ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "field" }, [
-          _vm._m(2),
-          _vm._v(" "),
-          _c("div", { staticClass: "control has-icons-left has-icons-right" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model.number",
-                  value: _vm.restaurant.phone,
-                  expression: "restaurant.phone",
-                  modifiers: { number: true }
-                }
-              ],
-              staticClass: "input is-info",
-              attrs: { type: "tel", placeholder: "Number input", required: "" },
-              domProps: { value: _vm.restaurant.phone },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.restaurant, "phone", _vm._n($event.target.value))
-                },
-                blur: function($event) {
-                  return _vm.$forceUpdate()
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm._m(3),
-            _vm._v(" "),
-            _vm.$v.restaurant.phone.required
-              ? _c("span", { staticClass: "icon is-small is-right" }, [
-                  _c("i", { staticClass: "fas fa-check purple-color" })
-                ])
-              : _c("span", { staticClass: "icon is-small is-right" }, [
-                  _c("i", {
-                    staticClass: "fas fa-exclamation-triangle has-text-danger"
-                  })
-                ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "field" }, [
-          _vm._m(4),
-          _vm._v(" "),
-          _c("div", { staticClass: "control has-icons-right has-icons-left" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.restaurant.email,
-                  expression: "restaurant.email"
-                }
-              ],
-              staticClass: "input is-info",
-              attrs: { type: "email", placeholder: "Text input", required: "" },
-              domProps: { value: _vm.restaurant.email },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.restaurant, "email", $event.target.value)
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm._m(5),
-            _vm._v(" "),
-            _vm.$v.restaurant.email.$invalid
-              ? _c("span", { staticClass: "icon is-small is-right" }, [
-                  _c("i", {
-                    staticClass: "fas fa-exclamation-triangle has-text-danger"
-                  })
-                ])
-              : _c("span", { staticClass: "icon is-small is-right" }, [
-                  _c("i", { staticClass: "fas fa-check purple-color" })
-                ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "field has-addons mt-6" }, [
-          _vm._m(6),
-          _vm._v(" "),
-          _c("p", { staticClass: "control is-expanded" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.restaurant.revenue,
-                  expression: "restaurant.revenue"
-                }
-              ],
-              staticClass: "input is-info",
-              attrs: {
-                type: "number",
-                placeholder: "Amount of money",
-                disabled: ""
-              },
-              domProps: { value: _vm.restaurant.revenue },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.restaurant, "revenue", $event.target.value)
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _vm._m(7)
-        ])
-      ]),
+    _c("div", { staticClass: "box" }, [
+      _vm.loadRestaurantErrors
+        ? _c(
+            "div",
+            {
+              staticClass: "notification purple-bg-light is-bold has-text-black"
+            },
+            [
+              _c(
+                "ul",
+                _vm._l(_vm.loadRestaurantErrors, function(value, name, index) {
+                  return _c("li", [
+                    _vm._v(
+                      "\n\t\t\t\t\t" +
+                        _vm._s(index + 1) +
+                        ". " +
+                        _vm._s(value[0]) +
+                        "\n\t\t\t\t"
+                    )
+                  ])
+                }),
+                0
+              )
+            ]
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "column" }, [
-        _c("div", { staticClass: "field" }, [
-          _vm._m(8),
-          _vm._v(" "),
-          _c("div", { staticClass: "control has-icons-left has-icons-right" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model.trim",
-                  value: _vm.restaurant.address,
-                  expression: "restaurant.address",
-                  modifiers: { trim: true }
-                }
-              ],
-              staticClass: "input is-info",
-              attrs: { type: "text", placeholder: "Text input", required: "" },
-              domProps: { value: _vm.restaurant.address },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(
-                    _vm.restaurant,
-                    "address",
-                    $event.target.value.trim()
-                  )
-                },
-                blur: function($event) {
-                  return _vm.$forceUpdate()
-                }
-              }
-            }),
-            _vm._v(" "),
-            _vm._m(9),
-            _vm._v(" "),
-            _vm.$v.restaurant.address.required
-              ? _c("span", { staticClass: "icon is-small is-right" }, [
-                  _c("i", { staticClass: "fas fa-check purple-color" })
-                ])
-              : _c("span", { staticClass: "icon is-small is-right" }, [
-                  _c("i", {
-                    staticClass: "fas fa-exclamation-triangle has-text-danger"
+      _c(
+        "form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.submitForm($event)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "columns" }, [
+            _c("div", { staticClass: "column" }, [
+              _c("div", { staticClass: "field" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-left has-icons-right" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.loadSingleRestaurant.name,
+                          expression: "loadSingleRestaurant.name",
+                          modifiers: { trim: true }
+                        }
+                      ],
+                      staticClass: "input is-info",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Text input",
+                        required: "",
+                        autofocus: ""
+                      },
+                      domProps: { value: _vm.loadSingleRestaurant.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.loadSingleRestaurant,
+                            "name",
+                            $event.target.value.trim()
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _vm.$v.loadSingleRestaurant.name.required
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fas fa-check purple-color" })
+                        ])
+                      : _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-exclamation-triangle has-text-danger"
+                          })
+                        ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field has-addons mt-6" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c("p", { staticClass: "control is-expanded has-icons-left" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model.number",
+                        value: _vm.loadSingleRestaurant.phone,
+                        expression: "loadSingleRestaurant.phone",
+                        modifiers: { number: true }
+                      }
+                    ],
+                    staticClass: "input is-info",
+                    attrs: {
+                      type: "tel",
+                      minlength: "10",
+                      maxlength: "14",
+                      placeholder: "Number input",
+                      required: ""
+                    },
+                    domProps: { value: _vm.loadSingleRestaurant.phone },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.loadSingleRestaurant,
+                          "phone",
+                          _vm._n($event.target.value)
+                        )
+                      },
+                      blur: function($event) {
+                        return _vm.$forceUpdate()
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm._m(3)
+                ]),
+                _vm._v(" "),
+                _vm._m(4)
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _vm._m(5),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-right has-icons-left" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.loadSingleRestaurant.email,
+                          expression: "loadSingleRestaurant.email"
+                        }
+                      ],
+                      staticClass: "input is-info",
+                      attrs: {
+                        type: "email",
+                        placeholder: "Text input",
+                        required: ""
+                      },
+                      domProps: { value: _vm.loadSingleRestaurant.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.loadSingleRestaurant,
+                            "email",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(6),
+                    _vm._v(" "),
+                    _vm.$v.loadSingleRestaurant.email.$invalid
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-exclamation-triangle has-text-danger"
+                          })
+                        ])
+                      : _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fas fa-check purple-color" })
+                        ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field has-addons mt-6" }, [
+                _vm._m(7),
+                _vm._v(" "),
+                _c("p", { staticClass: "control is-expanded" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model.number",
+                        value: _vm.loadSingleRestaurant.commmission,
+                        expression: "loadSingleRestaurant.commmission",
+                        modifiers: { number: true }
+                      }
+                    ],
+                    staticClass: "input is-info",
+                    attrs: {
+                      type: "number",
+                      min: "0",
+                      oninput: "validity.valid||(value='');",
+                      placeholder: "Percentage"
+                    },
+                    domProps: { value: _vm.loadSingleRestaurant.commmission },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.loadSingleRestaurant,
+                          "commmission",
+                          _vm._n($event.target.value)
+                        )
+                      },
+                      blur: function($event) {
+                        return _vm.$forceUpdate()
+                      }
+                    }
                   })
-                ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "field" }, [
-          _vm._m(10),
-          _vm._v(" "),
-          _c("div", { staticClass: "control has-icons-right has-icons-left" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model.number",
-                  value: _vm.restaurant.licenseNumber,
-                  expression: "restaurant.licenseNumber",
-                  modifiers: { number: true }
-                }
-              ],
-              staticClass: "input is-info",
-              attrs: {
-                type: "number",
-                placeholder: "Number input",
-                required: ""
-              },
-              domProps: { value: _vm.restaurant.licenseNumber },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(
-                    _vm.restaurant,
-                    "licenseNumber",
-                    _vm._n($event.target.value)
-                  )
-                },
-                blur: function($event) {
-                  return _vm.$forceUpdate()
-                }
-              }
-            }),
+                ]),
+                _vm._v(" "),
+                _vm._m(8)
+              ])
+            ]),
             _vm._v(" "),
-            _vm._m(11),
-            _vm._v(" "),
-            _vm.$v.restaurant.licenseNumber.required
-              ? _c("span", { staticClass: "icon is-small is-right" }, [
-                  _c("i", { staticClass: "fas fa-check purple-color" })
+            _c("div", { staticClass: "column" }, [
+              _c("div", { staticClass: "field" }, [
+                _vm._m(9),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-left has-icons-right" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.loadSingleRestaurant.address,
+                          expression: "loadSingleRestaurant.address",
+                          modifiers: { trim: true }
+                        }
+                      ],
+                      staticClass: "input is-info",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Text input",
+                        required: ""
+                      },
+                      domProps: { value: _vm.loadSingleRestaurant.address },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.loadSingleRestaurant,
+                            "address",
+                            $event.target.value.trim()
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(10),
+                    _vm._v(" "),
+                    _vm.$v.loadSingleRestaurant.address.required
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fas fa-check purple-color" })
+                        ])
+                      : _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-exclamation-triangle has-text-danger"
+                          })
+                        ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _vm._m(11),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-right has-icons-left" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.loadSingleRestaurant.license_number,
+                          expression: "loadSingleRestaurant.license_number"
+                        }
+                      ],
+                      staticClass: "input is-info",
+                      attrs: {
+                        type: "number",
+                        placeholder: "Number input",
+                        required: ""
+                      },
+                      domProps: {
+                        value: _vm.loadSingleRestaurant.license_number
+                      },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.loadSingleRestaurant,
+                            "license_number",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(12),
+                    _vm._v(" "),
+                    _vm.$v.loadSingleRestaurant.license_number.required
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fas fa-check purple-color" })
+                        ])
+                      : _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-exclamation-triangle has-text-danger"
+                          })
+                        ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field mt-6" }, [
+                _c("div", { staticClass: "file has-name" }, [
+                  _c("label", { staticClass: "file-label" }, [
+                    _c("input", {
+                      staticClass: "file-input is-info",
+                      attrs: { type: "file", name: "resume" },
+                      on: { change: _vm.fileUploadRestaurant }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(13),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "file-name" }, [
+                      _vm._v(
+                        "\n\t\t\t\t\t\t\t\t\t" +
+                          _vm._s(
+                            _vm.restaurant.imageName || "Upload an image"
+                          ) +
+                          "\n\t\t\t\t\t\t\t\t"
+                      )
+                    ])
+                  ])
                 ])
-              : _c("span", { staticClass: "icon is-small is-right" }, [
-                  _c("i", {
-                    staticClass: "fas fa-exclamation-triangle has-text-danger"
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field has-addons mt-6" }, [
+                _vm._m(14),
+                _vm._v(" "),
+                _c("p", { staticClass: "control is-expanded" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadSingleRestaurant.discount,
+                        expression: "loadSingleRestaurant.discount"
+                      }
+                    ],
+                    staticClass: "input is-info",
+                    attrs: {
+                      type: "number",
+                      min: "0",
+                      oninput: "validity.valid||(value='');",
+                      placeholder: "Percentage"
+                    },
+                    domProps: { value: _vm.loadSingleRestaurant.discount },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.loadSingleRestaurant,
+                          "discount",
+                          $event.target.value
+                        )
+                      }
+                    }
                   })
-                ])
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "field has-addons mt-6" }, [
-          _vm._m(12),
-          _vm._v(" "),
-          _c("p", { staticClass: "control is-expanded" }, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.restaurant.commission,
-                  expression: "restaurant.commission"
-                }
-              ],
-              staticClass: "input is-info",
-              attrs: { type: "number", disabled: "" },
-              domProps: { value: _vm.restaurant.commission },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.$set(_vm.restaurant, "commission", $event.target.value)
-                }
-              }
-            })
+                ]),
+                _vm._v(" "),
+                _vm._m(15)
+              ])
+            ])
           ]),
           _vm._v(" "),
-          _vm._m(13)
-        ]),
-        _vm._v(" "),
-        _vm._m(14)
-      ])
-    ]),
-    _vm._v(" "),
-    _vm._m(15)
+          _c(
+            "button",
+            {
+              staticClass: "button",
+              class: { "is-loading": _vm.loadRestaurantProgress },
+              attrs: { disabled: _vm.$v.loadSingleRestaurant.$invalid }
+            },
+            [
+              _vm._m(16),
+              _vm._v(" "),
+              _c("span", { staticClass: "is-bold" }, [_vm._v(" Update ")])
+            ]
+          )
+        ]
+      )
+    ])
   ])
 }
 var staticRenderFns = [
@@ -67422,9 +67210,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "label" }, [
-      _vm._v("Restaurant Phone "),
-      _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
+    return _c("p", { staticClass: "control" }, [
+      _c("span", { staticClass: "select" }, [_c("select", [_c("option")])])
     ])
   },
   function() {
@@ -67433,6 +67220,16 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("span", { staticClass: "icon is-small is-left" }, [
       _c("i", { staticClass: "fas fa-phone purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "control" }, [
+      _c("a", { staticClass: "button is-bold" }, [
+        _vm._v("\n\t\t\t\t\t\t\t\tPhone\n\t\t\t\t\t\t\t")
+      ])
     ])
   },
   function() {
@@ -67458,7 +67255,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "control" }, [
       _c("span", { staticClass: "select" }, [
-        _c("select", [_c("option", [_vm._v("₦")])])
+        _c("select", [_c("option", { staticClass: "is-bold" }, [_vm._v("%")])])
       ])
     ])
   },
@@ -67467,8 +67264,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "control" }, [
-      _c("a", { staticClass: "button" }, [
-        _vm._v("\n\t\t\t\t\t\t\t\tRevenue\n\t\t\t\t\t\t\t")
+      _c("a", { staticClass: "button is-bold" }, [
+        _vm._v("\n\t\t\t\t\t\t\t\tCommission \n\t\t\t\t\t\t\t")
       ])
     ])
   },
@@ -67510,9 +67307,23 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "file-cta" }, [
+      _c("span", { staticClass: "file-icon" }, [
+        _c("i", { staticClass: "fas fa-image purple-color" })
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "file-label is-bold" }, [
+        _vm._v("\n\t\t\t\t\t\t\t\t\t\tChoose a file…\n\t\t\t\t\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("p", { staticClass: "control" }, [
       _c("span", { staticClass: "select" }, [
-        _c("select", [_c("option", [_vm._v("₦")])])
+        _c("select", [_c("option", { staticClass: "is-bold" }, [_vm._v("%")])])
       ])
     ])
   },
@@ -67521,8 +67332,8 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "control" }, [
-      _c("a", { staticClass: "button" }, [
-        _vm._v("\n\t\t\t\t\t\t\t\tCommision\n\t\t\t\t\t\t\t")
+      _c("a", { staticClass: "button is-bold" }, [
+        _vm._v("\n\t\t\t\t\t\t\t\tRestaurant Discount Off\n\t\t\t\t\t\t\t")
       ])
     ])
   },
@@ -67530,58 +67341,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field mt-6" }, [
-      _c("div", { staticClass: "file has-name" }, [
-        _c("label", { staticClass: "file-label" }, [
-          _c("input", {
-            staticClass: "file-input is-info",
-            attrs: { type: "file", name: "resume" }
-          }),
-          _vm._v(" "),
-          _c("span", { staticClass: "file-cta" }, [
-            _c("span", { staticClass: "file-icon" }, [
-              _c("i", { staticClass: "fas fa-image purple-color" })
-            ]),
-            _vm._v(" "),
-            _c("span", { staticClass: "file-label is-bold" }, [
-              _vm._v("\n\t\t\t\t\t\t\t\t\t\tChoose a file…\n\t\t\t\t\t\t\t\t\t")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("span", { staticClass: "file-name" }, [
-            _vm._v(
-              "\n\t\t\t\t\t\t\t\t\tScreen Shot 2017-07-29 at 15.54.25.png\n\t\t\t\t\t\t\t\t"
-            )
-          ])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "field has-addons" }, [
-      _c("p", { staticClass: "control" }, [
-        _c("span", { staticClass: "select" }, [
-          _c("select", [
-            _c("option", { staticClass: "is-bold" }, [_vm._v("%")])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "control is-expanded" }, [
-        _c("input", {
-          staticClass: "input is-info",
-          attrs: { type: "number", placeholder: "Percentage " }
-        })
-      ]),
-      _vm._v(" "),
-      _c("p", { staticClass: "control" }, [
-        _c("a", { staticClass: "button is-bold" }, [
-          _vm._v("\n\t\t\t\t\t\tRestaurant Percentage Off\n\t\t\t\t\t")
-        ])
-      ])
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-save purple-color" })
     ])
   }
 ]
@@ -68188,6 +67949,16 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
+    _vm.loadConfigNotification
+      ? _c(
+          "div",
+          {
+            staticClass: "notification purple-bg-light is-bold has-text-black"
+          },
+          [_vm._v("\n    Task Succeesful\n  ")]
+        )
+      : _vm._e(),
+    _vm._v(" "),
     _c("label", { staticClass: "label" }, [_vm._v(" Preparation Time  ")]),
     _vm._v(" "),
     _c("div", { staticClass: "field has-addons" }, [
@@ -68195,7 +67966,7 @@ var render = function() {
       _vm._v(" "),
       _c("p", { staticClass: "control" }, [
         _c("a", { staticClass: "button " }, [
-          _vm._v("\n\t\t\t\tCurrently "),
+          _vm._v("\n        Currently "),
           _c("span", { staticClass: "is-bold ml-3" }, [_vm._v(":")]),
           _vm._v(" "),
           _c("span", { staticClass: "purple-color ml-3" }, [
@@ -68224,7 +67995,7 @@ var render = function() {
           _vm._v(" "),
           _c("p", { staticClass: "control" }, [
             _c("a", { staticClass: "button " }, [
-              _vm._v("\n\t\t\t\t\t\tCurrently "),
+              _vm._v("\n            Currently "),
               _c("span", { staticClass: "is-bold ml-3" }, [_vm._v(":")]),
               _vm._v(" "),
               _c("span", { staticClass: "purple-color ml-3" }, [
@@ -68253,7 +68024,7 @@ var render = function() {
           _vm._v(" "),
           _c("p", { staticClass: "control" }, [
             _c("a", { staticClass: "button " }, [
-              _vm._v("\n\t\t\t\t\t\tCurrently "),
+              _vm._v("\n            Currently "),
               _c("span", { staticClass: "is-bold ml-3" }, [_vm._v(":")]),
               _vm._v(" "),
               _c("span", { staticClass: "purple-color ml-3" }, [
@@ -68282,7 +68053,7 @@ var render = function() {
       _vm._v(" "),
       _c("p", { staticClass: "control" }, [
         _c("a", { staticClass: "button " }, [
-          _vm._v("\n\t\t\t\tCurrently "),
+          _vm._v("\n        Currently "),
           _c("span", { staticClass: "is-bold ml-3" }, [_vm._v(":")]),
           _vm._v(" "),
           _c("span", { staticClass: "purple-color ml-3" }, [
@@ -68353,7 +68124,7 @@ var render = function() {
       _vm._v(" "),
       _c("p", { staticClass: "control" }, [
         _c("a", { staticClass: "button " }, [
-          _vm._v("\n\t\t\t\tCurrently "),
+          _vm._v("\n        Currently "),
           _c("span", { staticClass: "is-bold ml-3" }, [_vm._v(":")]),
           _vm._v(" "),
           _c("span", { staticClass: "purple-color ml-3" }, [
@@ -68425,7 +68196,7 @@ var render = function() {
       _vm._v(" "),
       _c("p", { staticClass: "control" }, [
         _c("a", { staticClass: "button " }, [
-          _vm._v("\n\t\t\t\tCurrently "),
+          _vm._v("\n        Currently "),
           _c("span", { staticClass: "is-bold ml-3" }, [_vm._v(":")]),
           _vm._v(" "),
           _c("span", { staticClass: "purple-color ml-3" }, [
@@ -68499,7 +68270,7 @@ var render = function() {
       _vm._v(" "),
       _c("p", { staticClass: "control" }, [
         _c("a", { staticClass: "button " }, [
-          _vm._v("\n\t\t\t\tCurrently "),
+          _vm._v("\n        Currently "),
           _c("span", { staticClass: "is-bold ml-3" }, [_vm._v(":")]),
           _vm._v(" "),
           _c("span", { staticClass: "purple-color ml-3" }, [
@@ -68571,7 +68342,7 @@ var render = function() {
       _vm._v(" "),
       _c("p", { staticClass: "control" }, [
         _c("a", { staticClass: "button " }, [
-          _vm._v("\n\t\t\t\tCurrently "),
+          _vm._v("\n        Currently "),
           _c("span", { staticClass: "is-bold ml-3" }, [_vm._v(":")]),
           _vm._v(" "),
           _c("span", { staticClass: "purple-color ml-3" }, [
@@ -68642,7 +68413,7 @@ var render = function() {
       _vm._v(" "),
       _c("p", { staticClass: "control" }, [
         _c("a", { staticClass: "button " }, [
-          _vm._v("\n\t\t\t\tCurrently "),
+          _vm._v("\n        Currently "),
           _c("span", { staticClass: "is-bold ml-3" }, [_vm._v(":")]),
           _vm._v(" "),
           _c("span", { staticClass: "purple-color ml-3" }, [
@@ -68714,7 +68485,7 @@ var render = function() {
       _vm._v(" "),
       _c("p", { staticClass: "control" }, [
         _c("a", { staticClass: "button " }, [
-          _vm._v("\n\t\t\t\tCurrently "),
+          _vm._v("\n        Currently "),
           _c("span", { staticClass: "is-bold ml-3" }, [_vm._v(":")]),
           _vm._v(" "),
           _c("span", { staticClass: "purple-color ml-3" }, [
@@ -68890,7 +68661,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "control" }, [
       _c("a", { staticClass: "button is-bold" }, [
-        _vm._v("\n\t\t\t\tMon\n\t\t\t")
+        _vm._v("\n        Mon\n      ")
       ])
     ])
   },
@@ -68917,7 +68688,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "control" }, [
       _c("a", { staticClass: "button is-bold" }, [
-        _vm._v("\n\t\t\t\tTue\n\t\t\t")
+        _vm._v("\n        Tue\n      ")
       ])
     ])
   },
@@ -68944,7 +68715,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "control" }, [
       _c("a", { staticClass: "button is-bold" }, [
-        _vm._v("\n\t\t\t\tWed\n\t\t\t")
+        _vm._v("\n        Wed\n      ")
       ])
     ])
   },
@@ -68971,7 +68742,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "control" }, [
       _c("a", { staticClass: "button is-bold" }, [
-        _vm._v("\n\t\t\t\tThu\n\t\t\t")
+        _vm._v("\n        Thu\n      ")
       ])
     ])
   },
@@ -68998,7 +68769,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "control" }, [
       _c("a", { staticClass: "button is-bold" }, [
-        _vm._v("\n\t\t\t\tFri\n\t\t\t")
+        _vm._v("\n        Fri\n      ")
       ])
     ])
   },
@@ -69025,7 +68796,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "control" }, [
       _c("a", { staticClass: "button is-bold" }, [
-        _vm._v("\n\t\t\t\tSat\n\t\t\t")
+        _vm._v("\n        Sat\n      ")
       ])
     ])
   },
@@ -69052,7 +68823,7 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("p", { staticClass: "control" }, [
       _c("a", { staticClass: "button is-bold" }, [
-        _vm._v("\n\t\t\t\tSun\n\t\t\t")
+        _vm._v("\n        Sun\n      ")
       ])
     ])
   },
@@ -69584,7 +69355,7 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _vm.loadSettingNotification
+      _vm.loadWriteUpNotification
         ? _c(
             "div",
             {
@@ -69718,6 +69489,16 @@ var render = function() {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "box" }, [
+      _vm.loadCancellationPolicyNotification
+        ? _c(
+            "div",
+            {
+              staticClass: "notification purple-bg-light is-bold has-text-black"
+            },
+            [_vm._v("\n    Task Succeesful\n  ")]
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _vm._m(2),
       _vm._v(" "),
       _c("div", { staticClass: "columns" }, [
@@ -69732,13 +69513,13 @@ var render = function() {
             _c("p", { staticClass: "control" }, [
               _c("a", { staticClass: "button is-bold" }, [
                 _vm._v(
-                  "\n        Currently : " +
+                  "\n          Currently : " +
                     _vm._s(
                       _vm.loadCancellationPolicy.max_canellation_time == "null"
                         ? "00:00"
                         : _vm.loadCancellationPolicy.max_canellation_time
                     ) +
-                    "\n      "
+                    "\n        "
                 )
               ])
             ])
@@ -70768,9 +70549,9 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/Modules/blockSubAdmin.vue?vue&type=template&id=0cbf2c42&":
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/Modules/addPermission.vue?vue&type=template&id=c5f626da&":
 /*!*********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/Modules/blockSubAdmin.vue?vue&type=template&id=0cbf2c42& ***!
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/Modules/addPermission.vue?vue&type=template&id=c5f626da& ***!
   \*********************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -70783,1667 +70564,22 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "container" }, [
+    _vm.loadRoleNotification
+      ? _c(
+          "div",
+          {
+            staticClass: "notification purple-bg-light is-bold has-text-black"
+          },
+          [_vm._v("\n\t\tTask Succeesful\n\t")]
+        )
+      : _vm._e(),
+    _vm._v(" "),
     _c(
       "div",
       {
         staticClass: "pageloader purple-bg",
-        class: { "is-active": _vm.loadSubAdminLoader }
-      },
-      [_c("span", { staticClass: "title" }, [_vm._v(" Loading Bellewise ")])]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-content table-container" }, [
-        _vm.loadSubAdminNotification
-          ? _c(
-              "div",
-              {
-                staticClass:
-                  "notification purple-bg-light is-bold has-text-black"
-              },
-              [_vm._v("\n\t\t\t\t\tTask Succeesful\n\t\t\t\t")]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _c("nav", { staticClass: "level" }, [
-          _c("div", { staticClass: "level-right" }, [
-            _c("div", { staticClass: "tabs is-toggle level-item" }, [
-              _c("ul", [
-                _c("li", { on: { click: _vm.refresh } }, [
-                  _c("a", [
-                    _c("span", { staticClass: "icon is-small" }, [
-                      _c("i", {
-                        staticClass: "fas fa-sync-alt  purple-color",
-                        class: { "fa-spin": _vm.spin },
-                        attrs: { "aria-hidden": "true" }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("span", [_vm._v("  Refresh")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "li",
-                  [
-                    _c(
-                      "router-link",
-                      { attrs: { to: { name: "add-sub-admin" }, exact: "" } },
-                      [
-                        _c("span", { staticClass: "icon is-small" }, [
-                          _c("i", {
-                            staticClass: "fas fa-plus purple-color",
-                            attrs: { "aria-hidden": "true" }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("span", [_vm._v(" Add Sub-admin")])
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _vm.loadSubAdminBlockedDatas.length >= 1
-          ? _c(
-              "table",
-              { staticClass: "table is-bordered is-striped is-hoverable" },
-              [
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(_vm.loadSubAdminBlockedDatas, function(
-                    subadmin,
-                    index
-                  ) {
-                    return _c("tr", { key: index }, [
-                      _c("th", [
-                        _c("span", { staticClass: "purple-color" }, [
-                          _vm._v("  " + _vm._s(subadmin.sub_admin_id) + "  ")
-                        ])
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          " " + _vm._s(subadmin.name.substring(0, 6)) + " "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _vm._v(
-                          " " + _vm._s(subadmin.email.substring(0, 10)) + " "
-                        )
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [_vm._v(" " + _vm._s(subadmin.phone) + " ")]),
-                      _vm._v(" "),
-                      _c("td", { staticClass: "has-text-centered" }, [
-                        _c("input", {
-                          attrs: { type: "checkbox" },
-                          domProps: {
-                            checked: subadmin.status == 1 ? true : false
-                          },
-                          on: {
-                            change: function($event) {
-                              ;[
-                                (subadmin.status = !subadmin.status),
-                                _vm.statusMethod(subadmin.id, subadmin.status)
-                              ]
-                            }
-                          }
-                        })
-                      ]),
-                      _vm._v(" "),
-                      _c("td", [
-                        _c("div", { staticClass: "field is-grouped" }, [
-                          _vm._m(1, true),
-                          _vm._v(" "),
-                          _c(
-                            "p",
-                            { staticClass: "control" },
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "button purple-color",
-                                  attrs: {
-                                    to: {
-                                      name: "view-sub-admin",
-                                      params: { id: subadmin.id }
-                                    },
-                                    exact: ""
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n\t\t\t\t\t\t\t\t\t\t\tView\n\t\t\t\t\t\t\t\t\t\t"
-                                  )
-                                ]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "p",
-                            { staticClass: "control" },
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "button purple-color",
-                                  attrs: {
-                                    to: {
-                                      name: "edit-sub-admin",
-                                      params: { id: subadmin.id }
-                                    },
-                                    exact: ""
-                                  }
-                                },
-                                [
-                                  _vm._v(
-                                    "\n\t\t\t\t\t\t\t\t\t\t\tEdit\n\t\t\t\t\t\t\t\t\t\t"
-                                  )
-                                ]
-                              )
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "p",
-                            {
-                              staticClass: "control",
-                              on: {
-                                click: function($event) {
-                                  _vm.showModal = true
-                                }
-                              }
-                            },
-                            [
-                              _c(
-                                "button",
-                                { staticClass: "button purple-color" },
-                                [
-                                  _vm._v(
-                                    "\n\t\t\t\t\t\t\t\t\t\t\tDelete \n\t\t\t\t\t\t\t\t\t\t"
-                                  )
-                                ]
-                              )
-                            ]
-                          ),
-                          _vm.showModal
-                            ? _c("div", { staticClass: "modal is-active" }, [
-                                _c("div", { staticClass: "modal-background" }),
-                                _vm._v(" "),
-                                _c("div", { staticClass: "modal-content" }, [
-                                  _c("div", { staticClass: "card" }, [
-                                    _vm._m(2, true),
-                                    _vm._v(" "),
-                                    _c(
-                                      "footer",
-                                      { staticClass: "card-footer" },
-                                      [
-                                        _c(
-                                          "p",
-                                          {
-                                            staticClass:
-                                              "card-footer-item is-bold purple-color pointer",
-                                            on: {
-                                              click: function($event) {
-                                                return _vm.deleteData(
-                                                  subadmin.id
-                                                )
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tDelete\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
-                                            )
-                                          ]
-                                        ),
-                                        _vm._v(" "),
-                                        _c(
-                                          "p",
-                                          {
-                                            staticClass:
-                                              "card-footer-item is-bold purple-color pointer",
-                                            on: {
-                                              click: function($event) {
-                                                _vm.showModal = false
-                                              }
-                                            }
-                                          },
-                                          [
-                                            _vm._v(
-                                              "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
-                                            )
-                                          ]
-                                        )
-                                      ]
-                                    )
-                                  ])
-                                ]),
-                                _vm._v(" "),
-                                _c("button", {
-                                  staticClass: "modal-close is-large",
-                                  attrs: { "aria-label": "close" },
-                                  on: {
-                                    click: function($event) {
-                                      _vm.showModal = false
-                                    }
-                                  }
-                                })
-                              ])
-                            : _vm._e(),
-                          _vm._v(" "),
-                          _c("p")
-                        ])
-                      ])
-                    ])
-                  }),
-                  0
-                )
-              ]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.loadSubAdminBlockedDatas.length >= 1
-          ? _c("div", { staticClass: "buttons has-addons is-centered" }, [
-              _vm.loadSubAdminPagination.previousPageUrl
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "button",
-                      on: {
-                        click: function($event) {
-                          return _vm.paginationHandler(
-                            _vm.loadSubAdminPagination.previousPageUrl
-                          )
-                        }
-                      }
-                    },
-                    [_vm._m(3), _vm._v(" "), _c("span", [_vm._v(" Previous ")])]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _c("a", { staticClass: "button" }, [
-                _vm._v(
-                  "\n\n\t\t\t\t\t\t" +
-                    _vm._s(_vm.loadSubAdminPagination.to) +
-                    " 0f " +
-                    _vm._s(_vm.loadSubAdminPagination.total) +
-                    "\n\t\t\t\t\t"
-                )
-              ]),
-              _vm._v(" "),
-              _vm.loadSubAdminPagination.nextPageUrl
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "button",
-                      on: {
-                        click: function($event) {
-                          return _vm.paginationHandler(
-                            _vm.loadSubAdminPagination.nextPageUrl
-                          )
-                        }
-                      }
-                    },
-                    [_vm._m(4), _vm._v(" "), _c("span", [_vm._v(" Next ")])]
-                  )
-                : _vm._e()
-            ])
-          : _vm._e()
-      ])
-    ]),
-    _vm._v(" "),
-    _vm.loadSubAdminBlockedDatas.length <= 0
-      ? _c("div", { staticClass: "card" }, [_vm._m(5)])
-      : _vm._e()
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [
-          _c("span", { staticClass: "purple-color" }, [_vm._v(" ID ")])
-        ]),
-        _vm._v(" "),
-        _c("th", [
-          _c("span", { staticClass: "purple-color" }, [_vm._v(" Name ")])
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "has-text-centered" }, [
-          _c("span", { staticClass: "purple-color" }, [_vm._v(" Email ")])
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "has-text-centered" }, [
-          _c("span", { staticClass: "purple-color" }, [_vm._v(" Phone ")])
-        ]),
-        _vm._v(" "),
-        _c("th", [
-          _c("span", { staticClass: "purple-color" }, [_vm._v(" Status ")])
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "has-text-centered" }, [
-          _c("span", { staticClass: "purple-color" }, [_vm._v(" Action ")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "control" }, [
-      _c("a", { staticClass: "button purple-color" }, [
-        _vm._v("\n\t\t\t\t\t\t\t\t\t\t\tPermission\n\t\t\t\t\t\t\t\t\t\t")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-content has-text-centered" }, [
-      _c("p", { staticClass: "subtitle is-bold" }, [
-        _vm._v(
-          "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tAre you sure\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small" }, [
-      _c("i", { staticClass: "fas fa-arrow-left purple-color" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small" }, [
-      _c("i", { staticClass: "fas fa-arrow-right purple-color" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-content" }, [
-      _c("div", { staticClass: "content is-bold has-text-centered subtitle" }, [
-        _c("span", { staticClass: "fa" }, [_vm._v(" No blocked sub-admin. ")])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/Modules/subAdminList.vue?vue&type=template&id=0116883a&":
-/*!********************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/Modules/subAdminList.vue?vue&type=template&id=0116883a& ***!
-  \********************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "div",
-      {
-        staticClass: "pageloader purple-bg",
-        class: { "is-active": _vm.loadSubAdminLoader }
-      },
-      [_c("span", { staticClass: "title" }, [_vm._v(" Bellewise loading ")])]
-    ),
-    _vm._v(" "),
-    _c("div", { staticClass: "card" }, [
-      _c("div", { staticClass: "card-content table-container" }, [
-        _vm.loadSubAdminNotification
-          ? _c(
-              "div",
-              {
-                staticClass:
-                  "notification purple-bg-light is-bold has-text-black"
-              },
-              [_vm._v("\n\t\t\t\tTask Succeesful\n\t\t\t")]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _c("nav", { staticClass: "level" }, [
-          _c("div", { staticClass: "level-left" }, [
-            _c("div", { staticClass: "level-item" }, [
-              _c("div", { staticClass: "field has-addons" }, [
-                _c("p", { staticClass: "control" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.searchQuery,
-                        expression: "searchQuery"
-                      }
-                    ],
-                    staticClass: "input",
-                    attrs: {
-                      type: "text",
-                      placeholder: " Search Sub-admin by ID"
-                    },
-                    domProps: { value: _vm.searchQuery },
-                    on: {
-                      keyup: _vm.searchMethod,
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.searchQuery = $event.target.value
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _vm._m(0)
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "level-right" }, [
-            _c("div", { staticClass: "tabs is-toggle level-item" }, [
-              _c("ul", [
-                _c("li", { on: { click: _vm.refresh } }, [
-                  _c("a", [
-                    _c("span", { staticClass: "icon is-small" }, [
-                      _c("i", {
-                        staticClass: "fas fa-sync-alt  purple-color",
-                        class: { "fa-spin": _vm.spin },
-                        attrs: { "aria-hidden": "true" }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("span", [_vm._v("  Refresh")])
-                  ])
-                ]),
-                _vm._v(" "),
-                _c(
-                  "li",
-                  [
-                    _c(
-                      "router-link",
-                      { attrs: { to: { name: "add-sub-admin" }, exact: "" } },
-                      [
-                        _c("span", { staticClass: "icon is-small" }, [
-                          _c("i", {
-                            staticClass: "fas fa-plus purple-color",
-                            attrs: { "aria-hidden": "true" }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("span", [_vm._v(" Add Sub-Admin")])
-                      ]
-                    )
-                  ],
-                  1
-                )
-              ])
-            ])
-          ])
-        ]),
-        _vm._v(" "),
-        _vm.loadSubAdminDatas.length >= 1
-          ? _c(
-              "table",
-              { staticClass: "table is-bordered is-striped is-hoverable" },
-              [
-                _vm._m(1),
-                _vm._v(" "),
-                _c(
-                  "tbody",
-                  _vm._l(
-                    _vm.searchQuery.length > 1
-                      ? _vm.loadSubAdminSearch
-                      : _vm.loadSubAdminDatas,
-                    function(subadmin, index) {
-                      return _c("tr", { key: index }, [
-                        _c("th", [
-                          _c("span", { staticClass: "purple-color" }, [
-                            _vm._v("  " + _vm._s(subadmin.sub_admin_id) + "  ")
-                          ])
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            " " + _vm._s(subadmin.name.substring(0, 6)) + " "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            " " + _vm._s(subadmin.email.substring(0, 10)) + " "
-                          )
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(" " + _vm._s(subadmin.phone) + " ")]),
-                        _vm._v(" "),
-                        _c("td", { staticClass: "has-text-centered" }, [
-                          _c("input", {
-                            attrs: { type: "checkbox" },
-                            domProps: {
-                              checked: subadmin.status == 1 ? true : false
-                            },
-                            on: {
-                              change: function($event) {
-                                ;[
-                                  (subadmin.status = !subadmin.status),
-                                  _vm.statusMethod(subadmin.id, subadmin.status)
-                                ]
-                              }
-                            }
-                          })
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _c("div", { staticClass: "field is-grouped" }, [
-                            _c(
-                              "p",
-                              { staticClass: "control" },
-                              [
-                                _c(
-                                  "router-link",
-                                  {
-                                    staticClass: "button purple-color",
-                                    attrs: {
-                                      to: {
-                                        name: "sub-admin-permission",
-                                        params: { id: subadmin.id }
-                                      },
-                                      exact: ""
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n\t\t\t\t\t\t\t\t\t\tPermission\n\t\t\t\t\t\t\t\t\t"
-                                    )
-                                  ]
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "p",
-                              { staticClass: "control" },
-                              [
-                                _c(
-                                  "router-link",
-                                  {
-                                    staticClass: "button purple-color",
-                                    attrs: {
-                                      to: {
-                                        name: "view-sub-admin",
-                                        params: { id: subadmin.id }
-                                      },
-                                      exact: ""
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n\t\t\t\t\t\t\t\t\t\tView\n\t\t\t\t\t\t\t\t\t"
-                                    )
-                                  ]
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "p",
-                              { staticClass: "control" },
-                              [
-                                _c(
-                                  "router-link",
-                                  {
-                                    staticClass: "button purple-color",
-                                    attrs: {
-                                      to: {
-                                        name: "edit-sub-admin",
-                                        params: { id: subadmin.id }
-                                      },
-                                      exact: ""
-                                    }
-                                  },
-                                  [
-                                    _vm._v(
-                                      "\n\t\t\t\t\t\t\t\t\t\tEdit\n\t\t\t\t\t\t\t\t\t"
-                                    )
-                                  ]
-                                )
-                              ],
-                              1
-                            ),
-                            _vm._v(" "),
-                            _c(
-                              "p",
-                              {
-                                staticClass: "control",
-                                on: {
-                                  click: function($event) {
-                                    _vm.showModal = true
-                                  }
-                                }
-                              },
-                              [
-                                _c(
-                                  "button",
-                                  { staticClass: "button purple-color" },
-                                  [
-                                    _vm._v(
-                                      "\n\t\t\t\t\t\t\t\t\t\tDelete \n\t\t\t\t\t\t\t\t\t"
-                                    )
-                                  ]
-                                )
-                              ]
-                            ),
-                            _vm.showModal
-                              ? _c("div", { staticClass: "modal is-active" }, [
-                                  _c("div", {
-                                    staticClass: "modal-background"
-                                  }),
-                                  _vm._v(" "),
-                                  _c("div", { staticClass: "modal-content" }, [
-                                    _c("div", { staticClass: "card" }, [
-                                      _vm._m(2, true),
-                                      _vm._v(" "),
-                                      _c(
-                                        "footer",
-                                        { staticClass: "card-footer" },
-                                        [
-                                          _c(
-                                            "p",
-                                            {
-                                              staticClass:
-                                                "card-footer-item is-bold purple-color pointer",
-                                              on: {
-                                                click: function($event) {
-                                                  return _vm.deleteData(
-                                                    subadmin.id
-                                                  )
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tDelete\n\t\t\t\t\t\t\t\t\t\t\t\t\t"
-                                              )
-                                            ]
-                                          ),
-                                          _vm._v(" "),
-                                          _c(
-                                            "p",
-                                            {
-                                              staticClass:
-                                                "card-footer-item is-bold purple-color pointer",
-                                              on: {
-                                                click: function($event) {
-                                                  _vm.showModal = false
-                                                }
-                                              }
-                                            },
-                                            [
-                                              _vm._v(
-                                                "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t\t\t\t\t\t\t"
-                                              )
-                                            ]
-                                          )
-                                        ]
-                                      )
-                                    ])
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("button", {
-                                    staticClass: "modal-close is-large",
-                                    attrs: { "aria-label": "close" },
-                                    on: {
-                                      click: function($event) {
-                                        _vm.showModal = false
-                                      }
-                                    }
-                                  })
-                                ])
-                              : _vm._e(),
-                            _vm._v(" "),
-                            _c("p")
-                          ])
-                        ])
-                      ])
-                    }
-                  ),
-                  0
-                )
-              ]
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.loadSubAdminDatas.length >= 1
-          ? _c("div", { staticClass: "buttons has-addons is-centered" }, [
-              _vm.loadSubAdminPagination.previousPageUrl
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "button",
-                      on: {
-                        click: function($event) {
-                          return _vm.paginationHandler(
-                            _vm.loadSubAdminPagination.previousPageUrl
-                          )
-                        }
-                      }
-                    },
-                    [_vm._m(3), _vm._v(" "), _c("span", [_vm._v(" Previous ")])]
-                  )
-                : _vm._e(),
-              _vm._v(" "),
-              _c("a", { staticClass: "button" }, [
-                _vm._v(
-                  "\n\n\t\t\t\t\t" +
-                    _vm._s(_vm.loadSubAdminPagination.to) +
-                    " 0f " +
-                    _vm._s(_vm.loadSubAdminPagination.total) +
-                    "\n\t\t\t\t"
-                )
-              ]),
-              _vm._v(" "),
-              _vm.loadSubAdminPagination.nextPageUrl
-                ? _c(
-                    "a",
-                    {
-                      staticClass: "button",
-                      on: {
-                        click: function($event) {
-                          return _vm.paginationHandler(
-                            _vm.loadSubAdminPagination.nextPageUrl
-                          )
-                        }
-                      }
-                    },
-                    [_vm._m(4), _vm._v(" "), _c("span", [_vm._v(" Next ")])]
-                  )
-                : _vm._e()
-            ])
-          : _vm._e()
-      ])
-    ]),
-    _vm._v(" "),
-    _vm.loadSubAdminDatas.length <= 0
-      ? _c("div", { staticClass: "card" }, [_vm._m(5)])
-      : _vm._e()
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "control" }, [
-      _c("button", { staticClass: "button purple-bg has-text-white" }, [
-        _vm._v("\n\t\t\t\t\t\t\t\t\tSearch \n\t\t\t\t\t\t\t\t")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [
-          _c("span", { staticClass: "purple-color" }, [_vm._v(" ID ")])
-        ]),
-        _vm._v(" "),
-        _c("th", [
-          _c("span", { staticClass: "purple-color" }, [_vm._v(" Name ")])
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "has-text-centered" }, [
-          _c("span", { staticClass: "purple-color" }, [_vm._v(" Email ")])
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "has-text-centered" }, [
-          _c("span", { staticClass: "purple-color" }, [_vm._v(" Phone ")])
-        ]),
-        _vm._v(" "),
-        _c("th", [
-          _c("span", { staticClass: "purple-color" }, [_vm._v(" Status ")])
-        ]),
-        _vm._v(" "),
-        _c("th", { staticClass: "has-text-centered" }, [
-          _c("span", { staticClass: "purple-color" }, [_vm._v(" Action ")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-content has-text-centered" }, [
-      _c("p", { staticClass: "subtitle is-bold" }, [
-        _vm._v(
-          "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tAre you sure\n\t\t\t\t\t\t\t\t\t\t\t\t\t"
-        )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small" }, [
-      _c("i", { staticClass: "fas fa-arrow-left purple-color" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small" }, [
-      _c("i", { staticClass: "fas fa-arrow-right purple-color" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-content" }, [
-      _c("div", { staticClass: "content is-bold has-text-centered subtitle" }, [
-        _c("span", { staticClass: "fa" }, [
-          _vm._v(" No sub-admin found. Add a sub-admin instead. ")
-        ])
-      ])
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/addSubAdmin.vue?vue&type=template&id=2646c45b&":
-/*!***********************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/addSubAdmin.vue?vue&type=template&id=2646c45b& ***!
-  \***********************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("nav", { staticClass: "level" }, [
-      _vm._m(0),
-      _vm._v(" "),
-      _c("div", { staticClass: "level-right" }, [
-        _c(
-          "p",
-          { staticClass: "level-item" },
-          [
-            _c(
-              "router-link",
-              { attrs: { to: { name: "sub-admin-list" }, exact: "" } },
-              [_c("strong", { staticClass: "purple-color" }, [_vm._v(" Back")])]
-            )
-          ],
-          1
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "box" }, [
-      _vm.loadSubAdminErrors
-        ? _c(
-            "div",
-            {
-              staticClass: "notification purple-bg-light is-bold has-text-black"
-            },
-            [
-              _c(
-                "ul",
-                _vm._l(_vm.loadSubAdminErrors, function(value, name, index) {
-                  return _c("li", [
-                    _vm._v(
-                      "\n\t\t\t\t\t" +
-                        _vm._s(index + 1) +
-                        ". " +
-                        _vm._s(value[0]) +
-                        "\n\t\t\t\t"
-                    )
-                  ])
-                }),
-                0
-              )
-            ]
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "form",
-        {
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.submitForm($event)
-            }
-          }
-        },
-        [
-          _c("div", { staticClass: "columns" }, [
-            _c("div", { staticClass: "column" }, [
-              _c("div", { staticClass: "field" }, [
-                _vm._m(1),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "control has-icons-left has-icons-right" },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.trim",
-                          value: _vm.subAdmin.name,
-                          expression: "subAdmin.name",
-                          modifiers: { trim: true }
-                        }
-                      ],
-                      staticClass: "input is-info",
-                      attrs: {
-                        type: "text",
-                        placeholder: "Text input",
-                        required: "",
-                        autofocus: ""
-                      },
-                      domProps: { value: _vm.subAdmin.name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.subAdmin,
-                            "name",
-                            $event.target.value.trim()
-                          )
-                        },
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _vm.$v.subAdmin.name.required
-                      ? _c("span", { staticClass: "icon is-small is-right" }, [
-                          _c("i", { staticClass: "fas fa-check purple-color" })
-                        ])
-                      : _c("span", { staticClass: "icon is-small is-right" }, [
-                          _c("i", {
-                            staticClass:
-                              "fas fa-exclamation-triangle has-text-danger"
-                          })
-                        ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "field has-addons mt-6" }, [
-                _vm._m(3),
-                _vm._v(" "),
-                _c("p", { staticClass: "control is-expanded has-icons-left" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model.number",
-                        value: _vm.subAdmin.phone,
-                        expression: "subAdmin.phone",
-                        modifiers: { number: true }
-                      }
-                    ],
-                    staticClass: "input is-info",
-                    attrs: {
-                      type: "tel",
-                      minlength: "10",
-                      maxlength: "14",
-                      placeholder: "Number input",
-                      required: ""
-                    },
-                    domProps: { value: _vm.subAdmin.phone },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.subAdmin,
-                          "phone",
-                          _vm._n($event.target.value)
-                        )
-                      },
-                      blur: function($event) {
-                        return _vm.$forceUpdate()
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _vm._m(4)
-                ]),
-                _vm._v(" "),
-                _vm._m(5)
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "column" }, [
-              _c("div", { staticClass: "field" }, [
-                _vm._m(6),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "control has-icons-right has-icons-left" },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.subAdmin.email,
-                          expression: "subAdmin.email"
-                        }
-                      ],
-                      staticClass: "input is-info",
-                      attrs: {
-                        type: "email",
-                        placeholder: "Text input",
-                        required: ""
-                      },
-                      domProps: { value: _vm.subAdmin.email },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.subAdmin, "email", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm._m(7),
-                    _vm._v(" "),
-                    _vm.$v.subAdmin.email.$invalid
-                      ? _c("span", { staticClass: "icon is-small is-right" }, [
-                          _c("i", {
-                            staticClass:
-                              "fas fa-exclamation-triangle has-text-danger"
-                          })
-                        ])
-                      : _c("span", { staticClass: "icon is-small is-right" }, [
-                          _c("i", { staticClass: "fas fa-check purple-color" })
-                        ])
-                  ]
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "field mt-6" }, [
-                _c("div", { staticClass: "file has-name" }, [
-                  _c("label", { staticClass: "file-label" }, [
-                    _c("input", {
-                      staticClass: "file-input is-info",
-                      attrs: { type: "file", name: "resume" },
-                      on: { change: _vm.fileUpload }
-                    }),
-                    _vm._v(" "),
-                    _vm._m(8),
-                    _vm._v(" "),
-                    _c("span", { staticClass: "file-name" }, [
-                      _vm._v(
-                        "\n\t\t\t\t\t\t\t\t\t" +
-                          _vm._s(_vm.subAdmin.imageName || "Upload an image") +
-                          "\n\t\t\t\t\t\t\t\t"
-                      )
-                    ])
-                  ])
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "field" }, [
-            _c("p", { staticClass: "control" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "button",
-                  class: { "is-loading": _vm.loadSubAdminProgress },
-                  attrs: { disabled: _vm.$v.subAdmin.$invalid }
-                },
-                [
-                  _vm._m(9),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Save ")])
-                ]
-              )
-            ])
-          ])
-        ]
-      )
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "level-left" }, [
-      _c("div", { staticClass: "level-item" }, [
-        _c("p", { staticClass: "subtitle is-5" }, [
-          _c("strong", [_vm._v(" Add Sub-admin ")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "label" }, [
-      _vm._v("Admin Name "),
-      _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small is-left" }, [
-      _c("i", { staticClass: "fas fa-truck purple-color" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "control" }, [
-      _c("span", { staticClass: "select" }, [
-        _c("select", [_c("option", [_vm._v(" +234 ")])])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small is-left" }, [
-      _c("i", { staticClass: "fas fa-phone purple-color" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", { staticClass: "control" }, [
-      _c("a", { staticClass: "button is-bold" }, [
-        _vm._v("\n\t\t\t\t\t\t\t\tPhone\n\t\t\t\t\t\t\t")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "label" }, [
-      _vm._v(" Admin Email "),
-      _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small is-left" }, [
-      _c("i", { staticClass: "fas fa-envelope purple-color" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "file-cta" }, [
-      _c("span", { staticClass: "file-icon" }, [
-        _c("i", { staticClass: "fas fa-image purple-color" })
-      ]),
-      _vm._v(" "),
-      _c("span", { staticClass: "file-label is-bold" }, [
-        _vm._v("\n\t\t\t\t\t\t\t\t\t\tChoose a file…\n\t\t\t\t\t\t\t\t\t")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small" }, [
-      _c("i", { staticClass: "fas fa-save purple-color" })
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/editSubAdmin.vue?vue&type=template&id=8fc9f704&":
-/*!************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/editSubAdmin.vue?vue&type=template&id=8fc9f704& ***!
-  \************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c(
-      "div",
-      {
-        staticClass: "pageloader purple-bg",
-        class: { "is-active": _vm.loadSubAdminLoader }
-      },
-      [_c("span", { staticClass: "title" }, [_vm._v(" Loading Bellewise")])]
-    ),
-    _vm._v(" "),
-    _c("nav", { staticClass: "level" }, [
-      _c("div", { staticClass: "level-left" }, [
-        _c("div", { staticClass: "level-item" }, [
-          _c("p", { staticClass: "subtitle is-5" }, [
-            _c("strong", [
-              _vm._v(" Edit " + _vm._s(_vm.loadSubAdminSingleData.name) + " ")
-            ])
-          ])
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "level-right" }, [
-        _c(
-          "p",
-          { staticClass: "level-item" },
-          [
-            _c(
-              "router-link",
-              { attrs: { to: { name: "sub-admin-list" }, exact: "" } },
-              [_c("strong", { staticClass: "purple-color" }, [_vm._v(" Back")])]
-            )
-          ],
-          1
-        )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "box" }, [
-      _vm.loadSubAdminErrors
-        ? _c(
-            "div",
-            {
-              staticClass: "notification purple-bg-light is-bold has-text-black"
-            },
-            [
-              _c(
-                "ul",
-                _vm._l(_vm.loadSubAdminErrors, function(value, name, index) {
-                  return _c("li", [
-                    _vm._v(
-                      "\n\t\t\t\t\t" +
-                        _vm._s(index + 1) +
-                        " . " +
-                        _vm._s(value[0]) +
-                        "\n\t\t\t\t"
-                    )
-                  ])
-                }),
-                0
-              )
-            ]
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "form",
-        {
-          on: {
-            submit: function($event) {
-              $event.preventDefault()
-              return _vm.submitForm($event)
-            }
-          }
-        },
-        [
-          _c("div", { staticClass: "columns" }, [
-            _c("div", { staticClass: "column" }, [
-              _c("div", { staticClass: "field" }, [
-                _vm._m(0),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "control has-icons-left has-icons-right" },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model.trim",
-                          value: _vm.loadSubAdminSingleData.name,
-                          expression: "loadSubAdminSingleData.name",
-                          modifiers: { trim: true }
-                        }
-                      ],
-                      staticClass: "input is-info",
-                      attrs: { type: "text", required: "", autofocus: "" },
-                      domProps: { value: _vm.loadSubAdminSingleData.name },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(
-                            _vm.loadSubAdminSingleData,
-                            "name",
-                            $event.target.value.trim()
-                          )
-                        },
-                        blur: function($event) {
-                          return _vm.$forceUpdate()
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _vm.$v.loadSubAdminSingleData.name.required
-                      ? _c("span", { staticClass: "icon is-small is-right" }, [
-                          _c("i", { staticClass: "fas fa-check purple-color" })
-                        ])
-                      : _c("span", { staticClass: "icon is-small is-right" }, [
-                          _c("i", {
-                            staticClass:
-                              "fas fa-exclamation-triangle has-text-danger"
-                          })
-                        ])
-                  ]
-                )
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "column" }, [
-              _c(
-                "div",
-                { staticClass: "field", staticStyle: { "margin-top": "30px" } },
-                [
-                  _c("div", { staticClass: "file has-name" }, [
-                    _c("label", { staticClass: "file-label" }, [
-                      _c("input", {
-                        staticClass: "file-input is-info",
-                        attrs: { type: "file" },
-                        on: { change: _vm.fileUpload }
-                      }),
-                      _vm._v(" "),
-                      _vm._m(2),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "file-name" }, [
-                        _vm._v(
-                          "\n\t\t\t\t\t\t\t\t\t" +
-                            _vm._s(_vm.imageName || "Update an image") +
-                            "\n\t\t\t\t\t\t\t\t"
-                        )
-                      ])
-                    ])
-                  ])
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "field" }, [
-            _c("p", { staticClass: "control" }, [
-              _c(
-                "button",
-                {
-                  staticClass: "button",
-                  class: { "is-loading": _vm.loadSubAdminProgress },
-                  attrs: { disabled: _vm.$v.loadSubAdminSingleData.$invalid }
-                },
-                [
-                  _vm._m(3),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Save ")])
-                ]
-              )
-            ])
-          ])
-        ]
-      )
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", { staticClass: "label" }, [
-      _vm._v("Admin Name "),
-      _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small is-left" }, [
-      _c("i", { staticClass: "fas fa-truck purple-color" })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "file-cta" }, [
-      _c("span", { staticClass: "file-icon" }, [
-        _c("i", { staticClass: "fas fa-image purple-color" })
-      ]),
-      _vm._v(" "),
-      _c("span", { staticClass: "file-label is-bold" }, [
-        _vm._v("\n\t\t\t\t\t\t\t\t\t\tChoose a file…\n\t\t\t\t\t\t\t\t\t")
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "icon is-small" }, [
-      _c("i", { staticClass: "fas fa-save purple-color" })
-    ])
-  }
-]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/index.vue?vue&type=template&id=3377a486&":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/index.vue?vue&type=template&id=3377a486& ***!
-  \*****************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c("div", { staticClass: "box" }, [
-      _c("div", { staticClass: "tabs is-toggle" }, [
-        _c("ul", [
-          _c(
-            "li",
-            {
-              class: { active: _vm.subAdminList },
-              on: {
-                click: function($event) {
-                  ;[(_vm.subAdminList = true), (_vm.blockSubAdmin = false)]
-                }
-              }
-            },
-            [
-              _c("a", [
-                _c(
-                  "span",
-                  {
-                    staticClass: "icon is-small",
-                    class: { "has-text-white": _vm.subAdminList }
-                  },
-                  [
-                    _c("i", {
-                      staticClass: "fas fa-users",
-                      attrs: { "aria-hidden": "true" }
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _c("span", { class: { "has-text-white": _vm.subAdminList } }, [
-                  _vm._v(" Sub-admins ")
-                ])
-              ])
-            ]
-          ),
-          _vm._v(" "),
-          _c(
-            "li",
-            {
-              class: { active: _vm.blockSubAdmin },
-              on: {
-                click: function($event) {
-                  ;[(_vm.subAdminList = false), (_vm.blockSubAdmin = true)]
-                }
-              }
-            },
-            [
-              _c("a", [
-                _c(
-                  "span",
-                  {
-                    staticClass: "icon is-small",
-                    class: { "has-text-white": _vm.blockSubAdmin }
-                  },
-                  [
-                    _c("i", {
-                      staticClass: "fas fa-ban",
-                      attrs: { "aria-hidden": "true" }
-                    })
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "span",
-                  {
-                    staticClass: " ",
-                    class: { "has-text-white": _vm.blockSubAdmin }
-                  },
-                  [_vm._v(" Blocked sub-admin ")]
-                )
-              ])
-            ]
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _vm.subAdminList ? _c("div", [_c("sub-admin-list")], 1) : _vm._e(),
-      _vm._v(" "),
-      _vm.blockSubAdmin ? _c("div", [_c("block-sub-admin")], 1) : _vm._e()
-    ])
-  ])
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/subAdminPermission.vue?vue&type=template&id=2ad3317a&":
-/*!******************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/subAdminPermission.vue?vue&type=template&id=2ad3317a& ***!
-  \******************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
-    _c(
-      "div",
-      {
-        staticClass: "pageloader purple-bg",
-        class: { "is-active": _vm.loadSubAdminLoader }
+        class: { "is-active": _vm.loadSubAdminLoader && _vm.loadRoleLoader }
       },
       [_c("span", { staticClass: "title" }, [_vm._v(" Bellewise Loading")])]
     ),
@@ -74028,6 +72164,3137 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/Modules/blockSubAdmin.vue?vue&type=template&id=0cbf2c42&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/Modules/blockSubAdmin.vue?vue&type=template&id=0cbf2c42& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass: "pageloader purple-bg",
+        class: { "is-active": _vm.loadSubAdminLoader }
+      },
+      [_c("span", { staticClass: "title" }, [_vm._v(" Loading Bellewise ")])]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-content table-container" }, [
+        _vm.loadSubAdminNotification
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "notification purple-bg-light is-bold has-text-black"
+              },
+              [_vm._v("\n\t\t\t\t\tTask Succeesful\n\t\t\t\t")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c("nav", { staticClass: "level" }, [
+          _c("div", { staticClass: "level-right" }, [
+            _c("div", { staticClass: "tabs is-toggle level-item" }, [
+              _c("ul", [
+                _c("li", { on: { click: _vm.refresh } }, [
+                  _c("a", [
+                    _c("span", { staticClass: "icon is-small" }, [
+                      _c("i", {
+                        staticClass: "fas fa-sync-alt  purple-color",
+                        class: { "fa-spin": _vm.spin },
+                        attrs: { "aria-hidden": "true" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("  Refresh")])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: { name: "add-sub-admin" }, exact: "" } },
+                      [
+                        _c("span", { staticClass: "icon is-small" }, [
+                          _c("i", {
+                            staticClass: "fas fa-plus purple-color",
+                            attrs: { "aria-hidden": "true" }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(" Add Sub-admin")])
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _vm.loadSubAdminBlockedDatas.length >= 1
+          ? _c(
+              "table",
+              { staticClass: "table is-bordered is-striped is-hoverable" },
+              [
+                _c("thead", [
+                  _c("tr", [
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _c("th", [
+                      _vm.loadAuthUser.admin == "super_admin"
+                        ? _c("span", { staticClass: "purple-color" }, [
+                            _vm._v(" Status ")
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("th", { staticClass: "has-text-centered" }, [
+                      _vm.loadAuthUser.admin == "super_admin"
+                        ? _c("span", { staticClass: "purple-color" }, [
+                            _vm._v(" Action ")
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.loadSubAdminBlockedDatas, function(
+                    subadmin,
+                    index
+                  ) {
+                    return _c("tr", { key: index }, [
+                      _c("th", [
+                        _c("span", { staticClass: "purple-color" }, [
+                          _vm._v("  " + _vm._s(subadmin.sub_admin_id) + "  ")
+                        ])
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          " " + _vm._s(subadmin.name.substring(0, 6)) + " "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          " " + _vm._s(subadmin.email.substring(0, 10)) + " "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(" " + _vm._s(subadmin.phone) + " ")]),
+                      _vm._v(" "),
+                      _c("td", { staticClass: "has-text-centered" }, [
+                        _vm.loadAuthUser.admin == "super_admin"
+                          ? _c("input", {
+                              attrs: { type: "checkbox" },
+                              domProps: {
+                                checked: subadmin.status == 1 ? true : false
+                              },
+                              on: {
+                                change: function($event) {
+                                  ;[
+                                    (subadmin.status = !subadmin.status),
+                                    _vm.statusMethod(
+                                      subadmin.id,
+                                      subadmin.status
+                                    )
+                                  ]
+                                }
+                              }
+                            })
+                          : _vm._e()
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _c("div", { staticClass: "field is-grouped" }, [
+                          _vm.loadAuthUser.admin == "super_admin"
+                            ? _c("p", { staticClass: "control" }, [
+                                _c(
+                                  "a",
+                                  { staticClass: "button purple-color" },
+                                  [
+                                    _vm._v(
+                                      "\n\t\t\t\t\t\t\t\t\t\t\tPermission\n\t\t\t\t\t\t\t\t\t\t"
+                                    )
+                                  ]
+                                )
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.loadAuthUser.admin == "super_admin"
+                            ? _c(
+                                "p",
+                                { staticClass: "control" },
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "button purple-color",
+                                      attrs: {
+                                        to: {
+                                          name: "view-sub-admin",
+                                          params: { id: subadmin.id }
+                                        },
+                                        exact: ""
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n\t\t\t\t\t\t\t\t\t\t\tView\n\t\t\t\t\t\t\t\t\t\t"
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.loadAuthUser.admin == "super_admin"
+                            ? _c(
+                                "p",
+                                { staticClass: "control" },
+                                [
+                                  _c(
+                                    "router-link",
+                                    {
+                                      staticClass: "button purple-color",
+                                      attrs: {
+                                        to: {
+                                          name: "edit-sub-admin",
+                                          params: { id: subadmin.id }
+                                        },
+                                        exact: ""
+                                      }
+                                    },
+                                    [
+                                      _vm._v(
+                                        "\n\t\t\t\t\t\t\t\t\t\t\tEdit\n\t\t\t\t\t\t\t\t\t\t"
+                                      )
+                                    ]
+                                  )
+                                ],
+                                1
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _vm.loadAuthUser.admin == "super_admin"
+                            ? _c(
+                                "p",
+                                {
+                                  staticClass: "control",
+                                  on: {
+                                    click: function($event) {
+                                      ;[
+                                        (_vm.showModal = true),
+                                        _vm.getDestroyId(subadmin.id)
+                                      ]
+                                    }
+                                  }
+                                },
+                                [
+                                  _c(
+                                    "button",
+                                    { staticClass: "button purple-color" },
+                                    [
+                                      _vm._v(
+                                        "\n\t\t\t\t\t\t\t\t\t\t\tDelete \n\t\t\t\t\t\t\t\t\t\t"
+                                      )
+                                    ]
+                                  )
+                                ]
+                              )
+                            : _vm._e(),
+                          _vm.showModal
+                            ? _c("div", { staticClass: "modal is-active" }, [
+                                _c("div", { staticClass: "modal-background" }),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "modal-content" }, [
+                                  _c("div", { staticClass: "card" }, [
+                                    _vm._m(4, true),
+                                    _vm._v(" "),
+                                    _c(
+                                      "footer",
+                                      { staticClass: "card-footer" },
+                                      [
+                                        _c(
+                                          "p",
+                                          {
+                                            staticClass:
+                                              "card-footer-item is-bold purple-color pointer",
+                                            on: { click: _vm.deleteData }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tDelete\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                                            )
+                                          ]
+                                        ),
+                                        _vm._v(" "),
+                                        _c(
+                                          "p",
+                                          {
+                                            staticClass:
+                                              "card-footer-item is-bold purple-color pointer",
+                                            on: {
+                                              click: function($event) {
+                                                _vm.showModal = false
+                                              }
+                                            }
+                                          },
+                                          [
+                                            _vm._v(
+                                              "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("button", {
+                                  staticClass: "modal-close is-large",
+                                  attrs: { "aria-label": "close" },
+                                  on: {
+                                    click: function($event) {
+                                      _vm.showModal = false
+                                    }
+                                  }
+                                })
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("p")
+                        ])
+                      ])
+                    ])
+                  }),
+                  0
+                )
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.loadSubAdminBlockedDatas.length >= 1
+          ? _c("div", { staticClass: "buttons has-addons is-centered" }, [
+              _vm.loadSubAdminPagination.previousPageUrl
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "button",
+                      on: {
+                        click: function($event) {
+                          return _vm.paginationHandler(
+                            _vm.loadSubAdminPagination.previousPageUrl
+                          )
+                        }
+                      }
+                    },
+                    [_vm._m(5), _vm._v(" "), _c("span", [_vm._v(" Previous ")])]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c("a", { staticClass: "button" }, [
+                _vm._v(
+                  "\n\n\t\t\t\t\t\t" +
+                    _vm._s(_vm.loadSubAdminPagination.to) +
+                    " 0f " +
+                    _vm._s(_vm.loadSubAdminPagination.total) +
+                    "\n\t\t\t\t\t"
+                )
+              ]),
+              _vm._v(" "),
+              _vm.loadSubAdminPagination.nextPageUrl
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "button",
+                      on: {
+                        click: function($event) {
+                          return _vm.paginationHandler(
+                            _vm.loadSubAdminPagination.nextPageUrl
+                          )
+                        }
+                      }
+                    },
+                    [_vm._m(6), _vm._v(" "), _c("span", [_vm._v(" Next ")])]
+                  )
+                : _vm._e()
+            ])
+          : _vm._e()
+      ])
+    ]),
+    _vm._v(" "),
+    _vm.loadSubAdminBlockedDatas.length <= 0
+      ? _c("div", { staticClass: "card" }, [_vm._m(7)])
+      : _vm._e()
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("th", [
+      _c("span", { staticClass: "purple-color" }, [_vm._v(" ID ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("th", [
+      _c("span", { staticClass: "purple-color" }, [_vm._v(" Name ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("th", { staticClass: "has-text-centered" }, [
+      _c("span", { staticClass: "purple-color" }, [_vm._v(" Email ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("th", { staticClass: "has-text-centered" }, [
+      _c("span", { staticClass: "purple-color" }, [_vm._v(" Phone ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-content has-text-centered" }, [
+      _c("p", { staticClass: "subtitle is-bold" }, [
+        _vm._v(
+          "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tAre you sure\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-arrow-left purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-arrow-right purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-content" }, [
+      _c("div", { staticClass: "content is-bold has-text-centered subtitle" }, [
+        _c("span", { staticClass: "fa" }, [_vm._v(" No blocked sub-admin. ")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/Modules/editPermission.vue?vue&type=template&id=42689246&":
+/*!**********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/Modules/editPermission.vue?vue&type=template&id=42689246& ***!
+  \**********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _vm.loadRoleNotification
+      ? _c(
+          "div",
+          {
+            staticClass: "notification purple-bg-light is-bold has-text-black"
+          },
+          [_vm._v("\n\t\tTask Succeesful\n\t")]
+        )
+      : _vm._e(),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "pageloader purple-bg",
+        class: { "is-active": _vm.loadSubAdminLoader && _vm.loadRoleLoader }
+      },
+      [_c("span", { staticClass: "title" }, [_vm._v(" Bellewise Loading")])]
+    ),
+    _vm._v(" "),
+    _c("nav", { staticClass: "level" }, [
+      _c("div", { staticClass: "level-left" }, [
+        _c("div", { staticClass: "level-item" }, [
+          _c("p", [
+            _c("strong", { staticClass: "subtitle is-bold" }, [
+              _vm._v(
+                " " + _vm._s(_vm.loadSubAdminSingleData.admin) + " Permission "
+              )
+            ]),
+            _vm._v(" "),
+            _c("br"),
+            _vm._v(" "),
+            _c("span", [
+              _vm._v(" " + _vm._s(_vm.loadSubAdminSingleData.email) + " ")
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "level-right" }, [
+        _c(
+          "p",
+          { staticClass: "level-item" },
+          [
+            _c(
+              "router-link",
+              { attrs: { to: { name: "sub-admin-list" }, exact: "" } },
+              [_c("strong", { staticClass: "purple-color" }, [_vm._v(" Back")])]
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "columns is-multiline" }, [
+      _c("div", { staticClass: "column is-4" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-content" }, [
+            _c("div", { staticClass: "content" }, [
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.restaurant_list,
+                        expression: "loadRole.restaurant_list"
+                      }
+                    ],
+                    attrs: {
+                      type: "checkbox",
+                      value: "loadRole.restaurant_list"
+                    },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.restaurant_list)
+                        ? _vm._i(
+                            _vm.loadRole.restaurant_list,
+                            "loadRole.restaurant_list"
+                          ) > -1
+                        : _vm.loadRole.restaurant_list
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.restaurant_list = !_vm.loadRole
+                          .restaurant_list
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.restaurant_list,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = "loadRole.restaurant_list",
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "restaurant_list",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "restaurant_list",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "restaurant_list", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" List ")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.restaurant_create,
+                        expression: "loadRole.restaurant_create"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.restaurant_create)
+                        ? _vm._i(_vm.loadRole.restaurant_create, null) > -1
+                        : _vm.loadRole.restaurant_create
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.restaurant_create = !_vm.loadRole
+                          .restaurant_create
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.restaurant_create,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "restaurant_create",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "restaurant_create",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "restaurant_create", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Create ")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.restaurant_update,
+                        expression: "loadRole.restaurant_update"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.restaurant_update)
+                        ? _vm._i(_vm.loadRole.restaurant_update, null) > -1
+                        : _vm.loadRole.restaurant_update
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.restaurant_update = !_vm.loadRole
+                          .restaurant_update
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.restaurant_update,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "restaurant_update",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "restaurant_update",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "restaurant_update", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Update ")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.restaurant_block,
+                        expression: "loadRole.restaurant_block"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.restaurant_block)
+                        ? _vm._i(_vm.loadRole.restaurant_block, null) > -1
+                        : _vm.loadRole.restaurant_block
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.restaurant_block = !_vm.loadRole
+                          .restaurant_block
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.restaurant_block,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "restaurant_block",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "restaurant_block",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "restaurant_block", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Block ")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.restaurant_delete,
+                        expression: "loadRole.restaurant_delete"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.restaurant_delete)
+                        ? _vm._i(_vm.loadRole.restaurant_delete, null) > -1
+                        : _vm.loadRole.restaurant_delete
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.restaurant_delete = !_vm.loadRole
+                          .restaurant_delete
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.restaurant_delete,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "restaurant_delete",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "restaurant_delete",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "restaurant_delete", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Delete ")])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "column is-4" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(1),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-content" }, [
+            _c("div", { staticClass: "content" }, [
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.driver_list,
+                        expression: "loadRole.driver_list"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.driver_list)
+                        ? _vm._i(_vm.loadRole.driver_list, null) > -1
+                        : _vm.loadRole.driver_list
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.driver_list = !_vm.loadRole.driver_list
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.driver_list,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "driver_list",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "driver_list",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "driver_list", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" List ")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.driver_create,
+                        expression: "loadRole.driver_create"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.driver_create)
+                        ? _vm._i(_vm.loadRole.driver_create, null) > -1
+                        : _vm.loadRole.driver_create
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.driver_create = !_vm.loadRole.driver_create
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.driver_create,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "driver_create",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "driver_create",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "driver_create", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Create ")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.driver_update,
+                        expression: "loadRole.driver_update"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.driver_update)
+                        ? _vm._i(_vm.loadRole.driver_update, null) > -1
+                        : _vm.loadRole.driver_update
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.driver_update = !_vm.loadRole.driver_update
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.driver_update,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "driver_update",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "driver_update",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "driver_update", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Update ")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.driver_block,
+                        expression: "loadRole.driver_block"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.driver_block)
+                        ? _vm._i(_vm.loadRole.driver_block, null) > -1
+                        : _vm.loadRole.driver_block
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.driver_block = !_vm.loadRole.driver_block
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.driver_block,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "driver_block",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "driver_block",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "driver_block", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Block ")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.driver_delete,
+                        expression: "loadRole.driver_delete"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.driver_delete)
+                        ? _vm._i(_vm.loadRole.driver_delete, null) > -1
+                        : _vm.loadRole.driver_delete
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.driver_delete = !_vm.loadRole.driver_delete
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.driver_delete,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "driver_delete",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "driver_delete",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "driver_delete", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Delete ")])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "column is-4" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(2),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-content" }, [
+            _c("div", { staticClass: "content" }, [
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.promo_create,
+                        expression: "loadRole.promo_create"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.promo_create)
+                        ? _vm._i(_vm.loadRole.promo_create, null) > -1
+                        : _vm.loadRole.promo_create
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.promo_create = !_vm.loadRole.promo_create
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.promo_create,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "promo_create",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "promo_create",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "promo_create", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Create ")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.promo_list,
+                        expression: "loadRole.promo_list"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.promo_list)
+                        ? _vm._i(_vm.loadRole.promo_list, null) > -1
+                        : _vm.loadRole.promo_list
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.promo_list = !_vm.loadRole.promo_list
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.promo_list,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "promo_list",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "promo_list",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "promo_list", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" List ")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.promo_update,
+                        expression: "loadRole.promo_update"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.promo_update)
+                        ? _vm._i(_vm.loadRole.promo_update, null) > -1
+                        : _vm.loadRole.promo_update
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.promo_update = !_vm.loadRole.promo_update
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.promo_update,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "promo_update",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "promo_update",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "promo_update", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Update ")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.promo_delete,
+                        expression: "loadRole.promo_delete"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.promo_delete)
+                        ? _vm._i(_vm.loadRole.promo_delete, null) > -1
+                        : _vm.loadRole.promo_delete
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.promo_delete = !_vm.loadRole.promo_delete
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.promo_delete,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "promo_delete",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "promo_delete",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "promo_delete", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Delete ")])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "column is-4" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(3),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-content" }, [
+            _c("div", { staticClass: "content" }, [
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.order_list,
+                        expression: "loadRole.order_list"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.order_list)
+                        ? _vm._i(_vm.loadRole.order_list, null) > -1
+                        : _vm.loadRole.order_list
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.order_list = !_vm.loadRole.order_list
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.order_list,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "order_list",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "order_list",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "order_list", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" List ")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.order_confirm,
+                        expression: "loadRole.order_confirm"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.order_confirm)
+                        ? _vm._i(_vm.loadRole.order_confirm, null) > -1
+                        : _vm.loadRole.order_confirm
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.order_confirm = !_vm.loadRole.order_confirm
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.order_confirm,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "order_confirm",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "order_confirm",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "order_confirm", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Confirm ")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.order_reject,
+                        expression: "loadRole.order_reject"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.order_reject)
+                        ? _vm._i(_vm.loadRole.order_reject, null) > -1
+                        : _vm.loadRole.order_reject
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.order_reject = !_vm.loadRole.order_reject
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.order_reject,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "order_reject",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "order_reject",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "order_reject", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Reject ")])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "column is-4" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(4),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-content" }, [
+            _c("div", { staticClass: "content" }, [
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.user_list,
+                        expression: "loadRole.user_list"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.user_list)
+                        ? _vm._i(_vm.loadRole.user_list, null) > -1
+                        : _vm.loadRole.user_list
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.user_list = !_vm.loadRole.user_list
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.user_list,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "user_list",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "user_list",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "user_list", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" List ")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.user_block,
+                        expression: "loadRole.user_block"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.user_block)
+                        ? _vm._i(_vm.loadRole.user_block, null) > -1
+                        : _vm.loadRole.user_block
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.user_block = !_vm.loadRole.user_block
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.user_block,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "user_block",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "user_block",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "user_block", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Block ")])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.user_password_reset,
+                        expression: "loadRole.user_password_reset"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.user_password_reset)
+                        ? _vm._i(_vm.loadRole.user_password_reset, null) > -1
+                        : _vm.loadRole.user_password_reset
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.user_password_reset = !_vm.loadRole
+                          .user_password_reset
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.user_password_reset,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "user_password_reset",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "user_password_reset",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "user_password_reset", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [
+                    _vm._v(" Reset Password ")
+                  ])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "column is-4" }, [
+        _c("div", { staticClass: "card" }, [
+          _vm._m(5),
+          _vm._v(" "),
+          _c("div", { staticClass: "card-content" }, [
+            _c("div", { staticClass: "content" }, [
+              _c("div", { staticClass: "field" }, [
+                _c("label", { staticClass: "checkbox" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.loadRole.sub_admin_list,
+                        expression: "loadRole.sub_admin_list"
+                      }
+                    ],
+                    attrs: { type: "checkbox" },
+                    domProps: {
+                      checked: Array.isArray(_vm.loadRole.sub_admin_list)
+                        ? _vm._i(_vm.loadRole.sub_admin_list, null) > -1
+                        : _vm.loadRole.sub_admin_list
+                    },
+                    on: {
+                      click: function($event) {
+                        _vm.loadRole.sub_admin_list = !_vm.loadRole
+                          .sub_admin_list
+                      },
+                      change: function($event) {
+                        var $$a = _vm.loadRole.sub_admin_list,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = null,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "sub_admin_list",
+                                $$a.concat([$$v])
+                              )
+                          } else {
+                            $$i > -1 &&
+                              _vm.$set(
+                                _vm.loadRole,
+                                "sub_admin_list",
+                                $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                              )
+                          }
+                        } else {
+                          _vm.$set(_vm.loadRole, "sub_admin_list", $$c)
+                        }
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" List ")])
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "field" }, [
+      _c("p", { staticClass: "control" }, [
+        _c(
+          "button",
+          {
+            staticClass: "button",
+            class: { "is-loading": _vm.loadRoleProgress },
+            on: { click: _vm.submitForm }
+          },
+          [
+            _vm._m(6),
+            _vm._v(" "),
+            _c("span", { staticClass: "is-bold" }, [_vm._v(" Update ")])
+          ]
+        )
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", { staticClass: "card-header" }, [
+      _c("p", { staticClass: "card-header-title purple-color" }, [
+        _vm._v("\n\t\t\t\t\t\tRestaurants\n\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", { staticClass: "card-header" }, [
+      _c("p", { staticClass: "card-header-title purple-color" }, [
+        _vm._v("\n\t\t\t\t\t\tDrivers\n\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", { staticClass: "card-header" }, [
+      _c("p", { staticClass: "card-header-title purple-color" }, [
+        _vm._v("\n\t\t\t\t\t\tPromotion\n\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", { staticClass: "card-header" }, [
+      _c("p", { staticClass: "card-header-title purple-color" }, [
+        _vm._v("\n\t\t\t\t\t\tOrders\n\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", { staticClass: "card-header" }, [
+      _c("p", { staticClass: "card-header-title purple-color" }, [
+        _vm._v("\n\t\t\t\t\t\tUsers\n\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", { staticClass: "card-header" }, [
+      _c("p", { staticClass: "card-header-title purple-color" }, [
+        _vm._v("\n\t\t\t\t\t\tSub Admins\n\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-save purple-color" })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/Modules/subAdminList.vue?vue&type=template&id=0116883a&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/Modules/subAdminList.vue?vue&type=template&id=0116883a& ***!
+  \********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c(
+      "div",
+      {
+        staticClass: "pageloader purple-bg",
+        class: { "is-active": _vm.loadSubAdminLoader }
+      },
+      [_c("span", { staticClass: "title" }, [_vm._v(" Bellewise loading ")])]
+    ),
+    _vm._v(" "),
+    _c("div", { staticClass: "card" }, [
+      _c("div", { staticClass: "card-content table-container" }, [
+        _vm.loadSubAdminNotification
+          ? _c(
+              "div",
+              {
+                staticClass:
+                  "notification purple-bg-light is-bold has-text-black"
+              },
+              [_vm._v("\n\t\t\t\tTask Succeesful\n\t\t\t")]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c("nav", { staticClass: "level" }, [
+          _c("div", { staticClass: "level-left" }, [
+            _c("div", { staticClass: "level-item" }, [
+              _c("div", { staticClass: "field has-addons" }, [
+                _c("p", { staticClass: "control" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.searchQuery,
+                        expression: "searchQuery"
+                      }
+                    ],
+                    staticClass: "input",
+                    attrs: {
+                      type: "text",
+                      placeholder: " Search Sub-admin by ID"
+                    },
+                    domProps: { value: _vm.searchQuery },
+                    on: {
+                      keyup: _vm.searchMethod,
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.searchQuery = $event.target.value
+                      }
+                    }
+                  })
+                ]),
+                _vm._v(" "),
+                _vm._m(0)
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "level-right" }, [
+            _c("div", { staticClass: "tabs is-toggle level-item" }, [
+              _c("ul", [
+                _c("li", { on: { click: _vm.refresh } }, [
+                  _c("a", [
+                    _c("span", { staticClass: "icon is-small" }, [
+                      _c("i", {
+                        staticClass: "fas fa-sync-alt  purple-color",
+                        class: { "fa-spin": _vm.spin },
+                        attrs: { "aria-hidden": "true" }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("span", [_vm._v("  Refresh")])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  [
+                    _c(
+                      "router-link",
+                      { attrs: { to: { name: "add-sub-admin" }, exact: "" } },
+                      [
+                        _c("span", { staticClass: "icon is-small" }, [
+                          _c("i", {
+                            staticClass: "fas fa-plus purple-color",
+                            attrs: { "aria-hidden": "true" }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("span", [_vm._v(" Add Sub-Admin")])
+                      ]
+                    )
+                  ],
+                  1
+                )
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _vm.loadSubAdminDatas.length >= 1
+          ? _c(
+              "table",
+              { staticClass: "table is-bordered is-striped is-hoverable" },
+              [
+                _c("thead", [
+                  _c("tr", [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _vm._m(3),
+                    _vm._v(" "),
+                    _vm._m(4),
+                    _vm._v(" "),
+                    _c("th", [
+                      _vm.loadAuthUser.admin == "super_admin"
+                        ? _c("span", { staticClass: "purple-color" }, [
+                            _vm._v(" Status ")
+                          ])
+                        : _vm._e()
+                    ]),
+                    _vm._v(" "),
+                    _c("th", { staticClass: "has-text-centered" }, [
+                      _vm.loadAuthUser.admin == "super_admin"
+                        ? _c("span", { staticClass: "purple-color" }, [
+                            _vm._v(" Action ")
+                          ])
+                        : _vm._e()
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(
+                    _vm.searchQuery.length > 1
+                      ? _vm.loadSubAdminSearch
+                      : _vm.loadSubAdminDatas,
+                    function(subadmin) {
+                      return _c("tr", [
+                        _c("th", [
+                          _c("span", { staticClass: "purple-color" }, [
+                            _vm._v("  " + _vm._s(subadmin.sub_admin_id) + "  ")
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " " + _vm._s(subadmin.name.substring(0, 6)) + " "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _vm._v(
+                            " " + _vm._s(subadmin.email.substring(0, 10)) + " "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(" " + _vm._s(subadmin.phone) + " ")]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "has-text-centered" }, [
+                          _vm.loadAuthUser.admin == "super_admin"
+                            ? _c("input", {
+                                attrs: { type: "checkbox" },
+                                domProps: {
+                                  checked: subadmin.status == 1 ? true : false
+                                },
+                                on: {
+                                  change: function($event) {
+                                    ;[
+                                      (subadmin.status = !subadmin.status),
+                                      _vm.statusMethod(
+                                        subadmin.id,
+                                        subadmin.status
+                                      )
+                                    ]
+                                  }
+                                }
+                              })
+                            : _vm._e()
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("div", { staticClass: "field is-grouped" }, [
+                            _vm.loadAuthUser.admin == "super_admin"
+                              ? _c(
+                                  "p",
+                                  { staticClass: "control" },
+                                  [
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass: "button purple-color",
+                                        attrs: {
+                                          to: {
+                                            name: "sub-admin-permission",
+                                            params: { id: subadmin.id }
+                                          },
+                                          exact: ""
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n\t\t\t\t\t\t\t\t\t\tPermission\n\t\t\t\t\t\t\t\t\t"
+                                        )
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.loadAuthUser.admin == "super_admin"
+                              ? _c(
+                                  "p",
+                                  { staticClass: "control" },
+                                  [
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass: "button purple-color",
+                                        attrs: {
+                                          to: {
+                                            name: "view-sub-admin",
+                                            params: { id: subadmin.id }
+                                          },
+                                          exact: ""
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n\t\t\t\t\t\t\t\t\t\tView\n\t\t\t\t\t\t\t\t\t"
+                                        )
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.loadAuthUser.admin == "super_admin"
+                              ? _c(
+                                  "p",
+                                  { staticClass: "control" },
+                                  [
+                                    _c(
+                                      "router-link",
+                                      {
+                                        staticClass: "button purple-color",
+                                        attrs: {
+                                          to: {
+                                            name: "edit-sub-admin",
+                                            params: { id: subadmin.id }
+                                          },
+                                          exact: ""
+                                        }
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n\t\t\t\t\t\t\t\t\t\tEdit\n\t\t\t\t\t\t\t\t\t"
+                                        )
+                                      ]
+                                    )
+                                  ],
+                                  1
+                                )
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _vm.loadAuthUser.admin == "super_admin"
+                              ? _c(
+                                  "p",
+                                  {
+                                    staticClass: "control",
+                                    on: {
+                                      click: function($event) {
+                                        ;[
+                                          (_vm.showModal = true),
+                                          _vm.getDestroyId(subadmin.id)
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  [
+                                    _c(
+                                      "button",
+                                      { staticClass: "button purple-color" },
+                                      [
+                                        _vm._v(
+                                          "\n\t\t\t\t\t\t\t\t\t\tDelete \n\t\t\t\t\t\t\t\t\t"
+                                        )
+                                      ]
+                                    )
+                                  ]
+                                )
+                              : _vm._e(),
+                            _vm.showModal
+                              ? _c("div", { staticClass: "modal is-active" }, [
+                                  _c("div", {
+                                    staticClass: "modal-background"
+                                  }),
+                                  _vm._v(" "),
+                                  _c("div", { staticClass: "modal-content" }, [
+                                    _c("div", { staticClass: "card" }, [
+                                      _vm._m(5, true),
+                                      _vm._v(" "),
+                                      _c(
+                                        "footer",
+                                        { staticClass: "card-footer" },
+                                        [
+                                          _c(
+                                            "p",
+                                            {
+                                              staticClass:
+                                                "card-footer-item is-bold purple-color pointer",
+                                              on: { click: _vm.deleteData }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tDelete\n\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                                              )
+                                            ]
+                                          ),
+                                          _vm._v(" "),
+                                          _c(
+                                            "p",
+                                            {
+                                              staticClass:
+                                                "card-footer-item is-bold purple-color pointer",
+                                              on: {
+                                                click: function($event) {
+                                                  _vm.showModal = false
+                                                }
+                                              }
+                                            },
+                                            [
+                                              _vm._v(
+                                                "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tCancel\n\t\t\t\t\t\t\t\t\t\t\t\t\t"
+                                              )
+                                            ]
+                                          )
+                                        ]
+                                      )
+                                    ])
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("button", {
+                                    staticClass: "modal-close is-large",
+                                    attrs: { "aria-label": "close" },
+                                    on: {
+                                      click: function($event) {
+                                        _vm.showModal = false
+                                      }
+                                    }
+                                  })
+                                ])
+                              : _vm._e(),
+                            _vm._v(" "),
+                            _c("p")
+                          ])
+                        ])
+                      ])
+                    }
+                  ),
+                  0
+                )
+              ]
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.loadSubAdminDatas.length >= 1
+          ? _c("div", { staticClass: "buttons has-addons is-centered" }, [
+              _vm.loadSubAdminPagination.previousPageUrl
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "button",
+                      on: {
+                        click: function($event) {
+                          return _vm.paginationHandler(
+                            _vm.loadSubAdminPagination.previousPageUrl
+                          )
+                        }
+                      }
+                    },
+                    [_vm._m(6), _vm._v(" "), _c("span", [_vm._v(" Previous ")])]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _c("a", { staticClass: "button" }, [
+                _vm._v(
+                  "\n\n\t\t\t\t\t" +
+                    _vm._s(_vm.loadSubAdminPagination.to) +
+                    " 0f " +
+                    _vm._s(_vm.loadSubAdminPagination.total) +
+                    "\n\t\t\t\t"
+                )
+              ]),
+              _vm._v(" "),
+              _vm.loadSubAdminPagination.nextPageUrl
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "button",
+                      on: {
+                        click: function($event) {
+                          return _vm.paginationHandler(
+                            _vm.loadSubAdminPagination.nextPageUrl
+                          )
+                        }
+                      }
+                    },
+                    [_vm._m(7), _vm._v(" "), _c("span", [_vm._v(" Next ")])]
+                  )
+                : _vm._e()
+            ])
+          : _vm._e()
+      ])
+    ]),
+    _vm._v(" "),
+    _vm.loadSubAdminDatas.length <= 0
+      ? _c("div", { staticClass: "card" }, [_vm._m(8)])
+      : _vm._e()
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "control" }, [
+      _c("button", { staticClass: "button purple-bg has-text-white" }, [
+        _vm._v("\n\t\t\t\t\t\t\t\t\tSearch \n\t\t\t\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("th", [
+      _c("span", { staticClass: "purple-color" }, [_vm._v(" ID ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("th", [
+      _c("span", { staticClass: "purple-color" }, [_vm._v(" Name ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("th", { staticClass: "has-text-centered" }, [
+      _c("span", { staticClass: "purple-color" }, [_vm._v(" Email ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("th", { staticClass: "has-text-centered" }, [
+      _c("span", { staticClass: "purple-color" }, [_vm._v(" Phone ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-content has-text-centered" }, [
+      _c("p", { staticClass: "subtitle is-bold" }, [
+        _vm._v(
+          "\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tAre you sure\n\t\t\t\t\t\t\t\t\t\t\t\t\t"
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-arrow-left purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-arrow-right purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-content" }, [
+      _c("div", { staticClass: "content is-bold has-text-centered subtitle" }, [
+        _c("span", { staticClass: "fa" }, [
+          _vm._v(" No sub-admin found. Add a sub-admin instead. ")
+        ])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/addSubAdmin.vue?vue&type=template&id=2646c45b&":
+/*!***********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/addSubAdmin.vue?vue&type=template&id=2646c45b& ***!
+  \***********************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("nav", { staticClass: "level" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "level-right" }, [
+        _c(
+          "p",
+          { staticClass: "level-item" },
+          [
+            _c(
+              "router-link",
+              { attrs: { to: { name: "sub-admin-list" }, exact: "" } },
+              [_c("strong", { staticClass: "purple-color" }, [_vm._v(" Back")])]
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "box" }, [
+      _vm.loadSubAdminErrors
+        ? _c(
+            "div",
+            {
+              staticClass: "notification purple-bg-light is-bold has-text-black"
+            },
+            [
+              _c(
+                "ul",
+                _vm._l(_vm.loadSubAdminErrors, function(value, name, index) {
+                  return _c("li", [
+                    _vm._v(
+                      "\n\t\t\t\t\t" +
+                        _vm._s(index + 1) +
+                        ". " +
+                        _vm._s(value[0]) +
+                        "\n\t\t\t\t"
+                    )
+                  ])
+                }),
+                0
+              )
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.submitForm($event)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "columns" }, [
+            _c("div", { staticClass: "column" }, [
+              _c("div", { staticClass: "field" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-left has-icons-right" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.subAdmin.name,
+                          expression: "subAdmin.name",
+                          modifiers: { trim: true }
+                        }
+                      ],
+                      staticClass: "input is-info",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Text input",
+                        required: "",
+                        autofocus: ""
+                      },
+                      domProps: { value: _vm.subAdmin.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.subAdmin,
+                            "name",
+                            $event.target.value.trim()
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _vm.$v.subAdmin.name.required
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fas fa-check purple-color" })
+                        ])
+                      : _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-exclamation-triangle has-text-danger"
+                          })
+                        ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field has-addons mt-6" }, [
+                _vm._m(3),
+                _vm._v(" "),
+                _c("p", { staticClass: "control is-expanded has-icons-left" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model.number",
+                        value: _vm.subAdmin.phone,
+                        expression: "subAdmin.phone",
+                        modifiers: { number: true }
+                      }
+                    ],
+                    staticClass: "input is-info",
+                    attrs: {
+                      type: "tel",
+                      minlength: "10",
+                      maxlength: "14",
+                      placeholder: "Number input",
+                      required: ""
+                    },
+                    domProps: { value: _vm.subAdmin.phone },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(
+                          _vm.subAdmin,
+                          "phone",
+                          _vm._n($event.target.value)
+                        )
+                      },
+                      blur: function($event) {
+                        return _vm.$forceUpdate()
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm._m(4)
+                ]),
+                _vm._v(" "),
+                _vm._m(5)
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "column" }, [
+              _c("div", { staticClass: "field" }, [
+                _vm._m(6),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-right has-icons-left" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.subAdmin.email,
+                          expression: "subAdmin.email"
+                        }
+                      ],
+                      staticClass: "input is-info",
+                      attrs: {
+                        type: "email",
+                        placeholder: "Text input",
+                        required: ""
+                      },
+                      domProps: { value: _vm.subAdmin.email },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.subAdmin, "email", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(7),
+                    _vm._v(" "),
+                    _vm.$v.subAdmin.email.$invalid
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-exclamation-triangle has-text-danger"
+                          })
+                        ])
+                      : _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fas fa-check purple-color" })
+                        ])
+                  ]
+                )
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "field mt-6" }, [
+                _c("div", { staticClass: "file has-name" }, [
+                  _c("label", { staticClass: "file-label" }, [
+                    _c("input", {
+                      staticClass: "file-input is-info",
+                      attrs: { type: "file", name: "resume" },
+                      on: { change: _vm.fileUpload }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(8),
+                    _vm._v(" "),
+                    _c("span", { staticClass: "file-name" }, [
+                      _vm._v(
+                        "\n\t\t\t\t\t\t\t\t\t" +
+                          _vm._s(_vm.subAdmin.imageName || "Upload an image") +
+                          "\n\t\t\t\t\t\t\t\t"
+                      )
+                    ])
+                  ])
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("p", { staticClass: "control" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "button",
+                  class: { "is-loading": _vm.loadSubAdminProgress },
+                  attrs: { disabled: _vm.$v.subAdmin.$invalid }
+                },
+                [
+                  _vm._m(9),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Save ")])
+                ]
+              )
+            ])
+          ])
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "level-left" }, [
+      _c("div", { staticClass: "level-item" }, [
+        _c("p", { staticClass: "subtitle is-5" }, [
+          _c("strong", [_vm._v(" Add Sub-admin ")])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "label" }, [
+      _vm._v("Admin Name "),
+      _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small is-left" }, [
+      _c("i", { staticClass: "fas fa-truck purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "control" }, [
+      _c("span", { staticClass: "select" }, [
+        _c("select", [_c("option", [_vm._v(" +234 ")])])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small is-left" }, [
+      _c("i", { staticClass: "fas fa-phone purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("p", { staticClass: "control" }, [
+      _c("a", { staticClass: "button is-bold" }, [
+        _vm._v("\n\t\t\t\t\t\t\t\tPhone\n\t\t\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "label" }, [
+      _vm._v(" Admin Email "),
+      _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small is-left" }, [
+      _c("i", { staticClass: "fas fa-envelope purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "file-cta" }, [
+      _c("span", { staticClass: "file-icon" }, [
+        _c("i", { staticClass: "fas fa-image purple-color" })
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "file-label is-bold" }, [
+        _vm._v("\n\t\t\t\t\t\t\t\t\t\tChoose a file…\n\t\t\t\t\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-save purple-color" })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/editSubAdmin.vue?vue&type=template&id=8fc9f704&":
+/*!************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/editSubAdmin.vue?vue&type=template&id=8fc9f704& ***!
+  \************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c(
+      "div",
+      {
+        staticClass: "pageloader purple-bg",
+        class: { "is-active": _vm.loadSubAdminLoader }
+      },
+      [_c("span", { staticClass: "title" }, [_vm._v(" Loading Bellewise")])]
+    ),
+    _vm._v(" "),
+    _c("nav", { staticClass: "level" }, [
+      _c("div", { staticClass: "level-left" }, [
+        _c("div", { staticClass: "level-item" }, [
+          _c("p", { staticClass: "subtitle is-5" }, [
+            _c("strong", [
+              _vm._v(" Edit " + _vm._s(_vm.loadSubAdminSingleData.name) + " ")
+            ])
+          ])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "level-right" }, [
+        _c(
+          "p",
+          { staticClass: "level-item" },
+          [
+            _c(
+              "router-link",
+              { attrs: { to: { name: "sub-admin-list" }, exact: "" } },
+              [_c("strong", { staticClass: "purple-color" }, [_vm._v(" Back")])]
+            )
+          ],
+          1
+        )
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "box" }, [
+      _vm.loadSubAdminErrors
+        ? _c(
+            "div",
+            {
+              staticClass: "notification purple-bg-light is-bold has-text-black"
+            },
+            [
+              _c(
+                "ul",
+                _vm._l(_vm.loadSubAdminErrors, function(value, name, index) {
+                  return _c("li", [
+                    _vm._v(
+                      "\n\t\t\t\t\t" +
+                        _vm._s(index + 1) +
+                        " . " +
+                        _vm._s(value[0]) +
+                        "\n\t\t\t\t"
+                    )
+                  ])
+                }),
+                0
+              )
+            ]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c(
+        "form",
+        {
+          on: {
+            submit: function($event) {
+              $event.preventDefault()
+              return _vm.submitForm($event)
+            }
+          }
+        },
+        [
+          _c("div", { staticClass: "columns" }, [
+            _c("div", { staticClass: "column" }, [
+              _c("div", { staticClass: "field" }, [
+                _vm._m(0),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "control has-icons-left has-icons-right" },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model.trim",
+                          value: _vm.loadSubAdminSingleData.name,
+                          expression: "loadSubAdminSingleData.name",
+                          modifiers: { trim: true }
+                        }
+                      ],
+                      staticClass: "input is-info",
+                      attrs: { type: "text", required: "", autofocus: "" },
+                      domProps: { value: _vm.loadSubAdminSingleData.name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.loadSubAdminSingleData,
+                            "name",
+                            $event.target.value.trim()
+                          )
+                        },
+                        blur: function($event) {
+                          return _vm.$forceUpdate()
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _vm.$v.loadSubAdminSingleData.name.required
+                      ? _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", { staticClass: "fas fa-check purple-color" })
+                        ])
+                      : _c("span", { staticClass: "icon is-small is-right" }, [
+                          _c("i", {
+                            staticClass:
+                              "fas fa-exclamation-triangle has-text-danger"
+                          })
+                        ])
+                  ]
+                )
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "column" }, [
+              _c(
+                "div",
+                { staticClass: "field", staticStyle: { "margin-top": "30px" } },
+                [
+                  _c("div", { staticClass: "file has-name" }, [
+                    _c("label", { staticClass: "file-label" }, [
+                      _c("input", {
+                        staticClass: "file-input is-info",
+                        attrs: { type: "file" },
+                        on: { change: _vm.fileUpload }
+                      }),
+                      _vm._v(" "),
+                      _vm._m(2),
+                      _vm._v(" "),
+                      _c("span", { staticClass: "file-name" }, [
+                        _vm._v(
+                          "\n\t\t\t\t\t\t\t\t\t" +
+                            _vm._s(_vm.imageName || "Update an image") +
+                            "\n\t\t\t\t\t\t\t\t"
+                        )
+                      ])
+                    ])
+                  ])
+                ]
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "field" }, [
+            _c("p", { staticClass: "control" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "button",
+                  class: { "is-loading": _vm.loadSubAdminProgress },
+                  attrs: { disabled: _vm.$v.loadSubAdminSingleData.$invalid }
+                },
+                [
+                  _vm._m(3),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "is-bold" }, [_vm._v(" Save ")])
+                ]
+              )
+            ])
+          ])
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { staticClass: "label" }, [
+      _vm._v("Admin Name "),
+      _c("span", { staticClass: "has-text-danger" }, [_vm._v(" * ")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small is-left" }, [
+      _c("i", { staticClass: "fas fa-truck purple-color" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "file-cta" }, [
+      _c("span", { staticClass: "file-icon" }, [
+        _c("i", { staticClass: "fas fa-image purple-color" })
+      ]),
+      _vm._v(" "),
+      _c("span", { staticClass: "file-label is-bold" }, [
+        _vm._v("\n\t\t\t\t\t\t\t\t\t\tChoose a file…\n\t\t\t\t\t\t\t\t\t")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "icon is-small" }, [
+      _c("i", { staticClass: "fas fa-save purple-color" })
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/index.vue?vue&type=template&id=3377a486&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/index.vue?vue&type=template&id=3377a486& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "box" }, [
+      _c("div", { staticClass: "tabs is-toggle" }, [
+        _c("ul", [
+          _c(
+            "li",
+            {
+              class: { active: _vm.subAdminList },
+              on: {
+                click: function($event) {
+                  ;[(_vm.subAdminList = true), (_vm.blockSubAdmin = false)]
+                }
+              }
+            },
+            [
+              _c("a", [
+                _c(
+                  "span",
+                  {
+                    staticClass: "icon is-small",
+                    class: { "has-text-white": _vm.subAdminList }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fas fa-users",
+                      attrs: { "aria-hidden": "true" }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c("span", { class: { "has-text-white": _vm.subAdminList } }, [
+                  _vm._v(" Sub-admins ")
+                ])
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c(
+            "li",
+            {
+              class: { active: _vm.blockSubAdmin },
+              on: {
+                click: function($event) {
+                  ;[(_vm.subAdminList = false), (_vm.blockSubAdmin = true)]
+                }
+              }
+            },
+            [
+              _c("a", [
+                _c(
+                  "span",
+                  {
+                    staticClass: "icon is-small",
+                    class: { "has-text-white": _vm.blockSubAdmin }
+                  },
+                  [
+                    _c("i", {
+                      staticClass: "fas fa-ban",
+                      attrs: { "aria-hidden": "true" }
+                    })
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "span",
+                  {
+                    staticClass: " ",
+                    class: { "has-text-white": _vm.blockSubAdmin }
+                  },
+                  [_vm._v(" Blocked sub-admin ")]
+                )
+              ])
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _vm.subAdminList ? _c("div", [_c("sub-admin-list")], 1) : _vm._e(),
+      _vm._v(" "),
+      _vm.blockSubAdmin ? _c("div", [_c("block-sub-admin")], 1) : _vm._e()
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/subAdminPermission.vue?vue&type=template&id=2ad3317a&":
+/*!******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/subAdminPermission.vue?vue&type=template&id=2ad3317a& ***!
+  \******************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    Object.keys(_vm.loadRole).length == 0
+      ? _c("div", [_c("add-permission")], 1)
+      : _c("div", [_c("edit-permission")], 1)
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/viewSubAdmin.vue?vue&type=template&id=8fb47ece&":
 /*!************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/SubAdmin/viewSubAdmin.vue?vue&type=template&id=8fb47ece& ***!
@@ -74835,6 +76102,45 @@ var staticRenderFns = [
         ]),
         _vm._v(" "),
         _c("span", [_vm._v(" Next ")])
+      ])
+    ])
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/permissionNotification.vue?vue&type=template&id=150cc345&":
+/*!*************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/Components/permissionNotification.vue?vue&type=template&id=150cc345& ***!
+  \*************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.loadDatas.length <= 0
+    ? _c("div", { staticClass: "card" }, [_vm._m(0)])
+    : _vm._e()
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-content" }, [
+      _c("div", { staticClass: "content is-bold has-text-centered subtitle" }, [
+        _c("span", { staticClass: "fa" }, [
+          _vm._v(" Permission denied. Please contact the administator. ")
+        ])
       ])
     ])
   }
@@ -95608,75 +96914,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/Components/Restaurant/Modules/restaurantConfig.vue":
-/*!*************************************************************************!*\
-  !*** ./resources/js/Components/Restaurant/Modules/restaurantConfig.vue ***!
-  \*************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _restaurantConfig_vue_vue_type_template_id_700aa89e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./restaurantConfig.vue?vue&type=template&id=700aa89e& */ "./resources/js/Components/Restaurant/Modules/restaurantConfig.vue?vue&type=template&id=700aa89e&");
-/* harmony import */ var _restaurantConfig_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./restaurantConfig.vue?vue&type=script&lang=js& */ "./resources/js/Components/Restaurant/Modules/restaurantConfig.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _restaurantConfig_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _restaurantConfig_vue_vue_type_template_id_700aa89e___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _restaurantConfig_vue_vue_type_template_id_700aa89e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/Components/Restaurant/Modules/restaurantConfig.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/Components/Restaurant/Modules/restaurantConfig.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************!*\
-  !*** ./resources/js/Components/Restaurant/Modules/restaurantConfig.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_restaurantConfig_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./restaurantConfig.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Restaurant/Modules/restaurantConfig.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_restaurantConfig_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/Components/Restaurant/Modules/restaurantConfig.vue?vue&type=template&id=700aa89e&":
-/*!********************************************************************************************************!*\
-  !*** ./resources/js/Components/Restaurant/Modules/restaurantConfig.vue?vue&type=template&id=700aa89e& ***!
-  \********************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_restaurantConfig_vue_vue_type_template_id_700aa89e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./restaurantConfig.vue?vue&type=template&id=700aa89e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/Restaurant/Modules/restaurantConfig.vue?vue&type=template&id=700aa89e&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_restaurantConfig_vue_vue_type_template_id_700aa89e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_restaurantConfig_vue_vue_type_template_id_700aa89e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
 /***/ "./resources/js/Components/Restaurant/Modules/restaurantDetails.vue":
 /*!**************************************************************************!*\
   !*** ./resources/js/Components/Restaurant/Modules/restaurantDetails.vue ***!
@@ -96505,6 +97742,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Components/SubAdmin/Modules/addPermission.vue":
+/*!********************************************************************!*\
+  !*** ./resources/js/Components/SubAdmin/Modules/addPermission.vue ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _addPermission_vue_vue_type_template_id_c5f626da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addPermission.vue?vue&type=template&id=c5f626da& */ "./resources/js/Components/SubAdmin/Modules/addPermission.vue?vue&type=template&id=c5f626da&");
+/* harmony import */ var _addPermission_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addPermission.vue?vue&type=script&lang=js& */ "./resources/js/Components/SubAdmin/Modules/addPermission.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _addPermission_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _addPermission_vue_vue_type_template_id_c5f626da___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _addPermission_vue_vue_type_template_id_c5f626da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Components/SubAdmin/Modules/addPermission.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Components/SubAdmin/Modules/addPermission.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/Components/SubAdmin/Modules/addPermission.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_addPermission_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./addPermission.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/Modules/addPermission.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_addPermission_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Components/SubAdmin/Modules/addPermission.vue?vue&type=template&id=c5f626da&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/Components/SubAdmin/Modules/addPermission.vue?vue&type=template&id=c5f626da& ***!
+  \***************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_addPermission_vue_vue_type_template_id_c5f626da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./addPermission.vue?vue&type=template&id=c5f626da& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/Modules/addPermission.vue?vue&type=template&id=c5f626da&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_addPermission_vue_vue_type_template_id_c5f626da___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_addPermission_vue_vue_type_template_id_c5f626da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/Components/SubAdmin/Modules/blockSubAdmin.vue":
 /*!********************************************************************!*\
   !*** ./resources/js/Components/SubAdmin/Modules/blockSubAdmin.vue ***!
@@ -96569,6 +97875,75 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_blockSubAdmin_vue_vue_type_template_id_0cbf2c42___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_blockSubAdmin_vue_vue_type_template_id_0cbf2c42___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/Components/SubAdmin/Modules/editPermission.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/Components/SubAdmin/Modules/editPermission.vue ***!
+  \*********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _editPermission_vue_vue_type_template_id_42689246___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editPermission.vue?vue&type=template&id=42689246& */ "./resources/js/Components/SubAdmin/Modules/editPermission.vue?vue&type=template&id=42689246&");
+/* harmony import */ var _editPermission_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./editPermission.vue?vue&type=script&lang=js& */ "./resources/js/Components/SubAdmin/Modules/editPermission.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _editPermission_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _editPermission_vue_vue_type_template_id_42689246___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _editPermission_vue_vue_type_template_id_42689246___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Components/SubAdmin/Modules/editPermission.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Components/SubAdmin/Modules/editPermission.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/Components/SubAdmin/Modules/editPermission.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_editPermission_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../node_modules/vue-loader/lib??vue-loader-options!./editPermission.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/Modules/editPermission.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_editPermission_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Components/SubAdmin/Modules/editPermission.vue?vue&type=template&id=42689246&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/Components/SubAdmin/Modules/editPermission.vue?vue&type=template&id=42689246& ***!
+  \****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editPermission_vue_vue_type_template_id_42689246___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib??vue-loader-options!./editPermission.vue?vue&type=template&id=42689246& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/SubAdmin/Modules/editPermission.vue?vue&type=template&id=42689246&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editPermission_vue_vue_type_template_id_42689246___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_editPermission_vue_vue_type_template_id_42689246___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -97195,6 +98570,59 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Components/permissionNotification.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/Components/permissionNotification.vue ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _permissionNotification_vue_vue_type_template_id_150cc345___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./permissionNotification.vue?vue&type=template&id=150cc345& */ "./resources/js/Components/permissionNotification.vue?vue&type=template&id=150cc345&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+var script = {}
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__["default"])(
+  script,
+  _permissionNotification_vue_vue_type_template_id_150cc345___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _permissionNotification_vue_vue_type_template_id_150cc345___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Components/permissionNotification.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Components/permissionNotification.vue?vue&type=template&id=150cc345&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/Components/permissionNotification.vue?vue&type=template&id=150cc345& ***!
+  \*******************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_permissionNotification_vue_vue_type_template_id_150cc345___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./permissionNotification.vue?vue&type=template&id=150cc345& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/Components/permissionNotification.vue?vue&type=template&id=150cc345&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_permissionNotification_vue_vue_type_template_id_150cc345___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_permissionNotification_vue_vue_type_template_id_150cc345___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/Mixins/bulmaCalendar.js":
 /*!**********************************************!*\
   !*** ./resources/js/Mixins/bulmaCalendar.js ***!
@@ -97383,14 +98811,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../app.js */ "./resources/js/app.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
- //routes
 
 
 var state = {
@@ -97581,7 +99006,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
- //routes
 
 
 var state = {
@@ -97589,24 +99013,28 @@ var state = {
   authUser: null,
   authErrors: null,
   authProgress: null,
-  authNotification: null
+  authLoader: null,
+  authRole: null
 }; // State calibrace close
 
 var getters = {
-  LoadAuthenticated: function LoadAuthenticated(state) {
+  loadAuthenticated: function loadAuthenticated(state) {
     return state.authenticated;
   },
-  LoadAuthUser: function LoadAuthUser(state) {
+  loadAuthUser: function loadAuthUser(state) {
     return state.authUser;
   },
-  LoadAuthErrors: function LoadAuthErrors(state) {
+  loadAuthErrors: function loadAuthErrors(state) {
     return state.authErrors;
   },
-  LoadAuthProgress: function LoadAuthProgress(state) {
+  loadAuthProgress: function loadAuthProgress(state) {
     return state.authProgress;
   },
-  LoadAuthNotification: function LoadAuthNotification(state) {
-    return state.authNotification;
+  loadAuthLoader: function loadAuthLoader(state) {
+    return state.authLoader;
+  },
+  loadAuthRole: function loadAuthRole(state) {
+    return state.authRole;
   }
 }; //Getters calibrace close
 
@@ -97626,11 +99054,13 @@ var actions = {
             case 4:
               _context.next = 6;
               return axios.post('/api/login', data).then(function (response) {
+                commit('setLoading', true);
                 return dispatch('me');
               })["catch"](function (error) {
-                var failure = error.response.data;
+                var failure = error.response.data.errors;
                 commit('setErrors', failure);
                 commit('setProgress', false);
+                commit('setLoading', false);
                 setTimeout(function () {
                   commit('setErrors', null);
                 }, 10000);
@@ -97661,7 +99091,7 @@ var actions = {
             case 3:
               return _context2.abrupt("return", dispatch('me'));
 
-            case 4:
+            case 5:
             case "end":
               return _context2.stop();
           }
@@ -97669,28 +99099,27 @@ var actions = {
       }, _callee2);
     }))();
   },
-  me: function me(_ref3) {
-    var commit = _ref3.commit;
-    return axios.get('/api/user').then(function (response) {
-      commit('SET_AUTHENTICATED', true);
-      commit('SET_USER', response.data);
-      commit('setNotification', true);
-    })["catch"](function () {
-      commit('SET_AUTHENTICATED', false);
-      commit('SET_USER', null);
-    });
-  },
-  clearAuthErrors: function clearAuthErrors(_ref4) {
+  fetchAuthRole: function fetchAuthRole(_ref3) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-      var commit;
+      var commit, getters, api, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              commit = _ref4.commit;
-              commit('unsetErrors');
+              commit = _ref3.commit, getters = _ref3.getters;
+              api = '/api/role/' + getters.loadAuthUser.id;
+              _context3.next = 4;
+              return axios.get(api);
 
-            case 2:
+            case 4:
+              response = _context3.sent;
+              commit('setRole', response.data);
+              _app_js__WEBPACK_IMPORTED_MODULE_2__["router"].push({
+                name: 'home'
+              });
+              commit('setLoader', false);
+
+            case 8:
             case "end":
               return _context3.stop();
           }
@@ -97698,7 +99127,26 @@ var actions = {
       }, _callee3);
     }))();
   },
-  clearAuthNotification: function clearAuthNotification(_ref5) {
+  me: function me(_ref4) {
+    var commit = _ref4.commit,
+        dispatch = _ref4.dispatch;
+    commit('setLoading', true);
+    return axios.get('/api/user').then(function (response) {
+      commit('SET_AUTHENTICATED', true);
+      commit('SET_USER', response.data);
+      return dispatch('fetchAuthRole');
+      commit('setProgress', false);
+    })["catch"](function () {
+      commit('SET_AUTHENTICATED', false);
+      commit('SET_USER', null);
+      commit('setProgress', false);
+      commit('setLoading', false);
+      _app_js__WEBPACK_IMPORTED_MODULE_2__["router"].push({
+        name: 'auth-access'
+      });
+    });
+  },
+  clearAuthErrors: function clearAuthErrors(_ref5) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
@@ -97706,9 +99154,7 @@ var actions = {
           switch (_context4.prev = _context4.next) {
             case 0:
               commit = _ref5.commit;
-              setTimeout(function () {
-                commit('unsetNotification', false);
-              }, 10000);
+              commit('unsetErrors');
 
             case 2:
             case "end":
@@ -97727,12 +99173,6 @@ var mutations = {
   SET_USER: function SET_USER(state, user) {
     return state.authUser = user;
   },
-  setNotification: function setNotification(state, notification) {
-    return state.authNotification = notification;
-  },
-  unsetNotification: function unsetNotification(state, notification) {
-    return state.authNotification = notification;
-  },
   setProgress: function setProgress(state, progress) {
     return state.authProgress = progress;
   },
@@ -97741,6 +99181,12 @@ var mutations = {
   },
   unsetErrors: function unsetErrors(state, errors) {
     return state.authErrors = null;
+  },
+  setLoading: function setLoading(state, loading) {
+    return state.authLoader = loading;
+  },
+  setRole: function setRole(state, role) {
+    return state.authRole = role;
   }
 }; //Mutations calibrace close
 
@@ -97773,7 +99219,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
- //routes
 
 
 var state = {
@@ -98049,7 +99494,7 @@ var actions = {
               return axios.post('/api/driver', data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
-                _app_js__WEBPACK_IMPORTED_MODULE_2__["app"].$router.push({
+                _app_js__WEBPACK_IMPORTED_MODULE_2__["router"].push({
                   name: 'driver-list'
                 });
               })["catch"](function (error) {
@@ -98092,7 +99537,7 @@ var actions = {
               return axios.post(api, data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
-                _app_js__WEBPACK_IMPORTED_MODULE_2__["app"].$router.push({
+                _app_js__WEBPACK_IMPORTED_MODULE_2__["router"].push({
                   name: 'driver-list'
                 });
               })["catch"](function (error) {
@@ -98265,7 +99710,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
- //routes
 
 
 var state = {
@@ -98446,7 +99890,7 @@ var actions = {
               return axios.post(api, data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
-                _app_js__WEBPACK_IMPORTED_MODULE_2__["app"].$router.push({
+                _app_js__WEBPACK_IMPORTED_MODULE_2__["router"].push({
                   name: 'restaurant-menu'
                 });
               })["catch"](function (error) {
@@ -98489,8 +99933,8 @@ var actions = {
               return axios.post(api, data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
-                _app_js__WEBPACK_IMPORTED_MODULE_2__["app"].$router.push({
-                  name: 'driver-list'
+                _app_js__WEBPACK_IMPORTED_MODULE_2__["router"].push({
+                  name: 'restaurant-menu'
                 });
               })["catch"](function (error) {
                 var failure = error.response.data;
@@ -98686,7 +100130,6 @@ var actions = {
               return axios.post(api, data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
-                history.go();
               })["catch"](function (error) {
                 var failure = error.response.data;
                 commit('setProgress', false);
@@ -98755,7 +100198,6 @@ var actions = {
               return axios.post(api, data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
-                history.go();
               })["catch"](function (error) {
                 var failure = error.response.data;
                 commit('setErrors', failure);
@@ -98775,6 +100217,26 @@ var actions = {
         }
       }, _callee3);
     }))();
+  },
+  clearRoleNotification: function clearRoleNotification(_ref6) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref6.commit;
+              setTimeout(function () {
+                commit('unsetNotification', false);
+              }, 10000);
+
+            case 2:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }))();
   }
 }; //Actions calibrace close
 
@@ -98791,7 +100253,7 @@ var mutations = {
   setLoader: function setLoader(state, loader) {
     return state.roleLoader = loader;
   },
-  setRestaurantConfig: function setRestaurantConfig(state, role) {
+  setRole: function setRole(state, role) {
     return state.role = role;
   }
 }; //Mutations calibrace close
@@ -98837,7 +100299,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
- //routes
 
 
 var state = {
@@ -99017,7 +100478,7 @@ var actions = {
               return axios.post('/api/promo', data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
-                _app_js__WEBPACK_IMPORTED_MODULE_2__["app"].$router.push({
+                _app_js__WEBPACK_IMPORTED_MODULE_2__["router"].push({
                   name: 'list-promotion'
                 });
               })["catch"](function (error) {
@@ -99065,7 +100526,7 @@ var actions = {
               return axios.post(api, data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
-                _app_js__WEBPACK_IMPORTED_MODULE_2__["app"].$router.push({
+                _app_js__WEBPACK_IMPORTED_MODULE_2__["router"].push({
                   name: 'list-promotion'
                 });
               })["catch"](function (error) {
@@ -99192,7 +100653,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../app.js */ "./resources/js/app.js");
 
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -99210,8 +100670,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
- //routes
 
 
 var state = {
@@ -99460,7 +100918,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
- //routes
 
 
 var state = {
@@ -99772,7 +101229,7 @@ var actions = {
               return axios.post('/api/restaurant', data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
-                _app_js__WEBPACK_IMPORTED_MODULE_2__["app"].$router.push({
+                _app_js__WEBPACK_IMPORTED_MODULE_2__["router"].push({
                   name: 'list-restaurant'
                 });
               })["catch"](function (error) {
@@ -99815,7 +101272,7 @@ var actions = {
               return axios.post(api, data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
-                _app_js__WEBPACK_IMPORTED_MODULE_2__["app"].$router.push({
+                _app_js__WEBPACK_IMPORTED_MODULE_2__["router"].push({
                   name: 'list-restaurant'
                 });
               })["catch"](function (error) {
@@ -99848,7 +101305,7 @@ var actions = {
               commit = _ref12.commit;
               id = _ref13.id, status = _ref13.status;
               commit('setLoading', true);
-              api = '/api/restaurant/' + id;
+              api = '/api/restaurant-status/' + id;
               _context11.next = 6;
               return axios.patch(api, {
                 status: status
@@ -99983,7 +101440,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../app.js */ "./resources/js/app.js");
 
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
@@ -100001,8 +101457,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
- //routes
 
 
 var state = {
@@ -100053,7 +101507,6 @@ var actions = {
               return axios.post(api, data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
-                history.go();
               })["catch"](function (error) {
                 var failure = error.response.data;
                 commit('setProgress', false);
@@ -100122,7 +101575,6 @@ var actions = {
               return axios.post(api, data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
-                history.go();
               })["catch"](function (error) {
                 var failure = error.response.data;
                 commit('setErrors', failure);
@@ -100141,6 +101593,26 @@ var actions = {
           }
         }
       }, _callee3);
+    }))();
+  },
+  clearConfigNotification: function clearConfigNotification(_ref6) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref6.commit;
+              setTimeout(function () {
+                commit('unsetNotification', false);
+              }, 10000);
+
+            case 2:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
     }))();
   }
 }; //Actions calibrace close
@@ -100185,8 +101657,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../app.js */ "./resources/js/app.js");
 
+
+var _mutations;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -100204,8 +101679,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
- //routes
-
 
 var state = {
   writeUpDatas: {},
@@ -100213,7 +101686,8 @@ var state = {
   settingLoader: false,
   settingProgress: false,
   SettingErrors: null,
-  settingNotification: null
+  writeUpNotification: null,
+  cancellationPolicyNotification: null
 }; // State calibrace close
 
 var getters = {
@@ -100226,14 +101700,17 @@ var getters = {
   loadSettingLoader: function loadSettingLoader(state) {
     return state.settingLoader;
   },
-  loadSettingNotification: function loadSettingNotification(state) {
-    return state.settingNotification;
+  loadWriteUpNotification: function loadWriteUpNotification(state) {
+    return state.writeUpNotification;
   },
   loadSettingErrors: function loadSettingErrors(state) {
     return state.SettingErrors;
   },
   loadSettingProgress: function loadSettingProgress(state) {
     return state.settingProgress;
+  },
+  loadCancellationPolicyNotification: function loadCancellationPolicyNotification(state) {
+    return state.cancellationPolicyNotification;
   }
 }; //Getters calibrace close
 
@@ -100306,9 +101783,8 @@ var actions = {
               };
               _context3.next = 5;
               return axios.post('/api/setting/write-up', data, config).then(function (response) {
-                commit('setNotification', true);
+                commit('setWriteUpNotification', true);
                 commit('setProgress', false);
-                history.go();
               })["catch"](function (error) {
                 var failure = error.response.data;
                 commit('setErrors', failure);
@@ -100345,9 +101821,8 @@ var actions = {
               };
               _context4.next = 5;
               return axios.post('/api/setting/cancellation-policy', data, config).then(function (response) {
-                commit('setNotification', true);
+                commit('setCancellationPolicyNotification', true);
                 commit('setProgress', false);
-                history.go();
               })["catch"](function (error) {
                 var failure = error.response.data;
                 commit('setErrors', failure);
@@ -100386,9 +101861,8 @@ var actions = {
               };
               _context5.next = 7;
               return axios.post(api, data, config).then(function (response) {
-                commit('setNotification', true);
+                commit('setWriteUpNotification', true);
                 commit('setProgress', false);
-                history.go();
               })["catch"](function (error) {
                 var failure = error.response.data;
                 commit('setErrors', failure);
@@ -100433,9 +101907,8 @@ var actions = {
               };
               _context6.next = 9;
               return axios.post(api, data, config).then(function (response) {
-                commit('setNotification', true);
+                commit('setCancellationPolicyNotification', true);
                 commit('setProgress', false);
-                history.go();
               })["catch"](function (error) {
                 var failure = error.response.data;
                 commit('setErrors', failure);
@@ -100474,7 +101947,7 @@ var actions = {
       }, _callee7);
     }))();
   },
-  clearSettingNotification: function clearSettingNotification(_ref10) {
+  clearWriteUpNotification: function clearWriteUpNotification(_ref10) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8() {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
@@ -100483,7 +101956,7 @@ var actions = {
             case 0:
               commit = _ref10.commit;
               setTimeout(function () {
-                commit('unsetNotification', false);
+                commit('setWriteUpNotification', false);
               }, 10000);
 
             case 2:
@@ -100493,35 +101966,54 @@ var actions = {
         }
       }, _callee8);
     }))();
+  },
+  clearCancellatonPolicyNotification: function clearCancellatonPolicyNotification(_ref11) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9() {
+      var commit;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              commit = _ref11.commit;
+              setTimeout(function () {
+                commit('setCancellationPolicyNotification', false);
+              }, 10000);
+
+            case 2:
+            case "end":
+              return _context9.stop();
+          }
+        }
+      }, _callee9);
+    }))();
   }
 }; //Actions calibrace close
 
-var mutations = {
+var mutations = (_mutations = {
   setWriteUp: function setWriteUp(state, data) {
     return state.writeUpDatas = data;
   },
   setCancellationPolicy: function setCancellationPolicy(state, datas) {
     return state.cancellationPolicy = datas;
   },
-  setNotification: function setNotification(state, notification) {
-    return state.settingNotification = notification;
-  },
-  unsetNotification: function unsetNotification(state, notification) {
-    return state.settingNotification = notification;
-  },
-  setLoading: function setLoading(state, loading) {
-    return state.settingLoader = loading;
-  },
-  setProgress: function setProgress(state, progress) {
-    return state.settingProgress = progress;
-  },
-  setErrors: function setErrors(state, errors) {
-    return state.SettingErrors = errors;
-  },
-  unsetErrors: function unsetErrors(state, errors) {
-    return state.SettingErrors = null;
+  setWriteUpNotification: function setWriteUpNotification(state, notification) {
+    return state.writeUpNotification = notification;
   }
-}; //Mutations calibrace close
+}, _defineProperty(_mutations, "setWriteUpNotification", function setWriteUpNotification(state, notification) {
+  return state.writeUpNotification = notification;
+}), _defineProperty(_mutations, "setCancellationPolicyNotification", function setCancellationPolicyNotification(state, notification) {
+  return state.cancellationPolicyNotification = notification;
+}), _defineProperty(_mutations, "setCancellationPolicyNotification", function setCancellationPolicyNotification(state, notification) {
+  return state.cancellationPolicyNotification = notification;
+}), _defineProperty(_mutations, "setLoading", function setLoading(state, loading) {
+  return state.settingLoader = loading;
+}), _defineProperty(_mutations, "setProgress", function setProgress(state, progress) {
+  return state.settingProgress = progress;
+}), _defineProperty(_mutations, "setErrors", function setErrors(state, errors) {
+  return state.SettingErrors = errors;
+}), _defineProperty(_mutations, "unsetErrors", function unsetErrors(state, errors) {
+  return state.SettingErrors = null;
+}), _mutations); //Mutations calibrace close
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: state,
@@ -100545,14 +102037,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _app_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../app.js */ "./resources/js/app.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
- //routes
 
 
 var state = {
@@ -100894,8 +102383,9 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
- //routes
 
+ //routes
+//import { app } from '../../app.js'
 
 var state = {
   subAdminDatas: [],
@@ -101062,7 +102552,7 @@ var actions = {
       }, _callee4);
     }))();
   },
-  destroyData: function destroyData(_ref5, id) {
+  destroySubAdminData: function destroySubAdminData(_ref5, id) {
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
       var commit, api, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
@@ -101104,7 +102594,7 @@ var actions = {
               return axios.post('/api/sub-admin', data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
-                _app_js__WEBPACK_IMPORTED_MODULE_2__["app"].$router.push({
+                _app_js__WEBPACK_IMPORTED_MODULE_2__["router"].push({
                   name: 'sub-admin-list'
                 });
               })["catch"](function (error) {
@@ -101147,7 +102637,7 @@ var actions = {
               return axios.post(api, data, config).then(function (response) {
                 commit('setNotification', true);
                 commit('setProgress', false);
-                _app_js__WEBPACK_IMPORTED_MODULE_2__["app"].$router.push({
+                _app_js__WEBPACK_IMPORTED_MODULE_2__["router"].push({
                   name: 'sub-admin-list'
                 });
               })["catch"](function (error) {
@@ -101356,12 +102846,12 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! exports provided: app */
+/*! exports provided: router */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "app", function() { return app; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "router", function() { return router; });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
@@ -101383,7 +102873,7 @@ window.axios.defaults.withCredentials = true; //routes
  // Create the router instance and pass the `routes` option
 // You can pass in additional options here, but let's
 
-var Router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   routes: _route_js__WEBPACK_IMPORTED_MODULE_5__["default"],
   // short for `routes: routes`
   mode: 'history'
@@ -101391,15 +102881,16 @@ var Router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 // Make sure to inject the router with the router option to make the
 // whole app router-aware.
 
-var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  'router': Router,
-  'store': _Store__WEBPACK_IMPORTED_MODULE_3__["default"],
-  components: {
-    'welcome': _Components_Layouts_app_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
-  }
-}).$mount('#app'); // Now the app has started!
-
-
+_Store__WEBPACK_IMPORTED_MODULE_3__["default"].dispatch('me').then(function () {
+  var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
+    'router': router,
+    'store': _Store__WEBPACK_IMPORTED_MODULE_3__["default"],
+    components: {
+      'welcome': _Components_Layouts_app_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    }
+  }).$mount('#app'); // Now the app has started!
+  //export { app }
+});
 
 /***/ }),
 
@@ -101466,37 +102957,41 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_Home_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Components/Home.vue */ "./resources/js/Components/Home.vue");
-/* harmony import */ var _Components_Restaurant_index_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Components/Restaurant/index.vue */ "./resources/js/Components/Restaurant/index.vue");
-/* harmony import */ var _Components_Restaurant_addRestaurant_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Components/Restaurant/addRestaurant.vue */ "./resources/js/Components/Restaurant/addRestaurant.vue");
-/* harmony import */ var _Components_Restaurant_viewRestaurant_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Components/Restaurant/viewRestaurant.vue */ "./resources/js/Components/Restaurant/viewRestaurant.vue");
-/* harmony import */ var _Components_Restaurant_editRestaurant_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Components/Restaurant/editRestaurant.vue */ "./resources/js/Components/Restaurant/editRestaurant.vue");
-/* harmony import */ var _Components_Restaurant_menu_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Components/Restaurant/menu.vue */ "./resources/js/Components/Restaurant/menu.vue");
-/* harmony import */ var _Components_Restaurant_addMenu_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Components/Restaurant/addMenu.vue */ "./resources/js/Components/Restaurant/addMenu.vue");
-/* harmony import */ var _Components_Restaurant_restaurantSetting_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Components/Restaurant/restaurantSetting.vue */ "./resources/js/Components/Restaurant/restaurantSetting.vue");
-/* harmony import */ var _Components_Driver_index_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Components/Driver/index.vue */ "./resources/js/Components/Driver/index.vue");
-/* harmony import */ var _Components_Driver_addDriver_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Components/Driver/addDriver.vue */ "./resources/js/Components/Driver/addDriver.vue");
-/* harmony import */ var _Components_Driver_viewDriver_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Components/Driver/viewDriver.vue */ "./resources/js/Components/Driver/viewDriver.vue");
-/* harmony import */ var _Components_Driver_editDriver_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Components/Driver/editDriver.vue */ "./resources/js/Components/Driver/editDriver.vue");
-/* harmony import */ var _Components_Order_orderList_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Components/Order/orderList.vue */ "./resources/js/Components/Order/orderList.vue");
-/* harmony import */ var _components_Order_viewOrder_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/Order/viewOrder.vue */ "./resources/js/components/Order/viewOrder.vue");
-/* harmony import */ var _Components_Users_userList_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./Components/Users/userList.vue */ "./resources/js/Components/Users/userList.vue");
-/* harmony import */ var _Components_Users_editUser_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Components/Users/editUser.vue */ "./resources/js/Components/Users/editUser.vue");
-/* harmony import */ var _Components_Users_resetUserPassword_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./Components/Users/resetUserPassword.vue */ "./resources/js/Components/Users/resetUserPassword.vue");
-/* harmony import */ var _Components_SubAdmin_subAdminPermission_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./Components/SubAdmin/subAdminPermission.vue */ "./resources/js/Components/SubAdmin/subAdminPermission.vue");
-/* harmony import */ var _Components_SubAdmin_index_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./Components/SubAdmin/index.vue */ "./resources/js/Components/SubAdmin/index.vue");
-/* harmony import */ var _Components_SubAdmin_addSubAdmin_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./Components/SubAdmin/addSubAdmin.vue */ "./resources/js/Components/SubAdmin/addSubAdmin.vue");
-/* harmony import */ var _Components_SubAdmin_viewSubAdmin_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./Components/SubAdmin/viewSubAdmin.vue */ "./resources/js/Components/SubAdmin/viewSubAdmin.vue");
-/* harmony import */ var _Components_SubAdmin_editSubAdmin_vue__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./Components/SubAdmin/editSubAdmin.vue */ "./resources/js/Components/SubAdmin/editSubAdmin.vue");
-/* harmony import */ var _Components_Promotion_listPromotion_vue__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./Components/Promotion/listPromotion.vue */ "./resources/js/Components/Promotion/listPromotion.vue");
-/* harmony import */ var _Components_Promotion_addPromotion_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./Components/Promotion/addPromotion.vue */ "./resources/js/Components/Promotion/addPromotion.vue");
-/* harmony import */ var _Components_Promotion_editPromotion_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./Components/Promotion/editPromotion.vue */ "./resources/js/Components/Promotion/editPromotion.vue");
-/* harmony import */ var _Components_Promotion_viewPromoRestaurant_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./Components/Promotion/viewPromoRestaurant.vue */ "./resources/js/Components/Promotion/viewPromoRestaurant.vue");
-/* harmony import */ var _Components_Report_index_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./Components/Report/index.vue */ "./resources/js/Components/Report/index.vue");
-/* harmony import */ var _Components_Accounting_index_vue__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./Components/Accounting/index.vue */ "./resources/js/Components/Accounting/index.vue");
-/* harmony import */ var _Components_Setting_setting_vue__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./Components/Setting/setting.vue */ "./resources/js/Components/Setting/setting.vue");
-/* harmony import */ var _Components_Auth_index_vue__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./Components/Auth/index.vue */ "./resources/js/Components/Auth/index.vue");
+/* harmony import */ var _Components_permissionNotification_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Components/permissionNotification.vue */ "./resources/js/Components/permissionNotification.vue");
+/* harmony import */ var _Components_Restaurant_index_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Components/Restaurant/index.vue */ "./resources/js/Components/Restaurant/index.vue");
+/* harmony import */ var _Components_Restaurant_addRestaurant_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Components/Restaurant/addRestaurant.vue */ "./resources/js/Components/Restaurant/addRestaurant.vue");
+/* harmony import */ var _Components_Restaurant_viewRestaurant_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Components/Restaurant/viewRestaurant.vue */ "./resources/js/Components/Restaurant/viewRestaurant.vue");
+/* harmony import */ var _Components_Restaurant_editRestaurant_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Components/Restaurant/editRestaurant.vue */ "./resources/js/Components/Restaurant/editRestaurant.vue");
+/* harmony import */ var _Components_Restaurant_menu_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./Components/Restaurant/menu.vue */ "./resources/js/Components/Restaurant/menu.vue");
+/* harmony import */ var _Components_Restaurant_addMenu_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./Components/Restaurant/addMenu.vue */ "./resources/js/Components/Restaurant/addMenu.vue");
+/* harmony import */ var _Components_Restaurant_restaurantSetting_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./Components/Restaurant/restaurantSetting.vue */ "./resources/js/Components/Restaurant/restaurantSetting.vue");
+/* harmony import */ var _Components_Driver_index_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./Components/Driver/index.vue */ "./resources/js/Components/Driver/index.vue");
+/* harmony import */ var _Components_Driver_addDriver_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./Components/Driver/addDriver.vue */ "./resources/js/Components/Driver/addDriver.vue");
+/* harmony import */ var _Components_Driver_viewDriver_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./Components/Driver/viewDriver.vue */ "./resources/js/Components/Driver/viewDriver.vue");
+/* harmony import */ var _Components_Driver_editDriver_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./Components/Driver/editDriver.vue */ "./resources/js/Components/Driver/editDriver.vue");
+/* harmony import */ var _Components_Order_orderList_vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./Components/Order/orderList.vue */ "./resources/js/Components/Order/orderList.vue");
+/* harmony import */ var _components_Order_viewOrder_vue__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./components/Order/viewOrder.vue */ "./resources/js/components/Order/viewOrder.vue");
+/* harmony import */ var _Components_Users_userList_vue__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./Components/Users/userList.vue */ "./resources/js/Components/Users/userList.vue");
+/* harmony import */ var _Components_Users_editUser_vue__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./Components/Users/editUser.vue */ "./resources/js/Components/Users/editUser.vue");
+/* harmony import */ var _Components_Users_resetUserPassword_vue__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./Components/Users/resetUserPassword.vue */ "./resources/js/Components/Users/resetUserPassword.vue");
+/* harmony import */ var _Components_SubAdmin_subAdminPermission_vue__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./Components/SubAdmin/subAdminPermission.vue */ "./resources/js/Components/SubAdmin/subAdminPermission.vue");
+/* harmony import */ var _Components_SubAdmin_index_vue__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./Components/SubAdmin/index.vue */ "./resources/js/Components/SubAdmin/index.vue");
+/* harmony import */ var _Components_SubAdmin_addSubAdmin_vue__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./Components/SubAdmin/addSubAdmin.vue */ "./resources/js/Components/SubAdmin/addSubAdmin.vue");
+/* harmony import */ var _Components_SubAdmin_viewSubAdmin_vue__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./Components/SubAdmin/viewSubAdmin.vue */ "./resources/js/Components/SubAdmin/viewSubAdmin.vue");
+/* harmony import */ var _Components_SubAdmin_editSubAdmin_vue__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./Components/SubAdmin/editSubAdmin.vue */ "./resources/js/Components/SubAdmin/editSubAdmin.vue");
+/* harmony import */ var _Components_Promotion_listPromotion_vue__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./Components/Promotion/listPromotion.vue */ "./resources/js/Components/Promotion/listPromotion.vue");
+/* harmony import */ var _Components_Promotion_addPromotion_vue__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./Components/Promotion/addPromotion.vue */ "./resources/js/Components/Promotion/addPromotion.vue");
+/* harmony import */ var _Components_Promotion_editPromotion_vue__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./Components/Promotion/editPromotion.vue */ "./resources/js/Components/Promotion/editPromotion.vue");
+/* harmony import */ var _Components_Promotion_viewPromoRestaurant_vue__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./Components/Promotion/viewPromoRestaurant.vue */ "./resources/js/Components/Promotion/viewPromoRestaurant.vue");
+/* harmony import */ var _Components_Report_index_vue__WEBPACK_IMPORTED_MODULE_27__ = __webpack_require__(/*! ./Components/Report/index.vue */ "./resources/js/Components/Report/index.vue");
+/* harmony import */ var _Components_Accounting_index_vue__WEBPACK_IMPORTED_MODULE_28__ = __webpack_require__(/*! ./Components/Accounting/index.vue */ "./resources/js/Components/Accounting/index.vue");
+/* harmony import */ var _Components_Setting_setting_vue__WEBPACK_IMPORTED_MODULE_29__ = __webpack_require__(/*! ./Components/Setting/setting.vue */ "./resources/js/Components/Setting/setting.vue");
+/* harmony import */ var _Components_Auth_index_vue__WEBPACK_IMPORTED_MODULE_30__ = __webpack_require__(/*! ./Components/Auth/index.vue */ "./resources/js/Components/Auth/index.vue");
+/* harmony import */ var _Store__WEBPACK_IMPORTED_MODULE_31__ = __webpack_require__(/*! ./Store */ "./resources/js/Store/index.js");
 // Define route components.
 // These can be imported from other files
+
+
 
 
 
@@ -101537,123 +103032,149 @@ var Bar = {
 var routes = [{
   path: '/',
   name: 'home',
-  component: _Components_Home_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  component: _Components_Home_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+  beforeEnter: function beforeEnter(to, from, next) {
+    console.log(_Store__WEBPACK_IMPORTED_MODULE_31__["default"].getters.loadAuthenticated);
+
+    if (_Store__WEBPACK_IMPORTED_MODULE_31__["default"].getters.loadAuthenticated == true) {
+      next();
+    } else {
+      return next({
+        name: 'auth-access'
+      });
+    }
+  }
+}, {
+  path: '/permission',
+  name: 'permission-denied',
+  component: _Components_permissionNotification_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
 }, {
   path: '/auth/access',
   name: 'auth-access',
-  component: _Components_Auth_index_vue__WEBPACK_IMPORTED_MODULE_29__["default"]
+  component: _Components_Auth_index_vue__WEBPACK_IMPORTED_MODULE_30__["default"],
+  beforeEnter: function beforeEnter(to, from, next) {
+    console.log(_Store__WEBPACK_IMPORTED_MODULE_31__["default"].getters.loadAuthenticated);
+
+    if (_Store__WEBPACK_IMPORTED_MODULE_31__["default"].getters.loadAuthenticated == false) {
+      next();
+    } else {
+      return next({
+        name: 'home'
+      });
+    }
+  }
 }, {
   path: '/restaurants',
   name: 'list-restaurant',
-  component: _Components_Restaurant_index_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  component: _Components_Restaurant_index_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
 }, {
   path: '/restaurant/add',
   name: 'add-restaurant',
-  component: _Components_Restaurant_addRestaurant_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  component: _Components_Restaurant_addRestaurant_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
 }, {
   path: '/restaurant/:id',
   name: 'view-restaurant',
-  component: _Components_Restaurant_viewRestaurant_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  component: _Components_Restaurant_viewRestaurant_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
 }, {
   path: '/restaurant/:id/edit',
   name: 'edit-restaurant',
-  component: _Components_Restaurant_editRestaurant_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+  component: _Components_Restaurant_editRestaurant_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
 }, {
   path: '/restaurant/:id/menus',
   name: 'restaurant-menu',
-  component: _Components_Restaurant_menu_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+  component: _Components_Restaurant_menu_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
 }, {
   path: '/restaurant/:id/menu/add',
   name: 'add-menu',
-  component: _Components_Restaurant_addMenu_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
+  component: _Components_Restaurant_addMenu_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
 }, {
   path: '/restaurant-setting/:id',
   name: 'restaurant-setting',
-  component: _Components_Restaurant_restaurantSetting_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
+  component: _Components_Restaurant_restaurantSetting_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
 }, {
   path: '/drivers',
   name: 'driver-list',
-  component: _Components_Driver_index_vue__WEBPACK_IMPORTED_MODULE_8__["default"]
+  component: _Components_Driver_index_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
 }, {
   path: '/driver/add',
   name: 'add-driver',
-  component: _Components_Driver_addDriver_vue__WEBPACK_IMPORTED_MODULE_9__["default"]
+  component: _Components_Driver_addDriver_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
 }, {
   path: '/driver/:id',
   name: 'view-driver',
-  component: _Components_Driver_viewDriver_vue__WEBPACK_IMPORTED_MODULE_10__["default"]
+  component: _Components_Driver_viewDriver_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
 }, {
   path: '/driver/:id/edit',
   name: 'edit-driver',
-  component: _Components_Driver_editDriver_vue__WEBPACK_IMPORTED_MODULE_11__["default"]
+  component: _Components_Driver_editDriver_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
 }, {
   path: '/orders',
   name: 'order-list',
-  component: _Components_Order_orderList_vue__WEBPACK_IMPORTED_MODULE_12__["default"]
+  component: _Components_Order_orderList_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
 }, {
   path: '/orders/1d',
   name: 'view-order',
-  component: _components_Order_viewOrder_vue__WEBPACK_IMPORTED_MODULE_13__["default"]
+  component: _components_Order_viewOrder_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
 }, {
   path: '/users',
   name: 'users-list',
-  component: _Components_Users_userList_vue__WEBPACK_IMPORTED_MODULE_14__["default"]
+  component: _Components_Users_userList_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
 }, {
   path: '/user/edit',
   name: 'edit-user',
-  component: _Components_Users_editUser_vue__WEBPACK_IMPORTED_MODULE_15__["default"]
+  component: _Components_Users_editUser_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
 }, {
   path: '/user/id/reset',
   name: 'reset-user-password',
-  component: _Components_Users_resetUserPassword_vue__WEBPACK_IMPORTED_MODULE_16__["default"]
+  component: _Components_Users_resetUserPassword_vue__WEBPACK_IMPORTED_MODULE_17__["default"]
 }, {
   path: '/sub-admins',
   name: 'sub-admin-list',
-  component: _Components_SubAdmin_index_vue__WEBPACK_IMPORTED_MODULE_18__["default"]
+  component: _Components_SubAdmin_index_vue__WEBPACK_IMPORTED_MODULE_19__["default"]
 }, {
   path: '/sub-admin/add',
   name: 'add-sub-admin',
-  component: _Components_SubAdmin_addSubAdmin_vue__WEBPACK_IMPORTED_MODULE_19__["default"]
+  component: _Components_SubAdmin_addSubAdmin_vue__WEBPACK_IMPORTED_MODULE_20__["default"]
 }, {
   path: '/sub-admin/:id',
   name: 'view-sub-admin',
-  component: _Components_SubAdmin_viewSubAdmin_vue__WEBPACK_IMPORTED_MODULE_20__["default"]
+  component: _Components_SubAdmin_viewSubAdmin_vue__WEBPACK_IMPORTED_MODULE_21__["default"]
 }, {
   path: '/sub-admin/:id/edit',
   name: 'edit-sub-admin',
-  component: _Components_SubAdmin_editSubAdmin_vue__WEBPACK_IMPORTED_MODULE_21__["default"]
+  component: _Components_SubAdmin_editSubAdmin_vue__WEBPACK_IMPORTED_MODULE_22__["default"]
 }, {
   path: '/subadmin/permissions/:id',
   name: 'sub-admin-permission',
-  component: _Components_SubAdmin_subAdminPermission_vue__WEBPACK_IMPORTED_MODULE_17__["default"]
+  component: _Components_SubAdmin_subAdminPermission_vue__WEBPACK_IMPORTED_MODULE_18__["default"]
 }, {
   path: '/promotions',
   name: 'list-promotion',
-  component: _Components_Promotion_listPromotion_vue__WEBPACK_IMPORTED_MODULE_22__["default"]
+  component: _Components_Promotion_listPromotion_vue__WEBPACK_IMPORTED_MODULE_23__["default"]
 }, {
   path: '/promotions/add',
   name: 'add-promotion',
-  component: _Components_Promotion_addPromotion_vue__WEBPACK_IMPORTED_MODULE_23__["default"]
+  component: _Components_Promotion_addPromotion_vue__WEBPACK_IMPORTED_MODULE_24__["default"]
 }, {
   path: '/promotions/:id/edit',
   name: 'edit-promotion',
-  component: _Components_Promotion_editPromotion_vue__WEBPACK_IMPORTED_MODULE_24__["default"]
+  component: _Components_Promotion_editPromotion_vue__WEBPACK_IMPORTED_MODULE_25__["default"]
 }, {
   path: '/promotions/:id',
   name: 'view-promo-restaurants',
-  component: _Components_Promotion_viewPromoRestaurant_vue__WEBPACK_IMPORTED_MODULE_25__["default"]
+  component: _Components_Promotion_viewPromoRestaurant_vue__WEBPACK_IMPORTED_MODULE_26__["default"]
 }, {
   path: '/reports',
   name: 'report',
-  component: _Components_Report_index_vue__WEBPACK_IMPORTED_MODULE_26__["default"]
+  component: _Components_Report_index_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
 }, {
   path: '/account',
   name: 'account',
-  component: _Components_Accounting_index_vue__WEBPACK_IMPORTED_MODULE_27__["default"]
+  component: _Components_Accounting_index_vue__WEBPACK_IMPORTED_MODULE_28__["default"]
 }, {
   path: '/setting',
   name: 'setting',
-  component: _Components_Setting_setting_vue__WEBPACK_IMPORTED_MODULE_28__["default"]
+  component: _Components_Setting_setting_vue__WEBPACK_IMPORTED_MODULE_29__["default"]
 }, {
   path: '/bar',
   component: Bar

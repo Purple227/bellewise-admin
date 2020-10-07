@@ -33,6 +33,7 @@
             </button>
           </div>
           <div class="dropdown-menu" id="dropdown-menu" role="menu">
+
             <div class="dropdown-content">
               <a href="#" class="dropdown-item">
                 Dropdown item
@@ -51,6 +52,7 @@
                 With a divider
               </a>
             </div>
+
           </div>
         </div>
 
@@ -67,22 +69,15 @@
           </div>
           <div class="dropdown-menu" id="dropdown-menu" role="menu">
             <div class="dropdown-content">
+
               <a href="#" class="dropdown-item">
-                Dropdown item
+                Update Profile
               </a>
-              <a class="dropdown-item">
-                Other dropdown item
+
+              <a class="dropdown-item" @click="Logout">
+                Logout
               </a>
-              <a href="#" class="dropdown-item is-active">
-                Active dropdown item
-              </a>
-              <a href="#" class="dropdown-item">
-                Other dropdown item
-              </a>
-              <hr class="dropdown-divider">
-              <a href="#" class="dropdown-item">
-                With a divider
-              </a>
+
             </div>
           </div>
         </div>
@@ -99,14 +94,33 @@
 <script>
 // Navbar.vue
 import ClassToggler from '../../../Mixins/classToggler'
+import { mapActions, mapGetters, mapState } from 'vuex';
 
 
 export default {
+
+  props: ['user'],
 
   mixins: [
   ClassToggler
   ],
 
+  methods: {
+    ...mapActions(['signOut']),
+    // Local method goes here
+    
+    Logout() {
+      this.signOut()
+    },
+
+  }, // Method calibrace close
+
+
+  computed: {
+    ...mapGetters(['']),
+
+    // Local computed properties
+  },
 
 }
 

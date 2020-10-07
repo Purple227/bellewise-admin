@@ -1,8 +1,5 @@
 import Vue from 'vue'
-
-//routes
-import { app } from '../../app.js'
-
+import {router} from '../../app.js'
 
 const state = {
 
@@ -10,17 +7,19 @@ const state = {
 	authUser: null,
 	authErrors: null,
 	authProgress: null,
-	authNotification: null,
+	authLoader: null,
+	authRole: null,
 
 }; // State calibrace close
 
 const getters = {
 
-	LoadAuthenticated: (state) => state.authenticated,
-	LoadAuthUser: (state) => state.authUser,
-	LoadAuthErrors: (state) => state.authErrors,
-	LoadAuthProgress: (state) => state.authProgress,
-	LoadAuthNotification: (state) => state.authNotification,
+	loadAuthenticated: (state) => state.authenticated,
+	loadAuthUser: (state) => state.authUser,
+	loadAuthErrors: (state) => state.authErrors,
+	loadAuthProgress: (state) => state.authProgress,
+	loadAuthLoader: (state) => state.authLoader,
+	loadAuthRole: (state) => state.authRole
 
 }; //Getters calibrace close
 
@@ -31,11 +30,13 @@ const actions = {
 		await axios.get('/sanctum/csrf-cookie')
 		const response = await axios.post('/api/login', data)
 		.then((response) => {
+			commit('setLoading', true)
 			return dispatch('me')
 		}).catch(error=>{
-			let failure = error.response.data
+			let failure = error.response.data.errors
 			commit('setErrors', failure)
 			commit('setProgress', false)
+			commit('setLoading', false)
 
 			setTimeout(() => {
 				commit('setErrors', null)
@@ -46,27 +47,35 @@ const actions = {
 	async signOut ({ dispatch }) {
 		await axios.post('/api/logout')
 		return dispatch('me')
+		router.push({name: 'auth-access'})
 	},
 
-	me ({ commit }) {
+	async fetchAuthRole({commit, getters}) {
+		let api = '/api/role/' + getters.loadAuthUser.id
+		const response = await axios.get(api);
+		commit('setRole', response.data)
+		router.push({name: 'home'})
+		commit('setLoader', false)
+	},
+
+	me ({ commit, dispatch }) {
+		commit('setLoading', true)
 		return axios.get('/api/user').then((response) => {
 			commit('SET_AUTHENTICATED', true)
 			commit('SET_USER', response.data)
-			commit('setNotification', true)
+			return dispatch('fetchAuthRole')
+			commit('setProgress', false)
 		}).catch(() => {
 			commit('SET_AUTHENTICATED', false)
 			commit('SET_USER', null)
+			commit('setProgress', false)
+			commit('setLoading', false)
+			router.push({name: 'auth-access'})
 		})
 	},
 
 	async clearAuthErrors ({commit}) {
 		commit('unsetErrors')
-	},
-
-	async clearAuthNotification ({commit}) {
-		setTimeout(() => {
-			commit('unsetNotification', false)
-		}, 10000)
 	},
 
 
@@ -78,14 +87,14 @@ const mutations = {
 	SET_AUTHENTICATED: (state, auth) => state.authenticated = auth,
 	SET_USER: (state, user) => state.authUser = user,
 
-
-	setNotification: (state, notification) => state.authNotification = notification,
-	unsetNotification: (state, notification) => state.authNotification = notification,
-
 	setProgress: (state, progress) => state.authProgress = progress,
 
 	setErrors: (state, errors) => state.authErrors = errors,
 	unsetErrors: (state, errors) => state.authErrors = null,
+
+	setLoading: (state, loading) => state.authLoader = loading,
+
+	setRole: (state, role) => state.authRole = role,
 
 }; //Mutations calibrace close
 

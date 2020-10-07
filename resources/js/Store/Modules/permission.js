@@ -37,7 +37,6 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			history.go();
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setProgress', false)
@@ -66,7 +65,6 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			history.go();
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -79,6 +77,13 @@ const actions = {
 
 	},
 
+	async clearRoleNotification ({commit}) {
+		setTimeout(() => {
+			commit('unsetNotification', false)
+		}, 10000)
+	},
+
+
 }; //Actions calibrace close
 
 const mutations = {
@@ -87,7 +92,7 @@ const mutations = {
 	unsetNotification: (state, notification) => state.roleNotification = notification,
 	setProgress: (state, progress) => state.roleProgress = progress,
 	setLoader: (state, loader) => state.roleLoader = loader,
-	setRestaurantConfig: (state, role) => state.role = role,
+	setRole: (state, role) => state.role = role,
 
 }; //Mutations calibrace close
 

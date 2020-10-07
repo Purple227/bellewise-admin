@@ -94,7 +94,7 @@
 											Edit
 										</router-link>
 									</p>
-									<p class="control" @click="showModal = true">
+									<p class="control" @click="[showModal = true, getDestroyId(driver.id)]" >
 										<button class="button purple-color">
 											Delete 
 										</button>
@@ -111,7 +111,7 @@
 														</p>
 													</div>
 													<footer class="card-footer">
-														<p class="card-footer-item is-bold purple-color pointer" v-on:click="deleteData(driver.id)">
+														<p class="card-footer-item is-bold purple-color pointer" v-on:click="deleteData">
 															Delete
 														</p>
 														<p class="card-footer-item is-bold purple-color pointer" @click="showModal = false">
@@ -189,6 +189,7 @@ export default {
 		spin: false,
 		showModal: false,
 		searchQuery: '',
+		destroyId: null,
 	}),
 
 	created() {
@@ -206,8 +207,12 @@ export default {
 			this.searchDatas(this.searchQuery)
 		},
 
-		deleteData(id) {
-			this.destroyData(id)
+		getDestroyId(id) {
+			this.destroyId = id
+		},
+
+		deleteData() {
+			this.destroyData(this.destroyId)
 			this.fetchDatas()
 			this.showModal = false
 		},

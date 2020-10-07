@@ -3,6 +3,7 @@
 // Define route components.
 // These can be imported from other files
 import Home from './Components/Home.vue';
+import Permission from './Components/permissionNotification.vue';
 
 import ListRestaurant from './Components/Restaurant/index.vue';
 import AddRestaurant from './Components/Restaurant/addRestaurant.vue';
@@ -42,9 +43,10 @@ import Setting from './Components/Setting/setting.vue';
 
 import Auth from './Components/Auth/index.vue';
 
+import Store from "./Store"
+
+
 const Bar = { template: '<div>bar</div>' }
-
-
 
 // Define some routes
 // Each route should map to a component. The "component" can
@@ -53,183 +55,209 @@ const Bar = { template: '<div>bar</div>' }
 const routes = [
 
 { 
-path: '/',
-name:'home',
-component: Home 
+	path: '/',
+	name:'home',
+	component: Home,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthenticated)
+		if(Store.getters.loadAuthenticated == true) {
+			next()
+		} else {
+			return next({name:'auth-access'})
+		}
+	}
+
 },
 
 { 
-path: '/auth/access',
-name:'auth-access',
-component: Auth
+	path: '/permission',
+	name:'permission-denied',
+	component: Permission
 },
 
 { 
-path: '/restaurants',
-name:'list-restaurant',
-component: ListRestaurant 
+	path: '/auth/access',
+	name:'auth-access',
+	component: Auth,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthenticated)
+		if(Store.getters.loadAuthenticated == false) {
+			next()
+		} else {
+			return next({name:'home'})
+		}
+	}
+
 },
 
 { 
-path: '/restaurant/add',
-name:'add-restaurant',
-component: AddRestaurant
+	path: '/restaurants',
+	name:'list-restaurant',
+	component: ListRestaurant
 },
 
 { 
-path: '/restaurant/:id',
-name:'view-restaurant',
-component: ViewRestaurant
+	path: '/restaurant/add',
+	name:'add-restaurant',
+	component: AddRestaurant
 },
 
 { 
-path: '/restaurant/:id/edit',
-name:'edit-restaurant',
-component: EditRestaurant
+	path: '/restaurant/:id',
+	name:'view-restaurant',
+	component: ViewRestaurant
 },
 
 { 
-path: '/restaurant/:id/menus',
-name:'restaurant-menu',
-component: Menu
+	path: '/restaurant/:id/edit',
+	name:'edit-restaurant',
+	component: EditRestaurant
 },
 
 { 
-path: '/restaurant/:id/menu/add',
-name:'add-menu',
-component: AddMenu
+	path: '/restaurant/:id/menus',
+	name:'restaurant-menu',
+	component: Menu
 },
 
 { 
-path: '/restaurant-setting/:id',
-name:'restaurant-setting',
-component: RestaurantSetting
+	path: '/restaurant/:id/menu/add',
+	name:'add-menu',
+	component: AddMenu
 },
 
 { 
-path: '/drivers',
-name:'driver-list',
-component: Driver
+	path: '/restaurant-setting/:id',
+	name:'restaurant-setting',
+	component: RestaurantSetting
 },
 
 { 
-path: '/driver/add',
-name:'add-driver',
-component: AddDriver
+	path: '/drivers',
+	name:'driver-list',
+	component: Driver
 },
 
 { 
-path: '/driver/:id',
-name:'view-driver',
-component: ViewDriver
+	path: '/driver/add',
+	name:'add-driver',
+	component: AddDriver
 },
 
 { 
-path: '/driver/:id/edit',
-name:'edit-driver',
-component: EditDriver
+	path: '/driver/:id',
+	name:'view-driver',
+	component: ViewDriver
 },
 
 { 
-path: '/orders',
-name:'order-list',
-component: OrderList
+	path: '/driver/:id/edit',
+	name:'edit-driver',
+	component: EditDriver
 },
 
 { 
-path: '/orders/1d',
-name:'view-order',
-component: ViewOrder
+	path: '/orders',
+	name:'order-list',
+	component: OrderList
 },
 
 { 
-path: '/users',
-name:'users-list',
-component: UserList
+	path: '/orders/1d',
+	name:'view-order',
+	component: ViewOrder
 },
 
 { 
-path: '/user/edit',
-name:'edit-user',
-component: EditUser
+	path: '/users',
+	name:'users-list',
+	component: UserList
 },
 
 { 
-path: '/user/id/reset',
-name:'reset-user-password',
-component: ResetUserPassword
+	path: '/user/edit',
+	name:'edit-user',
+	component: EditUser
 },
 
 { 
-path: '/sub-admins',
-name:'sub-admin-list',
-component: SubAdmin
+	path: '/user/id/reset',
+	name:'reset-user-password',
+	component: ResetUserPassword
 },
 
 { 
-path: '/sub-admin/add',
-name:'add-sub-admin',
-component: AddSubAdmin
+	path: '/sub-admins',
+	name:'sub-admin-list',
+	component: SubAdmin
 },
 
 { 
-path: '/sub-admin/:id',
-name:'view-sub-admin',
-component: ViewSubAdmin
+	path: '/sub-admin/add',
+	name:'add-sub-admin',
+	component: AddSubAdmin
 },
 
 { 
-path: '/sub-admin/:id/edit',
-name:'edit-sub-admin',
-component: EditSubAdmin
+	path: '/sub-admin/:id',
+	name:'view-sub-admin',
+	component: ViewSubAdmin
 },
 
 { 
-path: '/subadmin/permissions/:id',
-name:'sub-admin-permission',
-component: SubAdminPermission
+	path: '/sub-admin/:id/edit',
+	name:'edit-sub-admin',
+	component: EditSubAdmin
 },
 
 { 
-path: '/promotions',
-name:'list-promotion',
-component: ListPromotion
+	path: '/subadmin/permissions/:id',
+	name:'sub-admin-permission',
+	component: SubAdminPermission
 },
 
 { 
-path: '/promotions/add',
-name:'add-promotion',
-component: AddPromotion
+	path: '/promotions',
+	name:'list-promotion',
+	component: ListPromotion
 },
 
 { 
-path: '/promotions/:id/edit',
-name:'edit-promotion',
-component: EditPromotion
+	path: '/promotions/add',
+	name:'add-promotion',
+	component: AddPromotion
 },
 
 { 
-path: '/promotions/:id',
-name:'view-promo-restaurants',
-component: ViewPromoRestaurant
+	path: '/promotions/:id/edit',
+	name:'edit-promotion',
+	component: EditPromotion
 },
 
 { 
-path: '/reports',
-name:'report',
-component: Report
+	path: '/promotions/:id',
+	name:'view-promo-restaurants',
+	component: ViewPromoRestaurant
 },
 
 { 
-path: '/account',
-name:'account',
-component: Account
+	path: '/reports',
+	name:'report',
+	component: Report
 },
 
 { 
-path: '/setting',
-name:'setting',
-component: Setting
+	path: '/account',
+	name:'account',
+	component: Account
+},
+
+{ 
+	path: '/setting',
+	name:'setting',
+	component: Setting
 },
 
 { path: '/bar', component: Bar }

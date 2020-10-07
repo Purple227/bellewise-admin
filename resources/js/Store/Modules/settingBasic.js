@@ -1,8 +1,5 @@
 import Vue from 'vue'
 
-//routes
-import { app } from '../../app.js'
-
 
 const state = {
 
@@ -11,7 +8,8 @@ const state = {
 	settingLoader: false,
 	settingProgress: false,
 	SettingErrors: null,
-	settingNotification: null,
+	writeUpNotification: null,
+	cancellationPolicyNotification: null
 
 }; // State calibrace close
 
@@ -20,9 +18,10 @@ const getters = {
 	loadWriteUp: (state) => state.writeUpDatas,
 	loadCancellationPolicy: (state) => state.cancellationPolicy,
 	loadSettingLoader: (state) => state.settingLoader,
-	loadSettingNotification: (state) => state.settingNotification,
+	loadWriteUpNotification: (state) => state.writeUpNotification,
 	loadSettingErrors: (state) => state.SettingErrors,
 	loadSettingProgress: (state) => state.settingProgress,
+	loadCancellationPolicyNotification: (state) => state.cancellationPolicyNotification,
 
 }; //Getters calibrace close
 
@@ -53,9 +52,8 @@ const actions = {
 		}
 		const response = await axios.post('/api/setting/write-up', data, config )
 		.then((response) => {
-			commit('setNotification', true)
+			commit('setWriteUpNotification', true)
 			commit('setProgress', false)
-			history.go();
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -74,9 +72,8 @@ const actions = {
 		}
 		const response = await axios.post('/api/setting/cancellation-policy', data, config )
 		.then((response) => {
-			commit('setNotification', true)
+			commit('setCancellationPolicyNotification', true)
 			commit('setProgress', false)
-			history.go();
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -96,9 +93,8 @@ const actions = {
 		}
 		const response = await axios.post(api, data, config )
 		.then((response) => {
-			commit('setNotification', true)
+			commit('setWriteUpNotification', true)
 			commit('setProgress', false)
-			history.go();
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -121,9 +117,8 @@ const actions = {
 		}
 		const response = await axios.post(api, data, config )
 		.then((response) => {
-			commit('setNotification', true)
+			commit('setCancellationPolicyNotification', true)
 			commit('setProgress', false)
-			history.go();
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -142,11 +137,18 @@ const actions = {
 		commit('unsetErrors')
 	},
 
-	async clearSettingNotification ({commit}) {
+	async clearWriteUpNotification ({commit}) {
 		setTimeout(() => {
-			commit('unsetNotification', false)
+			commit('setWriteUpNotification', false)
 		}, 10000)
 	},
+
+	async clearCancellatonPolicyNotification ({commit}) {
+		setTimeout(() => {
+			commit('setCancellationPolicyNotification', false)
+		}, 10000)
+	},
+
 
 }; //Actions calibrace close
 
@@ -155,8 +157,11 @@ const mutations = {
 	setWriteUp: (state, data) => state.writeUpDatas = data,
 	setCancellationPolicy : (state, datas) => state.cancellationPolicy = datas,
 
-	setNotification: (state, notification) => state.settingNotification = notification,
-	unsetNotification: (state, notification) => state.settingNotification = notification,
+	setWriteUpNotification: (state, notification) => state.writeUpNotification = notification,
+	setWriteUpNotification: (state, notification) => state.writeUpNotification = notification,
+
+	setCancellationPolicyNotification: (state, notification) => state.cancellationPolicyNotification = notification,
+	setCancellationPolicyNotification: (state, notification) => state.cancellationPolicyNotification = notification,
 
 	setLoading: (state, loading) => state.settingLoader = loading,
 

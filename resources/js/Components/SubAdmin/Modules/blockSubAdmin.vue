@@ -50,8 +50,8 @@
 							<th> <span class="purple-color"> Name </span> </th>
 							<th class="has-text-centered"> <span class="purple-color"> Email </span> </th>
 							<th class="has-text-centered"> <span class="purple-color"> Phone </span> </th>
-							<th> <span class="purple-color"> Status </span> </th>
-							<th class="has-text-centered"> <span class="purple-color"> Action </span> </th>
+							<th> <span class="purple-color" v-if="loadAuthUser.admin == 'super_admin' "> Status </span> </th>
+							<th class="has-text-centered"> <span class="purple-color" v-if="loadAuthUser.admin == 'super_admin' "> Action </span> </th>
 						</tr>
 					</thead>
 
@@ -62,27 +62,27 @@
 							<td> {{ subadmin.name.substring(0,6) }} </td>
 							<td> {{ subadmin.email.substring(0,10) }} </td>
 							<td> {{ subadmin.phone }} </td>
-							<td class="has-text-centered"> <input type="checkbox" @change="[subadmin.status = !subadmin.status, statusMethod(subadmin.id, subadmin.status)]" :checked="subadmin.status == 1 ? true : false"> </td>
+							<td class="has-text-centered"> <input type="checkbox" @change="[subadmin.status = !subadmin.status, statusMethod(subadmin.id, subadmin.status)]" :checked="subadmin.status == 1 ? true : false" v-if="loadAuthUser.admin == 'super_admin' "> </td>
 							<td>  
 								<div class="field is-grouped">
 
-									<p class="control">  
+									<p class="control" v-if="loadAuthUser.admin == 'super_admin' ">  
 										<a class="button purple-color">
 											Permission
 										</a>
 									</p>
 
-									<p class="control">
+									<p class="control" v-if="loadAuthUser.admin == 'super_admin' ">
 										<router-link :to="{name: 'view-sub-admin', params: {id: subadmin.id}}" class="button purple-color" exact>
 											View
 										</router-link>
 									</p>
-									<p class="control">
+									<p class="control" v-if="loadAuthUser.admin == 'super_admin' ">
 										<router-link :to="{name: 'edit-sub-admin', params: {id: subadmin.id} }" class="button purple-color" exact>
 											Edit
 										</router-link>
 									</p>
-									<p class="control" @click="showModal = true">
+									<p class="control" @click="[showModal = true, getDestroyId(subadmin.id)]" v-if="loadAuthUser.admin == 'super_admin' ">
 										<button class="button purple-color">
 											Delete 
 										</button>
@@ -99,7 +99,7 @@
 														</p>
 													</div>
 													<footer class="card-footer">
-														<p class="card-footer-item is-bold purple-color pointer" v-on:click="deleteData(subadmin.id)">
+														<p class="card-footer-item is-bold purple-color pointer" v-on:click="deleteData">
 															Delete
 														</p>
 														<p class="card-footer-item is-bold purple-color pointer" @click="showModal = false">
@@ -177,6 +177,7 @@ export default {
 	data: () => ({
 		spin: false,
 		showModal: false,
+		destroyId: null,
 	}),
 
 	created() {
@@ -192,8 +193,12 @@ export default {
 			this.fetchSubAdminBlockedDatas().then(() => this.spin = false)
 		},
 
+		getDestroyId(id) {
+			this.destroyId = id
+		},
+
 		deleteData(id) {
-			this.destroySubAdminData(id)
+			this.destroySubAdminData(this.destroyId)
 			this.fetchSubAdminBlockedDatas()
 			this.showModal = false
 		},
@@ -211,7 +216,7 @@ export default {
 
 
 	computed: {
-		...mapGetters(['loadSubAdminBlockedDatas', 'loadSubAdminLoader', 'loadSubAdminNotification', 'loadSubAdminPagination']),
+		...mapGetters(['loadSubAdminBlockedDatas', 'loadSubAdminLoader', 'loadSubAdminNotification', 'loadSubAdminPagination', 'loadAuthUser']),
 
     // Local computed properties
 

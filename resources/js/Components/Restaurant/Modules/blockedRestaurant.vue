@@ -82,7 +82,7 @@
                       Edit
                     </router-link>
                   </p>
-                  <p class="control" @click="showModal = true">
+                  <p class="control" @click="[showModal = true, getDestroyId(restaurant.id)]" >
                     <button class="button purple-color">
                       Delete 
                     </button>
@@ -99,7 +99,7 @@
                             </p>
                           </div>
                           <footer class="card-footer">
-                            <p class="card-footer-item is-bold purple-color pointer" v-on:click="deleteData(restaurant.id)">
+                            <p class="card-footer-item is-bold purple-color pointer" v-on:click="deleteData">
                               Delete
                             </p>
                             <p class="card-footer-item is-bold purple-color pointer" @click="showModal = false">
@@ -175,6 +175,7 @@ export default {
   data: () => ({
     spin: false,
     showModal: false,
+    destroyId: null,
   }),
 
   created() {
@@ -190,8 +191,12 @@ export default {
       this.fetchBlockedRestaurants().then(() => this.spin = false)
     },
 
-    deleteData(id) {
-      this.destroyRestaurantData(id)
+    getDestroyId(id) {
+      this.destroyId = id
+    },
+
+    deleteData() {
+      this.destroyRestaurantData(this.destroyId)
       this.fetchBlockedRestaurants()
       this.showModal = false
     },

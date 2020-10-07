@@ -89,13 +89,13 @@ class SubAdminController extends Controller
         // Save to database
         $sub_admin->sub_admin_id = $sub_admin_id;
         $sub_admin->name = $request->name;
-        $sub_admin->admn = 'sub_admin';
+        $sub_admin->admin = 'sub_admin';
         $sub_admin->phone = $request->phone;
         $sub_admin->email = $request->email;
         $sub_admin->password = Hash::make($generated_password);
         $sub_admin->save();
 
-        return 'Suceess';
+        return $generated_password;
 
     }
 
@@ -132,7 +132,7 @@ class SubAdminController extends Controller
         }
 
         // Image set up
-        $sub_admin->image = 'default_image.svg';
+        //$sub_admin->image = 'default_image.svg';
         if ( $request->hasFile('file') ) {
             Storage::disk('public')->delete($sub_admin->image);
             $path = Storage::disk('public')->putFile('subadmin',$request->file('file'));

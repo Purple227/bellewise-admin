@@ -68,7 +68,7 @@
 						<div class="field">
 							<label class="label"> Promo Name <span class="has-text-danger"> * </span>  </label>
 							<div class="control has-icons-left has-icons-right">
-								<input class="input is-info" type="text" placeholder="Text input" v-model.trim="loadSinglePromo.promo.name"  required autofocus>
+								<input class="input is-info" type="text" v-model.trim="loadSinglePromo.promo.name"  required autofocus>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-plus purple-color"></i>
@@ -86,7 +86,7 @@
 								</span>
 							</p>
 							<p class="control is-expanded">
-								<input class="input is-info" type="number" v-model.nimber="loadSinglePromo.promo.discount" min="0" oninput="validity.valid||(value='');" placeholder="Percentage ">
+								<input class="input is-info" type="number" v-model.nimber="loadSinglePromo.promo.discount" min="0" oninput="validity.valid||(value='');" >
 							</p>
 							<p class="control">
 								<a class="button is-bold">
@@ -101,6 +101,7 @@
 							<div class="control">
 								<div class="select is-fullwidth">
 									<select v-model="loadSinglePromo.promo.bearer" required>
+										<option disabled value=""> {{ loadSinglePromo.promo.bearer }} </option>
 										<option> Restaurant </option>
 										<option> bellewise </option>
 									</select>
@@ -124,7 +125,7 @@
 						<div class="field">
 							<label class="label"> Promo Validity <span class="has-text-danger"> * </span>  </label>
 							<div class="control ">
-								<input id="my-element" type="date" data-display-mode="dialog" v-model.number="loadSinglePromo.promo.validity" data-close-on-select="false" data-date-format="YYYY-MM-DD" data-color="info" required>
+								<input id="my-element" type="date" data-display-mode="dialog" v-model="loadSinglePromo.promo.validity" data-close-on-select="false" data-date-format="YYYY-MM-DD" data-color="info" required>
 							</div>
 						</div>
 
@@ -135,7 +136,7 @@
 						<div class="field">
 							<label class="label"> Promo Minimium Amount <span class="has-text-danger"> * </span> </label>
 							<div class="control has-icons-right has-icons-left">
-								<input class="input is-info" type="number" placeholder="Number input" min="0" oninput="validity.valid||(value='');" v-model.number="loadSinglePromo.promo.amount" required>
+								<input class="input is-info" type="number" placeholder="Number input" min="0" oninput="validity.valid||(value='');" v-model.trim="loadSinglePromo.promo.amount" required>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-file-invoice-dollar purple-color"></i>
@@ -255,7 +256,7 @@ export default {
 	}),
 
 
-	created() {
+	mounted() {
 		this.setId()
 		this.fetchRestaurantDatas()
 		this.fetchAllRestaurantDatas()

@@ -65,39 +65,39 @@
 							<th> <span class="purple-color"> Name </span> </th>
 							<th class="has-text-centered"> <span class="purple-color"> Email </span> </th>
 							<th class="has-text-centered"> <span class="purple-color"> Phone </span> </th>
-							<th> <span class="purple-color"> Status </span> </th>
-							<th class="has-text-centered"> <span class="purple-color"> Action </span> </th>
+							<th> <span class="purple-color" v-if="loadAuthUser.admin == 'super_admin' " > Status </span> </th>
+							<th class="has-text-centered"> <span class="purple-color" v-if="loadAuthUser.admin == 'super_admin' "> Action </span> </th>
 						</tr>
 					</thead>
 
 					<tbody>
 
-						<tr v-for="(subadmin, index) in searchQuery.length  > 1  ? loadSubAdminSearch : loadSubAdminDatas " :key="index">
+						<tr v-for="subadmin in searchQuery.length  > 1  ? loadSubAdminSearch : loadSubAdminDatas " >
 							<th> <span class="purple-color">  {{ subadmin.sub_admin_id}}  </span> </th>
 							<td> {{ subadmin.name.substring(0,6) }} </td>
 							<td> {{ subadmin.email.substring(0,10) }} </td>
 							<td> {{ subadmin.phone }} </td>
-							<td class="has-text-centered"> <input type="checkbox" @change="[subadmin.status = !subadmin.status, statusMethod(subadmin.id, subadmin.status)]" :checked="subadmin.status == 1 ? true : false"> </td>
+							<td class="has-text-centered"> <input type="checkbox" @change="[subadmin.status = !subadmin.status, statusMethod(subadmin.id, subadmin.status)]" :checked="subadmin.status == 1 ? true : false" v-if="loadAuthUser.admin == 'super_admin' "> </td>
 							<td>  
 								<div class="field is-grouped">
 
-									<p class="control">  
+									<p class="control" v-if="loadAuthUser.admin == 'super_admin' ">  
 										<router-link :to="{name: 'sub-admin-permission', params: {id: subadmin.id}}" class="button purple-color" exact>
 											Permission
 										</router-link>
 									</p>
 
-									<p class="control">
+									<p class="control" v-if="loadAuthUser.admin == 'super_admin' ">
 										<router-link :to="{name: 'view-sub-admin', params: {id: subadmin.id}}" class="button purple-color" exact>
 											View
 										</router-link>
 									</p>
-									<p class="control">
+									<p class="control" v-if="loadAuthUser.admin == 'super_admin' ">
 										<router-link :to="{name: 'edit-sub-admin', params: {id: subadmin.id} }" class="button purple-color" exact>
 											Edit
 										</router-link>
 									</p>
-									<p class="control" @click="showModal = true">
+									<p class="control" @click="[showModal = true, getDestroyId(subadmin.id)]" v-if="loadAuthUser.admin == 'super_admin' ">
 										<button class="button purple-color">
 											Delete 
 										</button>
@@ -114,7 +114,7 @@
 														</p>
 													</div>
 													<footer class="card-footer">
-														<p class="card-footer-item is-bold purple-color pointer" v-on:click="deleteData(subadmin.id)">
+														<p class="card-footer-item is-bold purple-color pointer" v-on:click="deleteData">
 															Delete
 														</p>
 														<p class="card-footer-item is-bold purple-color pointer" @click="showModal = false">
@@ -192,6 +192,7 @@ export default {
 		spin: false,
 		showModal: false,
 		searchQuery: '',
+		destroyId: null,
 	}),
 
 	created() {
@@ -209,10 +210,14 @@ export default {
 			this.searchSubAdminDatas(this.searchQuery)
 		},
 
-		deleteData(id) {
-			this.destroySubAdminData(id)
+		getDestroyId(id) {
+			this.destroyId = id
+		},
+
+		deleteData() {
+			this.destroySubAdminData(this.destroyId)
 			this.fetchSubAdminDatas()
-			this.showModal = false
+		    this.showModal = false
 		},
 
 		paginationHandler(uri) {
@@ -233,7 +238,7 @@ export default {
 
 
 	computed: {
-		...mapGetters(['loadSubAdminDatas', 'loadSubAdminLoader', 'loadSubAdminNotification', 'loadSubAdminPagination', 'loadSubAdminSearch']),
+		...mapGetters(['loadSubAdminDatas', 'loadSubAdminLoader', 'loadSubAdminNotification', 'loadSubAdminPagination', 'loadSubAdminSearch', 'loadAuthUser']),
 
     // Local computed properties
 },

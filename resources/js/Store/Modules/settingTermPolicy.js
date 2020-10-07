@@ -1,8 +1,5 @@
 import Vue from 'vue'
 
-//routes
-import { app } from '../../app.js'
-
 
 const state = {
 

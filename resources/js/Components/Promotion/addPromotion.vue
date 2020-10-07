@@ -100,7 +100,7 @@
 							<div class="control">
 								<div class="select is-fullwidth">
 									<select v-model="promo.bearer" required>
-										<option disabled value="Please select bearer" selected> {{ 'Please select bearer' }}</option>
+										<option disabled value=""> Please select bearer </option>
 										<option> Restaurant </option>
 										<option> Bellewise </option>
 									</select>
@@ -144,7 +144,7 @@
 								</span>
 							</p>
 							<p class="control is-expanded">
-								<input class="input is-info" type="number" min="0" oninput="validity.valid||(value='');" placeholder="Amount" v-model.number="promo.amount" required>
+								<input class="input is-info" type="number" min="0" oninput="validity.valid||(value='');" placeholder="Amount" v-model.trim="promo.amount" required>
 							</p>
 							<p class="control">
 								<a class="button is-bold">
@@ -264,7 +264,7 @@ export default {
 			vouchers: null,
 			amount: null,
 			discount: null,
-			bearer: null,
+			bearer: '',
 			validity: null,
 			restaurantsID: [],
 		},

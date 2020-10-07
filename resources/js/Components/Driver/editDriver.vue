@@ -192,7 +192,7 @@ export default {
 				data.append('occupation', this.$store.getters.loadSingleData.occupation);
 				data.append('file', this.imageFile);
 
-				let id = this.$route.params.id
+				let id = this.$store.getters.loadSingleData.id
 
 				this.editData( {data, id} );
 

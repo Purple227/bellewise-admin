@@ -1,7 +1,8 @@
 import Vue from 'vue'
+import {router} from '../../app.js'
 
 //routes
-import { app } from '../../app.js'
+//import { app } from '../../app.js'
 
 
 const state = {
@@ -88,7 +89,7 @@ const actions = {
 		commit('setSearch', response.data)
 	},
 
-	async destroyData({commit}, id ) {
+	async destroySubAdminData({commit}, id ) {
 		let api = '/api/sub-admin/' + id
 		const response = await axios.delete(api);
 		commit('setNotification', true)
@@ -103,7 +104,7 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			app.$router.push({name: 'sub-admin-list'})
+			router.push({name: 'sub-admin-list'})
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -125,7 +126,7 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			app.$router.push({name: 'sub-admin-list'})
+			router.push({name: 'sub-admin-list'})
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
