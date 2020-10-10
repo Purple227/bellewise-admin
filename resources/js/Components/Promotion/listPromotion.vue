@@ -54,7 +54,7 @@
 				<div class="card is-relative">
 
 					<router-link class="absolute-position-left" :to="{name: 'edit-promotion', params: {id: promo.id} }" exact> <i class="fas fa-edit fa-lg has-text-danger"> </i> </router-link>
-					<a class="absolute-position-right" @click="showModal = true"> <i class="fas fa-trash fa-lg has-text-danger"> </i> </a>
+					<a class="absolute-position-right" @click="showModal = true"> <i class="fas fa-trash fa-lg has-text-danger" v-if=" (loadAuthUser.admin == 'super_admin') || (loadAuthRole.promo_delete == 1) "> </i> </a>
 
 					<div class="card-content purple-bg border-curve has-text-centered has-text-white">
 						<p class="title has-text-white"> {{ promo.name }} </p>
@@ -205,7 +205,7 @@ export default {
 
 
 computed: {
-	...mapGetters(['loadPromo', 'loadPromoLoader', 'loadPromoNotification', 'loadPromoPagination', 'loadPromoSearch']),
+	...mapGetters(['loadPromo', 'loadPromoLoader', 'loadPromoNotification', 'loadPromoPagination', 'loadPromoSearch', 'loadAuthUser', 'loadAuthRole']),
     // Local computed properties
 
 },

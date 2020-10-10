@@ -68,7 +68,7 @@
             <td> {{ restaurant.email.substring(0,10) }} </td>
             <td class="has-text-centered"> {{ restaurant.commmission }} </td>
             <td> ₦{{restaurant.revenue}} </td>
-            <td class="has-text-centered"> <input type="checkbox" @change="[restaurant.status = !restaurant.status, statusMethod(restaurant.id, restaurant.status)]" :checked="restaurant.status == 1 ? true : false"> 
+            <td class="has-text-centered"> <input type="checkbox" @change="[restaurant.status = !restaurant.status, statusMethod(restaurant.id, restaurant.status)]" :checked="restaurant.status == 1 ? true : false" v-if=" (loadAuthUser.admin == 'super_admin') || (loadAuthRole.restaurant_status == 1)"> 
             </td>
               <td>  
                 <div class="field is-grouped">
@@ -82,7 +82,7 @@
                       Edit
                     </router-link>
                   </p>
-                  <p class="control" @click="[showModal = true, getDestroyId(restaurant.id)]" >
+                  <p class="control" @click="[showModal = true, getDestroyId(restaurant.id)]" v-if=" (loadAuthUser.admin == 'super_admin') || (loadAuthRole.restaurant_delete == 1) ">
                     <button class="button purple-color">
                       Delete 
                     </button>
@@ -184,7 +184,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchBlockedRestaurants', 'clearRestaurantNotification', 'destroyRestaurantData', 'updateRestaurantStatus']),
+    ...mapActions(['fetchBlockedRestaurants', 'clearRestaurantNotification', 'destroyRestaurantData', 'updateRestaurantStatus', 'loadAuthUser', 'loadAuthRole']),
     // Local method
     refresh() {
       this.spin = true
@@ -214,7 +214,7 @@ export default {
 
 
   computed: {
-    ...mapGetters(['loadBlockedRestaurants', 'loadRestaurantLoader', 'loadRestaurantNotification', 'loadRestaurantPagination']),
+    ...mapGetters(['loadBlockedRestaurants', 'loadRestaurantLoader', 'loadRestaurantNotification', 'loadRestaurantPagination', 'loadAuthUser', 'loadAuthRole']),
 
     // Local computed properties
 },

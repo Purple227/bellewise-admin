@@ -65,8 +65,8 @@
 							<th> <span class="purple-color"> Name </span> </th>
 							<th class="has-text-centered"> <span class="purple-color"> Email </span> </th>
 							<th class="has-text-centered"> <span class="purple-color"> Phone </span> </th>
-							<th> <span class="purple-color" v-if="loadAuthUser.admin == 'super_admin' " > Status </span> </th>
-							<th class="has-text-centered"> <span class="purple-color" v-if="loadAuthUser.admin == 'super_admin' "> Action </span> </th>
+							<th> Status </span> </th>
+							<th class="has-text-centered"> <span class="purple-color"> Action </span> </th>
 						</tr>
 					</thead>
 
@@ -81,24 +81,24 @@
 							<td>  
 								<div class="field is-grouped">
 
-									<p class="control" v-if="loadAuthUser.admin == 'super_admin' ">  
+									<p class="control">  
 										<router-link :to="{name: 'sub-admin-permission', params: {id: subadmin.id}}" class="button purple-color" exact>
 											Permission
 										</router-link>
 									</p>
 
-									<p class="control" v-if="loadAuthUser.admin == 'super_admin' ">
+									<p class="control">
 										<router-link :to="{name: 'view-sub-admin', params: {id: subadmin.id}}" class="button purple-color" exact>
 											View
 										</router-link>
 									</p>
-									<p class="control" v-if="loadAuthUser.admin == 'super_admin' ">
+									<p class="control">
 										<router-link :to="{name: 'edit-sub-admin', params: {id: subadmin.id} }" class="button purple-color" exact>
 											Edit
 										</router-link>
 									</p>
 									<p class="control" @click="[showModal = true, getDestroyId(subadmin.id)]" v-if="loadAuthUser.admin == 'super_admin' ">
-										<button class="button purple-color">
+										<button class="button purple-color" :disabled="subadmin.id == 1">
 											Delete 
 										</button>
 

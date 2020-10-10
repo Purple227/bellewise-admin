@@ -4,9 +4,9 @@
 	<div class="container"> <!-- Container tag open -->
 
 
-        <div class="notification purple-bg-light is-bold has-text-black has-text-centered " v-if="loadAuthenticated">
-          Welcome {{ loadAuthUser.name }}
-        </div>
+		<div class="notification purple-bg-light is-bold has-text-black has-text-centered is-size-5" v-if="loadAuthenticated">
+			<span class="fa"> Welcome {{ loadAuthUser.name.substring(0,15) }} {{ loadAuthUser.name.length >= 15 ? '...' : '' }} </span>
+		</div>
 
 
 
@@ -265,14 +265,18 @@ export default {
 	}), // Data calibrace close
 
 	created() {
-		this.fetchRestaurantDatas()
-		this.fetchPromoDatas()
+		this.loadHomeCounter()
 	},
 
 	methods: {
 		...mapActions(["fetchRestaurantDatas", "fetchPromoDatas"]),
 
 		// Local method goes here
+
+		loadHomeCounter() {
+			this.fetchRestaurantDatas()
+			this.fetchPromoDatas()
+		}
 
 	}, // Method calibrace close
 

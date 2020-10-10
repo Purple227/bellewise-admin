@@ -3,7 +3,7 @@
 
 
 
-<div class="card" v-if="loadDatas.length <= 0">
+<div class="card">
   <div class="card-content">
     <div class="content is-bold has-text-centered subtitle">
 

@@ -78,7 +78,7 @@ class RestaurantController extends Controller
             'phone' => ['required', 'unique:restaurants'],
             'address' => 'required',
             'license_number' => 'required',
-            'email' => ['email:rfc,dns', 'unique:restaurants'],
+            //'email' => ['email:rfc,dns', 'unique:restaurants'],
             'restaurant_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
@@ -102,7 +102,7 @@ class RestaurantController extends Controller
         Notification::route('mail',$request->email)
         ->notify(new RestaurantCredentials( $notify_info));        
         } catch (\Exception $e) {
-            Log::error(' Your network connection is to be blame.');
+           // Log::error(' Your network connection is to be blame.');
         }
 
 

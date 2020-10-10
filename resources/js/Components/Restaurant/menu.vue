@@ -83,7 +83,7 @@
 							<td> {{ menu.description.substring(0,15) }} </td>
 							<td> ₦ {{ menu.price }} </td>
 							<td>  
-								<div class="field is-grouped">
+								<div class="field is-grouped" v-if=" (loadAuthUser.admin == 'super_admin') || (loadAuthRole.restaurant_delete == 1) ">
 									<p class="control" @click="showModal = true">
 										<button class="button purple-color">
 											Delete 
@@ -227,7 +227,7 @@ export default {
 
 
 computed: {
-	...mapGetters(['loadMenuDatas', 'loadMenuLoader', 'loadMenuNotification', 'loadMenuPagination', 'loadMenuSearch']),
+	...mapGetters(['loadMenuDatas', 'loadMenuLoader', 'loadMenuNotification', 'loadMenuPagination', 'loadMenuSearch', 'loadAuthRole', 'loadAuthUser']),
 
     // Local computed properties
 },

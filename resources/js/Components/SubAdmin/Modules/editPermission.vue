@@ -393,7 +393,8 @@ export default {
 
 				data.append('sub_admin_list', this.loadRole.sub_admin_list == true ? this.loadRole.sub_admin_list = 1 : this.loadRole.sub_admin_list = 0);
 
-				let id = this.$route.params.id
+				let id = this.loadRole.id
+				console.log(id)
 				this.editRole({data, id}).then(() => this.setId() )
 			},
 

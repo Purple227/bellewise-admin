@@ -56,7 +56,7 @@ export default {
 
 
   computed: {
-  	...mapGetters(['loadAuthUser', 'loadAuthenticated', 'loadAuthLoader']),
+  	...mapGetters(['loadAuthUser', 'loadAuthenticated', 'loadAuthLoader', 'loadAuthRole']),
 
     // Local computed properties
 },

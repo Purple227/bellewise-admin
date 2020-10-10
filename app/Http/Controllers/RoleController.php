@@ -55,11 +55,12 @@ class RoleController extends Controller
     public function show($id)
     {
         $role = User::find($id)->role;
+       /// $role = Role::where('user_id', $id)->first();
         return response()->json($role);
     }
 
 
-    public function updatePermission(Request $request, $id)
+    public function update(Request $request, $id)
     {
         
         $role = Role::find($id);
@@ -96,7 +97,7 @@ class RoleController extends Controller
 
         $role->save();
 
-       // return 'Success';
+        return 'Success';
     }
 
 

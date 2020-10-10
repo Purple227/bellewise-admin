@@ -368,7 +368,7 @@ export default {
       data.append('sunday', this.$store.getters.loadRestaurantConfig.sunday);
       data.append('sunday_status', this.$store.getters.loadRestaurantConfig.sunday_status == true ? this.$store.getters.loadRestaurantConfig.sunday_status = 1 : this.$store.getters.loadRestaurantConfig.sunday_status = 0);
 
-      let id = this.$route.params.id
+      let id = this.$store.getters.loadRestaurantConfig.id
       this.editRestaurantConfig({data, id}).then(() => this.setId() )
     },
 
@@ -391,6 +391,7 @@ if (preparationTime) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   preparationTime.bulmaCalendar.on('select', datepicker => {
     this.restaurantConfig.preparationTime = datepicker.data.value();
+    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? this.$store.getters.loadRestaurantConfig.preparation_time = datepicker.data.value() : ''
   });
 }
 
@@ -400,6 +401,7 @@ if (minimiumDeliveryTime) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   minimiumDeliveryTime.bulmaCalendar.on('select', datepicker => {
     this.restaurantConfig.minimiumDeliveryTime = datepicker.data.value();
+    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? this.$store.getters.loadRestaurantConfig.minimium_delivery_time = datepicker.data.value() : ''
   });
 }
 
@@ -409,6 +411,7 @@ if (maximiumDeliveryTime) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   maximiumDeliveryTime.bulmaCalendar.on('select', datepicker => {
     this.restaurantConfig.maximiumDeliveryTime = datepicker.data.value();
+    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? this.$store.getters.loadRestaurantConfig.maximium_delivery_time = datepicker.data.value() : ''
   });
 }
 
@@ -418,7 +421,7 @@ if (monday) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   monday.bulmaCalendar.on('select', datepicker => {
     this.restaurantConfig.monday = datepicker.data.value();
-    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? '' : this.$store.getters.loadRestaurantConfig.monday = datepicker.data.value();
+    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? this.$store.getters.loadRestaurantConfig.monday = datepicker.data.value() : ''
   });
 }
 
@@ -428,7 +431,7 @@ if (tuesday) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   tuesday.bulmaCalendar.on('select', datepicker => {
     this.restaurantConfig.tuesday = datepicker.data.value();
-    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? '' : this.$store.getters.loadRestaurantConfig.tuesday = datepicker.data.value();
+    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? this.$store.getters.loadRestaurantConfig.tuesday = datepicker.data.value() : ''
   });
 }
 
@@ -438,7 +441,7 @@ if (Wednesday) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   Wednesday.bulmaCalendar.on('select', datepicker => {
     this.restaurantConfig.Wednesday = datepicker.data.value();
-    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? '' : this.$store.getters.loadRestaurantConfig.wednesday = datepicker.data.value();
+    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? this.$store.getters.loadRestaurantConfig.wednesday = datepicker.data.value() : ''
   });
 }
 
@@ -448,7 +451,7 @@ if (thursday) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   thursday.bulmaCalendar.on('select', datepicker => {
     this.restaurantConfig.thursday = datepicker.data.value();
-    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? '' : this.$store.getters.loadRestaurantConfig.thursday = datepicker.data.value();
+    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? this.$store.getters.loadRestaurantConfig.thursday = datepicker.data.value() : ''
   });
 }
 
@@ -458,7 +461,7 @@ if (friday) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   friday.bulmaCalendar.on('select', datepicker => {
     this.restaurantConfig.friday = datepicker.data.value();
-    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? '' : this.$store.getters.loadRestaurantConfig.friday = datepicker.data.value();
+    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? this.$store.getters.loadRestaurantConfig.friday = datepicker.data.value() : ''
   });
 }
 
@@ -468,7 +471,7 @@ if (saturday) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   saturday.bulmaCalendar.on('select', datepicker => {
     this.restaurantConfig.saturday = datepicker.data.value();
-    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? '' : this.$store.getters.loadRestaurantConfig.saturday = datepicker.data.value();
+    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? this.$store.getters.loadRestaurantConfig.saturday = datepicker.data.value() : ''
   });
 }
 
@@ -478,7 +481,7 @@ if (sunday) {
   // bulmaCalendar instance is available as element.bulmaCalendar
   sunday.bulmaCalendar.on('select', datepicker => {
     this.restaurantConfig.sunday = datepicker.data.value();
-    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? '' : this.$store.getters.loadRestaurantConfig.sunday = datepicker.data.value();
+    Object.keys(this.$store.getters.loadRestaurantConfig == 0) ? this.$store.getters.loadRestaurantConfig.sunday = datepicker.data.value() : ''
   });
 }
 

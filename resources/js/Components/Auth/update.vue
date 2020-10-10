@@ -4,7 +4,7 @@
 
 	<div class="container"> <!-- Container tag open -->
 
-		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadAdminLoader }"><span class="title"> Loading Bellewise</span></div>
+		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadAuthLoader }"><span class="title"> Loading Bellewise</span></div>
 
 		<!-- Main container -->
 		<nav class="level">
@@ -12,23 +12,23 @@
 			<div class="level-left">
 				<div class="level-item">
 					<p class="subtitle is-5">
-						<strong> Super Admin Registration </strong> 
+						<strong> Update {{ loadAuthUser.name.substring(0,8)}} </strong> 
 					</p>
 				</div>
 			</div>
 
 		</nav>
 
-		<div class="notification purple-bg-light is-bold has-text-black" v-if="loadAdminNotification">
+		<div class="notification purple-bg-light is-bold has-text-black" v-if="loadAuthNotification">
 			Task Succeesful
 		</div>
 
 
-		<div class="box" v-if="loadAdminCounter == 0"> <!-- Box container tag open -->
+		<div class="box"> <!-- Box container tag open -->
 
-			<div class="notification purple-bg-light is-bold has-text-black" v-if="loadAdminErrors">
+			<div class="notification purple-bg-light is-bold has-text-black" v-if="loadAuthErrors">
 				<ul>
-					<li v-for="(value, name, index) in loadAdminErrors">
+					<li v-for="(value, name, index) in loadAuthErrors">
 						{{ index+1 }}. {{ value[0] }}
 					</li>
 				</ul>
@@ -45,13 +45,13 @@
 						<div class="field">
 							<label class="label">Name <span class="has-text-danger"> * </span>  </label>
 							<div class="control has-icons-left has-icons-right">
-								<input class="input is-info" type="text" placeholder="Text input" v-model.trim="admin.name"  required autofocus>
+								<input class="input is-info" type="text" placeholder="Text input" v-model.trim="loadAuthUser.name"  required autofocus>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-user purple-color"></i>
 								</span>
 								<!-- Has icon right -->
-								<span class="icon is-small is-right" v-if="$v.admin.name.required">
+								<span class="icon is-small is-right" v-if="$v.loadAuthUser.name.required">
 									<i class="fas fa-check purple-color"></i>
 								</span>
 								<span class="icon is-small is-right" v-else>
@@ -64,12 +64,12 @@
 							<p class="control">
 								<span class="select">
 									<select>
-										<option> +234 </option>
+										<option>  </option>
 									</select>
 								</span>
 							</p>
 							<p class="control is-expanded has-icons-left">
-								<input class="input is-info" type="tel" minlength="10" maxlength="14" placeholder="Number input" v-model.number="admin.phone" required>
+								<input class="input is-info" type="tel" minlength="10" maxlength="14" placeholder="Number input" v-model.number="loadAuthUser.phone" required>
 
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
@@ -83,24 +83,6 @@
 							</p>
 						</div>
 
-						<div class="field">
-							<label class="label"> Password <span class="has-text-danger"> * </span> </label>
-							<div class="control has-icons-right has-icons-left">
-								<input class="input is-info" type="password" v-model="admin.password" required>
-								<!-- Has icon left -->
-								<span class="icon is-small is-left">
-									<i class="fas fa-key purple-color"></i>
-								</span>
-								<!-- Has icon right -->
-								<span class="icon is-small is-right" v-if="$v.admin.password.$invalid">
-									<i class="fas fa-exclamation-triangle has-text-danger"></i>
-								</span>
-								<span class="icon is-small is-right" v-else>
-									<i class="fas fa-check purple-color"></i>
-								</span>
-							</div>
-						</div>
-
 					</div> <!-- First column tag close -->
 
 					<div class="column"> <!-- Second column tag open-->
@@ -108,13 +90,13 @@
 						<div class="field">
 							<label class="label"> Email <span class="has-text-danger"> * </span> </label>
 							<div class="control has-icons-right has-icons-left">
-								<input class="input is-info" type="email" placeholder="Text input" v-model="admin.email" required>
+								<input class="input is-info" type="email" placeholder="Text input" v-model="loadAuthUser.email" required>
 								<!-- Has icon left -->
 								<span class="icon is-small is-left">
 									<i class="fas fa-envelope purple-color"></i>
 								</span>
 								<!-- Has icon right -->
-								<span class="icon is-small is-right" v-if="$v.admin.email.$invalid">
+								<span class="icon is-small is-right" v-if="$v.loadAuthUser.email.$invalid">
 									<i class="fas fa-exclamation-triangle has-text-danger"></i>
 								</span>
 								<span class="icon is-small is-right" v-else>
@@ -143,24 +125,6 @@
 							</div>
 						</div>
 
-						<div class="field">
-							<label class="label"> Repeat password <span class="has-text-danger"> * </span> </label>
-							<div class="control has-icons-right has-icons-left">
-								<input class="input is-info" type="password" v-model="admin.passwordConfirmation" required>
-								<!-- Has icon left -->
-								<span class="icon is-small is-left">
-									<i class="fas fa-key purple-color"></i>
-								</span>
-								<!-- Has icon right -->
-								<span class="icon is-small is-right" v-if="$v.admin.passwordConfirmation.$invalid">
-									<i class="fas fa-exclamation-triangle has-text-danger"></i>
-								</span>
-								<span class="icon is-small is-right" v-else>
-									<i class="fas fa-check purple-color"></i>
-								</span>
-							</div>
-						</div>
-
 					</div> <!-- Second column tag close -->
 
 
@@ -168,11 +132,11 @@
 
 				<div class="field">
 					<p class="control">
-						<button class="button" v-bind:class="{ 'is-loading': loadAdminProgress }" :disabled="$v.admin.$invalid">
+						<button class="button" v-bind:class="{ 'is-loading': loadAuthProgress }" :disabled="$v.loadAuthUser.$invalid">
 							<span class="icon is-small">
 								<i class="fas fa-save purple-color"></i>
 							</span>
-							<span class="is-bold"> Register </span>
+							<span class="is-bold"> Update </span>
 						</button>
 					</p>
 				</div>
@@ -180,17 +144,6 @@
 			</form> <!-- Form tag close -->
 
 		</div>  <!-- Box container tag open -->
-
-
-		<div class="card" v-if ="loadAdminCounter >= 1">
-			<div class="card-content">
-				<div class="content is-bold has-text-centered subtitle">
-
-					<span class="fa"> Only one super man is allowed if you the super man login instead. If you think it's an error please contact the administrative department. </span>
-
-				</div>
-			</div>
-		</div>
 
 
 	</div> <!-- Container tag close -->
@@ -209,15 +162,10 @@ export default {
 
 	data: () => ({
 
+
 		admin: {
-			name: null,
-			email: null,
-			phone: null,
 			imageName: null,
 			imageFile: "",
-			countryCode: '+234',
-			password: null,
-			passwordConfirmation: null,
 		},
 
 	}),
@@ -226,7 +174,7 @@ export default {
 
 	validations: { //Validation calibrace open 
 
-		admin: {
+		loadAuthUser: {
 
 			name: {
 				required
@@ -237,27 +185,18 @@ export default {
 				required
 			},
 
-			password: {
-				required,
-				minLength: minLength(6)
-			},
-
-			passwordConfirmation: {
-				sameAsPassword: sameAs('password')
-			},
-
-		} // sign up calibrace close
+		}, 
 
 	}, //Validation calibrace close 
 
-
-	mounted() {
-		this.fetchAdmin()
+	created() {
+		this.clearAuthErrors()
+		this.clearAuthNotification()
 	},
 
 
 	methods: {
-		...mapActions(["createSuperAdmin", "clearAdminErrors", 'fetchAdmin']),
+		...mapActions(['editAuthData', 'clearAuthErrors', 'me', 'clearAuthNotification']),
 
 		// Local method goes here
 
@@ -269,14 +208,16 @@ export default {
 		submitForm() {
 			
 			let data = new FormData();
-			data.append("_method", "post");
-			data.append('name', this.admin.name);
-			data.append('phone', this.admin.countryCode + this.admin.phone);
+			data.append("_method", "patch");
+			data.append('name', this.loadAuthUser.name);
+			data.append('phone', this.loadAuthUser.phone);
 			data.append('file', this.admin.imageFile);
-			data.append('email', this.admin.email);
-			data.append('password', this.admin.password);
+			data.append('email', this.loadAuthUser.email);
 
-			this.createSuperAdmin(data).then(() => this.fetchAdmin() )
+			let id = this.loadAuthUser.id
+			console.log(id)
+
+			this.editAuthData({data, id}).then(() => this.me() )
 
 		},
 
@@ -284,7 +225,7 @@ export default {
 
 
 	computed: {
-		...mapGetters(['loadAdminProgress', 'loadAdminErrors', 'loadAdminCounter', 'loadAdminLoader', 'loadAdminNotification']),
+		...mapGetters(['loadAuthLoader', 'loadAuthErrors', 'loadAuthProgress', 'loadAuthUser', 'loadAuthNotification']),
 
     // Local computed properties
 

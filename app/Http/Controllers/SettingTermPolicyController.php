@@ -50,7 +50,7 @@ class SettingTermPolicyController extends Controller
 		$term = new Term;
 
         // Save to database
-		$term->terms = $request->terms;
+		$term->terms = $request->term;
 		$term->save();
 
 		return response()->json('success');

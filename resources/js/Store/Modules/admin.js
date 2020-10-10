@@ -31,7 +31,6 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			history.go();
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)

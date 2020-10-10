@@ -95,7 +95,7 @@ class SubAdminController extends Controller
         $sub_admin->password = Hash::make($generated_password);
         $sub_admin->save();
 
-        return $generated_password;
+        return 'Success';
 
     }
 

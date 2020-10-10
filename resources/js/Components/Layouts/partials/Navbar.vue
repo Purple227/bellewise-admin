@@ -26,7 +26,7 @@
         <div class="dropdown navbar-item" v-bind:class="{ 'is-active': dropDown }"  v-on:click="addDropDown">
           <div class="dropdown-trigger">
             <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-              <span class="fas fa-bell  purple-color bell is-relative"> <span class="has-text-danger is-size-2 dot"> . </span> </span>
+              <span class="fas fa-bell  purple-color bell is-relative"> <!--span class="has-text-danger is-size-2 dot"--> . </span> </span>
               <span class="icon is-small">
                 <i class="fas fa-angle-down purple-color" aria-hidden="true"></i>
               </span>
@@ -35,22 +35,11 @@
           <div class="dropdown-menu" id="dropdown-menu" role="menu">
 
             <div class="dropdown-content">
-              <a href="#" class="dropdown-item">
-                Dropdown item
-              </a>
+
               <a class="dropdown-item">
-                Other dropdown item
+                No Notification
               </a>
-              <a href="#" class="dropdown-item is-active">
-                Active dropdown item
-              </a>
-              <a href="#" class="dropdown-item">
-                Other dropdown item
-              </a>
-              <hr class="dropdown-divider">
-              <a href="#" class="dropdown-item">
-                With a divider
-              </a>
+
             </div>
 
           </div>
@@ -61,18 +50,32 @@
 
       <div class="navbar-end">
 
-        <div class="dropdown is-right pointer mt-2" v-bind:class="{ 'is-active': notification }"  v-on:click="notification = !notification">
+        <div class="dropdown is-left pointer mt-2" v-bind:class="{ 'is-active': notification }"  v-on:click="notification = !notification">
           <div class="dropdown-trigger">
-            <figure class="image is-48x48" aria-haspopup="true" aria-controls="dropdown-menu">
-              <img class="is-rounded" src="/images/rejubi.jpg">
+
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu" v-if="user.image.length <= 'default_image.svg'.length">
+              <span class="fas fa-user purple-color"> {{ user.name.substring(0,6) }} </span>
+              <span class="icon is-small">
+                <i class="fas fa-angle-down purple-color" aria-hidden="true"></i>
+              </span>
+            </button>
+
+
+            <figure class="image is-48x48" aria-haspopup="true" aria-controls="dropdown-menu" v-else>
+              <img class="is-rounded" :src="imagePath">
             </figure>
+
           </div>
           <div class="dropdown-menu" id="dropdown-menu" role="menu">
             <div class="dropdown-content">
 
-              <a href="#" class="dropdown-item">
-                Update Profile
-              </a>
+              <router-link :to="{name: 'auth-edit', params: {id: user.id} }" class="dropdown-item" exact>
+                Update profile
+              </router-link>
+
+              <router-link :to="{name: 'auth-security', params: {id: user.id} }" class="dropdown-item" exact>
+                Update Password
+              </router-link>
 
               <a class="dropdown-item" @click="Logout">
                 Logout
@@ -118,8 +121,16 @@ export default {
 
   computed: {
     ...mapGetters(['']),
-
     // Local computed properties
+
+    imagePath () {
+      let LaravelImageDefaultPath = '/Storage/'
+      let imageName = this.user.image
+      let completedPath = LaravelImageDefaultPath + imageName 
+      return completedPath
+    }
+
+
   },
 
 }

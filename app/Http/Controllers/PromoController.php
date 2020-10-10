@@ -30,6 +30,12 @@ class PromoController extends Controller
         return response()->json($data);
     }
 
+    public function getAll()
+    {
+        $all_promos = Promo::all();
+        return response()->json($all_promos);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

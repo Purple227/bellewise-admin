@@ -67,7 +67,7 @@
 							<td> {{ driver.phone }} </td>
 							<td> {{ driver.occupation.substring(0,6) }} </td>
 							<td class="has-text-centered"> {{ driver.total_delivery}} </td>
-							<td class="has-text-centered"> <input type="checkbox" @change="[driver.status = !driver.status, statusMethod(driver.id, driver.status)]" :checked="driver.status == 1 ? true : false"> </td>
+							<td class="has-text-centered"> <input type="checkbox" @change="[driver.status = !driver.status, statusMethod(driver.id, driver.status)]" :checked="driver.status == 1 ? true : false" v-if=" (loadAuthUser.admin == 'super_admin') || (loadAuthRole.driver_status == 1)"> </td>
 							<td>  
 								<div class="field is-grouped">
 									<p class="control">
@@ -80,13 +80,13 @@
 											Edit
 										</router-link>
 									</p>
-									<p class="control" @click="[showModal = true, getDestroyId(driver.id)]" >
+									<p class="control" @click="[showModal = true, getDestroyId(driver.id)]" v-if=" (loadAuthUser.admin == 'super_admin') || (loadAuthRole.driver_delete == 1)">
 										<button class="button purple-color">
 											Delete 
 										</button>
 
 										<!-- Delete modal option -->
-										<div class="modal is-active" v-if="showModal">
+										<div class="modal is-active" v-if="showModal" >
 											<div class="modal-background"></div>
 											<div class="modal-content">
 												<!-- Any other Bulma elements you want -->
@@ -214,7 +214,7 @@ export default {
 
 
 	computed: {
-		...mapGetters(['loadBlockedDatas', 'loadLoading', 'loadNotification', 'loadPagination']),
+		...mapGetters(['loadBlockedDatas', 'loadLoading', 'loadNotification', 'loadPagination', 'loadAuthUser', 'loadAuthRole']),
 
     // Local computed properties
 

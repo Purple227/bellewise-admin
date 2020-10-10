@@ -8,6 +8,7 @@ const state = {
 	promoLoader: true,
 	promoProgress: null,
 	promoErrors: null,
+	allPromoDatas: [],
 
 	promoSearchResult: null,
 
@@ -30,6 +31,7 @@ const getters = {
 	loadPromoErrors: (state) => state.promoErrors,
 	loadPromoPagination: (state) => state.promoPagination,
 	loadPromoSearch: (state) => state.promoSearchResult,
+	loadAllPromo: (state) => state.allPromoDatas,
 
 }; //Getters calibrace close
 
@@ -51,6 +53,16 @@ const actions = {
 		commit('setToPage', response.data.to)
 		commit('setTotal', response.data.total)
 	},
+
+
+	async fetchAllPromoDatas({commit}) {
+		commit('setLoading', true)
+		let api = '/api/promo/all'
+		const response = await axios.get(api);
+		commit('setAllDatas', response.data)
+		commit('setLoading', false)
+	},
+
 
 	async fetchSinglePromo({commit}, id) {
 		commit('setLoading', true)
@@ -133,6 +145,7 @@ const mutations = {
 
 	setDatas: (state, datas) => state.promoDatas = datas,
 	setSingleData: (state, data) => state.promoData.promo = data,
+	setAllDatas: (state, allDatas) => state.allPromoDatas = allDatas,
 
 	setNotification: (state, notification) => state.promoNotification = notification,
 	unsetNotification: (state, notification) => state.promoNotification = notification,

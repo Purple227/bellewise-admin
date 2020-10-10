@@ -42,6 +42,8 @@ import Account from './Components/Accounting/index.vue';
 import Setting from './Components/Setting/setting.vue';
 
 import Auth from './Components/Auth/index.vue';
+import updateAuth from './Components/Auth/update.vue';
+import updateAuthSecurity from './Components/Auth/updateSecurity.vue';
 
 import Store from "./Store"
 
@@ -73,7 +75,7 @@ const routes = [
 { 
 	path: '/permission',
 	name:'permission-denied',
-	component: Permission
+	component: Permission,
 },
 
 { 
@@ -93,69 +95,215 @@ const routes = [
 },
 
 { 
+	path: '/auth/:id/edit',
+	name:'auth-edit',
+	component: updateAuth,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthenticated == true) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
+},
+
+
+{ 
+	path: '/auth-security/:id/edit',
+	name:'auth-security',
+	component: updateAuthSecurity,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthenticated == true) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
+},
+
+
+{ 
 	path: '/restaurants',
 	name:'list-restaurant',
-	component: ListRestaurant
+	component: ListRestaurant,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.restaurant_list == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
+
 },
 
 { 
 	path: '/restaurant/add',
 	name:'add-restaurant',
-	component: AddRestaurant
+	component: AddRestaurant,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.restaurant_create == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/restaurant/:id',
 	name:'view-restaurant',
-	component: ViewRestaurant
+	component: ViewRestaurant,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.restaurant_create == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/restaurant/:id/edit',
 	name:'edit-restaurant',
-	component: EditRestaurant
+	component: EditRestaurant,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.restaurant_update == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/restaurant/:id/menus',
 	name:'restaurant-menu',
-	component: Menu
+	component: Menu,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.restaurant_create == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/restaurant/:id/menu/add',
 	name:'add-menu',
-	component: AddMenu
+	component: AddMenu,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.restaurant_create == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/restaurant-setting/:id',
 	name:'restaurant-setting',
-	component: RestaurantSetting
+	component: RestaurantSetting,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.restaurant_create == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/drivers',
 	name:'driver-list',
-	component: Driver
+	component: Driver,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.driver_list == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/driver/add',
 	name:'add-driver',
-	component: AddDriver
+	component: AddDriver,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.driver_create == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/driver/:id',
 	name:'view-driver',
-	component: ViewDriver
+	component: ViewDriver,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.driver_list == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/driver/:id/edit',
 	name:'edit-driver',
-	component: EditDriver
+	component: EditDriver,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.driver_update == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
+
 },
 
 { 
@@ -191,61 +339,162 @@ const routes = [
 { 
 	path: '/sub-admins',
 	name:'sub-admin-list',
-	component: SubAdmin
+	component: SubAdmin,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.sub_admin_list == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/sub-admin/add',
 	name:'add-sub-admin',
-	component: AddSubAdmin
+	component: AddSubAdmin,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin') {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/sub-admin/:id',
 	name:'view-sub-admin',
-	component: ViewSubAdmin
+	component: ViewSubAdmin,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin') {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/sub-admin/:id/edit',
 	name:'edit-sub-admin',
-	component: EditSubAdmin
+	component: EditSubAdmin,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin') {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
+
 
 { 
 	path: '/subadmin/permissions/:id',
 	name:'sub-admin-permission',
-	component: SubAdminPermission
+	component: SubAdminPermission,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin') {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/promotions',
 	name:'list-promotion',
-	component: ListPromotion
+	component: ListPromotion,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.promo_list == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/promotions/add',
 	name:'add-promotion',
-	component: AddPromotion
+	component: AddPromotion,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.promo_create == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/promotions/:id/edit',
 	name:'edit-promotion',
-	component: EditPromotion
+	component: EditPromotion,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.promo_update == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/promotions/:id',
 	name:'view-promo-restaurants',
-	component: ViewPromoRestaurant
+	component: ViewPromoRestaurant,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthenticated) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/reports',
 	name:'report',
-	component: Report
+	component: Report,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin') {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
@@ -257,7 +506,18 @@ const routes = [
 { 
 	path: '/setting',
 	name:'setting',
-	component: Setting
+	component: Setting,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin') {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
+
 },
 
 { path: '/bar', component: Bar }

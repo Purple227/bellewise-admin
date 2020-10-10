@@ -33,6 +33,7 @@ Route::get('/restaurant/active', 'RestaurantController@activeRestaurants');
 Route::get('/restaurant/all-active', 'RestaurantController@allActiveRestaurants');
 
 Route::get('/promo/search', 'PromoController@search');
+Route::get('/promo/all', 'PromoController@getAll');
 
 Route::patch('sub-admin/{id}', 'SubAdminController@statusUpdate');
 Route::get('/sub-admin/search', 'SubAdminController@search');
@@ -62,16 +63,18 @@ Route::patch('/setting/cancellation-policy/{id}', 'SettingBasicController@update
 Route::post('/setting/policy', 'SettingTermPolicyController@createPolicy');
 Route::get('/setting/policy/{id}', 'SettingTermPolicyController@showPolicy');
 Route::patch('/setting/policy/{id}', 'SettingTermPolicyController@updatePolicy');
-Route::post('/setting/term', 'SettingTermPolicyController@createTerm');
+Route::post('/setting/term', 'SettingTermPolicyController@createTerms');
 Route::get('/setting/term/{id}', 'SettingTermPolicyController@showTerm');
-Route::patch('/setting/term/{id}', 'SettingTermPolicyController@updateTerm');
+Route::patch('/setting/term/{id}', 'SettingTermPolicyController@updateTerms');
 
 Route::post('/login', 'Auth\LoginController@login');
 Route::post('/logout', 'Auth\LoginController@logout');
+Route::patch('/auth-edit/{id}', 'UserController@update');
+Route::patch('/auth-security/{id}', 'UserController@updateSecurity');
 
 Route::post('/role/{id}', 'RoleController@storePermission');
 Route::get('/role/{id}', 'RoleController@show');
-Route::patch('/role/{id}', 'RoleController@updatePermission');
+Route::patch('/role-update/{id}', 'RoleController@update');
 
 Route::apiResources([
 	'driver' => 'DriverController',

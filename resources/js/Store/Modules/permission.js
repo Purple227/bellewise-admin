@@ -57,7 +57,7 @@ const actions = {
 		commit('setProgress', true)
 		console.log(...data)
 		console.log(id)
-		let api = '/api/role/' + id
+		let api = '/api/role-update/' + id
 		const config = {
 			headers: { 'content-type': 'application/x-www-form-urlencoded' }
 		}

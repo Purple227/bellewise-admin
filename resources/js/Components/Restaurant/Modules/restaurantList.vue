@@ -84,7 +84,7 @@
             <td> {{ restaurant.email.substring(0,10) }} </td>
             <td class="has-text-centered"> {{ restaurant.commmission }} </td>
             <td> ₦{{restaurant.revenue}} </td>
-            <td class="has-text-centered"> <input type="checkbox" @change="[restaurant.status = !restaurant.status, statusMethod(restaurant.id, restaurant.status)]" :checked="restaurant.status == 1 ? true : false"> 
+            <td class="has-text-centered"> <input type="checkbox" @change="[restaurant.status = !restaurant.status, statusMethod(restaurant.id, restaurant.status)]" :checked="restaurant.status == 1 ? true : false" v-if=" (loadAuthUser.admin == 'super_admin') || (loadAuthRole.restaurant_status == 1) "> 
             </td>
               <td>  
                 <div class="field is-grouped">
@@ -108,7 +108,7 @@
                       Settings
                     </router-link>
                   </p>
-                  <p class="control" @click="[showModal = true, getDestroyId(restaurant.id)]" >
+                  <p class="control" @click="[showModal = true, getDestroyId(restaurant.id)]" v-if=" (loadAuthUser.admin == 'super_admin') || (loadAuthRole.restaurant_delete == 1)" >
                     <button class="button purple-color">
                       Delete 
                     </button>
@@ -248,7 +248,7 @@ export default {
 
 
   computed: {
-    ...mapGetters(['loadRestaurants', 'loadRestaurantLoader', 'loadRestaurantNotification', 'loadRestaurantPagination', 'loadRestaurantSearch']),
+    ...mapGetters(['loadRestaurants', 'loadRestaurantLoader', 'loadRestaurantNotification', 'loadRestaurantPagination', 'loadRestaurantSearch', 'loadAuthUser', 'loadAuthRole']),
 
     // Local computed properties
 },

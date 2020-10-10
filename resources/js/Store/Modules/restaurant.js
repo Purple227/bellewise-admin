@@ -60,9 +60,9 @@ const actions = {
 		commit('setTotal', response.data.total)
 	},
 
-	async fetchAllRestaurantDatas({commit}, uri) {
+	async fetchAllRestaurantDatas({commit}) {
 		commit('setLoading', true)
-		let api = uri || '/api/restaurant/all'
+		let api = '/api/restaurant/all'
 		const response = await axios.get(api);
 		commit('setAllDatas', response.data)
 		commit('setLoading', false)

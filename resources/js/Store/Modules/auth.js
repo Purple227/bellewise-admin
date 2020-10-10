@@ -9,6 +9,7 @@ const state = {
 	authProgress: null,
 	authLoader: null,
 	authRole: null,
+	authNotification: null,
 
 }; // State calibrace close
 
@@ -19,7 +20,8 @@ const getters = {
 	loadAuthErrors: (state) => state.authErrors,
 	loadAuthProgress: (state) => state.authProgress,
 	loadAuthLoader: (state) => state.authLoader,
-	loadAuthRole: (state) => state.authRole
+	loadAuthRole: (state) => state.authRole,
+	loadAuthNotification: (state) => state.authNotification
 
 }; //Getters calibrace close
 
@@ -50,7 +52,7 @@ const actions = {
 		router.push({name: 'auth-access'})
 	},
 
-	async fetchAuthRole({commit, getters}) {
+	async fetchAuthRole({commit, getters}, id ) {
 		let api = '/api/role/' + getters.loadAuthUser.id
 		const response = await axios.get(api);
 		commit('setRole', response.data)
@@ -74,10 +76,73 @@ const actions = {
 		})
 	},
 
+	async editAuthData({ commit }, {data, id}) {
+		commit('setProgress', true)
+		let api = '/api/auth-edit/' + id
+		const config = {
+			headers: { 'content-type': 'application/x-www-form-urlencoded' }
+		}
+		const response = await axios.post(api, data, config )
+		.then((response) => {
+			commit('setNotification', true)
+			commit('setProgress', false)
+
+			setTimeout(() => {
+				router.push({name: 'home'})
+			}, 10000)
+
+		}).catch(error=>{
+			let failure = error.response.data
+			commit('setErrors', failure)
+			commit('setProgress', false)
+
+			setTimeout(() => {
+				commit('setErrors', null)
+			}, 10000)
+		})
+
+	},
+
+
+	async editAuthSecurity({ commit }, {data, id}) {
+		commit('setProgress', true)
+		let api = '/api/auth-security/' + id
+		const config = {
+			headers: { 'content-type': 'application/x-www-form-urlencoded' }
+		}
+		const response = await axios.post(api, data, config )
+		.then((response) => {
+			commit('setNotification', true)
+			commit('setProgress', false)
+
+			setTimeout(() => {
+				router.push({name: 'home'})
+			}, 10000)
+			
+		}).catch(error=>{
+			let failure = error.response.data
+			commit('setErrors', failure)
+			commit('setProgress', false)
+
+			setTimeout(() => {
+				commit('setErrors', null)
+			}, 10000)
+		})
+
+	},
+
+
+
+
 	async clearAuthErrors ({commit}) {
 		commit('unsetErrors')
 	},
 
+	async clearAuthNotification ({commit}) {
+		setTimeout(() => {
+			commit('unsetNotification', false)
+		}, 10000)
+	},
 
 }; //Actions calibrace close
 
@@ -95,6 +160,10 @@ const mutations = {
 	setLoading: (state, loading) => state.authLoader = loading,
 
 	setRole: (state, role) => state.authRole = role,
+
+	setNotification: (state, notification) => state.authNotification = notification,
+	unsetNotification: (state, notification) => state.authNotification = notification,
+
 
 }; //Mutations calibrace close
 
