@@ -34,7 +34,7 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'phone' => ['required', 'unique:users'],
-            //'email' => ['email:rfc,dns', 'unique:users'],
+            'email' => ['email:rfc,dns', 'unique:users'],
             'file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 

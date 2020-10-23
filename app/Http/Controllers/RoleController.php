@@ -93,8 +93,6 @@ class RoleController extends Controller
 
         $role->sub_admin_list = $request->sub_admin_list;
 
-        $role->user_id = $id;
-
         $role->save();
 
         return 'Success';

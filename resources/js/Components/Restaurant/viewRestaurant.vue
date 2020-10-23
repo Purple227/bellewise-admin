@@ -19,7 +19,7 @@
 					<li v-bind:class="{ 'active': foodItem }" @click="[resDetails = false, foodItem=true, resConfig=false]">
 						<a>
 							<span class="icon is-small" v-bind:class="{ 'has-text-white': foodItem }"><i class="fas fa-utensils" aria-hidden="true"></i></span>
-							<span class=" " v-bind:class="{ 'has-text-white': foodItem }"> Food Item</span>
+							<span class=" " v-bind:class="{ 'has-text-white': foodItem }"> Menu </span>
 						</a>
 					</li>
 

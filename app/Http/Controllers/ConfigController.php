@@ -72,8 +72,6 @@ class ConfigController extends Controller
         $config->saturday_status = $request->saturday_status == true ? 1 : 0;
         $config->sunday_status = $request->sunday_status == true ? 1 : 0;
 
-        $config->restaurant_id = $id;        
-
         $config->save();
 
         return 'Success';

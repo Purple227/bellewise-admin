@@ -124,7 +124,7 @@ export default {
     // Local computed properties
 
     imagePath () {
-      let LaravelImageDefaultPath = '/Storage/'
+      let LaravelImageDefaultPath = '/storage/'
       let imageName = this.user.image
       let completedPath = LaravelImageDefaultPath + imageName 
       return completedPath

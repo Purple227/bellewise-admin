@@ -20,6 +20,7 @@ class CreateMenusTable extends Migration
             $table->string('image')->default('default_image.svg');
             $table->string('description');
             $table->float('price', 10, 2);
+            $table->boolean('status')->default(true);
 
             $table->unsignedBigInteger('restaurant_id');
             $table->foreign('restaurant_id')

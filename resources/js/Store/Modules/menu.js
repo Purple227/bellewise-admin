@@ -8,6 +8,8 @@ const state = {
 	menuLoader: true,
 	menuProgress: null,
 	menuErrors: null,
+	activeMenu: null,
+	blockedMenu: null,
 
 	menuSearch: [],
 
@@ -30,6 +32,8 @@ const getters = {
 	loadMenuErrors: (state) => state.menuErrors,
 	loadMenuPagination: (state) => state.menuPagination,
 	loadMenuSearch: (state) => state.menuSearch,
+	loadActiveMenus: (state) => state.activeMenu,
+	loadBlockedMenus: (state) => state.blockedMenu,
 
 }; //Getters calibrace close
 
@@ -55,7 +59,7 @@ const actions = {
 
 	async fetchSingleMenu({commit}, id) {
 		commit('setLoading', true)
-		let api = '/api/driver/' + id
+		let api = '/api/restaurant-menu/show/' + id
 		const response = await axios.get(api);
 		commit('setSingleData', response.data)
 		commit('setLoading', false)
@@ -97,9 +101,10 @@ const actions = {
 		})
 	},
 
-	async editMenuData({ commit }, {data, id}) {
+	async editMenuData({ commit }, {data, id, restaurantId}) {
 		commit('setProgress', true)
-		let api = '/api/driver/' + id
+		console.log(restaurantId)
+		let api = '/api/restaurant-menu/edit/' + id
 		const config = {
 			headers: { 'content-type': 'application/x-www-form-urlencoded' }
 		}
@@ -107,7 +112,7 @@ const actions = {
 		.then((response) => {
 			commit('setNotification', true)
 			commit('setProgress', false)
-			router.push({name: 'restaurant-menu'})
+			router.push({name: 'restaurant-menu', params: {id: restaurantId } })
 		}).catch(error=>{
 			let failure = error.response.data
 			commit('setErrors', failure)
@@ -120,6 +125,49 @@ const actions = {
 
 	},
 
+
+	async fetchActiveMenus({commit}, {uri, id} ) {
+		commit('setLoading', true)
+		let api = uri || '/api/restaurant-menu/active/' +id
+		const response = await axios.get(api);
+		commit('setActiveDatas', response.data.data)
+		commit('setLoading', false)
+
+		let nextPageUrl = response.data.next_page_url
+		commit('setNextPageURL', nextPageUrl ? nextPageUrl.slice(21) : null)
+
+		let previousPageUrl = response.data.prev_page_url
+		commit('setPrePageURL', previousPageUrl ? previousPageUrl.slice(21) : null)
+
+		commit('setToPage', response.data.to)
+		commit('setTotal', response.data.total)
+	},
+
+	async fetchBlockedMenus({commit}, {uri, id} ) {
+		commit('setLoading', true)
+		let api = uri || '/api/restaurant-menu/block/' +id
+		const response = await axios.get(api);
+		commit('setBlockedDatas', response.data.data)
+		commit('setLoading', false)
+
+		let nextPageUrl = response.data.next_page_url
+		commit('setNextPageURL', nextPageUrl ? nextPageUrl.slice(21) : null)
+
+		let previousPageUrl = response.data.prev_page_url
+		commit('setPrePageURL', previousPageUrl ? previousPageUrl.slice(21) : null)
+
+		commit('setToPage', response.data.to)
+		commit('setTotal', response.data.total)
+	},
+
+	async updateMenuStatus({commit}, {id, status}) {
+		commit('setLoading', true)
+		console.log(status)
+		let api = '/api/restaurant-menu/status/' + id
+		const response = await axios.patch(api, {status:status})
+		commit('setLoading', false)
+		commit('setNotification', true)
+	},
 
 	async clearMenuErrors ({commit}) {
 		commit('unsetErrors')
@@ -154,6 +202,10 @@ const mutations = {
 	setTotal: (state, total) => state.menuPagination.total = total,
 
 	setSearch: (state, searchResult) => state.menuSearch = searchResult,
+
+	setBlockedDatas: (state, blockedDatas) => state.blockedMenu = blockedDatas,
+	setActiveDatas: (state, active) => state.activeMenu = active,
+
 
 
 }; //Mutations calibrace close

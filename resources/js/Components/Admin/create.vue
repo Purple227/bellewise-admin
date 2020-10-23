@@ -83,7 +83,7 @@
 							</p>
 						</div>
 
-						<div class="field">
+						<div class="field mt-3">
 							<label class="label"> Password <span class="has-text-danger"> * </span> </label>
 							<div class="control has-icons-right has-icons-left">
 								<input class="input is-info" type="password" v-model="admin.password" required>
@@ -143,7 +143,7 @@
 							</div>
 						</div>
 
-						<div class="field">
+						<div class="field mt-3">
 							<label class="label"> Repeat password <span class="has-text-danger"> * </span> </label>
 							<div class="control has-icons-right has-icons-left">
 								<input class="input is-info" type="password" v-model="admin.passwordConfirmation" required>

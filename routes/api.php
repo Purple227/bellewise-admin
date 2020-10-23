@@ -49,9 +49,15 @@ Route::get('/restaurant-setting/{id}', 'ConfigController@show');
 Route::patch('/restaurant-setting/{id}', 'ConfigController@updateConfig');
 
 Route::get('/restaurant-menu/search/{id}', 'MenuController@searchMenu');
-Route::get('/restaurant-menu/{id}', 'MenuController@menus');
+Route::get('/restaurant-menu/{id}', 'MenuController@menu');
 Route::post('/restaurant-menu/create/{id}', 'MenuController@createMenu');
 Route::delete('/restaurant-menu/delete/{id}', 'MenuController@destroy');
+Route::get('/restaurant-menu/show/{id}/', 'MenuController@showMenu');
+Route::get('/restaurant-menu/active/{id}', 'MenuController@activeMenu');
+Route::get('/restaurant-menu/block/{id}', 'MenuController@blockedMenu');
+Route::patch('/restaurant-menu/status/{id}', 'MenuController@updateStatusMenu');
+Route::patch('/restaurant-menu/edit/{id}', 'MenuController@updateMenu');
+
 
 Route::post('/setting/write-up', 'SettingBasicController@createWriteUp');
 Route::get('/setting/write-up/{id}', 'SettingBasicController@showWriteUp');

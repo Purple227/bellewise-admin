@@ -60,9 +60,9 @@ const actions = {
 		commit('setLoader', false)
 	},
 
-	me ({ commit, dispatch }) {
+	async me ({ commit, dispatch }) {
 		commit('setLoading', true)
-		return axios.get('/api/user').then((response) => {
+		await axios.get('/api/user').then((response) => {
 			commit('SET_AUTHENTICATED', true)
 			commit('SET_USER', response.data)
 			return dispatch('fetchAuthRole')

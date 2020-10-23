@@ -1,5 +1,6 @@
 
 
+
 <template>	
 
 	<div class="box"> <!-- box tag open -->
@@ -11,14 +12,14 @@
 			<div class="level-left">
 				<div class="level-item">
 					<p class="subtitle is-5">
-						<strong> Menu Entering </strong> 
+						<strong> Edit {{ loadSingleMenu.name }} </strong> 
 					</p>
 				</div>
 			</div>
 
 			<!-- Right side -->
 			<div class="level-right">
-				<p class="level-item"> <router-link :to="{ name: 'restaurant-menu' }" exact> <strong class="purple-color" v-if="$v.menu.$invalid"> Back </strong> </router-link> </p>
+				<p class="level-item"> <router-link :to="{name: 'restaurant-menu', params: {id: loadSingleMenu.restaurant_id} }" exact> <strong class="purple-color"> Back </strong> </router-link> </p>
 			</div>
 		</nav>
 
@@ -42,13 +43,13 @@
 					<div class="field">
 						<label class="label">Menu Name <span class="has-text-danger"> * </span>  </label>
 						<div class="control has-icons-left has-icons-right">
-							<input class="input is-info" type="text" placeholder="Text input" v-model.trim="menu.name"  required autofocus>
+							<input class="input is-info" type="text" placeholder="Text input" v-model.trim="loadSingleMenu.name"  required autofocus>
 							<!-- Has icon left -->
 							<span class="icon is-small is-left">
 								<i class="fas fa-utensils purple-color"></i>
 							</span>
 							<!-- Has icon right -->
-							<span class="icon is-small is-right" v-if="$v.menu.name.required">
+							<span class="icon is-small is-right" v-if="$v.loadSingleMenu.name.required">
 								<i class="fas fa-check purple-color"></i>
 							</span>
 							<span class="icon is-small is-right" v-else>
@@ -66,7 +67,7 @@
 							</span>
 						</p>
 						<p class="control is-expanded">
-							<input class="input is-info" type="number" min="0" oninput="validity.valid||(value='');" placeholder="Amount of money" v-model.trim="menu.price">
+							<input class="input is-info" type="number" min="0" oninput="validity.valid||(value='');" placeholder="Amount of money" v-model.trim="loadSingleMenu.price">
 						</p>
 						<p class="control">
 							<a class="button">
@@ -84,13 +85,13 @@
 					<div class="field">
 						<label class="label">  Description <span class="has-text-danger"> * </span> </label>
 						<div class="control has-icons-left has-icons-right">
-							<input class="input is-info" type="tel" placeholder="Text input" v-model="menu.description" required>
+							<input class="input is-info" type="tel" placeholder="Text input" v-model="loadSingleMenu.description" required>
 							<!-- Has icon left -->
 							<span class="icon is-small is-left">
 								<i class="fas fa-file-word purple-color"></i>
 							</span>
 							<!-- Has icon right -->
-							<span class="icon is-small is-right" v-if="$v.menu.description.required">
+							<span class="icon is-small is-right" v-if="$v.loadSingleMenu.description.required">
 								<i class="fas fa-check purple-color"></i>
 							</span>
 							<span class="icon is-small is-right" v-else>
@@ -124,7 +125,7 @@
 			</div> <!-- Columns wrapper tag close -->
 
 
-			<button class="button" v-bind:class="{ 'is-loading': loadMenuProgress }" :disabled="$v.menu.$invalid">
+			<button class="button" v-bind:class="{ 'is-loading': loadMenuProgress }" :disabled="$v.loadSingleMenu.$invalid">
 				<span class="icon is-small">
 					<i class="fas fa-save purple-color"></i>
 				</span>
@@ -149,9 +150,6 @@ export default {
 
 
 		menu: {
-			Name: null,
-			description: null,
-			price: null,
 			imageName: null,
 			imageFile: "",
 		},
@@ -162,7 +160,7 @@ export default {
 
 	validations: { //Validation calibrace open 
 
-		menu: {
+		loadSingleMenu: {
 
 			name: {
 				required,
@@ -180,10 +178,21 @@ export default {
 
 	}, //Validation calibrace close 
 
+	created() {
+		this.setSingleMenu()
+	},
+
+
 	methods: {
-		...mapActions(["createMenuData", "clearMenuErrors"]),
+		...mapActions(["editMenuData", "clearMenuErrors", 'fetchSingleMenu']),
 
 		// Local method goes here
+
+		setSingleMenu() {
+			let id = this.$route.params.id
+			this.fetchSingleMenu(id)
+		},
+
 
 		fileUploadMenu(e) {
 			this.menu.imageName = e.target.files[0].name
@@ -194,21 +203,22 @@ export default {
 
 
 			let data = new FormData();
-			data.append("_method", "post");
-			data.append('name', this.menu.name);
-			data.append('price', this.menu.price);
+			data.append("_method", "patch");
+			data.append('name', this.$store.getters.loadSingleMenu.name);
+			data.append('price', this.$store.getters.loadSingleMenu.price);
 			data.append('file', this.menu.imageFile);
-			data.append('description', this.menu.description);
+			data.append('description', this.$store.getters.loadSingleMenu.description);
 
-			let id = this.$route.params.id
-			this.createMenuData( {data, id } )
+			let id = this.$store.getters.loadSingleMenu.id
+			let restaurantId = this.$store.getters.loadSingleMenu.restaurant_id
+			this.editMenuData( {data, id, restaurantId } )
 
 		},
 
 	}, // Method calibrace close
 
 	computed: {
-		...mapGetters(['loadMenuProgress', 'loadMenuErrors']),
+		...mapGetters(['loadMenuProgress', 'loadMenuErrors', 'loadSingleMenu']),
     // Local computed properties
 
 },

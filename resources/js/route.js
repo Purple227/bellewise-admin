@@ -11,6 +11,7 @@ import ViewRestaurant from './Components/Restaurant/viewRestaurant.vue';
 import EditRestaurant from './Components/Restaurant/editRestaurant.vue';
 import Menu from './Components/Restaurant/menu.vue';
 import AddMenu from './Components/Restaurant/addMenu.vue';
+import EditMenu from './Components/Restaurant/editMenu.vue';
 import RestaurantSetting from './Components/Restaurant/restaurantSetting.vue';
 
 import Driver from './Components/Driver/index.vue';
@@ -213,6 +214,22 @@ const routes = [
 	path: '/restaurant/:id/menu/add',
 	name:'add-menu',
 	component: AddMenu,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.restaurant_create == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
+},
+
+{ 
+	path: '/restaurant/:id/menu/edit',
+	name:'edit-menu',
+	component: EditMenu,
 
 	beforeEnter: (to, from, next) => {
 		console.log(Store.getters.loadAuthUser.admin )

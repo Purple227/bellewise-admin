@@ -11,7 +11,6 @@ const state = {
 	restaurantBlockedDatas: null,
 	allRestaurantsDatas: [],
 	activeRestaurants : [],
-	allActiveRestaurants: [],
 
 	restaurantSearchResult: null,
 
@@ -37,7 +36,6 @@ const getters = {
 	loadRestaurantSearch: (state) => state.restaurantSearchResult,
 	loadBlockedRestaurants: (state) => state.restaurantBlockedDatas,
 	loadActiveRestaurants: (state) => state.activeRestaurants,
-	loadAllActiveRestaurants: (state) => state.allActiveRestaurants,
 
 }; //Getters calibrace close
 
@@ -100,15 +98,6 @@ const actions = {
 
 		commit('setToPage', response.data.to)
 		commit('setTotal', response.data.total)
-	},
-
-
-	async fetchAllActiveRestaurants({commit}, uri) {
-		commit('setLoading', true)
-		let api = uri ||'/api/restaurant/all-active'
-		const response = await axios.get(api);
-		commit('setAllActiveDatas', response.data)
-		commit('setLoading', false)
 	},
 
 	async fetchSingleRestaurant({commit}, id) {
@@ -223,7 +212,6 @@ const mutations = {
 
 	setBlockedDatas: (state, blockedDatas) => state.restaurantBlockedDatas = blockedDatas,
 	setActiveDatas: (state, active) => state.activeRestaurants = active,
-	setAllActiveDatas: (state, allActive) => state.allActiveRestaurants = allActive
 
 
 }; //Mutations calibrace close

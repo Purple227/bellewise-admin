@@ -57,13 +57,6 @@ class RestaurantController extends Controller
         return response()->json($active_restaurants);
     }
 
-    public function allActiveRestaurants()
-    {
-        $all_active_restaurants = Restaurant::where('status', 1)
-        ->get();
-        return response()->json($all_active_restaurants);
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -78,7 +71,7 @@ class RestaurantController extends Controller
             'phone' => ['required', 'unique:restaurants'],
             'address' => 'required',
             'license_number' => 'required',
-            //'email' => ['email:rfc,dns', 'unique:restaurants'],
+            'email' => ['email:rfc,dns', 'unique:restaurants'],
             'restaurant_file' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
