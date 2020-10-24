@@ -168,7 +168,7 @@
 			<div class="card-content">
 				<div class="content is-bold has-text-centered subtitle">
 
-					<span class="fa"> No menu found. Add a menu. </span>
+					<span class="fa"> No active menu found.  </span>
 
 				</div>
 			</div>
