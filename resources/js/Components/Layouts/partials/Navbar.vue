@@ -14,7 +14,7 @@
     <div id="navbarBasicExample" class="navbar-menu" v-bind:class="{ 'is-active': isActive }">
       <div class="navbar-start">
 
-        <a class="navbar-item">
+        <a href="www.bellewisefoods.com" target="_blank" class="navbar-item">
           <a class="button">
             <span class="icon is-small">
               <i class="fas fa-globe purple-color"></i>

@@ -1,13 +1,24 @@
-<template>
+<template>	
 
-	<div>
-	
-
-	<div class="container" v-if="false"> <!-- Container tag open -->
+	<div class="container"> <!-- Container tag open -->
 
 
 
-		<div class="tabs is-toggle">
+
+
+<div class="card">
+  <div class="card-content">
+    <div class="content is-bold has-text-centered subtitle">
+
+  <span class="fa"> Content will be gotten from customer app. </span>
+
+    </div>
+  </div>
+</div>
+
+
+
+		<div class="tabs is-toggle" v-if="false">
 
 			<ul>
 
@@ -33,11 +44,13 @@
 					</a>
 				</li>
 
-
-
 			</ul>
 		</div>
 
+
+
+
+<div v-if="false">
 		<div class="" v-if="pending">
 			<pending-order> </pending-order>
 		</div>
@@ -49,25 +62,10 @@
 		<div class="" v-if="history">
 			<history-order> </history-order>
 		</div>
+</div>
 
 
 	</div> <!-- Container tag close -->
-
-
-
-
-
-<div class="card">
-  <div class="card-content">
-    <div class="content is-bold has-text-centered subtitle">
-
-  <span class="fa"> Content will be gotten from customer app. </span>
-
-    </div>
-  </div>
-</div>
-
-</div>
 
 </template>
 

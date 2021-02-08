@@ -45,10 +45,10 @@ const actions = {
 		commit('setLoading', false)
 
 		let nextPageUrl = response.data.next_page_url
-		commit('setNextPageURL', nextPageUrl ? nextPageUrl.slice(21) : null)
+		commit('setNextPageURL', nextPageUrl)
 
 		let previousPageUrl = response.data.prev_page_url
-		commit('setPrePageURL', previousPageUrl ? previousPageUrl.slice(21) : null)
+		commit('setPrePageURL', previousPageUrl)
 
 		commit('setToPage', response.data.to)
 		commit('setTotal', response.data.total)

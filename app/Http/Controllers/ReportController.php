@@ -15,17 +15,14 @@ class ReportController extends Controller
 	{	
 
 		//$phones =  trim( $request->phones, '[]');
-		$phones = $request->phones;
+		$phones = json_decode($request->phones);
 		$data = (object) $request->all();
-		try {
+
 			foreach ($phones as $phone)
 			{
 				Notification::route('nexmo', $phone )
 				->notify(new ReportCredentials($data));
 			}
-		} catch (\Exception $e) {
-			Log::error(' Nexmo API developer are to be blame.');
-		}
 
 	}
 
@@ -33,17 +30,14 @@ class ReportController extends Controller
 	{	
 
 		//$phones =  trim( $request->phones, '[]');
-		$emails = $request->phones;
+		$emails = json_decode($request->mail);
 		$data = (object) $request->all();
-		try {
+
 			foreach ($emails as $email)
 			{
 				Notification::route('mail',$email)
 				->notify(new ReportCredentials( $data ));
 			}
-		} catch (\Exception $e) {
-			Log::error(' Blame your network provider.');
-		}
 
 	}
 

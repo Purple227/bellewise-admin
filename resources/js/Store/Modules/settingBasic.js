@@ -9,7 +9,9 @@ const state = {
 	settingProgress: false,
 	SettingErrors: null,
 	writeUpNotification: null,
-	cancellationPolicyNotification: null
+	cancellationPolicyNotification: null,
+	deliveryCharge: null,
+	deliveryChargeNotification: null
 
 }; // State calibrace close
 
@@ -22,6 +24,8 @@ const getters = {
 	loadSettingErrors: (state) => state.SettingErrors,
 	loadSettingProgress: (state) => state.settingProgress,
 	loadCancellationPolicyNotification: (state) => state.cancellationPolicyNotification,
+	loadDeliveryCharge: (state) => state.deliveryCharge,
+	loadDeliveryChargeNotification: (state) => state.deliveryChargeNotification,
 
 }; //Getters calibrace close
 
@@ -42,6 +46,15 @@ const actions = {
 		commit('setCancellationPolicy', response.data)
 		commit('setLoading', false)
 	},
+
+	async fetchDeliveryCharge({commit}, id ) {
+		commit('setLoading', true)
+		let api = '/api/setting/dellivery-charge/' + id
+		const response = await axios.get(api);
+		commit('setDeliveryCharge', response.data)
+		commit('setLoading', false)
+	},
+
 
 
 
@@ -73,6 +86,26 @@ const actions = {
 		const response = await axios.post('/api/setting/cancellation-policy', data, config )
 		.then((response) => {
 			commit('setCancellationPolicyNotification', true)
+			commit('setProgress', false)
+		}).catch(error=>{
+			let failure = error.response.data
+			commit('setErrors', failure)
+			commit('setProgress', false)
+
+			setTimeout(() => {
+				commit('setErrors', null)
+			}, 10000)
+		})
+	},
+
+	async createDeliveryCharge({ commit }, data) {
+		commit('setProgress', true)
+		const config = {
+			headers: { 'content-type': 'application/x-www-form-urlencoded' }
+		}
+		const response = await axios.post('/api/setting/dellivery-charge', data, config )
+		.then((response) => {
+			commit('setDeliveryChargeNotification', true)
 			commit('setProgress', false)
 		}).catch(error=>{
 			let failure = error.response.data
@@ -133,6 +166,30 @@ const actions = {
 
 
 
+	async editDeliveryCharge({ commit }, {data, id}) {
+		commit('setProgress', true)
+		console.log(...data)
+		console.log(id)
+		let api = '/api/setting/dellivery-charge/' + id
+		const config = {
+			headers: { 'content-type': 'application/x-www-form-urlencoded' }
+		}
+		const response = await axios.post(api, data, config )
+		.then((response) => {
+			commit('setDeliveryChargeNotification', true)
+			commit('setProgress', false)
+		}).catch(error=>{
+			let failure = error.response.data
+			commit('setErrors', failure)
+			commit('setProgress', false)
+
+			setTimeout(() => {
+				commit('setErrors', null)
+			}, 10000)
+		})
+
+	},
+
 	async clearSettingErrors ({commit}) {
 		commit('unsetErrors')
 	},
@@ -149,6 +206,11 @@ const actions = {
 		}, 10000)
 	},
 
+	async clearDeliveryChargeNotification ({commit}) {
+		setTimeout(() => {
+			commit('setDeliveryChargeNotification', false)
+		}, 10000)
+	},
 
 }; //Actions calibrace close
 
@@ -156,12 +218,16 @@ const mutations = {
 
 	setWriteUp: (state, data) => state.writeUpDatas = data,
 	setCancellationPolicy : (state, datas) => state.cancellationPolicy = datas,
+	setDeliveryCharge : (state, datas) => state.deliveryCharge = datas,
 
 	setWriteUpNotification: (state, notification) => state.writeUpNotification = notification,
 	setWriteUpNotification: (state, notification) => state.writeUpNotification = notification,
 
 	setCancellationPolicyNotification: (state, notification) => state.cancellationPolicyNotification = notification,
 	setCancellationPolicyNotification: (state, notification) => state.cancellationPolicyNotification = notification,
+
+	setDeliveryChargeNotification: (state, notification) => state.deliveryChargeNotification = notification,
+	setDeliveryChargeNotification: (state, notification) => state.deliveryChargeNotification = notification,
 
 	setLoading: (state, loading) => state.settingLoader = loading,
 

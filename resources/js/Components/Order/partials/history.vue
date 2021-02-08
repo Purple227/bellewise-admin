@@ -6,9 +6,8 @@
 	<div>
 
 
-
 		<!-- Main container -->
-		<nav class="level">
+		<nav class="level" >
 
 			<div class="level-item">
 				<div class="field">

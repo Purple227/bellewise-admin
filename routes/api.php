@@ -65,6 +65,9 @@ Route::patch('/setting/write-up/{id}', 'SettingBasicController@updateWriteUp');
 Route::post('/setting/cancellation-policy', 'SettingBasicController@createCancellationPolicy');
 Route::get('/setting/cancellation-policy/{id}', 'SettingBasicController@showCancellationPolicy');
 Route::patch('/setting/cancellation-policy/{id}', 'SettingBasicController@updateCancellationPolicy');
+Route::post('/setting/dellivery-charge', 'SettingBasicController@createDeliveryCharge');
+Route::get('/setting/dellivery-charge/{id}', 'SettingBasicController@showDeliveryCharge');
+Route::patch('/setting/dellivery-charge/{id}', 'SettingBasicController@updateDeliveryCharge');
 
 Route::post('/setting/policy', 'SettingTermPolicyController@createPolicy');
 Route::get('/setting/policy/{id}', 'SettingTermPolicyController@showPolicy');

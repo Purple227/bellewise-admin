@@ -46,14 +46,86 @@
        </div>
 
 
-     </div> <!-- column tag close -->
+       <div class="field" v-if="Object.keys(loadWriteUp).length == 0">
+        <p class="control">
+         <button class="button" v-bind:class="{ 'is-loading': loadSettingProgress }" :disabled="$v.writeUp.$invalid" @click="submitFormOne">
+          <span class="icon is-small">
+           <i class="fas fa-save purple-color"></i>
+         </span>
+         <span class="is-bold"> Save </span>
+       </button>
+     </p>
+   </div>
 
-   </div> <!-- Columns wrapper tag close -->
-
-
-   <div class="field" v-if="Object.keys(loadWriteUp).length == 0">
+   <div class="field" v-else>
     <p class="control">
-     <button class="button" v-bind:class="{ 'is-loading': loadSettingProgress }" :disabled="$v.writeUp.$invalid" @click="submitFormOne">
+     <button class="button" v-bind:class="{ 'is-loading': loadSettingProgress }" :disabled="$v.loadWriteUp.$invalid" @click="submitFormOneUpdate">
+      <span class="icon is-small">
+       <i class="fas fa-save purple-color"></i>
+     </span>
+     <span class="is-bold"> Update </span>
+   </button>
+ </p>
+</div>
+
+</div> <!-- column tag close -->
+
+
+
+<div class="column"> <!-- column tag open-->
+
+  <label class="label "> Delivery Charges </label>
+
+  <div class="field has-addons" v-if="loadDeliveryCharge">
+    <p class="control">
+      <span class="select">
+        <select>
+          <option>₦</option>
+        </select>
+      </span>
+    </p>
+    <p class="control is-expanded has-icons-left">
+      <input class="input is-info" type="number" min="0" oninput="validity.valid||(value='');" placeholder="Amount of money" v-model="loadDeliveryCharge.delivery_charge">
+      <!-- Has icon right -->
+      <span class="icon is-small is-left">
+        <i class="fas fa-cash purple-color"></i>
+      </span>
+    </p>
+  </div>
+
+  <div class="field has-addons" v-else>
+    <p class="control">
+      <span class="select">
+        <select>
+          <option>₦</option>
+        </select>
+      </span>
+    </p>
+    <p class="control is-expanded has-icons-left">
+      <input class="input is-info" type="number" min="0" oninput="validity.valid||(value='');" placeholder="Amount of money" v-model="delivery.charges">
+      <!-- Has icon right -->
+      <span class="icon is-small is-left">
+        <i class="fas fa-cash purple-color"></i>
+      </span>
+    </p>
+  </div>
+
+
+
+<div class="field" v-if="loadDeliveryCharge">
+  <p class="control">
+   <button class="button" v-bind:class="{ 'is-loading': loadSettingProgress }" :disabled="$v.loadDeliveryCharge.$invalid" @click="submitFormThreeUpdate">
+    <span class="icon is-small">
+     <i class="fas fa-save purple-color"></i>
+   </span>
+   <span class="is-bold"> Update </span>
+ </button>
+</p>
+</div>
+
+   <div class="field" v-else>
+    <p class="control">
+     <button class="button" v-bind:class="{ 'is-loading': loadSettingProgress }" :disabled="$v.delivery.$invalid" @click="submitFormThree">
       <span class="icon is-small">
        <i class="fas fa-save purple-color"></i>
      </span>
@@ -62,16 +134,11 @@
  </p>
 </div>
 
-<div class="field" v-else>
-  <p class="control">
-   <button class="button" v-bind:class="{ 'is-loading': loadSettingProgress }" :disabled="$v.loadWriteUp.$invalid" @click="submitFormOneUpdate">
-    <span class="icon is-small">
-     <i class="fas fa-save purple-color"></i>
-   </span>
-   <span class="is-bold"> Update </span>
- </button>
-</p>
-</div>
+</div> <!-- column tag close -->
+
+
+
+</div> <!-- Columns wrapper tag close -->
 
 </div>	<!-- Box tag close -->
 
@@ -433,6 +500,10 @@ export default {
     selected: '',
   },
 
+  delivery: {
+    charges: null,
+  }
+
 }),
 
   validations: {
@@ -442,6 +513,17 @@ export default {
       maxLength: maxLength(225)
     },
 
+    delivery: {
+      charges: {
+        required
+      }
+    },
+
+    loadDeliveryCharge: {
+      delivery_charge: {
+        required
+      }
+    },
 
     cancellationPolicy: {
       maxCancellationTime: {
@@ -473,6 +555,7 @@ export default {
   mounted() {
     this.setWriteUpId()
     this.setcancellationPolicy()
+    this.setDeliveryCharge()
    //Object.keys(this.$store.getters.loadWriteUp == 0) ? console.log('yes') : console.log('no')
    //Object.keys(this.$store.getters.loadCancellationPolicy == 0) ? this.fetchCancellationPolicy() : ''
    this.bulmaCalendar()
@@ -481,7 +564,7 @@ export default {
  },
 
  methods: {
-  ...mapActions(["createWriteUp", "clearSettingErrors", "fetchWriteUp", "editWriteUp", "createCancellationPolicy", "fetchCancellationPolicy", "editCancellationPolicy", "clearWriteUpNotification", "clearCancellatonPolicyNotification"]),
+  ...mapActions(["createWriteUp", "clearSettingErrors", "fetchWriteUp", "editWriteUp", "createCancellationPolicy", "fetchCancellationPolicy", "editCancellationPolicy", "clearWriteUpNotification", "clearCancellatonPolicyNotification", "fetchDeliveryCharge", "createDeliveryCharge", "editDeliveryCharge"]),
 
     // Local method goes here
 
@@ -489,6 +572,13 @@ export default {
       let id = 1
       this.fetchWriteUp(id)
     },
+
+
+    setDeliveryCharge() {
+      let id = 1
+      this.fetchDeliveryCharge(id)
+    },
+
 
     setcancellationPolicy() {
       let id = 1
@@ -516,6 +606,14 @@ export default {
       this.createCancellationPolicy(data).then(() => this.setcancellationPolicy() )
     },
 
+    submitFormThree() {
+      let data = new FormData();
+      data.append("_method", "post");
+      data.append('delivery_charges', this.delivery.charges);
+      this.createDeliveryCharge(data).then(() => this.setDeliveryCharge() )
+    },
+
+
     submitFormOneUpdate() {
       let data = new FormData();
       data.append("_method", "patch");
@@ -538,6 +636,16 @@ export default {
       let id = this.$store.getters.loadCancellationPolicy.id
       this.editCancellationPolicy({data, id}).then(() => this.setcancellationPolicy() )
     },
+
+
+    submitFormThreeUpdate() {
+      let data = new FormData();
+      data.append("_method", "patch");
+      data.append('delivery_charges', this.$store.getters.loadDeliveryCharge.delivery_charge );
+      let id = this.$store.getters.loadDeliveryCharge.id
+      this.editDeliveryCharge({data, id}).then(() => this.setDeliveryCharge() )
+    },
+
 
     bulmaCalendar() {
 // Initialize all input of date type.
@@ -568,7 +676,7 @@ if (element) {
 
 
   computed: {
-    ...mapGetters(['loadSettingProgress', 'loadSettingErrors', 'loadWriteUp', 'loadSettingLoader','loadWriteUpNotification', 'loadCancellationPolicy', 'loadCancellationPolicyNotification']),
+    ...mapGetters(['loadSettingProgress', 'loadSettingErrors', 'loadWriteUp', 'loadSettingLoader','loadWriteUpNotification', 'loadCancellationPolicy', 'loadCancellationPolicyNotification', 'loadDeliveryCharge', 'loadDeliveryCharge', 'loadDeliveryChargeNotification']),
     // Local computed properties
 
   },

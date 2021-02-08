@@ -56,7 +56,7 @@ class ReportCredentials extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->subject('Your bellewise Details')
+        ->subject('Bellewisefoods')
         ->line($this->data->message) 
         //->action('Get the app', url('/') )
         ->line('Thanks for using our application!');

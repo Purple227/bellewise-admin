@@ -18,7 +18,7 @@ loadReportErrors: (state) => state.reportErrors
 
 const actions = {
 
-	async sendDriverSMS({ commit }, data) {
+	async sendSMS({ commit }, data) {
 		commit('setProgress', true)
 		console.log(...data)
 		const config = {
@@ -39,29 +39,7 @@ const actions = {
 		})
 	},
 
-	async sendRestaurantSMS({ commit }, data) {
-		commit('setProgress', true)
-		console.log(...data)
-		const config = {
-			headers: { 'content-type': 'application/x-www-form-urlencoded' }
-		}
-		const response = await axios.post('/api/report/restaurant-notification', data, config )
-		.then((response) => {
-			commit('setNotification', true)
-			commit('setProgress', false)
-		}).catch(error=>{
-			let failure = error.response.data
-			commit('setErrors', failure)
-			commit('setProgress', false)
-
-			setTimeout(() => {
-				commit('setErrors', null)
-			}, 10000)
-		})
-	},
-
-
-	async sendDriverMail({ commit }, data) {
+	async sendMail({ commit }, data) {
 		commit('setProgress', true)
 		console.log(...data)
 		const config = {
@@ -83,26 +61,6 @@ const actions = {
 	},
 
 
-	async sendRestaurantMail({ commit }, data) {
-		commit('setProgress', true)
-		console.log(...data)
-		const config = {
-			headers: { 'content-type': 'application/x-www-form-urlencoded' }
-		}
-		const response = await axios.post('/api/report/restaurant-mail', data, config )
-		.then((response) => {
-			commit('setNotification', true)
-			commit('setProgress', false)
-		}).catch(error=>{
-			let failure = error.response.data
-			commit('setErrors', failure)
-			commit('setProgress', false)
-
-			setTimeout(() => {
-				commit('setErrors', null)
-			}, 10000)
-		})
-	},
 
 
 }; //Actions calibrace close

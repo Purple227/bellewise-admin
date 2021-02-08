@@ -27,7 +27,7 @@
 
 
 		<div class="notification is-light is-bold pointer" @click="display=!display">
-			<span> Send NOtification and Email To Drivers </span> <span class="fas fa-angle-down purple-color is-pulled-right"></span>
+			<span> Send NOtification and Email </span> <span class="fas fa-angle-down purple-color is-pulled-right"></span>
 		</div>
 
 
@@ -56,11 +56,7 @@
 
 
 					<div class="notification purple-bg-light is-bold has-text-black" v-if="loadReportErrors">
-						<ul>
-							<li v-for="(value, name, index) in loadReportErrors">
-								{{ index+1 }} . {{ value[0] }}
-							</li>
-						</ul>
+								Task failed
 					</div>
 
 
@@ -111,8 +107,6 @@
 						<label class="label">Message</label>
 						<div class="control">
 							<tinymce-editor api-key="API_KEY" :init="{plugins: 'wordcount'}" v-model="mail.message" />
-							<p class="help is-danger is-bold" v-if="($v.mail.message.$invalid || $v.mail.selectedMail.$invalid)"> You have to select atleast one recipent and field is required. </p>
-							<p class="help purple-color is-bold" v-else> You good to go. </p>
 						</div>
 					</div>
 
@@ -304,7 +298,7 @@ export default {
 
 
 	methods: {
-		...mapActions(['fetchActiveDatas', 'clearNotification', 'searchDatas', 'sendDriverSMS','fetchAllActiveDatas', 'sendDriverMail']),
+		...mapActions(['fetchActiveDatas', 'clearNotification', 'searchDatas', 'sendSMS','fetchAllActiveDatas', 'sendMail']),
 		// Local method
 
 		paginationHandler(uri) {
@@ -321,8 +315,8 @@ export default {
 			let data = new FormData();
 			data.append("_method", "post");
 			data.append('message', this.SMSMessage);
-			data.append('phones', JSON.stringify(this.selectedDriver));
-			this.sendDriverSMS(data)
+			data.append('phones', JSON.stringify(this.selectedNotification));
+			this.sendSMS(data)
 			if (this.$store.getters.loadReportNotification == true) {
 				this.picked == false
 				this.success = true 
@@ -332,9 +326,9 @@ export default {
 		submitEmail() {
 			let data = new FormData();
 			data.append("_method", "post");
-			data.append('message', this.SMSMessage);
-			data.append('phones', JSON.stringify(this.selectedDriver));
-			this.sendDriverMail(data)
+			data.append('message', this.mail.message);
+			data.append('mail', JSON.stringify(this.mail.selectedMail));
+			this.sendMail(data)
 			if (this.$store.getters.loadReportNotification == true) {
 				this.picked == false
 				this.success = true 

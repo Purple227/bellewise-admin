@@ -1,6 +1,7 @@
 
 
 
+
 <template>
 
 	<div class="container"> <!-- Container tag open -->
@@ -13,7 +14,7 @@
 			<div class="level-item has-text-centered">
 				<div class="field has-addons">
 					<div class="control">
-						<input class="input" type="text" placeholder=" Search restaurant by name" v-model="searchQuery" v-on:keyup="searchMethod">
+						<input class="input" type="text" placeholder=" Search " v-model="searchQuery" v-on:keyup="searchMethod">
 					</div>
 					<div class="control">
 						<a class="button purple-color">
@@ -27,7 +28,7 @@
 
 
 		<div class="notification is-light is-bold pointer" @click="display=!display">
-			<span> Send NOtification and Email To Drivers </span> <span class="fas fa-angle-down purple-color is-pulled-right"></span>
+			<span> Send NOtification and Email </span> <span class="fas fa-angle-down purple-color is-pulled-right"></span>
 		</div>
 
 
@@ -55,12 +56,8 @@
 				<div class="" v-if=" 'notification' == picked"> 
 
 
-					<div class="notification purple-bg-light is-bold has-text-black" v-if="loadRestaurantErrors">
-						<ul>
-							<li v-for="(value, name, index) in loadRestaurantErrors">
-								{{ index+1 }} . {{ value[0] }}
-							</li>
-						</ul>
+					<div class="notification purple-bg-light is-bold has-text-black" v-if="loadReportErrors">
+								Task failed
 					</div>
 
 
@@ -111,14 +108,12 @@
 						<label class="label">Message</label>
 						<div class="control">
 							<tinymce-editor api-key="API_KEY" :init="{plugins: 'wordcount'}" v-model="mail.message" />
-							<p class="help is-danger is-bold" v-if="($v.mail.message.$invalid || $v.mail.selectedMail.$invalid)"> You have to select atleast one recipent and field is required. </p>
-							<p class="help purple-color is-bold" v-else> You good to go. </p>
 						</div>
 					</div>
 
 					<div class="field is-grouped is-grouped-right">
 						<div class="control">
-							<button class="button purple-color is-bold" v-bind:class="{ 'is-loading': loadRestaurantProgress }" :disabled="$v.mail.$invalid">Send</button>
+							<button class="button purple-color is-bold" v-bind:class="{ 'is-loading': loadReportProgress }" :disabled="$v.mail.$invalid">Send</button>
 						</div>
 					</div>
 				</div>
@@ -147,28 +142,29 @@
 					<thead>
 						<tr>
 							<th> <i class="fas fa-check purple-color"></i> </th>
-							<th> <span class="purple-color"> ID </span> </th>
+							<th> <span class="purple-color"> # </span> </th>
 							<th> <span class="purple-color"> Name </span> </th>
-							<th class="has-text-centered"> <span class="purple-color"> Phone </span> </th>
 							<th class="has-text-centered"> <span class="purple-color"> Email </span> </th>
-							<th> <span class="purple-color"> Revenue </span> </th>
-							<th> <span class="purple-color"> Commission </span> </th>
+							<th class="has-text-centered"> <span class="purple-color"> Phone </span> </th>
+							<th class="has-text-centered"> <span class="purple-color"> Commission </span> </th>
+							<th class="has-text-centered"> <span class="purple-color"> Revenue </span> </th>
 						</tr>
 					</thead>
 
 					<tbody>
 
-						<tr v-for="(restaurant, index) in searchQuery.length  > 1  ? loadRestaurantSearch : loadActiveRestaurants " :key="index">
+						<tr v-for="(restaurant, index) in searchQuery.length  > 1  ? loadSearch : loadActiveRestaurants " :key="index">
 							<td class="has-text-centered"> 
-								<input type="checkbox" :value="restaurant.phone" v-model="selectedNotification" v-if=" 'notification' == picked"> 
-								<input type="checkbox" :value="restaurant.email" v-model="mail.selectedMail" v-else>
-							</td>
-							<th> <span class="purple-color"> {{ index+1 }} </span> </th>
+							<input type="checkbox" :value="restaurant.phone" v-model="selectedNotification" v-if=" 'notification' == picked">
+							<input type="checkbox" :value="restaurant.email" v-model="mail.selectedMail" v-else>
+							 </td>
+					
+							<th> <span class="purple-color"> {{ restaurant.id}} </span> </th>
 							<td> {{ restaurant.name.substring(0,6) }} </td>
-							<td> {{ restaurant.phone }} </td>
 							<td> {{ restaurant.email.substring(0,10) }} </td>
-							<td> ₦{{restaurant.revenue}} </td>
-							<td class="has-text-centered"> {{ restaurant.commmission }} </td>
+							<td> {{ restaurant.phone }} </td>
+							<td> {{ restaurant.commmission }} </td>
+							<td class="has-text-centered"> {{ restaurant.revenue }} </td>
 						</tr>
 
 					</tbody>
@@ -187,6 +183,7 @@
 
 
 					<a class="button">
+
 						{{ loadRestaurantPagination.to}} 0f {{loadRestaurantPagination.total}}
 					</a>
 
@@ -294,24 +291,24 @@ export default {
 
 
 	created() {
+		this.clearNotification()
 		this.fetchActiveRestaurants()
-		this.clearRestaurantNotification()
-		this.fetchAllActiveRestaurants();
+		this.fetchAllRestaurantDatas()
 	},
 
 
 
 	methods: {
-		...mapActions(['fetchActiveRestaurants', 'clearRestaurantNotification', 'searchRestaurantDatas', 'sendRestaurantSMS','fetchAllActiveRestaurants', 'sendRestaurantMail']),
+		...mapActions(['fetchActiveRestaurants', 'clearNotification', 'searchRestaurantDatas', 'sendSMS', 'sendMail', 'fetchAllRestaurantDatas']),
 		// Local method
 
 		paginationHandler(uri) {
-			this.fetchActiveDatas(uri)
+			this.fetchActiveRestaurants(uri)
 		},
 
 		searchMethod() {
 			if(this.searchQuery > 1) {
-				this.searchDatas(this.searchQuery)
+				this.searchRestaurantDatas(this.searchQuery)
 			}
 		},
 
@@ -319,8 +316,8 @@ export default {
 			let data = new FormData();
 			data.append("_method", "post");
 			data.append('message', this.SMSMessage);
-			data.append('phones', JSON.stringify(this.selectedDriver));
-			this.sendRestaurantSMS(data)
+			data.append('phones', JSON.stringify(this.selectedNotification));
+			this.sendSMS(data)
 			if (this.$store.getters.loadReportNotification == true) {
 				this.picked == false
 				this.success = true 
@@ -330,9 +327,9 @@ export default {
 		submitEmail() {
 			let data = new FormData();
 			data.append("_method", "post");
-			data.append('message', this.SMSMessage);
-			data.append('phones', JSON.stringify(this.selectedDriver));
-			this.sendRestaurantMail(data)
+			data.append('message', this.mail.message);
+			data.append('mail', JSON.stringify(this.mail.selectedMail));
+			this.sendMail(data)
 			if (this.$store.getters.loadReportNotification == true) {
 				this.picked == false
 				this.success = true 
@@ -343,26 +340,26 @@ export default {
 
 
 	computed: {
-		...mapGetters(['loadActiveRestaurants', 'loadRestaurantLoader', 'loadRestaurantPagination', 'loadRestaurantSearch', 'loadReportNotification', 'loadReportProgress','loadAllActiveRestaurants', 'loadReportErrors']),
+		...mapGetters(['loadActiveRestaurants', 'loadRestaurantLoader', 'loadRestaurantPagination', 'loadRestaurantSearch', 'loadReportNotification', 'loadReportProgress','loadAllRestaurants', 'loadReportErrors']),
     // Local computed properties
     markAllNotification() {
-    	let activeRestaurantPhones = this.$store.getters.loadAllActiveRestaurants
-    	let arrayLength = this.$store.getters.loadAllActiveRestaurants.length
-    	let selectAllPhones = []
+    	let active = this.$store.getters.loadAllRestaurants
+    	let arrayLength = this.$store.getters.loadAllRestaurants.length
+    	let selectAll = []
     	for (let i = 0; i < arrayLength; i++) {
-    		selectAllPhones.push(activeRestaurantPhones[i].phone)
+    		selectAll.push(active[i].phone)
     	}
-    	return  selectAllPhones
+    	return  selectAll
     },
 
     markAllMail() {
-    	let activeRestaurantMails = this.$store.getters.loadAllActiveRestaurants
-    	let arrayLength = this.$store.getters.loadAllActiveRestaurants.length
-    	let selectAllMail = []
+    	let active = this.$store.getters.loadAllRestaurants
+    	let arrayLength = this.$store.getters.loadAllRestaurants.length
+    	let selectAll = []
     	for (let i = 0; i < arrayLength; i++) {
-    		selectAllMail.push(activeRestaurantMails[i].email)
+    		selectAll.push(active[i].email)
     	}
-    	return  selectAllMail
+    	return  selectAll
     },
 
 },

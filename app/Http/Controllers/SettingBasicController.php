@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use App\WriteUp;
 use App\CancellationPolicy;
+use App\DeliveryCharge;
 
 use Illuminate\Http\Request;
 
@@ -119,5 +120,55 @@ class SettingBasicController extends Controller
 
 		return response()->json('success');
 	}
+
+
+	public function createDeliveryCharge(Request $request)
+	{
+		$validator = Validator::make($request->all(), [
+			'delivery_charges' => ['required'],
+		]);
+
+		if ($validator->fails()) {
+			return response()->json($validator->errors(), 400);
+		}
+
+		$delivery_charge = new DeliveryCharge;
+
+        // Save to database
+		$delivery_charge->delivery_charge = $request->delivery_charges;
+		$delivery_charge->save();
+
+		return response()->json('success');
+	}
+
+
+
+	public function updateDeliveryCharge(Request $request, $id)
+	{
+
+		$delivery_charge = DeliveryCharge::find($id);
+
+		$validator = Validator::make($request->all(), [
+			'delivery_charges' => ['required'],
+		]);
+
+		if ($validator->fails()) {
+			return response()->json($validator->errors(), 400);
+		}
+
+        // Save to database
+		$delivery_charge->delivery_charge = $request->delivery_charges;
+		$delivery_charge->save();
+
+		return response()->json('success');
+	}
+
+	public function showDeliveryCharge($id)
+	{
+		$delivery_charge = DeliveryCharge::find($id);
+		return response()->json($delivery_charge);
+	}
+
+
 
 }
