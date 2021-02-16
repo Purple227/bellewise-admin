@@ -18,7 +18,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Pending Orders 
 							<br>
-							<span class="subtitle is-bold"> 0 </span>
+							<span class="subtitle is-bold"> {{ loadOrderPendingCount }} </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
@@ -28,7 +28,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Restaurants
 							<br>
-							<span class="subtitle is-bold"> {{ loadRestaurantPagination.total }} </span>
+							<span class="subtitle is-bold"> {{ loadAllRestaurants.length }} </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
@@ -44,7 +44,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Active Orders
 							<br>
-							<span class="subtitle is-bold"> 0 </span>
+							<span class="subtitle is-bold"> {{ loadOrderConfirmedCount }} </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
@@ -54,7 +54,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Customers
 							<br>
-							<span class="subtitle is-bold"> 0 </span>
+							<span class="subtitle is-bold"> {{ loadAllUser ? loadAllUser : 'Wait' }} </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
@@ -64,30 +64,29 @@
 			</div> <!-- Second column tag close -->
 
 			<div class="column"> <!-- Third column tag open -->
-				
-				<div class="box border-bottom"> <!-- Box container tag open -->
-					<div class="content"> <!-- Content tag open -->
-						<p class="is-bold"> Unfulfilled Orders
+							
+
+				<div class="box border-bottom"> 
+					<div class="content"> 
+						<p class="is-bold"> All Orrders
 							<br>
-							<span class="subtitle is-bold"> 0 </span>
+							<span class="subtitle is-bold"> {{ loadAllOrder.length }} </span>
 						</p>
-					</div> <!-- Content tag close -->
-				</div> <!-- Box container tag close -->
+					</div> 
+				</div> 
 
 
 				<div class="box border-bottom"> <!-- Box container tag open -->
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Promotion
 							<br>
-							<span class="subtitle is-bold"> {{ loadPromoPagination.total }} </span>
+							<span class="subtitle is-bold"> {{ loadAllPromo.length }} </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
 
 
-
 			</div> <!-- Third column tag close -->
-
 
 		</div> <!-- Columns wrapper tag close -->
 
@@ -97,7 +96,7 @@
 			<span class="columns">
 
 				<div class="column">
-					<input id="my-element" type="date" data-display-mode="dialog"  data-close-on-select="false" data-color="info">
+	
 				</div>
 
 
@@ -140,15 +139,10 @@
 // Home.vue
 import BarOrderChart from "./Chart/barOrderChart.js";
 import BarRevenueChart from "./Chart/barRevenueChart.js";
-import BulmaCalendar from "../Mixins/bulmaCalendar.js";
 import { mapGetters, mapActions, mapState } from 'vuex';
 
 export default {
 	name: 'Home',
-
-	mixins: [
-	BulmaCalendar
-	],
 
 	components: {
 		'bar-order-chart': BarOrderChart,
@@ -264,25 +258,24 @@ export default {
 
 	}), // Data calibrace close
 
-	created() {
-		this.loadHomeCounter()
+	mounted() {
+		this.fetchAllRestaurantDatas()
+		this.fetchAllPromoDatas()
+		this.fetchPendingOrder()
+		this.fetchConfirmOrder()	
+		this.fetchAllOrder()
 	},
 
 	methods: {
-		...mapActions(["fetchRestaurantDatas", "fetchPromoDatas"]),
+		...mapActions(["fetchAllRestaurantDatas", "fetchAllPromoDatas", "fetchPendingOrder", "fetchConfirmOrder", 'fetchAllOrder']),
 
 		// Local method goes here
-
-		loadHomeCounter() {
-			this.fetchRestaurantDatas()
-			this.fetchPromoDatas()
-		}
 
 	}, // Method calibrace close
 
 
 	computed: {
-		...mapGetters(['loadRestaurantPagination', 'loadPromoPagination', 'loadAuthenticated', 'loadAuthUser']),
+		...mapGetters(['loadAllRestaurants', 'loadAllPromo', 'loadAuthenticated', 'loadAuthUser', 'loadAllUser', 'loadOrderPendingCount', 'loadOrderConfirmedCount', 'loadAllOrder']),
 
     // Local computed properties
 },

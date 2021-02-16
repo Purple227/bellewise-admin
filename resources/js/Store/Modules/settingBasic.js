@@ -10,7 +10,7 @@ const state = {
 	SettingErrors: null,
 	writeUpNotification: null,
 	cancellationPolicyNotification: null,
-	deliveryCharge: null,
+	deliveryCharge: {},
 	deliveryChargeNotification: null
 
 }; // State calibrace close

@@ -62,7 +62,7 @@ const actions = {
 		commit('setLoading', true)
 		let api = '/api/restaurant/all'
 		const response = await axios.get(api);
-		commit('setAllDatas', response.data)
+		commit('setAll', response.data)
 		commit('setLoading', false)
 	},
 
@@ -190,7 +190,7 @@ const actions = {
 const mutations = {
 
 	setDatas: (state, datas) => state.restaurantDatas = datas,
-	setAllDatas: (state, allDatas) => state.allRestaurantsDatas = allDatas,
+	setAll: (state, allDatas) => state.allRestaurantsDatas = allDatas,
 	setSingleData: (state, data) => state.restaurantData = data,
 
 	setNotification: (state, notification) => state.restaurantNotification = notification,

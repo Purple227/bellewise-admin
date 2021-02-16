@@ -255,12 +255,14 @@
 								</label>
 							</div>
 
+<!--
 							<div class="field">
 								<label class="checkbox" >
 									<input type="checkbox" v-model="order.reject" @click="order.reject = !order.reject">
 									<span class="is-bold"> Reject </span>
 								</label>
 							</div>
+-->
 
 						</div>
 					</div>
@@ -296,6 +298,7 @@
 								</label>
 							</div>
 
+<!--
 							<div class="field">
 								<label class="checkbox">
 									<input type="checkbox" v-model="user.block" @click="user.block = !user.block">
@@ -310,6 +313,7 @@
 									<span class="is-bold"> Reset Password </span>
 								</label>
 							</div>
+-->
 
 						</div>
 					</div>

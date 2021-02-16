@@ -16,6 +16,9 @@ import SettingBasic from './Modules/settingBasic.js'
 import SettingTermPolicy from './Modules/settingTermPolicy.js'
 import Auth from './Modules/auth.js'
 import Permission from './Modules/permission.js'
+import Order from './Modules/order.js'
+import User from './Modules/user.js'
+import Account from './Modules/account.js'
 
 export default new Vuex.Store({
 
@@ -31,7 +34,10 @@ export default new Vuex.Store({
     'setting-basic': SettingBasic,
     'setting-term-policy': SettingTermPolicy,
     'auth': Auth,
-    'permission': Permission
+    'permission': Permission,
+    'order': Order,
+    'user': User,
+    'account': Account,
   },
   
 })

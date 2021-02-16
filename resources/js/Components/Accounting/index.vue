@@ -3,18 +3,8 @@
 	
 	<div class="container"> <!-- Container tag open -->
 
-		<div class="card">
-			<div class="card-content">
-				<div class="content is-bold has-text-centered subtitle">
 
-					<span class="fa"> Content will be gotten from customer app. </span>
-
-				</div>
-			</div>
-		</div>
-
-
-		<div class="box" v-if="false"> <!-- Box tag open -->
+		<div class="box"> <!-- Box tag open -->
 
 			<div class="tabs is-toggle">
 
@@ -27,12 +17,16 @@
 						</a>
 					</li>
 
+<!--
+
 					<li v-bind:class="{ 'active': settlement }" @click="[statement = false, settlement=true]">
 						<a>
 							<span class="icon is-small" v-bind:class="{ 'has-text-white': settlement }"><i class="fas fa-hand-holding-usd" aria-hidden="true"></i></span>
 							<span class=" " v-bind:class="{ 'has-text-white': settlement }"> Account Settlement </span>
 						</a>
 					</li>
+
+-->
 
 				</ul>
 			</div>
@@ -41,9 +35,11 @@
 				<account-statement> </account-statement>
 			</div>
 
+<!--
 			<div class="" v-if="settlement">
 				<account-settlement> </account-settlement>
 			</div>
+-->
 
 		</div> <!-- Box tag close -->
 

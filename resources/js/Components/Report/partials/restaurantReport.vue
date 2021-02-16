@@ -146,8 +146,10 @@
 							<th> <span class="purple-color"> Name </span> </th>
 							<th class="has-text-centered"> <span class="purple-color"> Email </span> </th>
 							<th class="has-text-centered"> <span class="purple-color"> Phone </span> </th>
+							<!--
 							<th class="has-text-centered"> <span class="purple-color"> Commission </span> </th>
 							<th class="has-text-centered"> <span class="purple-color"> Revenue </span> </th>
+						    -->
 						</tr>
 					</thead>
 
@@ -163,8 +165,10 @@
 							<td> {{ restaurant.name.substring(0,6) }} </td>
 							<td> {{ restaurant.email.substring(0,10) }} </td>
 							<td> {{ restaurant.phone }} </td>
+							<!--
 							<td> {{ restaurant.commmission }} </td>
 							<td class="has-text-centered"> {{ restaurant.revenue }} </td>
+						     -->
 						</tr>
 
 					</tbody>

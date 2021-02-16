@@ -23,7 +23,7 @@ class RestaurantController extends Controller
      */
     public function index()
     {
-        $restaurants = Restaurant::orderBy('id', 'desc')->paginate(5);
+        $restaurants = Restaurant::orderBy('id', 'desc')->with('promos')->paginate(5);
         return response()->json($restaurants);
     }
 
@@ -53,6 +53,8 @@ class RestaurantController extends Controller
     public function activeRestaurants()
     {
         $active_restaurants = Restaurant::where('status', 1)
+        ->orderBy('id', 'desc')
+        ->with('promos')
         ->paginate(5);
         return response()->json($active_restaurants);
     }

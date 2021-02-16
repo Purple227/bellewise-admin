@@ -59,7 +59,7 @@ const actions = {
 		commit('setLoading', true)
 		let api = '/api/promo/all'
 		const response = await axios.get(api);
-		commit('setAllDatas', response.data)
+		commit('setAllPromo', response.data)
 		commit('setLoading', false)
 	},
 
@@ -145,7 +145,7 @@ const mutations = {
 
 	setDatas: (state, datas) => state.promoDatas = datas,
 	setSingleData: (state, data) => state.promoData.promo = data,
-	setAllDatas: (state, allDatas) => state.allPromoDatas = allDatas,
+	setAllPromo: (state, allDatas) => state.allPromoDatas = allDatas,
 
 	setNotification: (state, notification) => state.promoNotification = notification,
 	unsetNotification: (state, notification) => state.promoNotification = notification,

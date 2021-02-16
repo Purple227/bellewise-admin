@@ -3,6 +3,8 @@
 
 	<div>
 
+		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadOrderLoader }"><span class="title"> Bellewise loading </span></div>
+
 		<!-- Main container -->
 		<nav class="level">
 			<!-- Left side -->
@@ -36,19 +38,19 @@
 						<div class="level-item has-text-centered">
 							<div>
 								<p class="is-bold"> Status </p>
-								<p class="is-bold purple-color"> Placed </p>
+								<p class="is-bold purple-color"> {{ loadSingleOrder.order_status }} </p>
 							</div>
 						</div>
 						<div class="level-item has-text-centered">
 							<div>
 								<p class="is-bold"> Payment </p>
-								<p class="is-bold purple-color"> ₦770.00 </p>
+								<p class="is-bold purple-color"> {{ loadSingleOrder.price_summary}} </p>
 							</div>
 						</div>
 						<div class="level-item has-text-centered">
 							<div>
 								<p class="is-bold"> Items</p>
-								<p class="is-bold purple-color">3</p>
+								<p class="is-bold purple-color"> {{ loadSingleOrder.tags.length }}</p>
 							</div>
 						</div>
 					</nav>
@@ -60,7 +62,11 @@
 					<div class="card-content">
 						<div class="content">
 
-							<p class="is-bold"> Estimated Delivery Time 40min</p>
+							<p class="is-bold">Delivering To: {{ loadSingleOrder.restaurant_name }} </p>
+
+							<p class="is-bold">Delivering To: {{ loadSingleOrder.address}} </p>
+
+							<p class="is-bold"> Estimated Delivery Time {{ loadSingleOrder.delivery_time }}  </p>
 
 
 							<div class="notification is-light"> <!-- Notifacatin tag open -->
@@ -78,9 +84,26 @@
 
 										<div class="content"> <!-- Content tag open -->
 
-											<div class="buttons has-addons ">
-												<span class="button is-bold"> 4 </span>
-												<span class="button"> <i class="fas fa-arrow-down purple-color"> </i> </span>
+											<div class="dropdown" v-bind:class="{ 'is-active': isActive }" v-on:click="addActiveClass">
+												<div class="dropdown-trigger">
+													<button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+														<span> {{ loadSingleOrder.tags.length }} </span>
+														<span class="icon is-small">
+															<i class="fas fa-angle-down purple-color" aria-hidden="true"></i>
+														</span>
+													</button>
+												</div>
+												<div class="dropdown-menu" id="dropdown-menu" role="menu">
+													<div class="dropdown-content">
+														<a href="#" class="dropdown-item" v-for=" (tags, index) in loadSingleOrder.tags ">
+															<div class="tags has-addons">
+																<span class="tag"> {{ tags.name.substring(0, 5) }}</span>
+																<span class="tag"> <span class="purple-color is-bold"> {{ tags.count }} </span> </span>
+																<span class="tag"> {{ tags.price }} </span>
+															</div>
+														</a>
+													</div>
+												</div>
 											</div>
 
 										</div> <!-- Content tag close -->
@@ -95,7 +118,7 @@
 
 
 							<ul class="steps" style="list-style: none;">
-								<li class="steps-segment is-active">
+								<li class="steps-segment" v-bind:class="{ 'is-active': loadSingleOrder.order_status == 'pending' }">
 									<span class="steps-marker is-info">
 										<span class="icon ">
 											<i class="fa fa-shopping-cart"></i>
@@ -107,7 +130,7 @@
 									</div>
 								</li>
 
-								<li class="steps-segment">
+								<li class="steps-segment" v-bind:class="{ 'is-active': loadSingleOrder.order_status == 'confirm' }">
 									<span class="steps-marker">
 										<span class="icon">
 											<i class="fa fa-check "></i>
@@ -117,7 +140,8 @@
 										<p class="heading">Confirm</p>
 									</div>
 								</li>
-								<li class="steps-segment">
+
+								<li class="steps-segment" v-bind:class="{ 'is-active': loadSingleOrder.order_status == 'on_the_way' }">
 									<span class="steps-marker">
 										<span class="icon">
 											<i class="fa fa-truck"></i>
@@ -127,7 +151,8 @@
 										<p class="heading">On The Way</p>
 									</div>
 								</li>
-								<li class="steps-segment">
+
+								<li class="steps-segment" v-bind:class="{ 'is-active': loadSingleOrder.order_status == 'delivered' }">
 									<span class="steps-marker">
 										<span class="icon">
 											<i class="fa fa-people-carry"></i>
@@ -145,7 +170,7 @@
 							<hr>
 							<strong class="is-size-6"> Order Details </strong>
 							<br>
-							<strong class="is-size-6"> Order ID: #564328 </strong>
+							<strong class="is-size-6"> Order ID: #{{ loadSingleOrder.order_id }} </strong>
 
 
 							<br>
@@ -153,29 +178,29 @@
 
 							<div class="">
 								<p class="is-bold is-inline">Order</p> 
-								<p class="is-bold is-inline is-pulled-right">₦250.00</p> 
+								<p class="is-bold is-inline is-pulled-right">₦{{ loadSingleOrder.price }}</p> 
 							</div>
 							<br>
 							<div class="">
 								<p class="is-bold is-inline">Delivery</p> 
-								<p class="is-bold is-inline is-pulled-right">₦500.00</p> 
+								<p class="is-bold is-inline is-pulled-right">₦{{ loadSingleOrder.order_charge }} </p> 
 							</div>
 							<br>
 							<div class="">
-								<p class="is-bold is-inline"> Summary</p> 
-								<p class="is-bold is-inline is-pulled-right">N3250.00</p> 
+								<p class="is-bold is-inline"> Sum</p> 
+								<p class="is-bold is-inline is-pulled-right"> ₦{{ loadSingleOrder.price_summary }} </p> 
 							</div>
 
 							<hr>
 
 							<div class="">
 								<p class="is-inline "> Payment Method</p> 
-								<p class="is-inline is-pulled-right"> On Delivery</p> 
+								<p class="is-inline is-pulled-right"> {{ loadSingleOrder.payment }}</p> 
 							</div>
 							<br>
 							<div class="">
 								<p class=" is-inline"> Placed </p> 
-								<p class=" is-inline is-pulled-right"> May 11 Mon, 07:44PM  </p> 
+								<p class=" is-inline is-pulled-right"> {{ loadSingleOrder.updated_at  | format('D MMM YYYY - h:mm A')}}  </p> 
 							</div>
 
 						</div>
@@ -203,3 +228,45 @@
 
 </template>
 
+
+<script>
+import { mapGetters, mapActions, mapState } from 'vuex';
+import ClassToggler from '../../Mixins/classToggler'
+
+export default {
+
+	mixins: [
+	ClassToggler
+	],
+
+	data: () => ({
+		
+	}),
+
+	created() {
+		this.setId()
+	},
+
+	methods: {
+		...mapActions(['fetchSingleOrder']),
+
+			//+ this.$route.params.slug
+
+			setId() {
+				let id = this.$route.params.id
+				this.fetchSingleOrder(id)
+			},
+
+		},
+
+
+		computed: {
+			...mapGetters(['loadSingleOrder', 'loadOrderLoader']),
+
+    // Local computed properties
+},
+
+
+}
+
+</script>

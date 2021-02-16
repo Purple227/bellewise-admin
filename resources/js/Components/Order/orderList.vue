@@ -3,22 +3,7 @@
 	<div class="container"> <!-- Container tag open -->
 
 
-
-
-
-<div class="card">
-  <div class="card-content">
-    <div class="content is-bold has-text-centered subtitle">
-
-  <span class="fa"> Content will be gotten from customer app. </span>
-
-    </div>
-  </div>
-</div>
-
-
-
-		<div class="tabs is-toggle" v-if="false">
+		<div class="tabs is-toggle">
 
 			<ul>
 
@@ -31,8 +16,8 @@
 
 				<li v-bind:class="{ 'active': active }" @click="[active = true, pending=false, history=false]">
 					<a>
-						<span class="icon is-small" v-bind:class="{ 'has-text-white': active }"><i class="fas fa-truck" aria-hidden="true"></i></span>
-						<span class=" " v-bind:class="{ 'has-text-white': active }"> Active </span>
+						<span class="icon is-small" v-bind:class="{ 'has-text-white': active }"><i class="fas fa-check" aria-hidden="true"></i></span>
+						<span class=" " v-bind:class="{ 'has-text-white': active }"> Confirmed </span>
 					</a>
 				</li>
 
@@ -48,9 +33,6 @@
 		</div>
 
 
-
-
-<div v-if="false">
 		<div class="" v-if="pending">
 			<pending-order> </pending-order>
 		</div>
@@ -62,8 +44,6 @@
 		<div class="" v-if="history">
 			<history-order> </history-order>
 		</div>
-</div>
-
 
 	</div> <!-- Container tag close -->
 

@@ -326,19 +326,49 @@ const routes = [
 { 
 	path: '/orders',
 	name:'order-list',
-	component: OrderList
+	component: OrderList,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.order_list == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
-	path: '/orders/1d',
+	path: '/orders/:id/view',
 	name:'view-order',
-	component: ViewOrder
+	component: ViewOrder,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.order_list == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 
 	path: '/users',
 	name:'users-list',
-	component: UserList
+	component: UserList,
+
+	beforeEnter: (to, from, next) => {
+		console.log(Store.getters.loadAuthUser.admin )
+		if(Store.getters.loadAuthUser.admin == 'super_admin' || Store.getters.loadAuthRole.user_list == 1) {
+			next()
+		} else {
+			return next({name:'permission-denied'})
+		}
+	}
+
 },
 
 { 

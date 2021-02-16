@@ -76,24 +76,7 @@
 
   <label class="label "> Delivery Charges </label>
 
-  <div class="field has-addons" v-if="loadDeliveryCharge">
-    <p class="control">
-      <span class="select">
-        <select>
-          <option>₦</option>
-        </select>
-      </span>
-    </p>
-    <p class="control is-expanded has-icons-left">
-      <input class="input is-info" type="number" min="0" oninput="validity.valid||(value='');" placeholder="Amount of money" v-model="loadDeliveryCharge.delivery_charge">
-      <!-- Has icon right -->
-      <span class="icon is-small is-left">
-        <i class="fas fa-cash purple-color"></i>
-      </span>
-    </p>
-  </div>
-
-  <div class="field has-addons" v-else>
+  <div class="field has-addons" v-if="Object.keys(loadDeliveryCharge).length == 0">
     <p class="control">
       <span class="select">
         <select>
@@ -110,20 +93,25 @@
     </p>
   </div>
 
+  <div class="field has-addons" v-else>
+    <p class="control">
+      <span class="select">
+        <select>
+          <option>₦</option>
+        </select>
+      </span>
+    </p>
+    <p class="control is-expanded has-icons-left">
+      <input class="input is-info" type="number" min="0" oninput="validity.valid||(value='');" placeholder="Amount of money" v-model=" loadDeliveryCharge.delivery_charge">
+      <!-- Has icon right -->
+      <span class="icon is-small is-left">
+        <i class="fas fa-cash purple-color"></i>
+      </span>
+    </p>
+  </div>
 
 
-<div class="field" v-if="loadDeliveryCharge">
-  <p class="control">
-   <button class="button" v-bind:class="{ 'is-loading': loadSettingProgress }" :disabled="$v.loadDeliveryCharge.$invalid" @click="submitFormThreeUpdate">
-    <span class="icon is-small">
-     <i class="fas fa-save purple-color"></i>
-   </span>
-   <span class="is-bold"> Update </span>
- </button>
-</p>
-</div>
-
-   <div class="field" v-else>
+   <div class="field" v-if="Object.keys(loadDeliveryCharge).length == 0">
     <p class="control">
      <button class="button" v-bind:class="{ 'is-loading': loadSettingProgress }" :disabled="$v.delivery.$invalid" @click="submitFormThree">
       <span class="icon is-small">
@@ -132,6 +120,17 @@
      <span class="is-bold"> Save </span>
    </button>
  </p>
+</div>
+
+<div class="field" v-else>
+  <p class="control">
+   <button class="button" v-bind:class="{ 'is-loading': loadSettingProgress }" :disabled="$v.loadDeliveryCharge.$invalid" @click="submitFormThreeUpdate">
+    <span class="icon is-small">
+     <i class="fas fa-save purple-color"></i>
+   </span>
+   <span class="is-bold"> Update </span>
+ </button>
+</p>
 </div>
 
 </div> <!-- column tag close -->

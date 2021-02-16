@@ -51,8 +51,10 @@
             <th class="has-text-centered"> <span class="purple-color"> Address </span> </th>
             <th class="has-text-centered"> <span class="purple-color"> Phone </span> </th>
             <th class="has-text-centered"> <span class="purple-color"> Email </span> </th>
+            <!--
             <th> <span class="purple-color"> Delivery Commission </span> </th>
             <th> <span class="purple-color"> Revenue </span> </th>
+            -->
             <th> <span class="purple-color"> Status </span> </th>
             <th> <span class="purple-color"> Action </span> </th>
           </tr>
@@ -67,8 +69,10 @@
             <td> {{ restaurant.address.substring(0,8) }} </td>
             <td> {{ restaurant.phone}} </td>
             <td> {{ restaurant.email.substring(0,10) }} </td>
+            <!--
             <td class="has-text-centered"> {{ restaurant.commmission }} </td>
             <td> ₦{{restaurant.revenue}} </td>
+             -->
             <td class="has-text-centered"> <input type="checkbox" @change="[restaurant.status = !restaurant.status, statusMethod(restaurant.id, restaurant.status)]" :checked="restaurant.status == 1 ? true : false" v-if=" (loadAuthUser.admin == 'super_admin') || (loadAuthRole.restaurant_status == 1)"> 
             </td>
               <td>  

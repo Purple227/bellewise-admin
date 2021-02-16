@@ -11,7 +11,15 @@ import Store from './Store'
 import Welcome from './Components/Layouts/app.vue'
 
 window.axios = require('axios');
-window.axios.defaults.withCredentials = true;
+
+ import moment from 'moment'
+ Vue.prototype.moment = moment
+//Vue.use(require('vue-moment'));
+Vue.filter('format', function (value, display) {
+  if (!value) return ''
+    return moment(value).format(display);
+})
+
 
 
 //routes
