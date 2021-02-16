@@ -54,7 +54,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Customers
 							<br>
-							<span class="subtitle is-bold"> {{ loadAllUser }} </span>
+							<span class="subtitle is-bold"> {{ loadAllUser.length }} </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
@@ -264,10 +264,11 @@ export default {
 		this.fetchPendingOrder()
 		this.fetchConfirmOrder()	
 		this.fetchAllOrder()
+		this.fetchAllUser()
 	},
 
 	methods: {
-		...mapActions(["fetchAllRestaurantDatas", "fetchAllPromoDatas", "fetchPendingOrder", "fetchConfirmOrder", 'fetchAllOrder']),
+		...mapActions(["fetchAllRestaurantDatas", "fetchAllPromoDatas", "fetchPendingOrder", "fetchConfirmOrder", 'fetchAllOrder', 'fetchAllUser']),
 
 		// Local method goes here
 
