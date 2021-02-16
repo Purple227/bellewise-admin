@@ -54,7 +54,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Customers
 							<br>
-							<span class="subtitle is-bold"> {{ loadAllUser ? loadAllUser : 'Wait' }} </span>
+							<span class="subtitle is-bold"> {{ loadAllUser }} </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
