@@ -54,7 +54,7 @@
 					<div class="content"> <!-- Content tag open -->
 						<p class="is-bold"> Customers
 							<br>
-							<span class="subtitle is-bold"> {{ loadAllUser.length }} </span>
+							<span class="subtitle is-bold"> {{ loadUserCount }} </span>
 						</p>
 					</div> <!-- Content tag close -->
 				</div> <!-- Box container tag close -->
@@ -105,7 +105,7 @@
 						<span class="icon">
 							<i class="fas fa-calendar-alt purple-color"></i>
 						</span>
-						<span> Filter Chart By Date</span>
+						<span> Chart Filter By Date </span>
 					</button>
 				</div>
 
@@ -199,7 +199,7 @@ export default {
 
 			title: {
 				display: true,
-				text: 'Total Order Placed: 6545'
+				text: 'Total Order Placed: ₦ 578'
 			},
 
 
@@ -241,7 +241,7 @@ export default {
 
     	title: {
     		display: true,
-    		text: 'Total Order Delivered: N245 876 00 '
+    		text: 'Total Order Delivered: N245 876 00'
     	},
 
 
@@ -259,16 +259,17 @@ export default {
 	}), // Data calibrace close
 
 	mounted() {
+		this.fetchUsers()
 		this.fetchAllRestaurantDatas()
 		this.fetchAllPromoDatas()
 		this.fetchPendingOrder()
 		this.fetchConfirmOrder()	
 		this.fetchAllOrder()
-		this.fetchAllUser()
+		this.fetchAllOrder()
 	},
 
 	methods: {
-		...mapActions(["fetchAllRestaurantDatas", "fetchAllPromoDatas", "fetchPendingOrder", "fetchConfirmOrder", 'fetchAllOrder', 'fetchAllUser']),
+		...mapActions(["fetchAllRestaurantDatas", "fetchAllPromoDatas", "fetchPendingOrder", "fetchConfirmOrder", 'fetchAllOrder', 'fetchUsers', 'fetchAllOrder']),
 
 		// Local method goes here
 
@@ -276,9 +277,16 @@ export default {
 
 
 	computed: {
-		...mapGetters(['loadAllRestaurants', 'loadAllPromo', 'loadAuthenticated', 'loadAuthUser', 'loadAllUser', 'loadOrderPendingCount', 'loadOrderConfirmedCount', 'loadAllOrder']),
+		...mapGetters(['loadAllRestaurants', 'loadAllPromo', 'loadAuthenticated', 'loadAuthUser', 'loadUserCount', 'loadOrderPendingCount', 'loadOrderConfirmedCount', 'loadAllOrder', 'loadAllOrder']),
 
     // Local computed properties
+
+    allRestaurantOrderSum() {
+    	let allPrice =  this.$store.getters.loadAllOrder.map(obj => obj.price );
+    	let totalOrder = allPrice.reduce((a, b) => a + b ,0)
+    	return this.optionsOrder.title.text = 'Total Order Placed: ₦' + totalOrder
+    },    
+
 },
 
 

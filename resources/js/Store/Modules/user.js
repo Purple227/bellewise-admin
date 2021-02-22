@@ -8,8 +8,9 @@ import {router} from '../../app.js'
 
 const state = {
 	userData: null,
-	allUserData: null,
 	userLoader: true,
+	userCount: null,
+	allUserData: null,
 
 	userSearchResult: null,
 
@@ -24,15 +25,26 @@ const state = {
 
 const getters = {
 
+	loadAllUser: (state) => state.allUserData,
 	loadUserData: (state) => state.userData,
 	loadUserPagination: (state) => state.userPagination,
 	loadUserSearch: (state) => state.userSearchResult,
 	loadUserLoader: (state) => state.userLoader,
-	loadAllUser: (state) => state.allUserData,
+	loadUserCount: (state) => state.userCount,
 
 }; //Getters calibrace close
 
 const actions = {
+
+
+	async fetchAllUser({commit}, uri) {
+		commit('setLoader', true)
+		let api = uri || 'https://www.bellewisefoods.com/api/user/all'
+		const response = await axios.get(api, { withCredentials: false } );
+		commit('setAllUserData', response.data)
+		commit('setLoader', false)
+	},
+
 
 	async fetchUsers({commit}, uri) {
 		commit('setLoader', true)
@@ -50,30 +62,20 @@ const actions = {
 
 		commit('setToPage', response.data.to)
 		commit('setTotal', response.data.total)
+
+		commit('setUserCount', response.data.total)
 	},
 
 	async searchUser({commit}, searchQuery) {
-		const response = await axios.get('https://www.bellewisefoods.com/api/user/search', {params: {search_query: searchQuery}})
+		const response = await axios.get('https://www.bellewisefoods.com/api/user/search', {params: {search_query: searchQuery}} )
 		commit('setUserSearch', response.data)
 	},
-
-	async fetchAllUser({commit}, uri) {
-		commit('setLoader', true)
-
-		let api = uri || 'https://www.bellewisefoods.com/api/user/all'
-		const response = await axios.get(api, { withCredentials: false } );
-		commit('setAllUserData', response.data)
-		commit('setLoader', false)
-	},
-
-
 
 }; //Actions calibrace close
 
 const mutations = {
 
 	setUserData: (state, datas) => state.userData = datas,
-	setAllUserData: (state, datas) => state.allUserData,
 
 	setLoader: (state, loader) => state.userLoader = loader,
 
@@ -83,6 +85,10 @@ const mutations = {
 	setTotal: (state, total) => state.userPagination.total = total,
 
 	setUserSearch: (state, searchResult) => state.userSearchResult = searchResult,
+
+	setUserCount: (state, count) => state.userCount = count,
+
+	setAllUserData: (state, datas) => state.allUserData = datas,
 
 
 

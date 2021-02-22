@@ -105,26 +105,6 @@
 							</div>
 						</div>
 
-
-						<div class="field mt-6">
-							<div class="file has-name">
-								<label class="file-label">
-									<input class="file-input is-info" type="file" name="resume" @change="fileUpload">
-									<span class="file-cta">
-										<span class="file-icon">
-											<i class="fas fa-image purple-color"></i>
-										</span>
-										<span class="file-label is-bold">
-											Choose a file…
-										</span>
-									</span>
-									<span class="file-name">
-										{{  subAdmin.imageName || "Upload an image"}}
-									</span>
-								</label>
-							</div>
-						</div>
-
 					</div> <!-- Second column tag close -->
 
 
@@ -166,8 +146,6 @@ export default {
 			name: null,
 			email: null,
 			phone: null,
-			imageName: null,
-			imageFile: "",
 			countryCode: '+234',
 		},
 
@@ -198,18 +176,12 @@ export default {
 
 		// Local method goes here
 
-		fileUpload(e) {
-			this.subAdmin.imageName = e.target.files[0].name
-			this.subAdmin.imageFile = e.target.files[0]
-		},
-
 		submitForm() {
 			
 			let data = new FormData();
 			data.append("_method", "post");
 			data.append('name', this.subAdmin.name);
 			data.append('phone', this.subAdmin.countryCode + this.subAdmin.phone);
-			data.append('file', this.subAdmin.imageFile);
 			data.append('email', this.subAdmin.email);
 
 			this.createSubAdminData(data)

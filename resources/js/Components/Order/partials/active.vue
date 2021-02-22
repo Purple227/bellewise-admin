@@ -6,50 +6,50 @@
 
 
 
-<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadOrderLoader }"><span class="title"> Bellewise loading </span></div>
+		<div class="pageloader purple-bg" v-bind:class="{ 'is-active': loadOrderLoader }"><span class="title"> Bellewise loading </span></div>
 
 
-				<div class="notification purple-bg-light is-bold has-text-black" v-if="loadOrderNotification">
-					Task Succeesful
-				</div>
+		<div class="notification purple-bg-light is-bold has-text-black" v-if="loadOrderNotification">
+			Task Succeesful
+		</div>
 
 		<!-- Main container -->
 		<nav class="level">
-					<!-- Left side -->
-					<div class="level-left">
+			<!-- Left side -->
+			<div class="level-left">
 
-						<div class="level-item">
-							<div class="field has-addons">
-								<p class="control">
-									<input class="input" type="text" placeholder=" Search By ID" v-model="searchQuery" v-on:keyup="searchMethod">
-								</p>
-								<p class="control">
-									<button class="button purple-bg has-text-white">
-										Search 
-									</button>
-								</p>
-							</div>
-						</div>
+				<div class="level-item">
+					<div class="field has-addons">
+						<p class="control">
+							<input class="input" type="text" placeholder=" Search By ID" v-model="searchQuery" v-on:keyup="searchMethod">
+						</p>
+						<p class="control">
+							<button class="button purple-bg has-text-white">
+								Search 
+							</button>
+						</p>
 					</div>
+				</div>
+			</div>
 
 
 
-					<!-- Right side -->
-					<div class="level-right">
+			<!-- Right side -->
+			<div class="level-right">
 
-						<div class="tabs is-toggle level-item">
-							<ul>
+				<div class="tabs is-toggle level-item">
+					<ul>
 
-								<li v-on:click="refresh">
-									<a>
-										<span class="icon is-small"><i class="fas fa-sync-alt  purple-color" v-bind:class="{ 'fa-spin': spin }" aria-hidden="true"></i></span>
-										<span>  Refresh</span>
-									</a>
-								</li>
-							</ul>
-						</div>    	
+						<li v-on:click="refresh">
+							<a>
+								<span class="icon is-small"><i class="fas fa-sync-alt  purple-color" v-bind:class="{ 'fa-spin': spin }" aria-hidden="true"></i></span>
+								<span>  Refresh</span>
+							</a>
+						</li>
+					</ul>
+				</div>    	
 
-					</div>
+			</div>
 
 
 		</nav>
@@ -95,7 +95,7 @@
 
 						<div class="field is-grouped ">
 							<p class="control">
-								<router-link :to="{ name: 'view-order' }" class="button is-info" exact>
+								<router-link :to="{name: 'view-order', params: {id: order.id}}" class="button is-info" exact>
 									View Detail
 								</router-link>
 							</p>
@@ -109,7 +109,7 @@
 							<p class="control" v-if="order.order_status == 'confirm' ">
 								<button class="button bg-purple">
 									<span class="icon is-small">
-										<i class="fas fa-check"></i>
+										<i class="fas fa-check purple-color"></i>
 									</span>
 									<span> In Process</span>
 								</button>
@@ -135,29 +135,29 @@
 
 		</div> <!-- Columns wrapper tag close -->
 
-				<!-- Pagination section -->
-				<div class="buttons has-addons is-centered" v-if="loadOrderConfirmed.length >= 1">
-					<a class="button" v-if="loadOrderPagination.previousPageUrl" @click="paginationHandler(loadOrderPagination.previousPageUrl)">
-						<span class="icon is-small">
-							<i class="fas fa-arrow-left purple-color"></i>
-						</span>
-						<span> Previous </span>
-					</a>
+		<!-- Pagination section -->
+		<div class="buttons has-addons is-centered" v-if="loadOrderConfirmed.length >= 1">
+			<a class="button" v-if="loadOrderPagination.previousPageUrl" @click="paginationHandler(loadOrderPagination.previousPageUrl)">
+				<span class="icon is-small">
+					<i class="fas fa-arrow-left purple-color"></i>
+				</span>
+				<span> Previous </span>
+			</a>
 
 
-					<a class="button">
+			<a class="button">
 
-						{{ loadOrderPagination.to }} 0f {{ loadOrderPagination.total }}
-					</a>
+				{{ loadOrderPagination.to }} 0f {{ loadOrderPagination.total }}
+			</a>
 
 
-					<a class="button" v-if="loadOrderPagination.nextPageUrl" @click="paginationHandler(loadOrderPagination.nextPageUrl)">
-						<span class="icon is-small">
-							<i class="fas fa-arrow-right purple-color"></i>
-						</span>
-						<span> Next </span>
-					</a>
-				</div>
+			<a class="button" v-if="loadOrderPagination.nextPageUrl" @click="paginationHandler(loadOrderPagination.nextPageUrl)">
+				<span class="icon is-small">
+					<i class="fas fa-arrow-right purple-color"></i>
+				</span>
+				<span> Next </span>
+			</a>
+		</div>
 
 
 
@@ -186,7 +186,7 @@ export default {
 		searchQuery: '',
 	}),
 
-	created() {
+	mounted() {
 		this.fetchConfirmOrder()
 		this.clearOrderNotification()
 	},
@@ -213,6 +213,8 @@ export default {
 
 		statusMethod(id,status, phone, orderID) {
 			this.updateOrderStatus({id, status, phone, orderID})
+			this.fetchConfirmOrder()
+			this.refresh()
 		},
 
 	},

@@ -149,16 +149,16 @@
 
 					<tbody>
 
-						<tr v-for="user in searchQuery.length  > 1  ? loadOrderSearch : loadOrderHistory" :key="index">
+						<tr v-for="user in searchQuery.length  > 1  ? loadUserSearch : loadUserData">
 							<td class="has-text-centered"> 
 							<input type="checkbox" :value="user.phone" v-model="selectedNotification" v-if=" 'notification' == picked">
 							<input type="checkbox" :value="user.email" v-model="mail.selectedMail" v-else>
 							 </td>
-							<th> <span class="purple-color"> {{ index+1 }} </span> </th>
+							<th> <span class="purple-color"> {{ user.id }} </span> </th>
 							<td> {{ user.name }} </td>
 							<td> {{ user.email }} </td>
 							<td> {{ user.phone }} </td>
-							<td> {{ user.created_at }} </td>
+							<td> {{ user.created_at | format('D MMM YYYY') }} </td>
 						</tr>
 
 					</tbody>

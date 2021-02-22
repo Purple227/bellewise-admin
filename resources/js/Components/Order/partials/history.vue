@@ -94,13 +94,13 @@
 
 						<div class="field is-grouped ">
 							<p class="control">
-								<router-link :to="{ name: 'view-order' }" class="button is-info" exact>
+								<router-link :to="{name: 'view-order', params: {id: order.id}}" class="button is-info" exact>
 									View Detail
 								</router-link>
 							</p>
 
 							<p class="control" @click="statusMethod(order.id, 'confirm', order.phone, order.order_id)" v-if="order.order_status == 'pending' ">
-								<button class="button purple-bg has-text-white" :disabled="(loadAuthUser.admin == 'super_admin') || (loadAuthRole.order_confirm == 1)">
+								<button class="button purple-bg has-text-white" vif="(loadAuthUser.admin == 'super_admin') || (loadAuthRole.order_confirm == 1)">
 									Confirm
 								</button>
 							</p>
@@ -108,7 +108,7 @@
 							<p class="control" v-if="order.order_status == 'confirm' ">
 								<button class="button bg-purple">
 									<span class="icon is-small">
-										<i class="fas fa-check"></i>
+										<i class="fas fa-check purple-color"></i>
 									</span>
 									<span> In Process</span>
 								</button>
@@ -118,7 +118,7 @@
 							<p class="control" v-if="order.order_status == 'delivered' ">
 								<button class="button bg-purple">
 									<span class="icon is-small">
-										<i class="fas fa-truck"></i>
+										<i class="fas fa-truck purple-color"></i>
 									</span>
 									<span> Delivered </span>
 								</button>

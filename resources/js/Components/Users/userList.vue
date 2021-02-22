@@ -71,7 +71,7 @@
 							<td> {{ user.email}} </td>
 							<td> {{ user.phone }} </td>
 							<td> {{ verify ? 'Yes' : 'No' }} </td>
-							<td> {{ user.created_at }} </td>
+							<td> {{ user.created_at | format('D MMM YYYY') }} </td>
 							<!--
 							<td>  
 								<div class="field is-grouped">

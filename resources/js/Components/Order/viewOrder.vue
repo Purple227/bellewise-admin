@@ -62,7 +62,7 @@
 					<div class="card-content">
 						<div class="content">
 
-							<p class="is-bold">Delivering To: {{ loadSingleOrder.restaurant_name }} </p>
+							<p class="is-bold"> By: {{ loadSingleOrder.restaurant_name }} </p>
 
 							<p class="is-bold">Delivering To: {{ loadSingleOrder.address}} </p>
 
@@ -119,7 +119,7 @@
 
 							<ul class="steps" style="list-style: none;">
 								<li class="steps-segment" v-bind:class="{ 'is-active': loadSingleOrder.order_status == 'pending' }">
-									<span class="steps-marker is-info">
+									<span class="steps-marker">
 										<span class="icon ">
 											<i class="fa fa-shopping-cart"></i>
 										</span>
