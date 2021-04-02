@@ -72,7 +72,7 @@ class RestaurantCredentials extends Notification implements ShouldQueue
     public function toNexmo($notifiable)
     {
 
-        $message = 'Congratulation and welcomee' . ' ' . $this->restaurant->restaurant_name . ' ' . ', Thanks for partnering with us. Regards Bellewise';
+        $message = 'Congratulation and welcome' . ' ' . $this->restaurant->restaurant_name . ' ' . ', Thanks for partnering with us. Regards Bellewise';
         return (new NexmoMessage)
         ->content($message);
     }

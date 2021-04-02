@@ -211,6 +211,7 @@ export default {
 
 		statusMethod(id,status, phone, orderID) {
 			this.updateOrderStatus({id, status, phone, orderID})
+			this.refresh()
 		},
 
 	},

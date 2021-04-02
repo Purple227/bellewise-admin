@@ -85,45 +85,65 @@ class RestaurantController extends Controller
         unset($notify_info['file']);
         $notify_info = (object) $notify_info;
 
+        $result = json_encode($request->phone);
 
         try {
-            Notification::route('nexmo', $request->phone )
-            ->notify(new RestaurantCredentials($notify_info));
-        } catch (\Exception $e) {
-            Log::error(' Nexmo API developer are to be blame.');
-        }
+           $curl = curl_init();
 
-        try {
+           curl_setopt_array($curl, array(
+            CURLOPT_URL => "https://konnect.dotgo.com/api/v1/Accounts/mvg4WmICsRk1bPNvo14iaA==/Messages",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => "",
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 30,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "POST",
+            CURLOPT_POSTFIELDS => "{\r\"id\":\"your_unique_id_for_request\",\r\"from\":\"\",\r\"to\":[$result],\r\"sender_mask\":\"KOTP\",\r\"body\":\" Congratulation and welcome' $request->restaurant_name. Thanks for partnering with us. Regards Bellewise \"\r}\r",
+            CURLOPT_HTTPHEADER => array(
+                "Authorization: r9iMM1tw30tfbdbBRelzcHcq3TY1pcH051Htuc1sfQ0=",
+                "Content-Type: application/json"
+            )
+        ));
+
+           $response = curl_exec($curl);
+           $err      = curl_error($curl);
+
+           curl_close($curl);
+       } catch (\Exception $e) {
+        Log::error(' Karuisi API developer are to be blame.');
+    }
+
+    try {
         Notification::route('mail',$request->email)
         ->notify(new RestaurantCredentials( $notify_info));        
-        } catch (\Exception $e) {
+    } catch (\Exception $e) {
            // Log::error(' Your network connection is to be blame.');
-        }
+    }
 
 
         // New driver object
-        $restaurant = new Restaurant;
+    $restaurant = new Restaurant;
 
         // Image set up for restaurant
-        if ( $request->hasFile('restaurant_file') ) {
-            $path = Storage::disk('public')->putFile('restaurant',$request->file('restaurant_file'));
-            $restaurant->image = $path;
-        }
+    if ( $request->hasFile('restaurant_file') ) {
+        $path = Storage::disk('public')->putFile('restaurant',$request->file('restaurant_file'));
+        $restaurant->image = $path;
+    }
 
         // Save to database
-        $restaurant->name = $request->restaurant_name;
-        $restaurant->phone = $request->phone;
-        $restaurant->address = $request->address;
-        $restaurant->email = $request->email;
-        $restaurant->discount = $request->discount;
-        $restaurant->license_number = $request->license_number;
-        $restaurant->commmission = $request->commmision;
-        $restaurant->save();
+    $restaurant->name = $request->restaurant_name;
+    $restaurant->phone = $request->phone;
+    $restaurant->address = $request->address;
+    $restaurant->email = $request->email;
+    $restaurant->discount = $request->discount;
+    $restaurant->license_number = $request->license_number;
+    $restaurant->commmission = $request->commmision;
+    $restaurant->save();
 
-        return 'Suceess';
+    return 'Suceess';
 
 
-    }
+}
 
     /**
      * Display the specified resource.

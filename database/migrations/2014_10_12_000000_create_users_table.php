@@ -25,6 +25,9 @@ class CreateUsersTable extends Migration
             $table->string('image')->default('default_image.svg');
             $table->string('phone');
             $table->integer('sub_admin_id')->nullable();
+            $table->integer('total_delivery')->default(0); 
+            $table->string('occupation')->nullable();
+            $table->integer('driver_id')->nullable();
             $table->string('admin')->nullable(); 
             
             $table->timestamps();
