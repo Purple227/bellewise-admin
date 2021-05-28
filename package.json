@@ -27,7 +27,7 @@
         "bulma-extensions": "^6.2.7",
         "bulma-o-steps": "^1.0.9",
         "chart.js": "^2.9.3",
-        "tinymce": "^5.4.1",
+        "tinymce": "^5.7.1",
         "vue": "^2.6.11",
         "vue-axios": "^2.1.5",
         "vue-chartjs": "^3.5.0",
